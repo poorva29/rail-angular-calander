@@ -54,9 +54,11 @@
 
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta charset="utf-8">
     <title>Mirai Consult ™ </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="app/Resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="app/Resources/js/google-code-prettify/prettify.css" />
     <link rel="stylesheet" href="app/Resources/css/font-awesome.min.css" />
@@ -98,7 +100,7 @@
 
                         <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
                         <div class="paddingtopby1">
-                            <div>
+                            @*<div>
                                 @{if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
                                 if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword.aspx")
@@ -206,7 +208,7 @@
                                 <div class="paddingrightby3 pull-right ">
                                     <ul class="nav">
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@*Welcome <%= Session["UserFullName"]%>*@ <b class="caret"></b></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@*Welcome <%= Session["UserFullName"]%> <b class="caret"></b></a>
                                             <ul class="dropdown-menu pull-right">
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 { 
@@ -223,7 +225,7 @@
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                                 {
                                                 @*<%--
-                                                <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
+                                                <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>
                                                 <li><a href="../../app/admin/ManageDoctors.aspx"><i class="icon-edit"></i>My Account</a></li>
                                                 }
                                                 <li>
@@ -236,7 +238,7 @@
                                 </div>
                                 }
                                 }
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -364,6 +366,8 @@
             </div>
         </form>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
     <script type="text/javascript" src="../Resources/js/autocomplete.js"></script>
     <script type="text/javascript">
         $(function () {

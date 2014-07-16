@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.30\SQLSERVER2012;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.answers" Member="answers">
+    <Type Name="answer">
+      <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.users" Member="users">
+    <Type Name="user">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="secondaryemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="secondarymobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateofbirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalexperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="registrationdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ismobileverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pincode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="registrationnumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="registrationcouncil" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aboutme" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registrationvalidity" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="apptsmsnotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="created_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientcity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="isremonedayprior" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="existing_doctor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_patient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_assitant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmiraiappointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmirai_userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countrycode1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="countrycode2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cgcountrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="user_hospital_admin" Member="hospital_admins" ThisKey="userid" OtherKey="assistant_id" Type="hospital_admin" />
+    </Type>
+  </Table>
+  <Table Name="dbo.appointments" Member="appointments">
+    <Type Name="appointment">
+      <Column Name="appointmentid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="patientid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="docassistantid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doclocationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="starttime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="endtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="isalldayevent" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="appointmenttypeid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdat" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createdby" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lastmodifiedat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="lastmodifiedby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="patientmobile" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="feedback" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unregpatientid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.appointmenttypes" Member="appointmenttypes">
+    <Type Name="appointmenttype">
+      <Column Name="appointmenttypeid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.city" Member="cities">
+    <Type Name="city">
+      <Column Name="cityid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="city_hospital" Member="hospitals" ThisKey="cityid" OtherKey="cityid" Type="hospital" />
+    </Type>
+  </Table>
+  <Table Name="dbo.config" Member="configs">
+    <Type Name="config">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="value" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="msg" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.country" Member="countries">
+    <Type Name="country">
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="countrycode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="country_hospital" Member="hospitals" ThisKey="countryid" OtherKey="countryid" Type="hospital" />
+    </Type>
+  </Table>
+  <Table Name="dbo.degree" Member="degrees">
+    <Type Name="degree">
+      <Column Name="degreeid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.delayedappointmentsrecords" Member="delayedappointmentsrecords">
+    <Type Name="delayedappointmentsrecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="delayedby" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="starttime" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="endtime" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="delay" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctoragrees" Member="doctoragrees">
+    <Type Name="doctoragree">
+      <Column Name="docagreeid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorlocations" Member="doctorlocations">
+    <Type Name="doctorlocation">
+      <Column Name="doctorlocationid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clinicname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="timeslot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="consultationfees" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="isprimary" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="hospitalid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hospitalname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorlocationworkinghours" Member="doctorlocationworkinghours">
+    <Type Name="doctorlocationworkinghour">
+      <Column Name="doclocworkinghoursid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="doclocationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fromtime" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="totime" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="Monday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Tuesday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Wednesday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Thursday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Friday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Saturday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sunday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorqualification" Member="doctorqualifications">
+    <Type Name="doctorqualification">
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="degreeid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="university" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="otherdegree" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorquestions" Member="doctorquestions">
+    <Type Name="doctorquestion">
+      <Column Name="docquestionid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorsdetails" Member="doctorsdetails">
+    <Type Name="doctorsdetail">
+      <Column Name="doctordetailsid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="details" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="certification" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="society" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctorspecialities" Member="doctorspecialities">
+    <Type Name="doctorspeciality">
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="specialityid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.healthinformation" Member="healthinformations">
+    <Type Name="healthinformation">
+      <Column Name="healthinformationid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="healthmessagesubject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="healthmessagedetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="createddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createdby" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="modifieddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="modiifiedby" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="publishdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hospital" Member="hospitals">
+    <Type Name="hospital">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="address1" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="location_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="countrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="hospital_hospital_admin" Member="hospital_admins" ThisKey="id" OtherKey="hospital_id" Type="hospital_admin" />
+      <Association Name="city_hospital" Member="city" ThisKey="cityid" OtherKey="cityid" Type="city" IsForeignKey="true" />
+      <Association Name="country_hospital" Member="country" ThisKey="countryid" OtherKey="countryid" Type="country" IsForeignKey="true" />
+      <Association Name="location_hospital" Member="location" ThisKey="location_id" OtherKey="locationid" Type="location" IsForeignKey="true" />
+      <Association Name="state_hospital" Member="state" ThisKey="stateid" OtherKey="stateid" Type="state" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hospital_admin" Member="hospital_admins">
+    <Type Name="hospital_admin">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="hospital_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="assistant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="hospital_hospital_admin" Member="hospital" ThisKey="hospital_id" OtherKey="id" Type="hospital" IsForeignKey="true" />
+      <Association Name="user_hospital_admin" Member="user" ThisKey="assistant_id" OtherKey="userid" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.location" Member="locations">
+    <Type Name="location">
+      <Column Name="locationid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Association Name="location_hospital" Member="hospitals" ThisKey="locationid" OtherKey="location_id" Type="hospital" />
+    </Type>
+  </Table>
+  <Table Name="dbo.patientthanks" Member="patientthanks">
+    <Type Name="patientthank">
+      <Column Name="patientthanksid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.questions" Member="questions">
+    <Type Name="question">
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.questiontags" Member="questiontags">
+    <Type Name="questiontag">
+      <Column Name="questiontagid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tagid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.registrationcouncil" Member="registrationcouncils">
+    <Type Name="registrationcouncil">
+      <Column Name="regcouncilid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.specialities" Member="specialities">
+    <Type Name="speciality">
+      <Column Name="specialityid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.state" Member="states">
+    <Type Name="state">
+      <Column Name="stateid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="state_hospital" Member="hospitals" ThisKey="stateid" OtherKey="stateid" Type="hospital" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag" Member="tags">
+    <Type Name="tag">
+      <Column Name="tagid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tagname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.unregpatient" Member="unregpatients">
+    <Type Name="unregpatient">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.answer_Insert" Method="answer_Insert">
+    <Parameter Name="questionId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="createDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="title" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="answer" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="filename" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="answer_InsertResult">
+      <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

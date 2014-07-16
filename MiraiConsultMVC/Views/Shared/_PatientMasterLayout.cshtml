@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title>Mirai Consult™</title>
+    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
+    <link href="../Content/navigation.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../Scripts/google-code-prettify/prettify.css" />
+    <link rel="stylesheet" href="../Content/font-awesome.min.css" />
+    <link rel="Stylesheet" href="../Content/bootstrap-responsive.css" />
+    <link rel="Stylesheet" href="../Content/bootstrap-responsive.min.css" />
+    <link rel="Stylesheet" href="../Content/chosen/chosen.css" />
+    <link rel="stylesheet" href="../Content/custom.css" />
+    <link rel="stylesheet" href="../Content/DT_bootstrap.css" />
+    <link rel="stylesheet" href="../Content/datepicker.css" />
+    <link rel="stylesheet" href="../Content/jquery-ui.css" />
+    @*<%--Meta tag to avoid auto zoom in and out on gaining and loosing focus on textbox on phones.--%>*@
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
+    <link href='http://www.berriart.com/sidr/javascripts/sidr/stylesheets/jquery.sidr.light.css'
+          rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Scripts/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../Scripts/utility.js"></script>
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(function () {
+            if (navigator.userAgent.match(/Trident\/7\./) || navigator.userAgent.match(/MSIE\s?(\d+)(?:\.(\d+))?/i)) {
+                $("#unansweredQuestionCount").addClass('menu-margin-top');
+            }
+        });//]]>
+    </script>
+    @*<asp:ContentPlaceHolder ID="head" runat="server">
+        </asp:ContentPlaceHolder>*@
+</head>
+<body>
+    <div id="wrap">
+        <form id="form1" runat="server" autocomplete="off" class="form-horizontal" onsubmit="fun()">
+            <div class="navbar custom-navbar">
+                <div class="custom-navbar-links">
+                    <div class="container">
+                        <div style="float:left">
+                            <a class="btn btn-navbar custom-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                        </div>
+                        @if (Session["UserId"] != null)
+                        {
+                            <div class="pull-right paddingrightby3">
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @*<%= Session["UserFullName"] %>*@ <b class="caret"></b></a>
+                                        <ul class="dropdown-menu pull-right">
+                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                            {
+                                                <li><a href="../Profile/patientprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                            }
+                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                                            {
+                                                <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                            }
+                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                            {
+                                                @*<%--
+                                                    <li><a href="../admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
+                                            }
+                                            <li>
+                                                <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
+                                                                OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="pull-right paddingrightby3">
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;? Signup here<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="../SignUp/PatientSignUp.aspx"><i class="icon-user"></i>Signup as Patient</a></li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="../SignUp/DoctorSignUp.aspx">
+                                                    <i class="icon-user-md"></i>Signup as Doctor
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="singup_btn paddingrightby3">
+                                <a href="../admin/Login.aspx" class="btn singup_a ">Log in</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="custom-navbar-inner tomenu-right-padding">
+                    <div class="custom-margin-box" style="border:none">
+                        <div class="imgwidth">
+                            <a class="brand" href="../home/home.aspx">
+                                <img src="../Resources/image/logo.png" class="col-md-4 logoimage-width" />
+                            </a>
+                        </div>
+                        <div class="container topnavbar-position topnavbar-position-bottom-margin reg-menu-search container-margin">
+                            <div class="row-fluid">
+                                <div class="span12 center_align">
+                                    <div class="span8 text-center custom-border-around hidden-phone hidden-tablet reg-menu" style="margin-left:0px;margin-bottom:.5%">
+                                        <ul class="nav" id="global-actions">
+                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                            {
+                                                <li id="liaskdoc" class="ask-doctor">
+                                                    <a href="../patient/askdoctor.aspx">
+                                                        <span class="Icon Icon--ask-doctor Icon--large"></span><span class="text"><br />Ask Doctors</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liMyActivity" class="my-activity">
+                                                    <a href="../patient/myactivity.aspx">
+                                                        <span class="Icon Icon--my-activity Icon--large"></span><span class="text"><br />My Activity</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liFeed" class="feed">
+                                                    <a href="../Feed/feed.aspx">
+                                                        <span class="Icon Icon--answers Icon--large"></span><span class="text"><br />Answers</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liFindDoc" class="find-doctors">
+                                                    <a href="../patient/finddoctor.aspx">
+                                                        <span class="Icon Icon--find-doctor Icon--large"></span><span class="text"><br />Find a Doctor</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                                            {
+                                                <li id="liDocFeed">
+                                                    <a href="../Feed/doctorfeed.aspx">
+                                                        <span class="Icon Icon--answers Icon--large"></span><span class="text"><br />Answers</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liDocQuestions">
+                                                    <a href="../doctor/questionlist.aspx">
+                                                        <span class="Icon Icon--questions Icon--large"></span>
+                                                        <span runat="server" visible="false" id="unansweredQuestionCount" class="unansweredQuestionCount" clientidmode="Static"></span>
+                                                        <span class="rightpaddingdiv text"><br />Questions</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                            {
+                                                <li id="liAdminQuestions">
+                                                    <a href="../../app/admin/QuestionList.aspx">
+                                                        <span class="Icon Icon--questions Icon--large"></span><span class="text"><br />Questions</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liAdminFeed">
+                                                    <a href="../Feed/feed.aspx">
+                                                        <span class="Icon Icon--answers Icon--large"></span><span class="text"><br />Answers</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liManageTags">
+                                                    <a href="../../app/admin/managetags.aspx">
+                                                        <span class="Icon Icon--tags Icon--large"></span><span class="text"><br />Tags</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liReports">
+                                                    <a href="../../app/admin/reports.aspx">
+                                                        <span class="Icon Icon--reports Icon--large"></span><span class="text"><br />Reports</span>
+                                                    </a>
+                                                </li>
+                                                <li id="liManageDoctor">
+                                                    <a href="../../app/admin/ManageDoctors.aspx">
+                                                        <span class="Icon Icon--signup-requests Icon--large"></span><span class="text"><br />Signup Requests</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            <li id="liinvitefriends">
+                                                <a href="../patient/invitefriends.aspx">
+                                                    <span class="Icon Icon--invite-friends Icon--large"></span>
+                                                    <span class="text"><br />Invite Friends</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="span4 pull-right btn-margin-bottom search-width center_align topnavbar-btn-margin reg-search-margin regsearch-position register-search-margin searchmargin-top" align="center" style="width:100%;">
+                                        <input id="txtsearch" type="text" class="form-control form-search input-searchsize search-query" placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span8 collapse nav-collapse visible-phone visible-tablet" style="padding-top:3%;">
+                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                            {
+                                <ul class="nav pull-right reguser-menu-top-margin">
+                                    <li class="ask-doctor">
+                                        <a href="../patient/askdoctor.aspx" class="menu-padding reg-menu-padding">
+                                            <span class="Icon Icon--ask-doctor Icon--large"></span> <span class="text font-bold menutext-margin-top">Ask Doctors</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li class="my-activity">
+                                        <a href="../patient/myactivity.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--my-activity Icon--large"></span> <span class="text font-bold menutext-margin-top">My Activity</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li class="feed">
+                                        <a href="../Feed/feed.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li class="find-doctors">
+                                        <a href="../patient/finddoctor.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--find-doctor Icon--large"></span> <span class="text font-bold menutext-margin-top"> Find a Doctor</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                            {
+                                <ul class="nav pull-right reguser-menu-top-margin">
+                                    <li>
+                                        <a href="../Feed/doctorfeed.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li>
+                                        <a href="../doctor/questionlist.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--questions Icon--large"></span>
+                                            <span runat="server" visible="false" id="Span1" class="unansweredQuestionCount"></span>
+                                            <span class="rightpaddingdiv text font-bold menutext-margin-top">Questions</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                            {
+                                <ul class="nav pull-right reguser-menu-top-margin">
+                                    <li>
+                                        <a href="../../app/admin/QuestionList.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--questions Icon--large"></span><span class="text font-bold menutext-margin-top"> Questions</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li>
+                                        <a href="../Feed/feed.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top"> Answers</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li>
+                                        <a href="../../app/admin/managetags.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--tags Icon--large"></span> <span class="text font-bold menutext-margin-top"> Tags</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li>
+                                        <a href="../../app/admin/reports.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--reports Icon--large"></span> <span class="text font-bold menutext-margin-top"> Reports</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav pull-right">
+                                    <li>
+                                        <a href="../../app/admin/ManageDoctors.aspx" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--signup-requests Icon--large"></span> <span class="text font-bold menutext-margin-top"> Signup Requests</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                            <ul class="nav pull-right">
+                                <li>
+                                    <a href="../patient/invitefriends.aspx" class="menu-padding  reg-menu-padding">
+                                        <span class="Icon Icon--invite-friends Icon--large"></span>
+                                        <span class="text font-bold menutext-margin-top"> Invite Friends</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                @*<asp:ContentPlaceHolder ID="MainPage" runat="server">
+                    </asp:ContentPlaceHolder>*@
+                @RenderBody()
+            </div>
+            @*<%--<div class="visible-phone"><br /><br /><br /><br /><br /></div>--%>*@
+            <div class="footer visible-phone">
+                <div class="cust-inner-footer row-fluid span12">
+                    <div class="center_align">
+                        <div class="footer-margin-top" style="float:left;width:100%;">
+                            <a href="../home/privacypolicy.aspx" class="menu-links ">Privacy Policy</a>
+                            <span>|</span>
+                            <a href="../home/contactus.aspx" class="menu-links ">Contact Us </a>
+                            <span>|</span>
+                            <a href="../home/terms.aspx" class="menu-links">Terms Of Use</a>
+                        </div>
+                    </div>
+                    <div class="hidden-phone">
+                        <div class=" center_align" style="float:left">
+                            <a href="https://twitter.com/" target="_blank">
+                                <img src="../Content/image/btwitter.png" class="cust-footer-icon" />
+                            </a>&nbsp;
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <img src="../Content/image/bfb.png" class="cust-footer-icon" />
+                            </a>&nbsp;
+                            <a href="#" target="_blank">
+                                <img src="../Content/image/blinkedin.png" class="cust-footer-icon" />
+                            </a>
+                        </div>
+                        <div style="float:right">
+                            <a href="http://www.miraihealth.com/" target="_blank"><img src="../Content/image/footer-logo.png" /></a>
+                        </div>
+                    </div>
+                    <div class="visible-phone center_align" style="width:200px;margin:auto">
+                        <div class=" center_align" style="float:left">
+                            <a href="https://twitter.com/" target="_blank">
+                                <img src="../Content/image/btwitter.png" class="cust-footer-icon" />
+                            </a>&nbsp;
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <img src="../Content/image/bfb.png" class="cust-footer-icon" />
+                            </a>&nbsp;
+                            <a href="#" target="_blank">
+                                <img src="../Content/image/blinkedin.png" class="cust-footer-icon" />
+                            </a>
+                        </div>
+                        <div style="float:right">
+                            <a href="http://www.miraihealth.com/" target="_blank"><img src="../Content/image/footer-logo.png" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!-- FOOTER -->
+
+            <div id="footer-bottom" class="hidden-phone">
+                <div id="footer-area">
+                    <div class="cust-inner-footer row-fluid span12 dropdown-div-margin">
+                        <div class="span3 question-padding">
+                            <a href="https://twitter.com/MiraiHealth1" target="_blank">
+                                <img class="cust-footer-icon" src="../Content/image/btwitter.png" />
+                            </a>
+                            <a href="https://www.facebook.com/pages/Mirai-Health/661285780576488" target="_blank">
+                                <img class="cust-footer-icon" src="../Content/image/bfb.png" />
+                            </a>
+                            <a href="http://www.linkedin.com/company/a-square-healthcare-ventures" target="_blank">
+                                <img class="cust-footer-icon" src="../Content/image/blinkedin.png" />
+                            </a>
+                        </div>
+                        <div class="span5 cust-footer-text center_align">
+                            <a class="cust-footer-text" href="../home/privacypolicy.aspx" target="_blank">Privacy Policy</a><a class="cust-footer-text" href="#">
+                                |
+                            </a>  <a class="cust-footer-text" href="../home/contactus.aspx" target="_blank">Contact Us</a> <a class="cust-footer-text" href="#">|</a> <a class="cust-footer-text" href="../home/terms.aspx" target="_blank">Terms Of Use</a>
+                        </div>
+                        <div class="span2 pull-right cust-footer-logo">
+                            <a href="http://www.miraihealth.com/" target="_blank">
+                                <img src="../Content/image/footer-logo.png" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
+    <script type="text/javascript">
+        $(".navigation").on('click', 'li', function () {
+            $(".navigation li.active").removeClass("active"); //Remove any "active" class
+            $(this).addClass("active"); //Add "active" class to selected tab
+        });
+        $(document).ready(function () {
+            function reorient(e) {
+                var portrait = (window.orientation % 180 == 0);
+                //$("body > div").css("overflow-x", "hidden");
+            }
+            window.onorientationchange = reorient;
+            window.setTimeout(reorient, 0);
+        });
+    </script>
+</body>
+</html>

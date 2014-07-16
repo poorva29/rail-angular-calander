@@ -1,0 +1,207 @@
+.logo-image-panel{
+	position:fixed;
+	width:100%;
+	background-color:White;
+	z-index: 5;
+	top: 0;
+}
+
+.logo-image-panel-1{
+	width:100%;
+	background-color:White;
+	height: 4em;
+	margin-top: 1em;
+}
+
+.logo-image{
+	padding-top:15px;
+	padding-left:5px;
+	padding-bottom: 4px;
+}
+	
+		
+input.input-icon-field{
+	border-radius: 0px 20px 20px 0;
+}
+
+select.input-icon-field{
+	border-radius: 0 0 0 0;
+}
+
+.wrapper-bordered {
+	border: 1px solid #A2A6A9;
+	-moz-border-radius: 4px;
+	border-radius: 1px;
+	padding: 20px 0 0 0;
+	width: 100%;
+	float: left;
+	position: relative;
+	margin-bottom: 4em;
+}
+
+.table-bordered {
+	padding: 5px 20px 10px 20px !important;
+}
+
+a{
+	color: #485C5B;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #005580;
+	text-decoration: none;
+}
+
+.chzn-container-multi .chzn-choices {
+	border-radius: 20px;
+	border: 1px solid #8CD900;
+}
+
+.chzn-container .chzn-drop{
+	border-radius: 10px;
+	border: 1px solid #8CD900;
+}
+
+.chzn-container-multi .chzn-choices .search-choice {
+	margin: 3px 0 3px 10px;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	padding-top: 2px;
+}
+
+.submit-button{
+	display: inline-block;
+	padding: 4px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	line-height: 20px;
+	color: #485C5B;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #8CD900;
+	background-image: -moz-linear-gradient(top, #8CD900, #8CD900);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#8CD900), to(#8CD900));
+	background-image: -webkit-linear-gradient(top, #8CD900, #8CD900);
+	background-image: -o-linear-gradient(top, #8CD900, #8CD900);
+	background-image: linear-gradient(to bottom, #8CD900, #8CD900);
+	background-repeat: repeat-x;
+	border: 1px solid #cccccc;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-bottom-color: #b3b3b3;
+	-webkit-border-radius: 4px;
+}
+
+.chzn-container-single .chzn-single {
+	border: 1px solid #8CD900;
+	border-radius: 20px;
+}
+
+.custom-table th.header {
+	border-left: 1px solid #dddddd;
+	background-color: #8CD900;
+	color: #485C5B;
+}
+
+.switch span.switch-primary, .switch span.switch-left {
+	color: #485C5B;
+	background: #8CD900;
+	background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #8CD900), color-stop(100%, #8CD900));
+	background-image: -webkit-linear-gradient(bottom, #8CD900,#8CD900);
+	background-image: -moz-linear-gradient(bottom, #8CD900, #8CD900);
+	background-image: -o-linear-gradient(bottom,#8CD900,#8CD900);
+	background-image: linear-gradient(bottom, #8CD900, #8CD900);
+}
+
+.navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
+	background-color: rgb(123, 206, 0);
+	color: #485C5B;
+}
+
+.navbar-inverse .nav li.dropdown.open>.dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle .caret, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle .caret {
+	border-top-color: #485C5B;
+	border-bottom-color:  #485C5B;
+}
+
+.chzn-container .chzn-results .highlighted {
+	background-color: #3875d7;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8CD900', endColorstr='#8CD900', GradientType=0 );
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #8CD900), color-stop(90%,#8CD900));
+	background-image: -webkit-linear-gradient(top, #8CD900 20%, #8CD900 90%);
+	background-image: -moz-linear-gradient(top, #8CD900 20%, #8CD900 90%);
+	background-image: -o-linear-gradient(top, #8CD900 20%, #8CD900 90%);
+	background-image: linear-gradient(#8CD900 20%, #8CD900 90%);
+	color: #485C5B;
+}
+
+.carousel-control:hover, .carousel-control:focus {
+	color: rgb(126, 196, 0);
+	text-decoration: none;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+.menu-bar{
+	height: 1.8em;
+	margin: auto;
+	margin-left: 14em;
+}
+
+.line-seprator{
+	float: left;
+	height: 87%;
+	width: 3px;
+	background-color: #8CD900;
+}
+
+.menu-links{
+	margin-left: 2em;
+	margin-right: 2em;
+	float: left;
+}
+
+.logo-panel{
+	float: left;
+}
+
+.signup-panel{
+	float: right;
+	margin-right: 6em;
+	margin-top: 1.5em;
+}
+
+.signin-list{
+	margin: 0;
+	list-style: none;
+	margin-right: 1em;
+}
+
+.page-footer {
+    position: fixed;
+    width: 100%;
+    background-color: White;
+    bottom: 0;
+    z-index:10;
+} 
+
+.footer-image{
+	width:5%
+}
+
+.footer-panel{
+	background-color:#485C5B;
+	color: white;
+	text-align: center;
+	font-size: 10px;
+}
+
+
+.switch label.switch-mini {
+    z-index:1;
+}
+   
+.home-image{width:100px !important;}  

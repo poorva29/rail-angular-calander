@@ -1,0 +1,109 @@
+﻿.nav {
+	text-align: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#global-actions > li {
+	height: 60px;
+	overflow: hidden;
+}
+.nav > li {
+	color: #66757f;
+}
+.nav li {
+	position: relative;
+}
+#global-actions > li > a {
+	border-bottom: 3px solid #EB665F;
+	-webkit-transition: all .15s ease-in-out;
+	-moz-transition: all .15s ease-in-out;
+	transition: all .15s ease-in-out;
+}
+#global-actions > li > a {
+	color: inherit;
+	display: block;
+	font-size: 12px;
+	font-weight: 500;
+	height: 60px;
+	padding: 0 5px 0 5px;
+	text-shadow: none;
+	line-height: 1;
+}
+.nav > li .Icon {
+	
+	margin: 12px 9px 0px 21px;
+	width: 27px;
+	height: 27px;
+}
+.Icon--large {
+	font-size: 21px;
+	line-height: 1;
+}
+.Icon {
+	background: transparent;
+	font-style: normal;
+	display: inline-block;
+	vertical-align: baseline;
+}
+.Icon:before {
+	font-family:  Raleway, sans-serif;
+	display: block;
+	font-weight: normal;
+	font-style: normal;
+	text-align: center;
+	-webkit-font-smoothing: antialiased;
+}
+
+.Icon--ask-doctor  { background-image: url(../image/ask-doctor.png); background-size: 27px 27px; }
+.Icon--my-activity { background-image: url(../image/my-activity.png); background-size: 27px 27px; }
+.Icon--answers { background-image: url(../image/answers.png); background-size: 27px 27px; }
+.Icon--find-doctor { background-image: url(../image/find-doctors.png); background-size: 27px 27px; }
+.Icon--questions { background-image: url(../image/questions.png); background-size: 27px 27px; }
+.Icon--signup-requests { background-image: url(../image/signup-requests.png); background-size: 27px 27px; }
+.Icon--reports { background-image: url(../image/reports.png); background-size: 27px 27px; }
+.Icon--invite-friends { background-image: url(../image/invite-friends.png); background-size: 27px 27px; }
+.Icon--tags { background-image: url(../image/tags.png); background-size: 27px 27px; }
+
+.nav > li > a .text {
+	margin-left: 6px;
+	margin-top: 17px;
+	padding: 0;
+}
+.nav > li > a:hover {
+	color: inherit;
+	text-decoration: none;
+}
+#global-actions > li:hover > a, #global-actions > li.active > a {
+	height: 56px;
+}
+#global-actions > li:hover {
+	color: #000;
+}
+
+#global-actions > li > a {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#global-actions .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+#global-actions {
+    margin-left: 14px !important;
+    text-align: center;
+}
+
+.navbar .nav > li > a {
+    padding-right: 8px;
+}
+
+
+.search-margin {
+    margin-top: 20px !important;
+}
+
+

@@ -1,0 +1,27 @@
+﻿<div class="navigation patientmenubar">
+    <ul class="nav nav-tabs nav-stacked bs-docs-sidenav affix ">
+        @{            
+        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+        {
+        <li id="liaskdoc"><a href="../patient/askdoctor.aspx"><i class="icon-question-sign"></i>Ask Doctors<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liMyActivity"><a href="../patient/myactivity.aspx"><i class="icon-tasks"></i>My Activity<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liFeed"><a href="../Feed/feed.aspx"><i class="icon-list-alt"></i>Feed<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liFindDoc"><a href="../patient/finddoctor.aspx"><i class="icon-search"></i>Find a Doctor<i class=" icon-chevron-right icon_align"></i></a></li>
+        }
+        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+        {
+        <li id="liDocFeed"><a href="../Feed/doctorfeed.aspx"><i class="icon-list-alt"></i>Feed<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liDocQuestions"><a href="../doctor/questionlist.aspx"><i class="icon-search"></i><span class="rightpaddingdiv">Questions</span><span runat="server" visible="false" id="unansweredQuestionCount" class="unansweredQuestionCount"></span><i class=" icon-chevron-right icon_align"></i></a></li>
+        }
+        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+        { 
+        <li id="liManageDoctor"><a href="../../app/admin/ManageDoctors.aspx"><i class="icon-comment"></i>Signup Requests<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liAdminQuestions"><a href="../../app/admin/QuestionList.aspx"><i class="icon-search"></i>Questions<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liAdminFeed"><a href="../Feed/feed.aspx"><i class="icon-list-alt"></i>Feed<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liReports"><a href="../../app/admin/reports.aspx"><i class="icon-search"></i>Reports<i class=" icon-chevron-right icon_align"></i></a></li>
+        <li id="liManageTags"><a href="../../app/admin/managetags.aspx"><i class="icon-edit"></i>Manage Tags<i class=" icon-chevron-right icon_align"></i></a></li>
+        }
+        <li id="liinvitefriends"><a href="../patient/invitefriends.aspx"><i class="icon-share"></i>Invite Friends<i class=" icon-chevron-right icon_align"></i></a></li>
+        }
+    </ul>
+</div>

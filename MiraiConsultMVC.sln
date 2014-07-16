@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiraiConsultMVC", "MiraiCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiraiConsultMVC.Tests", "MiraiConsultMVC.Tests\MiraiConsultMVC.Tests.csproj", "{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{6B65A3EE-E5A5-4BFB-9C30-7ED8382EF7BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{B8FD3A08-C7C8-4E2B-AA31-4343783F0682}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B65A3EE-E5A5-4BFB-9C30-7ED8382EF7BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B65A3EE-E5A5-4BFB-9C30-7ED8382EF7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B65A3EE-E5A5-4BFB-9C30-7ED8382EF7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B65A3EE-E5A5-4BFB-9C30-7ED8382EF7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FD3A08-C7C8-4E2B-AA31-4343783F0682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FD3A08-C7C8-4E2B-AA31-4343783F0682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FD3A08-C7C8-4E2B-AA31-4343783F0682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FD3A08-C7C8-4E2B-AA31-4343783F0682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

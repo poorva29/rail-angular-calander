@@ -39,11 +39,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DAL">
+      <HintPath>..\DAL\bin\DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Model">
+      <HintPath>..\Model\bin\Model.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -189,8 +200,108 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.svc.cs">
+      <DependentUpon>UserService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\askmiraiEnum.cs" />
+    <Compile Include="Utilities\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utilities\EmailTemplates.cs" />
+    <Compile Include="Utilities\Mail.cs" />
+    <Compile Include="Utilities\SMS.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-tokenfield.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen\chosen-sprite.png" />
+    <Content Include="Content\chosen\chosen.css" />
+    <Content Include="Content\chosen\chosen.jquery.js" />
+    <Content Include="Content\common.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\DT_bootstrap.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\image\a-question.png" />
+    <Content Include="Content\image\ajax_loader.gif" />
+    <Content Include="Content\image\answers.png" />
+    <Content Include="Content\image\arrows.png" />
+    <Content Include="Content\image\ask-doctor.png" />
+    <Content Include="Content\image\askDoctors1.png" />
+    <Content Include="Content\image\askDoctors2.png" />
+    <Content Include="Content\image\askDoctors3.png" />
+    <Content Include="Content\image\bfb.png" />
+    <Content Include="Content\image\bg.png" />
+    <Content Include="Content\image\bin-1.png" />
+    <Content Include="Content\image\blinkedin.png" />
+    <Content Include="Content\image\btwitter.png" />
+    <Content Include="Content\image\Calendar.png" />
+    <Content Include="Content\image\check.png" />
+    <Content Include="Content\image\decline.png" />
+    <Content Include="Content\image\del-question.png" />
+    <Content Include="Content\image\doc-1.jpg" />
+    <Content Include="Content\image\doc-2.jpg" />
+    <Content Include="Content\image\doc-3.jpg" />
+    <Content Include="Content\image\doc-connect.png" />
+    <Content Include="Content\image\Doc.jpg" />
+    <Content Include="Content\image\drop-arrow.png" />
+    <Content Include="Content\image\edit2.png" />
+    <Content Include="Content\image\email.png" />
+    <Content Include="Content\image\endorse.png" />
+    <Content Include="Content\image\exclamation.png" />
+    <Content Include="Content\image\facebook-icon.png" />
+    <Content Include="Content\image\facebook.png" />
+    <Content Include="Content\image\fb.png" />
+    <Content Include="Content\image\find-doctors.png" />
+    <Content Include="Content\image\footer-bot-bg.png" />
+    <Content Include="Content\image\footer-logo.png" />
+    <Content Include="Content\image\footer.png" />
+    <Content Include="Content\image\g-icon.png" />
+    <Content Include="Content\image\green_calendar.png" />
+    <Content Include="Content\image\home.png" />
+    <Content Include="Content\image\HWW_step1.png" />
+    <Content Include="Content\image\HWW_step2.png" />
+    <Content Include="Content\image\HWW_step3.png" />
+    <Content Include="Content\image\HWW_step4.png" />
+    <Content Include="Content\image\img-na.png" />
+    <Content Include="Content\image\invite-friends.png" />
+    <Content Include="Content\image\like.png" />
+    <Content Include="Content\image\likes.png" />
+    <Content Include="Content\image\linkedin.png" />
+    <Content Include="Content\image\logo.png" />
+    <Content Include="Content\image\LogoForMail.png" />
+    <Content Include="Content\image\logoImage.png" />
+    <Content Include="Content\image\mail.png" />
+    <Content Include="Content\image\my-activity.png" />
+    <Content Include="Content\image\p.png" />
+    <Content Include="Content\image\pinterest.png" />
+    <Content Include="Content\image\questions.png" />
+    <Content Include="Content\image\question_mark.png" />
+    <Content Include="Content\image\reports.png" />
+    <Content Include="Content\image\revoke.png" />
+    <Content Include="Content\image\Search.png" />
+    <Content Include="Content\image\Search1.png" />
+    <Content Include="Content\image\signup-requests.png" />
+    <Content Include="Content\image\slide01.png" />
+    <Content Include="Content\image\slide02.png" />
+    <Content Include="Content\image\slide03.jpg" />
+    <Content Include="Content\image\Stethoscope-icon.png" />
+    <Content Include="Content\image\stethoscope.png" />
+    <Content Include="Content\image\tags.png" />
+    <Content Include="Content\image\thanks.png" />
+    <Content Include="Content\image\tw-icon.png" />
+    <Content Include="Content\image\twitter.png" />
+    <Content Include="Content\image\ua-question.png" />
+    <Content Include="Content\image\UnAssignQ.jpg" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\navigation.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -245,14 +356,50 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\tokenfield-typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Content\less\bootstrap-tokenfield.less" />
+    <Content Include="Content\less\datepicker.less" />
+    <Content Include="Content\less\tokenfield-typeahead.less" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\autocomplete.js" />
+    <Content Include="Scripts\bootstrap-alert.js" />
+    <Content Include="Scripts\bootstrap-button.js" />
+    <Content Include="Scripts\bootstrap-carousel.js" />
+    <Content Include="Scripts\bootstrap-collapse.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-dropdown.js" />
+    <Content Include="Scripts\bootstrap-modal.js" />
+    <Content Include="Scripts\bootstrap-pagination.js" />
+    <Content Include="Scripts\bootstrap-popover.js" />
+    <Content Include="Scripts\bootstrap-scrollspy.js" />
+    <Content Include="Scripts\bootstrap-tab.js" />
+    <Content Include="Scripts\bootstrap-tokenfield.js" />
+    <Content Include="Scripts\bootstrap-tooltip.js" />
+    <Content Include="Scripts\bootstrap-transition.js" />
+    <Content Include="Scripts\bootstrap-typeahead.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dateofbirthvalidation.js" />
+    <Content Include="Scripts\google-code-prettify\prettify.css" />
+    <Content Include="Scripts\google-code-prettify\prettify.js" />
+    <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -262,6 +409,8 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\utility.js" />
+    <Content Include="Services\UserService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -301,6 +450,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_Internal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

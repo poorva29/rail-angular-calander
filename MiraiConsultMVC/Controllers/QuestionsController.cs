@@ -16,5 +16,15 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult DoctorQuestionList()
+        {
+
+            return View();
+        }
+
+        public ActionResult DoctorQuestionDetails()
+        {
+            return View();
+        }
     }
 }

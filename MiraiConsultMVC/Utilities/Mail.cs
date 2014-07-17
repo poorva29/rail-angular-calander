@@ -18,7 +18,7 @@ using System.Net;
 using System.Collections.Generic;
 using log4net;
 
-namespace askmirai
+namespace MiraiConsultMVC
 {
     /// <summary>
     /// send mail methods.

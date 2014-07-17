@@ -5,7 +5,6 @@ using System.Text;
 using System.Runtime.Serialization;
 namespace Model
 {
-    [DataContract]
     public class User
     {
         private int userid;
@@ -37,7 +36,6 @@ namespace Model
         private int docconectdoctorid;
         private string photourl;
         public IList<DoctorSpecialities> specialities;
-        [DataMember]
         public IList<DoctorLocations> locations;
         public IList<doctorqualification> qualification;
         public IList<doctordetails> details;

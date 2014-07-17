@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
+@{
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 <div class="row-fluid">
@@ -7,7 +8,7 @@
             <label class="span1 hidden-phone" style="padding-top:5px; text-align:right">Filter:</label>
             <div class="pull-right span11">
                 <label class="radio inline">
-                    @Html.RadioButton("Questions","All Questions") All Questions
+                    @Html.RadioButton("Questions", "All Questions") All Questions
 
                     @*<asp:RadioButton ID="rdbFilterAllans" GroupName="filter" Text="All Questions" runat="server" Checked="true" AutoPostBack="true" />*@
                 </label>
@@ -26,76 +27,93 @@
         <br />
 
         <div class="margin_bottom">
-            @*@int count = 0;
-            @int cnt = 0;*@
-            @if (@*Questions != null && Questions.Count != 0*@ true)
+            @{
+    int count = 0;
+    int cnt = 0;
+    if (Model != null && Model.ToList().Count != 0)
+    {
+        foreach (MiraiConsultMVC.Models.QuestionModel question in Model)
+        {
+             if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
+             {
+                    if (question.UserId == question.AnsweredBy &&false/*&& filterType*/)
+                    { continue; }
+             }
+            <div class=@(cnt % 2 == 0 ? "row-fluid icon_padding_bottom custom-yellow-back" : "row-fluid icon_padding_bottom")>
+                <div style="display:table-row">
+                    <div class="custom-middle">
+                        @if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
                         {
-                            foreach (@*Model.Question question in Questions*@ char c in "Sting" )
+                            count++;
+                            if(question.UserId == question.AnsweredBy)
                             {
-                                if (@*!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy))*@ true)
-                                {
-                                        if (@*userID == question.AnsweredBy && filterType*@ true)
-                                        {     continue;}
-                                        if(@*cnt%2!=0*@ true)
-                                        {
-                                            <div class="row-fluid icon_padding_bottom custom-yellow-back" />
-                                        }
-                                        else
-                                        {
-                                            <div class='row-fluid icon_padding_bottom' />
-                                        }
-                                        <div style="display:table-row" />
-                                        <div class="custom-middle" />
-                                        @*<% count++;*@
-                                        if (@*userID == question.AnsweredBy*@ true)
-                                        {
-                                            <img src="../Resources/image/a-question.png" class="icon_img_check" />
-                                        }
-                                        else
-                                        {
-                                            <img src="../Resources/image/ua-question.png" class="icon_img icon_img_check" />
-                                        }
-                                }
-                                else
-                                {
-                                    <img src="../Resources/image/answer.png" class="icon_img icon_img_check" />
-                                }
-                                //</div>
-                                <div class='custom-middle middle-size-padding question-padding' style='width:80%'>
-                                    @*<a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>
-                                                <%=  question.QuestionText %>
-                                        </a>*@
-                                </div>
-                                <div class='custom-middle'>
-                                    <p class='ans_text float_right'>@*<%=  question.CreateDate.ToString("dd-MMM-yyyy")%*@></p>
-                                </div>
-                           // </div>
-                                if (@*!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy))*@ true)
-                                {
-                                        if (@*userID == question.AnsweredBy*@ true)
-                                        {
-                                            <div style="display:table-row;">
-                                                <div style="display:table-cell"></div>
-                                                @if (@*question.answers.First().AnswerText.Length > 80*@ true)
-                                            {
-                                                    <div class='ans_text question-padding' style="display:table-cell">@*<%= question.answers.First().AnswerText.Substring(0, 80)%>*@</div>
-                                            }
-                                            else
-                                            {
-                                                    <div class='ans_text question-padding' style="display:table-cell">@*<%= question.answers.First().AnswerText %>*@</div>
-                                            }
-                                                <div style="display:table-cell"></div>
-                                            </div>
-                                        }
-                                }
-                                //</div>
-                                @*<% cnt++;*@
-                         }
-                   }
-        </div>
-            @if (@*count <= 0*@ true)
+                                <img src="../Content/image/a-question.png" class="icon_img_check" />
+                            }
+                            else
+                            {
+                                <img src="../Content/image/ua-question.png" class="icon_img icon_img_check" />
+                            }
+                        }
+                        else
+                        {
+                            <img src="../Content/image/answer.png" class="icon_img icon_img_check" />
+                        }
+                    </div>
+                    <div class='custom-middle middle-size-padding question-padding' style='width:80%'>
+                        <a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>
+                            @question.QuestionText
+                        </a>
+                    </div>
+                    <div class='custom-middle'>
+                        <p class='ans_text float_right'>@question.CreateDate.ToString("dd-MMM-yyyy")</p>
+                    </div>
+                </div>
+                @if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
+                {
+                    if (question.UserId == question.AnsweredBy)
                     {
-                <span>No records found</span>
+                        <div style="display:table-row;">
+                            <div style="display:table-cell"></div>
+                            @if (question.answers.First().AnswerText.Length > 80)
+                            {
+                                <div class='ans_text question-padding'  style="display:table-cell">@question.answers.First().AnswerText.Substring(0, 80)</div>
+                            }
+                            else
+                            {
+                                <div class='ans_text question-padding'  style="display:table-cell">@question.answers.First().AnswerText</div>
+                            }
+                            <div style="display:table-cell"></div>
+                        </div>
                     }
+                }
+            </div>
+        }
+        cnt++;
+    }
+    if (count <= 0)
+    {
+        <div class="row-fluid icon_padding_bottom custom-yellow-back">
+             <span>No records found</span>       
         </div>
+    }
+}
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $(".navigation li.active").removeClass("active");
+        $('#liDocQuestions').addClass("active");
+    });
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-48132984-2', 'askmirai.com');
+    ga('send', 'pageview');
+
+</script>
+

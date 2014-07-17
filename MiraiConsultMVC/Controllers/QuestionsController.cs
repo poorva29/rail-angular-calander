@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MiraiConsultMVC.Models;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -15,13 +16,40 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
-
-        public ActionResult DoctorQuestionList()
+        [HttpGet]
+        public ActionResult DoctorQuestionList(int userID = 6)
         {
+            IList<QuestionModel> Questions = new List<QuestionModel>();
+            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            var QuestionsById = db.getQuestionListByDoctorid(userID).ToList();
+            QuestionModel QModel;
+            AnswerModel AModel;
+            if (QuestionsById != null && QuestionsById.Count > 0)
+            {
+                foreach (var question in QuestionsById)
+                {
+                    QModel = new QuestionModel();
+                    AModel = new AnswerModel();
+                    QModel.QuestionId = Convert.ToInt32(question.questionid);
+                    QModel.QuestionText = Convert.ToString(question.questiontext);
+                    QModel.CreateDate = Convert.ToDateTime(question.createdate);
+                    if (question.answeredby != null)
+                    {
+                        QModel.AnsweredBy = Convert.ToInt32(question.answeredby);
+                    }
+                    if (question.answertext!=null)
+                    {
+                        AModel.AnswerText = Convert.ToString(question.answertext);
+                        QModel.answers.Add(AModel);
+                    }
+                    QModel.UserId = userID;
+                    Questions.Add(QModel);
 
-            return View();
+                }
+            }
+            return View(Questions);
         }
-
+        
         public ActionResult DoctorQuestionDetails()
         {
             return View();

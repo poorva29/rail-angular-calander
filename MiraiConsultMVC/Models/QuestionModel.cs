@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Model
+namespace MiraiConsultMVC.Models
 {
-    public class Question
+    public class QuestionModel
     {
         private int questionid;
         private int userid;
@@ -14,7 +14,8 @@ namespace Model
         private string questiontext;
         private string counts;
         private int answeredby;
-        public IList<Answer> answers;
+        public IList<AnswerModel> answers;
+
 
         public int QuestionId { get { return questionid; } set { questionid = value; } }
         public int UserId { get { return userid; } set { userid = value; } }
@@ -24,15 +25,15 @@ namespace Model
         public string Counts { get { return counts; } set { counts = value; } }
         public int AnsweredBy { get { return answeredby; } set { answeredby = value; } }
 
-        public Question()
+        public QuestionModel()
         {
-            answers = new List<Answer>();
+            answers = new List<AnswerModel>();
         }
-        public void AddAnswer(Answer answer)
+        public void AddAnswer(AnswerModel answer)
         {
             answers.Add(answer);
         }
-        public void RemoveAnswer(Answer answer)
+        public void RemoveAnswer(AnswerModel answer)
         {
             this.answers.Remove(answer);
         }

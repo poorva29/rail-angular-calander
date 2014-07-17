@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -193,12 +194,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\User\Login.cs" />
+    <Compile Include="Models\Utilities.cs" />
+    <Compile Include="Models\_dbAskMirai.designer.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -334,6 +344,35 @@
     <Content Include="Content\image\ua-question.png" />
     <Content Include="Content\image\UnAssignQ.jpg" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\js\autocomplete.js" />
+    <Content Include="Content\js\bootstrap-alert.js" />
+    <Content Include="Content\js\bootstrap-button.js" />
+    <Content Include="Content\js\bootstrap-carousel.js" />
+    <Content Include="Content\js\bootstrap-collapse.js" />
+    <Content Include="Content\js\bootstrap-datepicker.js" />
+    <Content Include="Content\js\bootstrap-dropdown.js" />
+    <Content Include="Content\js\bootstrap-modal.js" />
+    <Content Include="Content\js\bootstrap-pagination.js" />
+    <Content Include="Content\js\bootstrap-popover.js" />
+    <Content Include="Content\js\bootstrap-scrollspy.js" />
+    <Content Include="Content\js\bootstrap-tab.js" />
+    <Content Include="Content\js\bootstrap-tokenfield.js" />
+    <Content Include="Content\js\bootstrap-tooltip.js" />
+    <Content Include="Content\js\bootstrap-transition.js" />
+    <Content Include="Content\js\bootstrap-typeahead.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\dateofbirthvalidation.js" />
+    <Content Include="Content\js\google-code-prettify\prettify.css" />
+    <Content Include="Content\js\google-code-prettify\prettify.js" />
+    <Content Include="Content\js\holder.js" />
+    <Content Include="Content\js\jquery-1.9.0.min.js" />
+    <Content Include="Content\js\jquery-1.9.1.min.js" />
+    <Content Include="Content\js\jquery-ui-1.10.0.custom.min.js" />
+    <Content Include="Content\js\jquery-ui.min.js" />
+    <Content Include="Content\js\jquery.dataTables.js" />
+    <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\jquery.placeholder.js" />
+    <Content Include="Content\js\utility.js" />
     <Content Include="Content\navigation.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -399,6 +438,11 @@
     <Content Include="Content\less\bootstrap-tokenfield.less" />
     <Content Include="Content\less\datepicker.less" />
     <Content Include="Content\less\tokenfield-typeahead.less" />
+    <Content Include="Models\_dbAskMirai.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>_dbAskMirai1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap-alert.js" />
@@ -488,12 +532,22 @@
     <Content Include="Views\Shared\_PatientMasterLayout.cshtml" />
     <Content Include="Views\Home\partialview\patientmenu.cshtml" />
     <Content Include="Views\Home\partialview\unregpatientmenu.cshtml" />
+    <Content Include="Views\User\AssignQuestion.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\_dbAskMirai.dbml.layout">
+      <DependentUpon>_dbAskMirai.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
-namespace Model
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace MiraiConsultMVC.Models
 {
-    [DataContract]
+    
     public class User
     {
         private int userid;
@@ -37,18 +40,29 @@ namespace Model
         private int docconectdoctorid;
         private string photourl;
         public IList<DoctorSpecialities> specialities;
-        [DataMember]
+        
         public IList<DoctorLocations> locations;
         public IList<doctorqualification> qualification;
         public IList<doctordetails> details;
+        public IEnumerable<SelectListItem> Countries;
 
         public int UserId { get { return userid; } set { userid = value; } }
+        //[Required]
+        //[Display(Name = "User name")]
+         [Required]
+         [Display(Name = "Please Enter First Name")]
         public string FirstName { get { return firstname; } set { firstname = value; } }
+         [Required]
+         [Display(Name = "Please Enter Last Name")]
         public string LastName { get { return lastname; } set { lastname = value; } }
+
         public string Email { get { return email; } set { email = value; } }
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 10)]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
         public int Gender { get { return gender; } set { gender = value; } }
-        public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }       
+        public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
         public string Password { get { return password; } set { password = value; } }
         public int CountryId { get { return countryid; } set { countryid = value; } }
@@ -77,6 +91,7 @@ namespace Model
             locations = new List<DoctorLocations>();
             qualification = new List<doctorqualification>();
             details = new List<doctordetails>();
+            
         }
         public void AddSpeciality(DoctorSpecialities Speciality)
         {

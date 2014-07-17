@@ -323,6 +323,97 @@
       <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.admin_hospital_view" Member="admin_hospital_views">
+    <Type Name="admin_hospital_view">
+      <Column Name="hospital_name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="hospital_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="assistant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hospital_admin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="location_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="state_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="city_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="country_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="clinicname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="doctor_name" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="doctorlocationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hospital_location_view" Member="hospital_location_views">
+    <Type Name="hospital_location_view">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="address1" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="location_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="country_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="state_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="city_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.doctor_location" Member="doctor_locations">
+    <Type Name="doctor_location">
+      <Column Name="clinicname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="hospitalid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hospitalname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="doctorlocationid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hospital_admin_location_view" Member="hospital_admin_location_views">
+    <Type Name="hospital_admin_location_view">
+      <Column Name="hospital_admin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="hospital_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="assistant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="doctor_name" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hospital_name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="location_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hospital_admins_view" Member="hospital_admins_views">
+    <Type Name="hospital_admins_view">
+      <Column Name="hospital_name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="hospital_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="assistant_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="hospital_admin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.answer_Insert" Method="answer_Insert">
     <Parameter Name="questionId" Type="System.Int32" DbType="Int" />
     <Parameter Name="userId" Type="System.Int32" DbType="Int" />
@@ -333,5 +424,1144 @@
     <ElementType Name="answer_InsertResult">
       <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.ActivateAccount" Method="ActivateAccount">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="isLinkActivate" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="isemailverify" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.add_tag" Method="add_tag">
+    <Parameter Name="newtag" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="add_tagResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_get_alldoctorsdetails" Method="askmirai_get_alldoctorsdetails">
+    <Parameter Name="DOCID" Parameter="dOCID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctorStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="askmirai_get_alldoctorsdetailsResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="secondaryemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="secondarymobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateofbirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalexperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="registrationdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ismobileverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pincode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="registrationnumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="registrationcouncil" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aboutme" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registrationvalidity" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="apptsmsnotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="created_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientcity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="isremonedayprior" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="existing_doctor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_patient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_assitant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmiraiappointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmirai_userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countrycode1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="countrycode2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cgcountrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="doctorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_doctorsdetails_Update" Method="askmirai_doctorsdetails_Update">
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctordetailsid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="certification" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="society" Type="System.String" DbType="VarChar(150)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.askmirai_doctorlocations_Update_and_Insert" Method="askmirai_doctorlocations_Update_and_Insert">
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doclocid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="clinicname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="telephone" Type="System.String" DbType="VarChar(15)" />
+    <ElementType Name="askmirai_doctorlocations_Update_and_InsertResult">
+      <Column Name="doclocid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_get_UserIdandTypebyEmail" Method="askmirai_get_UserIdandTypebyEmail">
+    <Parameter Name="emailId" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="userFirstName" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <ElementType Name="askmirai_get_UserIdandTypebyEmailResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_patient_Insert_Update" Method="askmirai_patient_Insert_Update">
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="height" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="weight" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="pincode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="registrationdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Usertype" Parameter="usertype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="username" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="emailverified" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="askmirai_patient_Insert_UpdateResult">
+      <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.assignDoctorToQuestion" Method="assignDoctorToQuestion">
+    <Parameter Name="doctorIds" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="questionId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="assignDoctorToQuestionResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="specialities" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="cities" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="locations" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.change_Password" Method="change_Password">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="newPassword" Type="System.String" DbType="VarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.connectUserWithGoogleOrFacebook" Method="connectUserWithGoogleOrFacebook">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="usertype" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="connectUserWithGoogleOrFacebookResult">
+      <Column Name="IsGoogleOrFacebook" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.delete_tag" Method="delete_tag">
+    <Parameter Name="removtag" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteAdminToHospital" Method="deleteAdminToHospital">
+    <Parameter Name="hid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.doctorlocations_Insert" Method="doctorlocations_Insert">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doclocid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="clinicname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="telephone" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="timeslot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fees" Type="System.Double" DbType="Float" />
+    <Parameter Name="mon" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="tus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="wed" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="thur" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="fri" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="satr" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="sun" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isprimary" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="doctorlocations_InsertResult">
+      <Column Name="" Member="Column1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.doctorlocations_Update_and_Insert" Method="doctorlocations_Update_and_Insert">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doclocid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="clinicname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="telephone" Type="System.String" DbType="VarChar(33)" />
+    <Parameter Name="timeslot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fees" Type="System.Double" DbType="Float" />
+    <Parameter Name="isprimary" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="hospitalid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="hospitalname" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="doctorlocations_Update_and_InsertResult">
+      <Column Name="doclocid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsPrimary" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.doctorlocationworkinghours_Update" Method="doctorlocationworkinghours_Update">
+    <Parameter Name="docLocid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="docworkingid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromtime" Type="System.String" DbType="VarChar(4)" />
+    <Parameter Name="totime" Type="System.String" DbType="VarChar(4)" />
+    <Parameter Name="Monday" Parameter="monday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Tuesday" Parameter="tuesday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Wednesday" Parameter="wednesday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Thursday" Parameter="thursday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Friday" Parameter="friday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Saturday" Parameter="saturday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Sunday" Parameter="sunday" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.doctorloction_delete" Method="doctorloction_delete">
+    <Parameter Name="Doctorloctionid" Parameter="doctorloctionid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CityId" Parameter="cityId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="doctorloction_deleteResult">
+      <Column Name="result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.doctorqualification_Update" Method="doctorqualification_Update">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="selecteddegreeid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lastdegreeiD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="University" Parameter="university" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="otherdegree" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="doctorqualification_UpdateResult">
+      <Column Name="" Member="Column1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.doctorsdetails_Update" Method="doctorsdetails_Update">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctordetailsid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="selectedtype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="details" Type="System.String" DbType="VarChar(1000)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.doctorworkinghour_delete" Method="doctorworkinghour_delete">
+    <Parameter Name="docWorkingid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="docLoctionId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="doctorworkinghour_deleteResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_alldoctorsdetails" Method="get_alldoctorsdetails">
+    <Parameter Name="DOCID" Parameter="dOCID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="adminId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="checkBoxStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_alldoctorsdetailsResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="secondaryemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="secondarymobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateofbirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalexperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="registrationdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ismobileverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pincode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="registrationnumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="registrationcouncil" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aboutme" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registrationvalidity" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="apptsmsnotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="created_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientcity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="isremonedayprior" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="existing_doctor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_patient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_assitant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmiraiappointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmirai_userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countrycode1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="countrycode2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cgcountrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="doctorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="appointmentCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_alldoctorslist" Method="get_alldoctorslist">
+    <Parameter Name="doctorStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_alldoctorslistResult">
+      <Column Name="doctorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="degree" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="strspeciality" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="experience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locality" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="city" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="location" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="clinicname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="isprimary" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="doclocationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllPatientsEmailIdToSendEmailOnPublishDate" Method="get_AllPatientsEmailIdToSendEmailOnPublishDate">
+    <ElementType Name="get_AllPatientsEmailIdToSendEmailOnPublishDateResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="healthinformationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DoctorName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmailBody" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllQuestions" Method="get_AllQuestions">
+    <Parameter Name="RecordSize" Parameter="recordSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="flag" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lastQuestionNo" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_AllQuestionsResult">
+      <Column Name="QuestionsRowNumber" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="RowNumber" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="docquestionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionstatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllQuestionsByTag" Method="get_AllQuestionsByTag">
+    <Parameter Name="questionText" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_AllQuestionsByTagResult">
+      <Column Name="doctorname" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllQuestionsByUserId" Method="get_AllQuestionsByUserId">
+    <Parameter Name="Userid" Parameter="userid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_AllQuestionsByUserIdResult">
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllUserstoSendSms" Method="get_AllUserstoSendSms">
+    <ElementType Name="get_AllUserstoSendSmsResult">
+      <Column Name="appointmentid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="doctorid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="patientid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="starttime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DoctorName" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="patientMobileno" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AppointmentByPatientId" Method="get_AppointmentByPatientId">
+    <Parameter Name="patientid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_AppointmentByPatientIdResult">
+      <Column Name="appointmentid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fullName" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="cityname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="endtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AuthenticateData" Method="get_AuthenticateData">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <ElementType Name="get_AuthenticateDataResult">
+      <Column Name="USERID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FIRSTNAME" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LASTNAME" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MOBILENO" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="USERTYPE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="notify" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_HomePageImagePath" Method="get_HomePageImagePath">
+    <ElementType Name="get_HomePageImagePathResult">
+      <Column Name="Value" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_questiondetailsbyId" Method="get_questiondetailsbyId">
+    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="assignQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_questiondetailsbyIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientlastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctorimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Docid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctor" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ispatientthank" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isendorse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="thanxcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="endorsecount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="docconnectdoctorid" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_UserbyEmailId" Method="get_UserbyEmailId">
+    <Parameter Name="emailId" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="get_UserbyEmailIdResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_UserbyUserName" Method="get_UserbyUserName">
+    <Parameter Name="email" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="get_UserbyUserNameResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_UserIdandTypebyEmail" Method="get_UserIdandTypebyEmail">
+    <Parameter Name="emailId" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(10)" Direction="InOut" />
+    <Parameter Name="userFirstName" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
+    <ElementType Name="get_UserIdandTypebyEmailResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_UserRecord" Method="get_UserRecord">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="get_UserRecordResult">
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetActiveUserByEmailId" Method="GetActiveUserByEmailId">
+    <Parameter Name="email" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="isgooglebuttonclick" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="GetActiveUserByEmailIdResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAllUsersToSendFeedbackEmail" Method="getAllUsersToSendFeedbackEmail">
+    <ElementType Name="getAllUsersToSendFeedbackEmailResult">
+      <Column Name="appointmentid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="starttime" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="patientid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Doctorname" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="unregpatientemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="unregpatientname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAppointmentDetails" Method="getAppointmentDetails">
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="docLocationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="appointmentDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="getAppointmentDetailsResult">
+      <Column Name="patientname" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAvailableTimeSlot" Method="getAvailableTimeSlot">
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="docLocationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="appointmentDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="getAvailableTimeSlotResult">
+      <Column Name="time" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getCountryStateCityLocation" Method="getCountryStateCityLocation">
+    <Parameter Name="countryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getCountryStateCityLocationResult">
+      <Column Name="countryid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getDoctorListByLoactionNameCitySpeciality" Method="getDoctorListByLoactionNameCitySpeciality">
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="specialityOrName" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="userStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getDoctorListByLoactionNameCitySpecialityResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="degree" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="specialities" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="cities" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="locations" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="avgresponsetime" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="appointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="averageresponsetime" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getFeedListByLastQuestionNo" Method="getFeedListByLastQuestionNo">
+    <Parameter Name="lastQuestionNo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RecordSize" Parameter="recordSize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="myFeed" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getFeedListByLastQuestionNoResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionsRowNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quetionaskedby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askeddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="docid" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="docLastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="doctEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="docmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="answerreplyedby" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="doctorimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="replyeddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ispatientthank" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isendorse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="thanxcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="endorsecount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getFromTimeToTimeForBlockingCalendar" Method="getFromTimeToTimeForBlockingCalendar">
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="docLocationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="appointmentDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="getFromTimeToTimeForBlockingCalendarResult">
+      <Column Name="Fromtime" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Totime" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getPatientDetailsByDoctorId" Method="getPatientDetailsByDoctorId">
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getPatientDetailsByDoctorIdResult">
+      <Column Name="patientid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="patientmobile" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="patienttype" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetPatientMobileNosToDelayAppointments" Method="GetPatientMobileNosToDelayAppointments">
+    <Parameter Name="DoctorId" Parameter="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FromTime" Parameter="fromTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToTime" Parameter="toTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="DocLocationId" Parameter="docLocationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetPatientMobileNosToDelayAppointmentsResult">
+      <Column Name="appointmentid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="patientmobile" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getPatientsByDoctorIdAndLocation" Method="getPatientsByDoctorIdAndLocation">
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getPatientsByDoctorIdAndLocationResult">
+      <Column Name="patientid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="patientmobile" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="patienttype" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getQuestionListByDoctorid" Method="getQuestionListByDoctorid">
+    <Parameter Name="userID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getQuestionListByDoctoridResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionsRowNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="asignedDoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="answeredby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getQuestionListByQuestionText" Method="getQuestionListByQuestionText">
+    <Parameter Name="questionText" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="getQuestionListByQuestionTextResult">
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="quetionaskedby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="askeddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="answerreplyedby" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="replyeddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getsimilarQuestionbyText" Method="getsimilarQuestionbyText">
+    <Parameter Name="questionText" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getsimilarQuestionbyTextResult">
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionsRowNumber" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="quetionaskedby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="askeddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="answerreplyedby" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="doctorimg" Type="System.String" DbType="VarChar(456)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="answerimg" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="replyeddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getunansweredQuestionCount" Method="getunansweredQuestionCount">
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getunansweredQuestionCountResult">
+      <Column Name="NoOfquestions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.importAskMiraiData" Method="importAskMiraiData" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.importaskmirailoaction" Method="importaskmirailoaction" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.insert_HompePageImage" Method="insert_HompePageImage">
+    <Parameter Name="Image" Parameter="image" Type="System.String" DbType="VarChar(256)" />
+    <Parameter Name="HomeImage" Parameter="homeImage" Type="System.String" DbType="VarChar(256)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Insert_Update_doctorassistant" Method="Insert_Update_doctorassistant">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="joiningdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="usertype" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="verifyemail" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="secPrimaryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countrycode1" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Insert_Update_doctorassistantResult">
+      <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Update_healthInformation" Method="Insert_Update_healthInformation">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="healthMessageSubject" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="healthMessageDetails" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="publishDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="createdAt" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="createdBy" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="modifiedAt" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="modifiedBy" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="healthinformationid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Insert_Update_healthInformationResult">
+      <Column Name="healthinformation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.insertDocconnectRecords" Method="insertDocconnectRecords" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.insertUpdateHospital" Method="insertUpdateHospital">
+    <Parameter Name="hosname" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="telephone" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="hospitalid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countrycode" Type="System.Int32" DbType="Int" />
+    <ElementType Name="insertUpdateHospitalResult">
+      <Column Name="nameExist" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.MigrateCareGiverMobileNos" Method="MigrateCareGiverMobileNos" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.MigrateHospitalMobileNos" Method="MigrateHospitalMobileNos" IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.patient_Insert_Update" Method="patient_Insert_Update">
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="city" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="cgname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cgemail" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cgmobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="isremonedayprior" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="usertype" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="verifyemail" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="countrycode1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cgcountrycode" Type="System.Int32" DbType="Int" />
+    <ElementType Name="patient_Insert_UpdateResult">
+      <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SignInUsingGoogleORFacebook" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.question_Insert" Method="question_Insert">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="createdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="questionText" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="question_InsertResult">
+      <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RejectQuestionFromQuestionList" Method="RejectQuestionFromQuestionList">
+    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="statusid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RejectQuestionFromQuestionListResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="secondaryemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="secondarymobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateofbirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalexperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="registrationdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ismobileverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pincode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="registrationnumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="registrationcouncil" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aboutme" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registrationvalidity" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="apptsmsnotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="created_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientcity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="isremonedayprior" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="existing_doctor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_patient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_assitant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmiraiappointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmirai_userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countrycode1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="countrycode2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cgcountrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userid1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.removeAssignDoctorbyUserID" Method="removeAssignDoctorbyUserID">
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.setUsernameandPassword" Method="setUsernameandPassword">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userType" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="setUsernameandPasswordResult">
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateAppointments" Method="UpdateAppointments">
+    <Parameter Name="appointmentid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rating" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateProfile" Method="UpdateProfile">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobile" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="IsNewEmail" Parameter="isNewEmail" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="UpdateProfileResult">
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="secondaryemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="secondarymobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateofbirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalexperience" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stateid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cityid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="registrationdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="usertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photopath" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ismobileverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pincode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="registrationnumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="registrationcouncil" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aboutme" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="appointmentbuttonhits" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registrationvalidity" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="apptsmsnotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="created_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientcity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cgmobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="isremonedayprior" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="joiningdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="existing_doctor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_patient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="existing_assitant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmiraiappointmentcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="askmirai_userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="countrycode1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="countrycode2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cgcountrycode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photourl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateuser_status" Method="updateuser_status">
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="updateuser_statusResult">
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isemailverified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_addupdateAppointment" Method="usp_addupdateAppointment">
+    <Parameter Name="PatientId" Parameter="patientId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DoctorId" Parameter="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DoctorLocationId" Parameter="doctorLocationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CreatedDate" Parameter="createdDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="CreatedBy" Parameter="createdBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Subject" Parameter="subject" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="StartTime" Parameter="startTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndTime" Parameter="endTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="IsAllDayEvent" Parameter="isAllDayEvent" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="IsADD" Parameter="isADD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="aptMsg" Type="System.String" DbType="VarChar(20)" Direction="InOut" />
+    <Parameter Name="appointmentType" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="CancelOverlapped" Parameter="cancelOverlapped" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="patienttype" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="patName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="patMobileNo" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="patEmail" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="LastModifiedBy" Parameter="lastModifiedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LastModifiedAt" Parameter="lastModifiedAt" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="DocAssistantId" Parameter="docAssistantId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="askmAppt" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_addupdateAppointmentResult">
+      <Column Name="subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="starttime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="endtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AppointmentOwnerDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_List_appointmentsByRange" Method="usp_List_appointmentsByRange">
+    <Parameter Name="StartTime" Parameter="startTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndTime" Parameter="endTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="DoctorId" Parameter="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DoctorLocationId" Parameter="doctorLocationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AppointmentType" Parameter="appointmentType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PatientId" Parameter="patientId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="patienttype" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_removeAppointments" Method="usp_removeAppointments">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LastModifiedBy" Parameter="lastModifiedBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LastModifiedAt" Parameter="lastModifiedAt" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="usp_removeAppointmentsResult">
+      <Column Name="starttime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="endtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="patientname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="patientmobile" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="docname" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="isemailverified" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ValidateDoctor" Method="ValidateDoctor" IsComposable="true">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.ValidateUser" Method="ValidateUser">
+    <Parameter Name="email" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <ElementType Name="ValidateUserResult">
+      <Column Name="doctorid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="degree" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="VarChar(256)" CanBeNull="true" />
+      <Column Name="assistantid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="assistantname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="assistusername" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CommaSeparatedToString" Method="CommaSeparatedToString" IsComposable="true">
+    <Parameter Name="psCSString" Type="System.String" DbType="VarChar(8000)" />
+    <ElementType Name="CommaSeparatedToStringResult">
+      <Column Name="sID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SplitStringAsTable" Method="SplitStringAsTable" IsComposable="true">
+    <Parameter Name="inputString" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="delimiter" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="SplitStringAsTableResult">
+      <Column Name="Value" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAllCountries" Method="getAllCountries" IsComposable="true">
+    <ElementType Name="getAllCountriesResult">
+      <Column Name="countryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAppointmentOwnersDetails" Method="getAppointmentOwnersDetails" IsComposable="true">
+    <Parameter Name="appointmentid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="patientid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="patientname" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.getDocAssitantRefernce" Method="getDocAssitantRefernce" IsComposable="true">
+    <Parameter Name="doctorAssitantId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sec_primary_admin" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getDocAssitanUserType" Method="getDocAssitanUserType" IsComposable="true">
+    <Parameter Name="doctorAssitantId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="doctorId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="sec_primary_admin" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getdoctorName" Method="getdoctorName" IsComposable="true">
+    <Parameter Name="doctorid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.getLocationClosedDays" Method="getLocationClosedDays" IsComposable="true">
+    <Parameter Name="doclocationid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.getLocationDetailsByDoctorLocationId" Method="getLocationDetailsByDoctorLocationId" IsComposable="true">
+    <Parameter Name="doctorlocationid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.getUserType" Method="getUserType" IsComposable="true">
+    <Parameter Name="usertype" Type="System.Int32" DbType="Int" />
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.isEmailAvailable" Method="isEmailAvailable" IsComposable="true">
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Boolean" />
+  </Function>
+  <Function Name="dbo.isUserNameAvailable" Method="isUserNameAvailable" IsComposable="true">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="usertype" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Boolean" />
   </Function>
 </Database>

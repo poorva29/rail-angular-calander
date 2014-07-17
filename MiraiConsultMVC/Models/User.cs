@@ -8,7 +8,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MiraiConsultMVC.Models
 {
+<<<<<<< HEAD
     
+=======
+>>>>>>> 1fa2b8cc8de3d680d3206e7fc65899ffc94e8a16
     public class User
     {
         private int userid;
@@ -40,7 +43,6 @@ namespace MiraiConsultMVC.Models
         private int docconectdoctorid;
         private string photourl;
         public IList<DoctorSpecialities> specialities;
-        
         public IList<DoctorLocations> locations;
         public IList<doctorqualification> qualification;
         public IList<doctordetails> details;

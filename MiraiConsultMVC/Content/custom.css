@@ -1606,7 +1606,7 @@ div[id$="ans"]{
 }
 
 .inner-count-likes {
-    background-image: url('../image/like.png');
+    background-image: url('../Content/image/like.png');
     background-repeat: no-repeat;
     background-size: auto;
     color: #FFFFFF;
@@ -1619,7 +1619,7 @@ div[id$="ans"]{
 }
 
 .inner-count-endorse {
-    background-image: url('../image/endorse.png');
+    background-image: url('../Content/image/endorse.png');
     background-repeat: no-repeat;
     background-size: auto;
     color: #FFFFFF;
@@ -1674,7 +1674,7 @@ textarea#txtAreaQuestion::-webkit-input-placeholder{
 
 select {
     -webkit-appearance: none;
-    background-image: url(../image/drop-arrow.png);
+    background-image: url(../Content/image/drop-arrow.png);
     background-repeat: no-repeat;
     //text-indent: 0px;
     background-position: 99%;
@@ -1688,7 +1688,7 @@ select {
 
 .drop-arrows{
     -webkit-appearance: none;
-    background-image: url(../image/arrows.png);
+    background-image: url(../Content/image/arrows.png);
     background-repeat: no-repeat;
     //text-indent: 0px;
     background-position: 99%;
@@ -1715,7 +1715,7 @@ select {
 
 .input-append .add-on, .input-prepend .add-on {
     display: inline-block;
-    background-image: url(../image/Calendar.png);
+    background-image: url(../Content/image/Calendar.png);
     background-repeat: no-repeat;
     background-position: 50% 4px;
     border-bottom-right-radius: 0px !important;
@@ -1734,7 +1734,7 @@ select {
 }
 .input-append .add-on-green, .input-prepend .add-on-green {
     display: inline-block;
-    background-image: url(../image/green_calendar.png);
+    background-image: url(../Content/image/green_calendar.png);
     background-repeat: no-repeat;
     background-position: 50% 4px;
     border-bottom-right-radius: 0px !important;
@@ -3948,4 +3948,11 @@ table.cust-table {
   .menu-margin-top{
         margin-top:-32% ;
     }
-  
+
+.validation-summary-errors
+{
+    color: Red;
+}  
+.hide-div{
+    display:none;
+}

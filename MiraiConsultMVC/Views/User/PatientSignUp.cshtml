@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
+@Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 <script src="~/Scripts/dateofbirthvalidation.js"></script>
 <script src="~/Scripts/utility.js"></script>
@@ -9,6 +10,8 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    { 
+        <div class="main row-fluid">
     <div class="span12 main-outter-padding">
         <div class="row-fluid">
             <div class="span12 cust-header-name-text">
@@ -42,7 +45,8 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level", placeholder = "First Name" })<br />
-                            </div>
+                                @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
+                             </div>
                         </div>
                         <div class="span6">
                             <div class="span4">
@@ -50,6 +54,7 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level cust-lightgreen cust-gray", placeholder = "Last Name" })<br />
+                                @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
                     </div>
@@ -63,7 +68,7 @@
                             <div class="span8">
                                 <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                      data-date-enddate="new Date()" style="width: 100%">
-                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray", placeholder = "Date Of Birth" })
+                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray", placeholder = "Date Of Birth", @readonly = "readonly" })
                                     <span class="add-on icon-with-right-curve"></span>
                                 </div>
                             </div>
@@ -91,6 +96,7 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.Height, new { @Class = "input-block-level cust-lightgreen cust-lightgreen", placeholder = "Height in cm" })
+                                @Html.ValidationMessageFor(m => m.Height, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
                         <div class="span6">
@@ -99,6 +105,7 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.Weight, new { @Class = "input-block-level cust-lightgreen cust-gray", placeholder = "Weight in kg" })
+                                @Html.ValidationMessageFor(m => m.Weight, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
                     </div>
@@ -114,7 +121,6 @@
                             <label class="cust-font-style">Address:</label>
                         </div>
                         <div class="span10 cust-margin-span10">
-                            @*<asp:TextBox ID="txtAddress" TextMode="multiline" Columns="20" Rows="1" runat="server" class="input-block-level cust-lightgreen cust-gray" Width="100%" />*@
                             <textarea name="txtAddress" rows="1" cols="20" id="txtAddress" class="input-block-level cust-lightgreen cust-gray" style="width:100%;"></textarea>
                         </div>
                     </div>
@@ -126,12 +132,8 @@
                                 <label class="cust-font-style">Country:</label>
                             </div>
                             <div class="span8">
-                                @*<asp:DropDownList ID="ddCountry" ClientIDMode="Static" runat="server" class="input-block-level cust-lightgreen cust-gray drop-arrows" AutoPostBack="true" OnSelectedIndexChanged="ddcountry_SelectedIndexChanged">
-                                    </asp:DropDownList>*@
-
-                                <select name="ddCountry" onchange="" id="ddCountry" class="input-block-level cust-lightgreen cust-gray drop-arrows">
-                                    <option selected="selected" value="0">--- Select Country ---</option>
-                                </select>
+                                @Html.DropDownList("Countries", "--- Select Country ---")
+                                @*@Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.Countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width" })*@
                             </div>
                         </div>
                         <div class="span6">
@@ -139,12 +141,7 @@
                                 <label class="cust-font-style">State:</label>
                             </div>
                             <div class="span8">
-                                @*<asp:DropDownList ID="ddState" runat="server" ClientIDMode="Static" class="input-block-level cust-lightgreen cust-lightgreen drop-arrows" AutoPostBack="true" OnSelectedIndexChanged="ddstate_SelectedIndexChanged">
-                                        <asp:listitem value="0" text="--- Select State ---"></asp:listitem>
-                                    </asp:DropDownList>*@
-                                <select name="ddState" onchange="" id="ddState" class="input-block-level cust-lightgreen cust-lightgreen drop-arrows">
-                                    <option selected="selected" value="0">--- Select State ---</option>
-                                </select>
+                                @Html.DropDownList("State", "--- Select State ---")
                             </div>
                         </div>
                     </div>
@@ -155,12 +152,7 @@
                             <label class="cust-font-style">City:</label>
                         </div>
                         <div class="span8">
-                            @*<asp:DropDownList ID="ddCity" runat="server" ClientIDMode="Static" class="input-block-level cust-lightgreen cust-gray drop-arrows" AutoPostBack="true" OnSelectedIndexChanged="ddcity_SelectedIndexChanged">
-                                    <asp:listitem value="0" text="--- Select City ---"></asp:listitem>
-                                </asp:DropDownList>*@
-                            <select name="ddCity" onchange="" id="ddCity" class="input-block-level cust-lightgreen cust-gray drop-arrows">
-                                <option selected="selected" value="0">--- Select City ---</option>
-                            </select>
+                            @Html.DropDownList("City", "--- Select City ---")
                         </div>
                     </div>
                     <div class="span6">
@@ -168,13 +160,7 @@
                             <label class="cust-font-style">Location:</label>
                         </div>
                         <div class="span8">
-                            @*<asp:DropDownList ID="ddLocation" runat="server" ClientIDMode="Static" class="input-block-level cust-lightgreen cust-lightgreen drop-arrows">
-                                    <asp:listitem value="0" text="--- Select Location---"></asp:listitem>
-                                </asp:DropDownList>*@
-
-                            <select name="ddLocation" id="ddLocation" class="input-block-level cust-lightgreen cust-lightgreen drop-arrows">
-                                <option value="0">--- Select Location---</option>
-                            </select>
+                            @Html.DropDownList("Location", "--- Select Location---")
                         </div>
                     </div>
                 </div>
@@ -185,7 +171,8 @@
                         </div>
                         <div class="span8">
                             @Html.TextBoxFor(m => m.Pincode, new { @Class = "input-block-level cust-lightgreen cust-lightgreen", placeholder = "Pin Code" })
-                        </div>
+                            @Html.ValidationMessageFor(m => m.Pincode, string.Empty, new { @class = "validation-summary-errors" })
+                         </div>
                     </div>
                     <div class="span6">
                         <div class="span4">
@@ -193,6 +180,7 @@
                         </div>
                         <div class="span8">
                             @Html.TextBoxFor(m => m.MobileNo, new { @Class = "input-block-level cust-lightgreen cust-lightgreen", placeholder = "Mobile No" })
+                            @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                         </div>
                     </div>
                     <div class="row-fluid">
@@ -207,6 +195,7 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.Email, new { @Class = "input-block-level cust-lightgreen cust-gray", placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
 
@@ -218,7 +207,8 @@
                             </div>
                             <div class="span8">
                                 @Html.TextBoxFor(m => m.Password, new { @Class = "input-block-level cust-lightgreen cust-gray", placeholder = "Password" })
-                            </div>
+                                @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
+                             </div>
                         </div>
                         <div class="span6">
                             <div class="span4">
@@ -227,7 +217,8 @@
                             <div class="span8">
                                 @*<asp:TextBox MaxLength="30" type="password" runat="server" class="input-block-level cust-lightgreen input-block-level" ID="ConfirmPassword" placeholder="Confirm Password" />*@
                                 <input name="ConfirmPassword" maxlength="30" id="ConfirmPassword" type="password" class="input-block-level cust-lightgreen input-block-level" placeholder="Confirm Password"/>
-                            </div>
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, string.Empty, new { @class = "validation-summary-errors" })
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -240,6 +231,8 @@
             </div>
         </div>
     </div>
+            </div>
+}
 }
 <script type="text/javascript">
     function isNumber(evt) {

@@ -16,31 +16,38 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult PatientSignUp()
         {
-            
+            _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
+            ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
+            ViewBag.State = new SelectList(_db.states, "stateid", "Name");
+            ViewBag.City = new SelectList(_db.cities, "cityid", "Name");
+            ViewBag.Location = new SelectList(_db.locations, "locationid", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult PatientSignUp(user user)
         {
-            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-            db.users.InsertOnSubmit(user);
-            db.SubmitChanges();
+            if (ModelState.IsValid)
+            {
+                _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
+                _db.users.InsertOnSubmit(user);
+                _db.SubmitChanges();
+            }
             return View();
         }
+        [HttpGet]
         public ActionResult DoctorSignUp()
         {
             UtilityManager utilityManager = new UtilityManager();
-
-            
-
-            User user = new Models.User();
-            user.Countries = utilityManager.getAllCountries();
-            
-            return View(user);
+            _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
+            ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
+            ViewBag.Specialities = new SelectList(_db.specialities, "specialityid", "Name");
+            ViewBag.Registrationcouncil = new SelectList(_db.registrationcouncils, "regcouncilid", "name");
+            return View();
         }
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult DoctorSignUp(user user)
         {
             if (ModelState.IsValid)
@@ -51,5 +58,9 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
+        //public ActionResult GetCounsilList(int CountryId)
+        //{ 
+        //return 
+        //}
     }
 }

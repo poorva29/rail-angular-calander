@@ -10,18 +10,6 @@
 <script src="~/Content/chosen/chosen.jquery.js"></script>
 <script src="~/Scripts/utility.js"></script>
 <a href="~/Content/less/datepicker.less">~/Content/less/datepicker.less</a>
-@if (ViewData.ModelState.IsValid)
-    {
-        if (@ViewBag.Name != null)
-        {
-
-        @ViewBag.Name;
-
-        }
-    }
-
- 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -61,7 +49,7 @@
                                     </div>
                                     <div class="span8  ">
                                         @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "50", placeholder = "First Name" })
-                                        @Html.ValidationMessageFor(m => m.FirstName)
+                                        @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -70,7 +58,7 @@
                                     </div>
                                     <div class="span8">
                                         @Html.TextBoxFor(m => m.LastName, new { @class = "cust-no-border cust-gray input-block-level", maxlength = "50", placeholder = "Last Name" })
-                                        @Html.ValidationMessageFor(m => m.LastName)
+                                        @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +72,7 @@
                                     <div class="span8">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()" style="width: 100%;">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray", placeholder = "Date Of Birth" })
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray", placeholder = "Date Of Birth", @readonly = "readonly" })
                                             <span class="add-on icon-with-right-curve"></span>
                                         </div>
                                     </div>
@@ -112,7 +100,7 @@
                                     </div>
                                     <div class="span8">
                                         @Html.TextBoxFor(m => m.MobileNo, new { @class = "cust-no-border cust-gray input-block-level", maxlength = "10", placeholder = "Mobile No" })
-                                        @Html.ValidationMessageFor(m => m.MobileNo)
+                                        @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -147,8 +135,7 @@
                                         <label class="cust-font-style">Specialities:</label>
                                     </div>
                                     <div class="span8">
-                                        @*<asp:ListBox ID="lstSpecialities" runat="server" SelectionMode="Multiple" class="chzn-select" Width="100%"></asp:ListBox>*@
-                                        <select name="lstSpecialities" id="lstSpecialities" class="chzn-select chzn-done" style="width: 100%; "></select>
+                                        @Html.DropDownList("Specialities", "Select Speciality")
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -168,12 +155,7 @@
                                         <label class="cust-font-style">Country:</label>
                                     </div>
                                     <div class="span8">
-
-                                        @*@Html.DropDownListFor(x => x.CountryId, new SelectList(Model.Countries.AsEnumerable()), "--Select country--")*@
-                                            @*@Html.DropDownList("name", new SelectList(Model.Countries.AsEnumerable()))*@
-                                   @Html.DropDownListFor(m => Model.CountryId,Model.Countries)
-                                             @*@Html.DropDownListFor(m => m.Countries.First().Text, new SelectList(Model.Countries.AsEnumerable(), "Name"))*@
-
+                                        @Html.DropDownList("Countries","---Select Country---")
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -181,11 +163,7 @@
                                         <label class="cust-font-style">Registration Council:</label>
                                     </div>
                                     <div class="span8">
-                                        @*<select name="ddRegCouncil" onchange="" id="ddRegCouncil" class="cust-no-border cust-gray input-block-level drop-arrows">
-                                                <option value="0">--- Registration Council ---</option>
-                                            </select>*@
-                                        @*@Html.DropDownListFor(m => m.registrationcouncil, new SelectList(Model.registrationcouncil))*@
-
+                                       @Html.DropDownList("Registrationcouncil", "--- Registration Council ---")
                                     </div>
                                 </div>
                             </div>
@@ -202,9 +180,10 @@
                                 </div>
                                 <div class="span8">
                                     @Html.TextBoxFor(m => m.Email, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "50", placeholder = "Email" })
-                                    @Html.ValidationMessageFor(m => m.Email) </div>
-                            </div>
+                                    @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
+                                </div>
                         </div>
+                           <div>
                         <div class="row-fluid cust-padding-bw-row">
                             <div class="span12">
                                 <div class="span6">
@@ -213,7 +192,7 @@
                                     </div>
                                     <div class="span8">
                                         @Html.TextBoxFor(m => m.Password, new { @class = "cust-no-border cust-gray input-block-level", maxlength = "30", placeholder = "Password" })
-                                        @Html.ValidationMessageFor(m => m.Password)
+                                        @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                                 <div class="span6">
@@ -221,8 +200,8 @@
                                         <label class="cust-font-style required ">Confirm Password:</label>
                                     </div>
                                     <div class="span8">
-                                        @Html.TextBoxFor(m => m.Password, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "30", placeholder = "Confirm Password" })
-                                        @Html.ValidationMessageFor(m => m.Password)
+                                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "30", placeholder = "Confirm Password" })
+                                        @Html.ValidationMessageFor(m => m.ConfirmPassword, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -238,6 +217,8 @@
             </div>
         </div>
     </div>
+        </div>
+        </div>
     }
 }
 
@@ -250,6 +231,16 @@
         }
         return true;
     }
+    //$('#CountryId').change(function () {
+    //    $.getJSON('/User/GetCounsilList/' + $('#RegistrationcouncilID').val(), function (data) {
+    //        var items = '<option>--- Registration Council ---</option>';
+    //        $.each(data, function (i, district) {
+    //            items += "<option value='" + district.Value + "'>" + district.Text + "</option>";
+    //        });
+    //        $('#District').html(items);
+    //    });
+    //});
+    $("select").addClass("form-control")
     $(".input-block-level").keyup(function () {
         Page_ClientValidate();
     });

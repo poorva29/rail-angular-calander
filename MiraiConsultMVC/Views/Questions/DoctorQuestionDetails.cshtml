@@ -1,85 +1,86 @@
-﻿@{
-    ViewBag.Title = "DoctorQuestionDetails";
-    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
-}
+﻿@model IEnumerable<QuestionDtlModel>
+    @{
+        ViewBag.Title = "DoctorQuestionDetails";
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
 
-<div class="row-fluid">
-    <div class=" custom-central-div">
-        <div class="span12">
-            @if (@*QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[0].Rows.Count != 0*@ true)
-                      {
-                <div class='span12 custom-green-container'>
-                    <div class='question_text'>@*<%=  QuestionDetails.Tables[0].Rows[0]["questiontext"] %>*@ </div>
-                </div>
-                <br />
-                            if (@*QuestionDetails.Tables[0].Rows[0]["answerid"] != System.DBNull.Value8*@ true)
-                            {
-                                 for (@*int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++*@ int a = 11;a < 10; a++)
-                                 {
-                                    <div class="row-fluid">
-                                        <div class="span1 question_detail hidden-phone">
-                                            <div class="feedDocImage img">
-                                                @if (@*(QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != "" && (QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) !=null*@ true)
-                                     {
-                                                    @*<img src='<%= QuestionDetails.Tables[0].Rows[i]["doctorimg"] %>' />*@
-                                     }
-                                    else
-                                    {
-                                                    <img src='../Resources/image/img-na.png' />
-                                    }
-                                            </div>
-                                        </div>
-                                        <div class='feedDocImage img visible-phone'>
-                                            @if (@*(QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != "" && (QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) !=null*@ true)
-                                    {
-                                                @*<img src='<%= QuestionDetails.Tables[0].Rows[i]["doctorimg"] %>' />*@
-                                    }
-                                    else
-                                    {
-                                                <img src='../Resources/image/img-na.png' />
-                                    }
-                                        </div>
-                                        <div class='span8'>
-                                            <div class='ans_time_detail intermediate-size-padding'>Dr.  @*<%=  QuestionDetails.Tables[0].Rows[i]["doctor"] %>*@ </div>
-                                            <div class='title_text intermediate-size-padding'>
-                                                @*<%=  QuestionDetails.Tables[0].Rows[i]["title"] %>*@
-                                            </div>
-                                        </div>
-                                        <div class="span3">
-                                            @*<div id='<%=  QuestionDetails.Tables[0].Rows[i]["answerid"] %>ans'><div class="inner-count-likes pull-right" title="Thanked by patient"> <%=  QuestionDetails.Tables[0].Rows[i]["thanxcount"] %></div><div class="inner-count-endorse pull-right" title="Endorsed"> <%=  QuestionDetails.Tables[0].Rows[i]["endorsecount"] %></div></div>*@
-
-                                        </div>
-                                    </div>
-
-                                    <div class='row-fluid'>
-                                        @if (@*QuestionDetails.Tables[0].Rows[i]["answerimg"] != System.DBNull.Value*@ true)
-                                    {
-                                            <div class='span5 offset1'>
-                                                <p class='ans_text'>@*<%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %>*@</p>
-                                            </div>
-                                            <div class='span3'>
-                                                <div class='feedAnsImage img'>
-                                                   @* <img src="../feed/answerPhotos/<%=  QuestionDetails.Tables[0].Rows[i][" answerimg"] %>">*@
-                                                </div>
-                                            </div>
-                                    }
-                                    else
-                                    {
-                                            <div class='span11 offset1'>
-                                                <p class='ans_text'>@*<%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %>*@</p>
-                                            </div>
-                                    }
-                                    </div>
-                                    if (@*userId != Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["Docid"])*@ true)
-                                    {
-                                        <div class='row-fluid'>
-                                            <div style="width:100%">
-                                                <div class='span10 hidden-phone'><hr style="margin:15px" /></div>
-                                                @*bool isendorse;*@
-                                                @*isendorse = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isendorse"]);*@
-                                                @if (@*isendorse == false*@ true)
+    <div class="row-fluid">
+        <div class=" custom-central-div">
+            <div class="span12">
+                @if (@*QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[0].Rows.Count != 0*@ true)
+                {
+                    <div class='span12 custom-green-container'>
+                        <div class='question_text'>@*<%=  QuestionDetails.Tables[0].Rows[0]["questiontext"] %>*@ </div>
+                    </div>
+                    <br />
+                    if (@*QuestionDetails.Tables[0].Rows[0]["answerid"] != System.DBNull.Value8*@ true)
+                    {
+                        for (@*int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++*@ int a = 11; a < 10; a++)
+                        {
+                            <div class="row-fluid">
+                                <div class="span1 question_detail hidden-phone">
+                                    <div class="feedDocImage img">
+                                        @if (@*(QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != "" && (QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) !=null*@ true)
                                         {
-                                            if(@*Session["UserId"] != null && QuestionDetails.Tables[0].Rows[i]["answerid"]!= System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["lastname"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["mobileno"] !=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["Email"]!=System.DBNull.Value && Session["UserFullName"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["questiontext"]!=System.DBNull.Value  && QuestionDetails.Tables[0].Rows[i]["endorsecount"]!=System.DBNull.Value *@ true)
+                                            @*<img src='<%= QuestionDetails.Tables[0].Rows[i]["doctorimg"] %>' />*@
+                                        }
+                                        else
+                                        {
+                                            <img src='../Resources/image/img-na.png' />
+                                        }
+                                    </div>
+                                </div>
+                                <div class='feedDocImage img visible-phone'>
+                                    @if (@*(QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != "" && (QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) !=null*@ true)
+                                    {
+                                        @*<img src='<%= QuestionDetails.Tables[0].Rows[i]["doctorimg"] %>' />*@
+                                    }
+                                    else
+                                    {
+                                        <img src='../Resources/image/img-na.png' />
+                                    }
+                                </div>
+                                <div class='span8'>
+                                    <div class='ans_time_detail intermediate-size-padding'>Dr.  @*<%=  QuestionDetails.Tables[0].Rows[i]["doctor"] %>*@ </div>
+                                    <div class='title_text intermediate-size-padding'>
+                                        @*<%=  QuestionDetails.Tables[0].Rows[i]["title"] %>*@
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    @*<div id='<%=  QuestionDetails.Tables[0].Rows[i]["answerid"] %>ans'><div class="inner-count-likes pull-right" title="Thanked by patient"> <%=  QuestionDetails.Tables[0].Rows[i]["thanxcount"] %></div><div class="inner-count-endorse pull-right" title="Endorsed"> <%=  QuestionDetails.Tables[0].Rows[i]["endorsecount"] %></div></div>*@
+
+                                </div>
+                            </div>
+
+                            <div class='row-fluid'>
+                                @if (@*QuestionDetails.Tables[0].Rows[i]["answerimg"] != System.DBNull.Value*@ true)
+                                {
+                                    <div class='span5 offset1'>
+                                        <p class='ans_text'>@*<%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %>*@</p>
+                                    </div>
+                                    <div class='span3'>
+                                        <div class='feedAnsImage img'>
+                                            @* <img src="../feed/answerPhotos/<%=  QuestionDetails.Tables[0].Rows[i][" answerimg"] %>">*@
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class='span11 offset1'>
+                                        <p class='ans_text'>@*<%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %>*@</p>
+                                    </div>
+                                }
+                            </div>
+                            if (@*userId != Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["Docid"])*@ true)
+                            {
+                                <div class='row-fluid'>
+                                    <div style="width:100%">
+                                        <div class='span10 hidden-phone'><hr style="margin:15px" /></div>
+                                        @*bool isendorse;*@
+                                        @*isendorse = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isendorse"]);*@
+                                        @if (@*isendorse == false*@ true)
+                                        {
+                                            if (@*Session["UserId"] != null && QuestionDetails.Tables[0].Rows[i]["answerid"]!= System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["lastname"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["mobileno"] !=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["Email"]!=System.DBNull.Value && Session["UserFullName"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["questiontext"]!=System.DBNull.Value  && QuestionDetails.Tables[0].Rows[i]["endorsecount"]!=System.DBNull.Value *@ true)
                                             {
 
                                                 //<a class='custom-link' onclick='return endorseToDoctor(" <%=  Session["UserId"] %> ","  <%=  QuestionDetails.Tables[0].Rows[i]["answerid"] %>   ",this,"  <%=  QuestionDetails.Tables[0].Rows[i]["lastname"] %>"," <%=  QuestionDetails.Tables[0].Rows[i]["mobileno"] %>  ","<%=  QuestionDetails.Tables[0].Rows[i]["Email"] %>"," <%=  Session["UserFullName"] %> ","<%=  QuestionDetails.Tables[0].Rows[i]["questiontext"] %>","<%=  QuestionDetails.Tables[0].Rows[i]["endorsecount"] %>")'><b>Want to endorse?</b></a>
@@ -87,85 +88,85 @@
                                         }
                                         else
                                         {
-                                                    <a class="custom-green-text"><img src='../resources/image/thanks.png' />Endorsed</a>
+                                            <a class="custom-green-text"><img src='../resources/image/thanks.png' />Endorsed</a>
                                         }
-                                            </div>
-                                        </div>
-                                    }
-                                    if(@*i != (QuestionDetails.Tables[0].Rows.Count -1)*@ true)
-                                    {
-                                        <hr class='hr_color' />
-                                    }
-                                }
+                                    </div>
+                                </div>
                             }
-                            else
+                            if (@*i != (QuestionDetails.Tables[0].Rows.Count -1)*@ true)
                             {
-                                <div class="span12">No answers received</div>
-                                <br />
+                                <hr class='hr_color' />
                             }
                         }
-                        else
-                        {
-                <div class="span12">No records found</div>
-                <br />
+                    }
+                    else
+                    {
+                        <div class="span12">No answers received</div>
+                        <br />
+                    }
+                }
+                else
+                {
+                    <div class="span12">No records found</div>
+                    <br />
 
-                        }
+                }
 
-            <div class="wrapper-bordered" id="SuccessMessagediv" visible="false" runat="server">
-                <div class="row-fluid">
-                    <div class="span12">
-                        @*<asp:Label ID="lblSuccessMessage" runat="server" Text=""></asp:Label>*@
-                    </div>
-                </div>
-            </div>
-            <div id="answer_container" class="offset2 span7 " @*runat="server"*@>
-                <div class=" custom-green-container">
+                <div class="wrapper-bordered" id="SuccessMessagediv" visible="false" runat="server">
                     <div class="row-fluid">
                         <div class="span12">
+                            @*<asp:Label ID="lblSuccessMessage" runat="server" Text=""></asp:Label>*@
                         </div>
                     </div>
-                    <br />
-                    <div class="row-fluid ">
-                        <label class="pull-left span4 btn-padding-left">Title:</label>
-                        <div class="pull-right span8 main-outter-padding">
-                            <input type="text" class="input-block-level" id="txttitle" placeholder="Title" maxlength="50" runat="server" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row-fluid">
-                        <label class="pull-left span4 required  btn-padding-left">Answer:</label>
-                        <div class="pull-right span8  main-outter-padding">
-                            <div>
-                                <textarea class="input-block-level txtareaborder" maxlength="500" id="txtAnswer" onkeyup="Count(this)" placeholder="Enter Your Answer Here." clientidmode="Static" runat="server" rows="3" cols="10"></textarea>
-                                <label id="count" style="float:right">0/500</label>
+                </div>
+                <div id="answer_container" class="offset2 span7 " @*runat="server"*@>
+                    <div class=" custom-green-container">
+                        <div class="row-fluid">
+                            <div class="span12">
                             </div>
-                            @*<asp:RequiredFieldValidator ID="RequiredAnswer" runat="server" ControlToValidate="txtAnswer" ForeColor="Red"
-                                                        ErrorMessage="Please Enter Answer." Display="Dynamic" ValidationGroup="submit"></asp:RequiredFieldValidator>*@
                         </div>
-                    </div>
-                    <br />
-                    <div class="row-fluid">
-                        <label class="pull-left span4  btn-padding-left">Upload Image:</label>
-                        <div class="pull-right span8  main-outter-padding">
-                            @*<asp:FileUpload MaxLength="256" class="fileupload_btn_margin" runat="server" ID="fileUploadForImage" type="file"></asp:FileUpload>*@
-                            @*<asp:CustomValidator ID="CustomValidatorForImage" runat="server" ControlToValidate="fileUploadForImage"
-                                                 Display="Dynamic" ValidationGroup="submit" OnServerValidate="ServerFileUploadValidtion"
-                                                 ClientValidationFunction="validatePhoto" ErrorMessage="Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions."></asp:CustomValidator>*@
-                            @*<asp:CustomValidator ID="FileUploadCustomValidator" runat="server" ControlToValidate="fileUploadForImage"
-                                                 OnServerValidate="FileUploadCustomValidator_ServerValidate" ErrorMessage="File must be less then 10MB" Display="Dynamic" ValidationGroup="submit"></asp:CustomValidator>*@
+                        <br />
+                        <div class="row-fluid ">
+                            <label class="pull-left span4 btn-padding-left">Title:</label>
+                            <div class="pull-right span8 main-outter-padding">
+                                <input type="text" class="input-block-level" id="txttitle" placeholder="Title" maxlength="50" runat="server" />
+                            </div>
                         </div>
-                    </div>
-                    <br />
-                    <div class="row-fluid">
-                        <div class="span6 offset4 btn-padding-left">
-                            @*<asp:Button ID="btnCreateDoctorAccount" class="btn thanx" runat="server" AutoPostBack="true" OnClick="btnSubmitAnswer_Click"
-                                        OnClientClick="if (!Page_ClientValidate()){ this.disabled = false;} else{ this.disabled = true;}" UseSubmitBehavior="false" Text="Submit" ValidationGroup="submit"></asp:Button>*@
-                            @*<asp:Button ID="btnClear" runat="server" Text="Clear" ValidationGroup="clear" class="btn" OnClick="btnClear_Click"></asp:Button>*@
+                        <br />
+                        <div class="row-fluid">
+                            <label class="pull-left span4 required  btn-padding-left">Answer:</label>
+                            <div class="pull-right span8  main-outter-padding">
+                                <div>
+                                    <textarea class="input-block-level txtareaborder" maxlength="500" id="txtAnswer" onkeyup="Count(this)" placeholder="Enter Your Answer Here." clientidmode="Static" runat="server" rows="3" cols="10"></textarea>
+                                    <label id="count" style="float:right">0/500</label>
+                                </div>
+                                @*<asp:RequiredFieldValidator ID="RequiredAnswer" runat="server" ControlToValidate="txtAnswer" ForeColor="Red"
+                                    ErrorMessage="Please Enter Answer." Display="Dynamic" ValidationGroup="submit"></asp:RequiredFieldValidator>*@
+                            </div>
                         </div>
+                        <br />
+                        <div class="row-fluid">
+                            <label class="pull-left span4  btn-padding-left">Upload Image:</label>
+                            <div class="pull-right span8  main-outter-padding">
+                                @*<asp:FileUpload MaxLength="256" class="fileupload_btn_margin" runat="server" ID="fileUploadForImage" type="file"></asp:FileUpload>*@
+                                @*<asp:CustomValidator ID="CustomValidatorForImage" runat="server" ControlToValidate="fileUploadForImage"
+                                    Display="Dynamic" ValidationGroup="submit" OnServerValidate="ServerFileUploadValidtion"
+                                    ClientValidationFunction="validatePhoto" ErrorMessage="Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions."></asp:CustomValidator>*@
+                                @*<asp:CustomValidator ID="FileUploadCustomValidator" runat="server" ControlToValidate="fileUploadForImage"
+                                    OnServerValidate="FileUploadCustomValidator_ServerValidate" ErrorMessage="File must be less then 10MB" Display="Dynamic" ValidationGroup="submit"></asp:CustomValidator>*@
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row-fluid">
+                            <div class="span6 offset4 btn-padding-left">
+                                @*<asp:Button ID="btnCreateDoctorAccount" class="btn thanx" runat="server" AutoPostBack="true" OnClick="btnSubmitAnswer_Click"
+                                    OnClientClick="if (!Page_ClientValidate()){ this.disabled = false;} else{ this.disabled = true;}" UseSubmitBehavior="false" Text="Submit" ValidationGroup="submit"></asp:Button>*@
+                                @*<asp:Button ID="btnClear" runat="server" Text="Clear" ValidationGroup="clear" class="btn" OnClick="btnClear_Click"></asp:Button>*@
+                            </div>
+                        </div>
+                        <br />
                     </div>
-                    <br />
                 </div>
             </div>
         </div>
     </div>
-</div>

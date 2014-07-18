@@ -5,6 +5,46 @@ using System.Web;
 
 namespace MiraiConsultMVC.Models
 {
+
+    public class QuestionDtlModel
+    {
+        public int Id { get; set; }
+
+        public int QuestionId { get; set; }
+        public int UserId { get; set; }
+
+        public int Gender { get; set; }
+
+        public string PatientLastName { get; set; }
+
+        public string PatientEmail { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public string MobileNo { get; set; }
+        public int status { get; set; }
+        public DateTime CreateDate { get; set; }
+
+        public string QuestionText { get; set; }
+
+
+        public int AnswerId { get; set; }
+        public string DoctorImg { get; set; }
+        public string Title { get; set; }
+        public string AnswerText { get; set; }
+        public string AnswerImg { get; set; }
+        public DateTime AnswerDate { get; set; }
+        public int DocId { get; set; }
+        public string Doctor { get; set; }
+        public bool IsPatientThank { get; set; }
+        public bool IsEndorse { get; set; }
+        public int ThanxCount { get; set; }
+        public int EndorseCount { get; set; }
+        public bool IsDocconnectUser { get; set; }
+        public string DocconnectDoctorId { get; set; }
+    }
     public class QuestionModel
     {
         private int questionid;

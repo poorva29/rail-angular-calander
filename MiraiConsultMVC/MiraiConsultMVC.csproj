@@ -207,7 +207,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\User\Login.cs" />
-    <Compile Include="Models\Utilities.cs" />
+    <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\_dbAskMirai.designer.cs" />
     <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -236,6 +236,8 @@
     <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\MiraiConsultMVC.dll" />
+    <Content Include="bin\MiraiConsultMVC.pdb" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-tokenfield.css" />
@@ -507,7 +509,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Shared\_Internal.cshtml" />
     <Content Include="Views\Shared\_AskmiraiMasterLayout.cshtml" />
     <Content Include="Views\Shared\_PatientMasterLayout.cshtml" />
@@ -519,9 +523,11 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\TermsOfUse.cshtml" />
     <Content Include="Views\Home\HowWeWorks.cshtml" />
+    <Content Include="Views\User\ManageDoctors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

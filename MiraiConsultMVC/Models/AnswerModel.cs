@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Model
+namespace MiraiConsultMVC.Models
 {
-    public class Answer
+    public class AnswerModel
     {
         private int answerid;
         private int userid;

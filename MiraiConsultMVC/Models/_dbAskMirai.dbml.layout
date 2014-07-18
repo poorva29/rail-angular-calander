@@ -170,42 +170,42 @@
         <elementListCompartment Id="15080412-ba94-4feb-85e5-168443c70126" absoluteBounds="12.765, 16.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/city/city_hospital" />
       <nodes>
         <classShapeMoniker Id="9aefaa40-cd1e-4d2e-be22-b56125edbc3f" />
         <classShapeMoniker Id="aedeba7c-634f-4406-bb77-03f64456ae9a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.59375); (3.59375 : 4.59375); (3.59375 : 3.73240397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.59375); (3.59375 : 4.59375); (3.59375 : 3.73240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/country/country_hospital" />
       <nodes>
         <classShapeMoniker Id="1b505bb8-54a1-4a61-a059-2aa6847bb60b" />
         <classShapeMoniker Id="aedeba7c-634f-4406-bb77-03f64456ae9a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.31814697265625); (6.25 : 2.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 2.31814697265625); (6.25 : 2.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/hospital/hospital_hospital_admin" />
       <nodes>
         <classShapeMoniker Id="aedeba7c-634f-4406-bb77-03f64456ae9a" />
         <classShapeMoniker Id="053f3988-4093-4a83-ad1b-2043ab9fdfd3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 20.3788883463542); (6.46875 : 20.3788883463542); (6.46875 : 3.0112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 20.3788883463542); (6.46875 : 20.3788883463542); (6.46875 : 3.0112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/user/user_hospital_admin" />
       <nodes>
         <classShapeMoniker Id="afd70cab-eefb-47f9-94ae-d54921f97b3f" />
         <classShapeMoniker Id="053f3988-4093-4a83-ad1b-2043ab9fdfd3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.48964680989583); (3.5624975 : 7.48964680989583); (3.5624975 : 3.73240397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 7.48964680989583); (3.5624975 : 7.48964680989583); (3.5624975 : 3.73240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/location/location_hospital" />
       <nodes>
         <classShapeMoniker Id="b01e9b6c-5e44-4818-9c75-0dfa97cca618" />
         <classShapeMoniker Id="aedeba7c-634f-4406-bb77-03f64456ae9a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 9.44314697265625); (3.6250025 : 9.44314697265625); (3.6250025 : 3.73240397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 9.44314697265625); (3.6250025 : 9.44314697265625); (3.6250025 : 3.73240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/state/state_hospital" />
       <nodes>
         <classShapeMoniker Id="bf4a72c9-a349-45ab-9c71-0e515c86ea48" />

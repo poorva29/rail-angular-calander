@@ -14,3 +14,11 @@ F:\consult-mvc\DAL\bin\Model.pdb
 F:\consult-mvc\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 F:\consult-mvc\DAL\obj\Debug\DAL.dll
 F:\consult-mvc\DAL\obj\Debug\DAL.pdb
+F:\Projects\consult-mvc\DAL\bin\DAL.dll.config
+F:\Projects\consult-mvc\DAL\bin\DAL.pdb
+F:\Projects\consult-mvc\DAL\bin\Model.dll
+F:\Projects\consult-mvc\DAL\bin\Newtonsoft.Json.dll
+F:\Projects\consult-mvc\DAL\bin\Model.pdb
+F:\Projects\consult-mvc\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+F:\Projects\consult-mvc\DAL\obj\Debug\DAL.dll
+F:\Projects\consult-mvc\DAL\obj\Debug\DAL.pdb

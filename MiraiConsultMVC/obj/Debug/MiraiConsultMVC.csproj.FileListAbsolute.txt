@@ -89,3 +89,6 @@ F:\consult-mvc\MiraiConsultMVC\bin\Model.dll
 F:\consult-mvc\MiraiConsultMVC\bin\DAL.pdb
 F:\consult-mvc\MiraiConsultMVC\bin\Model.pdb
 F:\consult-mvc\MiraiConsultMVC\bin\log4net.dll
+F:\Projects\consult-mvc\MiraiConsultMVC\obj\Debug\MiraiConsultMVC.csprojResolveAssemblyReference.cache
+F:\Projects\consult-mvc\MiraiConsultMVC\obj\Debug\MiraiConsultMVC.dll
+F:\Projects\consult-mvc\MiraiConsultMVC\obj\Debug\MiraiConsultMVC.pdb

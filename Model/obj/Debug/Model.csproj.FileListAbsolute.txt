@@ -8,3 +8,8 @@ F:\consult-mvc\Model\bin\Model.pdb
 F:\consult-mvc\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
 F:\consult-mvc\Model\obj\Debug\Model.dll
 F:\consult-mvc\Model\obj\Debug\Model.pdb
+F:\Projects\consult-mvc\Model\bin\Model.dll.config
+F:\Projects\consult-mvc\Model\bin\Model.pdb
+F:\Projects\consult-mvc\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+F:\Projects\consult-mvc\Model\obj\Debug\Model.dll
+F:\Projects\consult-mvc\Model\obj\Debug\Model.pdb

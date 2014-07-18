@@ -18,6 +18,16 @@ namespace MiraiConsultMVC
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+
+            bundles.Add(new ScriptBundle("~/bundles/assignquestionjs").Include(
+                     "~/Content/chosen/chosen.jquery.js",
+                     "~/Content/js/jquery.dataTables.js",
+                     "~/Content/js/bootstrap-pagination.js"
+                    ));
+
+             bundles.Add(new ScriptBundle("~/bundles/assignquestioncss").Include(
+                     "~/Content/chosen/chosen.css"
+                    ));
             bundles.Add(new ScriptBundle("~/bundles/validation").Include(
                 "~/Scripts/jquery.validate.js"));
 

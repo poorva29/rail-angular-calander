@@ -17,13 +17,15 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userID = 6)
+        public ActionResult DoctorQuestionList(int userId = 6,bool filter = false)
         {
             IList<QuestionModel> Questions = new List<QuestionModel>();
             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-            var QuestionsById = db.getQuestionListByDoctorid(userID).ToList();
+            var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
             QuestionModel QModel;
             AnswerModel AModel;
+
+            
             if (QuestionsById != null && QuestionsById.Count > 0)
             {
                 foreach (var question in QuestionsById)
@@ -42,10 +44,15 @@ namespace MiraiConsultMVC.Controllers
                         AModel.AnswerText = Convert.ToString(question.answertext);
                         QModel.answers.Add(AModel);
                     }
-                    QModel.UserId = userID;
+                    QModel.UserId = userId;
+                    QModel.Filter = filter;
                     Questions.Add(QModel);
 
                 }
+            }
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_DoctorQuestionList", Questions);
             }
             return View(Questions);
         }

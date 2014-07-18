@@ -18,6 +18,8 @@ namespace MiraiConsultMVC
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ViewsScripts").Include("~/Scripts/ViewScrips/QuestionListScript.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/validation").Include(
                 "~/Scripts/jquery.validate.js"));
 
@@ -27,6 +29,8 @@ namespace MiraiConsultMVC
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/custom").Include("~/Content/custom.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

@@ -25,6 +25,7 @@ namespace MiraiConsultMVC.Models
         public string Counts { get { return counts; } set { counts = value; } }
         public int AnsweredBy { get { return answeredby; } set { answeredby = value; } }
 
+        public bool Filter { get; set; }
         public QuestionModel()
         {
             answers = new List<AnswerModel>();

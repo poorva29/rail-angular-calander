@@ -5,7 +5,7 @@ using System.Web;
 using DAL;
 using Model;
 
-namespace askmirai
+namespace MiraiConsultMVC
 {
     public class BasePage:System.Web.UI.Page
     {    /// <summary>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
 using MiraiConsultMVC;
+using System.Configuration;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -21,37 +22,78 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult PatientProfile()
         {
-            return View(getPatientDetailsByPatientId(63));
+            return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));
         }
         
         [HttpPost]
         public ActionResult PatientProfile(Profile profile)
         {
-           if(ModelState.IsValid)
-           {
-               profile.RegistrationDate = DateTime.Now;
-               profile.UserType = Convert.ToInt32(UserType.Patient);
-               profile.UserId = 63;
-               profile.Status = Convert.ToInt32(UserStatus.Pending);
-               if(ViewBag.email != profile.Email)
-               {
-                   profile.IsEmailVerified = false;
-               }
-               else
-               {
-                   profile.IsEmailVerified = true;
-               }
-               profile.DateOfBirth = DateTime.Parse(Convert.ToString(profile.DateOfBirth));
-               var result = db.askmirai_patient_Insert_Update(profile.FirstName, profile.FirstName, profile.Email, profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified);
-               if(result != null && result.Count() > 0)
-               {
-                  
-               }
-           }
-           return RedirectToAction("PatientProfile");
-        }
+            if (ModelState.IsValid)
+            {
+                profile.RegistrationDate = DateTime.Now;
+                profile.UserType = Convert.ToInt32(UserType.Patient);
+                profile.UserId = Convert.ToInt32(Session["UserId"]);
+                profile.Status = Convert.ToInt32(UserStatus.Pending);
+                if (!TempData["Email"].Equals(profile.Email))
+                {
+                    profile.IsEmailVerified = false;
+                }
+                else
+                {
+                    profile.IsEmailVerified = true;
+                }
+                profile.DateOfBirth = DateTime.Parse(Convert.ToString(profile.DateOfBirth));
+                var result = (db.askmirai_patient_Insert_Update(profile.FirstName, profile.FirstName, profile.Email, profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified)).ToList();
+                if (result != null && result.Count() > 0)
+                {
+                    var res = result.FirstOrDefault();
+                    if (Convert.ToBoolean(res.EmailAvailable))
+                     {
+                         if (!TempData["Email"].Equals(profile.Email))
+                         {
+                             string patientid = Convert.ToString(res.UserId);
+                             string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
+                             string emailBody = EmailTemplates.SendNotificationEmailtoUser(profile.FirstName, patientid, emailVerficationURL, "Patient");
+                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                             string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                             Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;                            
+                             ViewBag.message = "Account has been Updated successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
+                         }
+                         else
+                         {
+                             Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;
+                             ViewBag.message = "Account has been updated successfully.";
+                         }
+                         Session["locationid"] = profile.LocationId;
+                         Session["cityid"] = profile.CityId;
+                     }
 
-        [HttpGet]
+                    else if (!Convert.ToBoolean(res.EmailAvailable))
+                    {
+                        ViewBag.message = "This username is not available. Please select a different username.";
+                    }
+                }
+            }
+            var countryList = poupulateCountry();
+            profile.Countries = new SelectList(countryList, "countryid", "name");
+            profile.CountryId = Convert.ToInt32(TempData["CountryId"]);
+
+            var stateList = poupulateState(Convert.ToInt32(TempData["CountryId"]));
+            profile.States = new SelectList(stateList, "stateId", "name");
+            profile.StateId = Convert.ToInt32(TempData["stateId"]);
+
+            var cityList = poupulateCity(Convert.ToInt32(TempData["stateId"]));
+            profile.Cities = new SelectList(cityList, "cityId", "name");
+            profile.CityId = Convert.ToInt32(TempData["cityId"]);
+
+            var locationList = poupulateLocation(Convert.ToInt32(TempData["cityId"]));
+            profile.Locations = new SelectList(locationList, "locationId", "name");
+            profile.LocationId = Convert.ToInt32(TempData["locationId"]);
+
+            return View(profile);
+        }
+       
         public IList<Country> poupulateCountry()
         {
            IList<Country> countryLst = new List<Country>();
@@ -69,8 +111,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return countryLst;
         }
-
-        [HttpGet]
+       
         public IList<State> poupulateState(int countryId)
         {
             IList<State> stateLst = new List<State>();
@@ -88,8 +129,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return stateLst;
         }
-
-        [HttpGet]
+        
         public IList<City> poupulateCity(int stateId)
         {
             IList<City> cityLst = new List<City>();
@@ -107,8 +147,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return cityLst;
         }
-
-        [HttpGet]
+       
         public IList<Location> poupulateLocation(int cityId)
         {
             IList<Location> locationLst = new List<Location>();
@@ -196,7 +235,7 @@ namespace MiraiConsultMVC.Controllers
                 patientDetail.FirstName = Convert.ToString(patient.firstname);
                 patientDetail.LastName = Convert.ToString(patient.lastname);
                 patientDetail.Email = Convert.ToString(patient.email);
-                ViewBag.email = Convert.ToString(patient.email);
+                TempData["Email"] = Convert.ToString(patient.email);
                 if (patient.mobileno != null)
                     patientDetail.MobileNo = Convert.ToString(patient.mobileno);
                 if (patient.gender != null)
@@ -213,27 +252,31 @@ namespace MiraiConsultMVC.Controllers
                     patientDetail.DateOfBirth = Convert.ToDateTime(patient.dateofbirth);
                 if (patient.countryid != null && patient.countryid != 0)
                 {
-                    var countryList = poupulateCountry();
-                    ViewBag.countries = new SelectList(countryList,"countryid","name");
+                    var countryList = poupulateCountry();    
+                    patientDetail.Countries = new SelectList(countryList, "countryid", "name");
                     patientDetail.CountryId = Convert.ToInt32(patient.countryid);
+                    TempData["CountryId"] = patient.countryid;
                 }
                 if (patient.stateid != null && patient.stateid != 0)
                 {
                     var stateList = poupulateState(Convert.ToInt32(patient.countryid));
-                    ViewBag.states = new SelectList(stateList, "stateId", "name");
+                    patientDetail.States = new SelectList(stateList, "stateId", "name");
                     patientDetail.StateId = Convert.ToInt32(patient.stateid);
+                    TempData["stateId"] = patientDetail.StateId;
                 }
                 if (patient.cityid != null && patient.cityid != 0)
                 {
                     var cityList = poupulateCity(Convert.ToInt32(patient.stateid));
-                    ViewBag.cities = new SelectList(cityList, "cityId", "name");
+                    patientDetail.Cities = new SelectList(cityList, "cityId", "name");
                     patientDetail.CityId = Convert.ToInt32(patient.cityid);
+                    TempData["cityId"] = patientDetail.CityId;
                 }
                 if (patient.locationid != null && patient.locationid != 0)
                 {
                     var locationList = poupulateLocation(Convert.ToInt32(patient.cityid));
-                    ViewBag.locations = new SelectList(locationList, "locationId", "name", "cityid");
+                    patientDetail.Locations = new SelectList(locationList, "locationId", "name", "cityid");
                     patientDetail.LocationId = Convert.ToInt32(patient.locationid);
+                    TempData["locationId"] = patientDetail.LocationId;
                 }
                 if (patient.username != null)
                     patientDetail.UserName = Convert.ToString(patient.username);

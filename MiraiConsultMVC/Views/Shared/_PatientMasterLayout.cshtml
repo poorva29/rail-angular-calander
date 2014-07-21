@@ -54,11 +54,11 @@
                             <div class="pull-right paddingrightby3">
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @*<%= Session["UserFullName"] %>*@ <b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @Session["UserFullName"] <b class="caret"></b></a>
                                         <ul class="dropdown-menu pull-right">
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                             {
-                                                <li><a href="../Profile/patientprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href =" @Url.Action("PatientProfile", "Patients")"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))

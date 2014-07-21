@@ -27,10 +27,9 @@
     @*<asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>*@
 </head>
-<body class="form-horizontal">
+<body>
     @RenderSection("featured", required: false)
     <div id="wrap">
-        @*<form id="form1" runat="server" autocomplete="off" class="form-horizontal">*@
         <div class="navbar custom-navbar">
             <div class="custom-navbar-links">
                 <div class="container">
@@ -45,7 +44,7 @@
                                 {*@
                             <div class="pull-right">
                                 <ul class="nav">
-                                    <li><a href="../admin/Login.aspx">Already have an account? <b><u>Login</u></b></a></li>
+                                    <li><a href="@Url.Action("Login", "User")">Already have an account? <b><u>Login</u></b></a></li>
                                 </ul>
                             </div>
                             @*}
@@ -178,32 +177,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="custom-navbar-inner tomenu-right-padding search-padding-left">
-                    <div class="custom-margin-box topmenu-right-margin topnavbar-position-bottom-margin" style="border:none;margin-left: 1.3%;">
-                        <div class="imgwidth">
+            </div>
+            <div class="custom-navbar-inner tomenu-right-padding search-padding-left">
+                <div class="custom-margin-box topmenu-right-margin topnavbar-position-bottom-margin" style="border:none;margin-left: 1.3%;">
+                    <div class="imgwidth">
 
-                            <a class="brand" href="@Url.Action("Home","Home")">
-                                <img src="../Content/image/logo.png" class="col-md-4 logoimage-width" />
-                            </a>
-                        </div>
-                        <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top unreg-menu-search">
-                            <div class=" row-fluid row-margin-left">
-                                <div class="span8  custom-occupy custom-border-around margin-top-to-tab hidden-phone hidden-tablet btn-margin-top unreg-menu menu-div-margin-top" style="margin-top:-15px;margin-bottom:10px">
-                                    <div class="divHover" style="margin-left: 2px;">
-                                        <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
-                                    </div>
-                                    <div class="divHover">
-                                        <a href="#" class="topmenu-links">|</a>
-                                    </div>
-                                    <div class="divHover">
-                                        <a href="@Url.Action("HowWeWorks","Home")" class="topmenu-links">How we work</a>
-                                    </div>
-                                    <div class="divHover">
-                                        <a href="#" class="topmenu-links">|</a>
-                                    </div>
-                                    <div class="divHover">
-                                        <a href="../patient/finddoctor.aspx" class="topmenu-links">Our Doctors</a>
-                                    </div>
+                        <a class="brand" href="@Url.Action("Home","Home")">
+                            <img src="../Content/image/logo.png" class="col-md-4 logoimage-width" />
+                        </a>
+                    </div>
+                    <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top unreg-menu-search">
+                        <div class=" row-fluid row-margin-left">
+                            <div class="span8  custom-occupy custom-border-around margin-top-to-tab hidden-phone hidden-tablet btn-margin-top unreg-menu menu-div-margin-top" style="margin-top:-15px;margin-bottom:10px">
+                                <div class="divHover" style="margin-left: 2px;">
+                                    <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
                                     <a href="@Url.Action("HowWeWorks","Home")" class="topmenu-links">How we work</a>
@@ -311,7 +301,6 @@
                 </div>
             </div>
         </div>
-        @*</form>*@
     </div>
     <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
     <script type="text/javascript">

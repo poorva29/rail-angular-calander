@@ -1,3 +1,9 @@
-﻿@{
+﻿@if (Convert.ToInt32(Session["UserType"]) == 0 && Session["UserType"] != null)
+{
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+}
+else
+{
     Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
 }
+    

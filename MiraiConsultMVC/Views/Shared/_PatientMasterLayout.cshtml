@@ -38,6 +38,7 @@
 <body class ="form-horizontal">
     @RenderSection("featured", required: false)
     <div id="wrap">
+        @*<form id="form1" runat="server" autocomplete="off" class="form-horizontal" onsubmit="fun()">*@
             <div class="navbar custom-navbar">
                 <div class="custom-navbar-links">
                     <div class="container">
@@ -106,7 +107,7 @@
                 <div class="custom-navbar-inner tomenu-right-padding">
                     <div class="custom-margin-box" style="border:none">
                         <div class="imgwidth">
-                            <a class="brand" href="../home/home.aspx">
+                            <a class="brand" href="@Url.Action("Home","Home")">
                                 <img src="../Content/image/logo.png" class="col-md-4 logoimage-width" />
                             </a>
                         </div>
@@ -377,6 +378,7 @@
                     </div>
                 </div>
             </div>
+        @*</form>*@
     </div>
     <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
     <script type="text/javascript">

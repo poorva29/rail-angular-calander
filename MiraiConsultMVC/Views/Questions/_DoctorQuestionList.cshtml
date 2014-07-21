@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
+<div id="DoctorQuestionList" class="margin_bottom">
+    @{
+        bool filterType = Model.FirstOrDefault().Filter;
+        int count = 0;
+        int cnt = 0;
+        if (Model != null && Model.ToList().Count != 0)
+        {
+            foreach (MiraiConsultMVC.Models.QuestionModel question in Model)
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
+                {
+                    if (question.UserId == question.AnsweredBy && filterType)
+                    { continue; }
+                }
+                // string st = cnt % 2 == 0 ? "row-fluid icon_padding_bottom":"row-fluid icon_padding_bottom";
+
+                <div class='row-fluid icon_padding_bottom @(cnt % 2 != 0 ? "custom-yellow-back" : "")'>
+                    <div style="display:table-row">
+                        <div class="custom-middle">
+                            @if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
+                            {
+                                count++;
+                                if (question.UserId == question.AnsweredBy)
+                                {
+                                    <img src="../Content/image/a-question.png" class="icon_img_check" />
+                                }
+                                else
+                                {
+                                    <img src="../Content/image/ua-question.png" class="icon_img icon_img_check" />
+                                }
+                            }
+                            else
+                            {
+                                <img src="../Content/image/answer.png" class="icon_img icon_img_check" />
+                            }
+                        </div>
+                        <div class='custom-middle middle-size-padding question-padding' style='width:80%'>
+                            <a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>
+                                @question.QuestionText
+                            </a>
+                        </div>
+                        <div class='custom-middle'>
+                            <p class='ans_text float_right'>@question.CreateDate.ToString("dd-MMM-yyyy")</p>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Convert.ToString(question.AnsweredBy)))
+                    {
+                        if (question.UserId == question.AnsweredBy)
+                        {
+                            <div style="display:table-row;">
+                                <div style="display:table-cell"></div>
+                                @if (question.answers.First().AnswerText.Length > 80)
+                                {
+                                    <div class='ans_text question-padding' style="display:table-cell">@question.answers.First().AnswerText.Substring(0, 80)</div>
+                                }
+                                else
+                                {
+                                    <div class='ans_text question-padding' style="display:table-cell">@question.answers.First().AnswerText</div>
+                                }
+                                <div style="display:table-cell"></div>
+                            </div>
+                        }
+                    }
+                </div>
+                    cnt++;
+            }
+        }
+        if (count <= 0)
+        {
+            <div class="row-fluid icon_padding_bottom custom-yellow-back">
+                <span>No records found</span>
+            </div>
+        }
+    }
+</div>

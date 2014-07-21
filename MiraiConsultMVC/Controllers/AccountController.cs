@@ -31,6 +31,7 @@ namespace MiraiConsultMVC.Controllers
         // POST: /Account/Login
 
         [HttpPost]
+        
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)

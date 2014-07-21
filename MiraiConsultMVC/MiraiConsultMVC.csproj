@@ -39,14 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAL">
+    <Reference Include="DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DAL\bin\DAL.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
+      <HintPath>..\..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Model">
+    <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Model\bin\Model.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -217,11 +219,14 @@
     <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\User\Login.cs" />
+    <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\doctordetails.cs" />
     <Compile Include="Models\DoctorLocations.cs" />
     <Compile Include="Models\doctorqualification.cs" />
     <Compile Include="Models\DoctorSpecialities.cs" />
-    <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\_dbAskMirai.designer.cs">
@@ -486,6 +491,7 @@
     <Content Include="Content\less\tokenfield-typeahead.less" />
     <Content Include="Models\_dbAskMirai.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>_dbAskMirai1.designer.cs</LastGenOutput>
       <LastGenOutput>_dbAskMirai.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
@@ -534,6 +540,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\utility.js" />
+    <Content Include="Scripts\ViewScrips\QuestionListScript.js" />
     <Content Include="Services\UserService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -582,13 +589,17 @@
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\partialview\patientmenu.cshtml" />
     <Content Include="Views\Home\partialview\unregpatientmenu.cshtml" />
+    <Content Include="Views\Questions\DoctorQuestionDetails.cshtml" />
+    <Content Include="Views\Questions\DoctorQuestionList.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\TermsOfUse.cshtml" />
     <Content Include="Views\Home\HowWeWorks.cshtml" />
     <Content Include="Views\Patients\PatientProfile.cshtml" />
+    <Content Include="Views\Questions\_DoctorQuestionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -600,6 +611,9 @@
     <None Include="Models\_dbAskMirai.dbml.layout">
       <DependentUpon>_dbAskMirai.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

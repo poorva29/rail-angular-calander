@@ -2395,6 +2395,8 @@ namespace DAL
         }
         #endregion
 
+
+        public static string connectionString { get; set; }
     }
 
     /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
-namespace Model
+namespace MiraiConsultMVC.Models
 {
     public class User
     {
@@ -35,10 +35,10 @@ namespace Model
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
-        public IList<DoctorSpecialities> specialities;
-        public IList<DoctorLocations> locations;
-        public IList<doctorqualification> qualification;
-        public IList<doctordetails> details;
+        //public IList<DoctorSpecialities> specialities;
+        //public IList<DoctorLocations> locations;
+        //public IList<doctorqualification> qualification;
+        //public IList<doctordetails> details;
 
         public int UserId { get { return userid; } set { userid = value; } }
         public string FirstName { get { return firstname; } set { firstname = value; } }
@@ -69,28 +69,28 @@ namespace Model
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
 
-        public User()
-        {
-            specialities = new List<DoctorSpecialities>();
-            locations = new List<DoctorLocations>();
-            qualification = new List<doctorqualification>();
-            details = new List<doctordetails>();
-        }
-        public void AddSpeciality(DoctorSpecialities Speciality)
-        {
-            specialities.Add(Speciality);
-        }
-        public void RemoveSpeciality(DoctorSpecialities Speciality)
-        {
-            this.specialities.Remove(Speciality);
-        }
-        public void AddLocations(DoctorLocations Location)
-        {
-            locations.Add(Location);
-        }
-        public void RemoveLocations(DoctorLocations Location)
-        {
-            this.locations.Remove(Location);
-        }       
+        //public User()
+        //{
+        //    specialities = new List<DoctorSpecialities>();
+        //    locations = new List<DoctorLocations>();
+        //    qualification = new List<doctorqualification>();
+        //    details = new List<doctordetails>();
+        //}
+        //public void AddSpeciality(DoctorSpecialities Speciality)
+        //{
+        //    specialities.Add(Speciality);
+        //}
+        //public void RemoveSpeciality(DoctorSpecialities Speciality)
+        //{
+        //    this.specialities.Remove(Speciality);
+        //}
+        //public void AddLocations(DoctorLocations Location)
+        //{
+        //    locations.Add(Location);
+        //}
+        //public void RemoveLocations(DoctorLocations Location)
+        //{
+        //    this.locations.Remove(Location);
+        //}       
     }
 }

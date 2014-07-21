@@ -61,6 +61,7 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
+                int userId = Convert.ToInt32(Session["UserId"]);
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;
                 db = new _dbAskMiraiDataContext();

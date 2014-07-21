@@ -1,0 +1,1196 @@
+﻿@model MiraiConsultMVC.Models.DoctorProfile
+@{
+    ViewBag.Title = "DoctorProfile";
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+
+}
+<link rel="stylesheet" href="~/Content/chosen/chosen.css" />
+<link href="~/Content/DT_bootstrap.css" rel="stylesheet" />
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<script src="~/Content/chosen/chosen.jquery.js"></script>
+<script src="~/Scripts/jquery.dataTables.js"></script>
+<script src="~/Scripts/bootstrap-pagination.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/dateofbirthvalidation.js"></script>
+<script src="~/Scripts/utility.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    {
+        <div class="row-fluid">
+            <div class="span12 main-outter-padding">
+                <div class="row-fluid">
+                    <div class="span12 cust-header-name-text">
+                        <h5 class="title cust-header-main-text-title">My Profile</h5>
+                    </div>
+                </div>
+                <div class="top_margin content_border" id="doctor_profile">
+                    <div class="row-fluid custom-equal-padding">
+                        <div class="row-fluid">
+                            <div class="span2 custom-occupy intermediate-size-padding">
+                                <div>
+                                    <div class="avtar img">
+                                        <img id="imgdoctorimage" clientidmode="Static" class="img-rounded" runat="server" alt="DoctorPhoto" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span9 inline intermediate-size-padding pull-left controls-right-padding" style="margin-left:0;margin-bottom:10px;">
+                                <div id="messageDiv" style="margin-left:0" visible="false">
+                                    <label id="lblMessage"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6  pull-left intermediate-size-padding">
+                                <div class="control-group">
+                                    <label class="control-label cust-font-style text-margin-top">Photo:</label>
+                                    <div class="controls ">
+                                        <input type='file' name='fileUploadForImage' id='fileUploadForImage' />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style required ">First Name:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name" })
+                                        @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style required ">Last Name:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name" })
+                                        @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Mobile No:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15" })
+                                        @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label required cust-font-style ">Email:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Date of Birth:</label>
+                                    <div class="controls">
+                                        <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
+                                             data-date-enddate="new Date()">
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", placeholder = "Date Of Birth" })
+                                            @Html.ValidationMessageFor(m => m.DateOfBirth, string.Empty, new { @class = "validation-summary-errors" })
+                                            <span class="add-on add-on-green  icon-with-right-curve"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Gender:</label>
+                                    <div class="controls">
+                                        @if (Model.Gender != null)
+                                        {
+                                            <label class="radio inline cust-font-style">
+                                                @Html.RadioButton("Gender", "0", Model.Gender == 0, new { @class = "cust-font-style" }) Male
+                                            </label>
+                                            <label class="radio inline gendermargin cust-font-style">
+                                                @Html.RadioButton("Gender", "1", Model.Gender == 1, new { @class = "cust-font-style" }) Female
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="radio inline cust-font-style">
+                                                @Html.RadioButton("Gender", "Male", true, new { @class = "cust-font-style" }) Male
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Country:</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Registration Council:</label>
+                                    <div class="controls">
+                                        @*@Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(ViewBag.Registrationcouncils, "Value", "Text", Model.CountryId), "--Select Councils--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen", id = "ddRegCouncil", onchange = "selectedIndexChanged(this.value)" })*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Registration No:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Registration Number" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">Specialities:</label>
+                                    <div class="controls">
+                                        @*<asp:ListBox ID="lstSpecialities" runat="server" SelectionMode="Multiple" ClientIDMode="Static"
+                                            class="chzn-select  Specialities_Width"></asp:ListBox>*@
+                                        @*@Html.DropDownListFor(m => m.SpecialityId, new SelectList(ViewBag.specialities, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6 span_margin">
+                                <div class="control-group controlgroup_margin">
+                                    <label class="control-label cust-font-style">About Me:</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.AboutMe, new { @class = "input-block-level txtareaborder max-width min-width cust-no-border cust-lightgreen", placeholder = "About Me" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12 btn-margin-top profile-button" style="text-align: center">
+                        <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" id="btnSubmit" value="Save" />
+                        <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" value="Reset" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10 cust-margin-top-title">
+                        <h4 class="title cust-header-name-text ">
+                            Qualification Details <a class="btn cust-add-btn" id="addQualification" href="#">
+                                Add New
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="table-responsive">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="custom-table cust-table " id="Education-list">
+                                <thead class="cust-green">
+                                    <tr>
+                                        <th>
+                                            DoctorId
+                                        </th>
+                                        <th>
+                                            DegreeId
+                                        </th>
+                                        <th style="width:200px">
+                                            Degree
+                                        </th>
+                                        <th>
+                                            University
+                                        </th>
+                                        <th>
+                                            Edit
+                                        </th>
+                                        <th class="td_min_width">
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%string degree;
+                                    string university;
+                                    int degreeID;
+                                    int doctorID;
+                                    foreach (Model.doctorqualification doctorqulification in doctor.qualification)
+                                    {
+                                    degreeID = doctorqulification.DegreeId;
+                                    degree = Convert.ToString(doctorqulification.Degree);
+                                    university = Convert.ToString(doctorqulification.University);
+                                    doctorID = Convert.ToInt32(doctor.UserId);%>
+                                    <tr>
+                                        <td>
+                                            <%=doctorID%>
+                                        </td>
+                                        <td>
+                                            <%=degreeID%>
+                                        </td>
+                                        <td style="width:200px">
+                                            <%=degree%>
+                                        </td>
+                                        <td>
+                                            <%=university%>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Resources/image/edit2.png" /></a>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="delete hand-cursor" id="Cancel" href="doctorprofile.aspx"><img alt="delete" class="cust-icon" src="../Resources/image/bin-1.png" /></a>
+                                        </td>
+                                    </tr>
+                                    <%  }
+                                    %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10 cust-margin-top-title">
+                        <h4 class="title cust-header-name-text ">
+                            Clinic Details <a class="btn cust-add-btn" id="addlocation">
+                                Add New
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12" id="locDiv" clientidmode="Static" runat="server" visible="false">
+                        <asp:Label ID="locationmessage" ClientIDMode="Static" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
+                <div class="row-fluid  div_hide" id="locationDiv">
+                    <div class="span12 content_border">
+                        <div class="row-fluid custom-equal-padding">
+                            <div class="row-fluid">
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style required">Country:</label>
+                                        <div class="controls">
+                                            <select id="country_select" clientidmode="Static" runat="server" data-placeholder="Select Country" class="input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen" onchange="getStatebyCountry(this.value)">
+                                                <option value="0">--Select Country--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style required">State:</label>
+                                        <div class="controls">
+                                            <select id="state_select" clientidmode="Static" data-placeholder="Select State" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray" onchange="getCitybyState(this.value)">
+                                                <option value="0">--Select State--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style required">City:</label>
+                                        <div class="controls">
+                                            <select id="city_select" clientidmode="Static" data-placeholder="Select city" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray" onchange="getLocationbyCityId(this.value)">
+                                                <option value="0">--Select City--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style required">Location:</label>
+                                        <div class="controls">
+                                            <select id="location_select" clientidmode="Static" data-placeholder="Select Location" class="input-block-level max-width min-width cust-no-border drop-arrows cust-lightgreen" onchange="getLocationId(this.value)">
+                                                <option value="0">--Select Location--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style">Clinic Name:</label>
+                                        <div class="controls">
+                                            <asp:TextBox ID="txtClinicName" ClientIDMode="Static" class="input-block-level max-width min-width cust-no-border cust-lightgreen " runat="server" MaxLength="100" Width="233px"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style">Telephone No:</label>
+                                        <div class="controls">
+                                            <asp:TextBox ID="txtTelephoneNo" ClientIDMode="Static" class="input-block-level max-width min-width cust-no-border cust-gray " runat="server" MaxLength="15" Width="233px"></asp:TextBox><br />
+                                            <asp:RegularExpressionValidator ID="regexTelephoneNumber" ForeColor="Red" runat="server" Display="Dynamic" ErrorMessage="Please enter valid telephone number." ControlToValidate="txtTelephoneNo" ValidationExpression="^[0-9., [\](\) -]{8,33}$" ValidationGroup="locationSubmit"></asp:RegularExpressionValidator>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
+                                        <label class="control-label cust-font-style">Address:</label>
+                                        <div class="controls">
+                                            <textarea id="txtAddress" clientidmode="Static" class="input-block-level max-width min-width txtareaborder cust-no-border cust-gray" runat="server" maxlength="250" rows="2" cols="18"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span12 btn-margin-top btn-margin-bottom profile-button docprofile-btn-padding" style="text-align: center">
+                            @*<asp:Button ID="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" runat="server" OnClick="btnLocationSubmit_Click" OnClientClick="if(!validateclinicdata())return false;" onsubmit="fun()"
+                                            Text="Save" ValidationGroup="locationSubmit" UseSubmitBehavior="false"></asp:Button>
+                                <asp:Button ID="btnClose" runat="server" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style"
+                                            OnClientClick="closeDiv(); return false;" Text="Close" />*@
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="table-responsive">
+                            <table cellpadding="0" cellspacing="0" width="100%" border="0" class="custom-table cust-table table" id="Location-List">
+                                <thead class="cust-green">
+                                    <tr>
+                                        <th>docLocationId</th>
+                                        <th>
+                                            DoctorId
+                                        </th>
+                                        <th>CountryId</th>
+                                        <th>StateId</th>
+                                        <th>
+                                            Cityid
+                                        </th>
+                                        <th>
+                                            LocationId
+                                        </th>
+                                        <th>
+                                            City
+                                        </th>
+                                        <th>Location</th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Clinic Name
+                                        </th>
+                                        <th>
+                                            Telephone No
+                                        </th>
+                                        <th>
+                                            Edit
+                                        </th>
+                                        <th class="td_min_width">
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                    int locationId;
+                                    int countryId;
+                                    int stateId;
+                                    string city;
+                                    string Location;
+                                    string Address;
+                                    string TelephoneNo;
+                                    string ClinicName;
+                                    int cityid;
+                                    foreach (Model.DoctorLocations doctorlocations in doctor.locations)
+                                    {
+                                    countryId = doctorlocations.CountryId;
+                                    stateId = doctorlocations.StateId;
+                                    locationId = doctorlocations.LocationId;
+                                    city = Convert.ToString(doctorlocations.City);
+                                    cityid = doctorlocations.CityId;
+                                    Location = Convert.ToString(doctorlocations.Location);
+                                    Address = Convert.ToString(doctorlocations.Address);
+                                    TelephoneNo = Convert.ToString(doctorlocations.Telephone);
+                                    ClinicName = Convert.ToString(doctorlocations.ClinicName);
+                                    doctorID = Convert.ToInt32(doctor.UserId);%>
+                                    <tr>
+                                        <td><%=doctorlocations.DoctorLocationId %></td>
+                                        <td>
+                                            <%=doctorID%>
+                                        </td>
+                                        <td><%=countryId%></td>
+                                        <td><%=stateId%></td>
+                                        <td>
+                                            <%=cityid%>
+                                        </td>
+                                        <td>
+                                            <%=locationId%>
+                                        </td>
+                                        <td>
+                                            <%=city %>
+                                        </td>
+                                        <td>
+                                            <%=Location%>
+                                        </td>
+                                        <td>
+                                            <%=Address%>
+                                        </td>
+                                        <td>
+                                            <%=ClinicName%>
+                                        </td>
+                                        <td>
+                                            <%=TelephoneNo%>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Resources/image/edit2.png" /></a>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="delete hand-cursor" href=""><img alt="delete" class="cust-icon" src="../Resources/image/bin-1.png" /></a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10 cust-margin-top-title">
+                        <h4 class="title cust-header-name-text">
+                            Other Details <a class="btn cust-add-btn" id="AddDetail" href="#">
+                                Add New
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row-fluid managetag_div">
+                    <div class="span12">
+                        <div class="table-responsive">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="custom-table cust-table" id="OtherDetail-List"
+                                   width="70%">
+                                <thead class="cust-green">
+                                    <tr>
+                                        <th>
+                                            DoctorId
+                                        </th>
+                                        <th>
+                                            DoctorDetailsId
+                                        </th>
+                                        <th>
+                                            Certification
+                                        </th>
+                                        <th>
+                                            Society
+                                        </th>
+                                        <th>
+                                            Edit
+                                        </th>
+                                        <th class="td_min_width">
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                    int doctordetailsid;
+                                    string certification;
+                                    string society;
+                                    if (doctor.details != null)
+                                    {
+                                    foreach (Model.doctordetails doctordetail in doctor.details)
+                                    {
+                                    doctordetailsid = doctordetail.DocDetailsId;
+                                    certification = Convert.ToString(doctordetail.Certification);
+                                    society = Convert.ToString(doctordetail.Society);
+                                    doctorID = Convert.ToInt32(doctor.UserId);
+                                    if (!String.IsNullOrEmpty(certification))
+                                    {
+                                    %>
+                                    <tr>
+                                        <td>
+                                            <%=doctorID%>
+                                        </td>
+                                        <td>
+                                            <%=doctordetailsid%>
+                                        </td>
+                                        <td>
+                                            <%=certification %>
+                                        </td>
+                                        <td>
+                                            <%=society%>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="edit" href=""><img alt="edit" class="cust-icon" src="../Resources/image/edit2.png" /></a>
+                                        </td>
+                                        <td class="last-row">
+                                            <a class="delete hand-cursor" id="odCancel" href="Doctorprofile.aspx"><img alt="delete" class="cust-icon" src="../Resources/image/bin-1.png" /></a>
+                                        </td>
+                                    </tr>
+                                    <%      }
+                                    }
+                                    }%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="dialog">
+                </div>
+            </div>
+
+            @*<asp:HiddenField ID="hdnDoctorId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="image" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hiddenemail" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hiddenCountryId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hiddenStateId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hiddenCityId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hiddenLocationId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hdnDocLocationId" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hdnPhotoUrl" ClientIDMode="Static" runat="server" />
+                <asp:HiddenField ID="hdn" ClientIDMode="Static" runat="server" />*@
+        </div>
+    }
+}
+@*<script type="text/javascript">
+        $(".chzn-select").chosen({ width: "150%" });
+        function gototab(reload) {
+            window.location.hash = '#tab2';
+            window.location.reload(true);
+        }
+        function fun() {
+            var hdn = this.document.getElementById('<%=hdn.ClientID %>');
+            hdn.value = hdn.value + "1";
+        }
+        $(document).ready(function () {
+            var refUrl = document.referrer;
+            if (refUrl.indexOf("ManageDoctors.aspx") >= 0) {
+                $(".navigation li.active").removeClass("active");
+                $('#liManageDoctor').addClass("active");
+            }
+            else if (refUrl.indexOf("doctorprofile.aspx") >= 0) {
+                $(".navigation li.active").removeClass("active");
+                $('#liManageDoctor').addClass("active");
+            }
+
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../../Services/UserService.svc/getAllCountryList',
+                success: function (response) {
+                    response = JSON.parse(response);
+                    for (var i = 0; i < response.length; i++) {
+                        $("#country_select").append($('<option>').text(response[i].name).attr('value', response[i].countryid));
+                    };
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        });
+        function validateclinicdata() {
+            var errormsg = "";
+            if (document.getElementById("country_select").value == 0) {
+                errormsg += "Please select country.";
+            }
+            if (document.getElementById("state_select").value == 0) {
+                errormsg += "\nPlease select state.";
+            }
+            if (document.getElementById("city_select").value == 0) {
+                errormsg += "\nPlease select city.";
+            }
+            if (document.getElementById("location_select").value == 0) {
+                errormsg += "\nPlease select location.";
+            }
+            if (errormsg == "") {
+                return true;
+            }
+            else {
+                alert(errormsg);
+                return false;
+            }
+        }
+        function getStatebyCountry(countryId) {
+            document.getElementById("hiddenCountryId").value = countryId;
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../../Services/UserService.svc/getStatebyCountry?countryid=' + countryId,
+                success: function (response) {
+                    response = JSON.parse(response);
+                    $("#state_select").empty();
+                    $("#city_select").empty();
+                    $("#location_select").empty();
+                    for (var i = 0; i < response.length; i++) {
+                        $("#state_select").append($('<option>').text(response[i].name).attr('value', response[i].stateid));
+                    };
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+        function getCitybyState(stateId) {
+            document.getElementById("hiddenStateId").value = stateId;
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../../Services/UserService.svc/getCitybyState?stateId=' + stateId,
+                success: function (response) {
+                    response = JSON.parse(response);
+                    $("#city_select").empty();
+                    $("#location_select").empty();
+                    for (var i = 0; i < response.length; i++) {
+                        $("#city_select").append($('<option>').text(response[i].name).attr('value', response[i].cityid));
+                    };
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+        function getLocationbyCityId(cityId) {
+            document.getElementById("hiddenCityId").value = cityId;
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: '"' + $('#city_select').val() + '"',
+                contentType: 'application/json',
+                url: '../../Services/UserService.svc/getLocationsbyCity',
+                success: function (response) {
+                    response = JSON.parse(response);
+                    $("#location_select").empty();
+                    for (var i = 0; i < response.length; i++) {
+                        $("#location_select").append($('<option>').text(response[i].name).attr('value', response[i].locationid));
+                    };
+                    if (response.length != 0) {
+                        $("#location_select").selectedIndex = response[0].locationid;
+                        document.getElementById("hiddenLocationId").value = response[0].locationid;
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+        function getLocationId(locationId) {
+            document.getElementById("hiddenLocationId").value = locationId;
+        }
+        function closeDiv() {
+            document.getElementById("locationDiv").style.display = 'none';
+        }
+        function validatePhoto(sender, args) {
+            var file = document.getElementById('<%=fileUploadForImage.ClientID%>');
+            var fileName = file.value;
+            var lastDot = fileName.lastIndexOf(".");
+            if (fileName.length > 0) {
+                var fileType = fileName.substring(lastDot, fileName.length);
+                args.IsValid = (((fileType.toLowerCase() == ".jpg") || (fileType.toLowerCase() == ".png") || (fileType.toLowerCase() == ".gif") || (fileType.toLowerCase() == ".jpeg")));
+            }
+        }
+        var doctorID
+        $(".chzn-select").chosen
+                ({
+                    allow_single_deselect: true
+
+                });
+        var aData
+        var docId = document.getElementById("hdnDoctorId").value;
+        function populatedegree(degreeid) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../../Services/UserService.svc/fillDegreeDropdowns',
+                success: function (response) {
+                    response = JSON.parse(response);
+                    for (var cnt = 0; cnt < response.Table.length; cnt++) {
+                        $('#selectdegree').append(
+                              $('<option></option>')
+                             .val(response.Table[cnt]["degreeid"])
+                             .html(response.Table[cnt]["name"]));
+                    }
+                    if (degreeid != "") {
+                        $("#selectdegree option[value= " + degreeid + "]").attr("selected", "selected");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+        function restoreRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            for (var i = 0, iLen = jqTds.length; i <= iLen + 1; i++) {
+                oTable.fnUpdate(aData[i], nRow, i, false);
+            }
+            oTable.fnDraw();
+        }
+        function editRow(oTable, nRow) {
+            aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            jqTds[0].innerHTML = '<select class="cust-no-border drop-arrows cust-lightgray" id="selectdegree" style="width:407px;"></select>';
+            jqTds[1].innerHTML = '<input  class="cust-no-border cust-lightgray" type="text" id="txtuniversity"  value="' + aData[3] + '">';
+            jqTds[2].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[3].innerHTML = '<a class="Cancel" href="" onclick="gototab();">Cancel</a>';
+            populatedegree(aData[1]);
+        }
+        function saveRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            var jqInputselect = $('select', nRow);
+            oTable.fnUpdate($("option:selected", jqInputselect[0]).text(), nRow, 2, false);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 3, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
+            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
+            oTable.fnDraw();
+        }
+        function restoreDocDetailsRow(ODTable, DocDetailRow) {
+            var aData = ODTable.fnGetData(DocDetailRow);
+            var jqTds = $('>td', DocDetailRow);
+            for (var i = 0, iLen = jqTds.length; i <= iLen + 1; i++) {
+                ODTable.fnUpdate(aData[i], DocDetailRow, i, false);
+            }
+            ODTable.fnDraw();
+        }
+        function saveDocDetailsRow(ODTable, DocDetailRow) {
+            var jqInputscertification = $('input', DocDetailRow);
+            var jqInputsociety = $('input', DocDetailRow);
+            ODTable.fnUpdate(jqInputscertification[0].value, DocDetailRow, 2, false);
+            ODTable.fnUpdate(jqInputsociety[0].value, DocDetailRow, 3, false);
+            ODTable.fnUpdate('<a class="edit" href="">Edit</a>', DocDetailRow, 4, false);
+            ODTable.fnUpdate('<a class="delete" href="">Delete</a>', DocDetailRow, 5, false);
+            ODTable.fnDraw();
+        }
+        function editDocDetailsRow(ODTable, DocDetailRow) {
+            aData = ODTable.fnGetData(DocDetailRow);
+            var jqTds = $('>td', DocDetailRow);
+            jqTds[0].innerHTML = '<input  class="cust-no-border cust-lightgray" type="text" id="txtcertification"  value="' + aData[2] + '">';
+            jqTds[1].innerHTML = '<input  class="cust-no-border cust-lightgray" type="text" id="txtsociety"  value="' + aData[3] + '">';
+            jqTds[2].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[3].innerHTML = '<a class="Cancel" href="" onclick="gototab();">Cancel</a>';
+        }
+        function restoreLocRow(LocTable, nLocRow) {
+            var aData = LocTable.fnGetData(nLocRow);
+            var jqTds = $('>td', nLocRow);
+            for (var i = 0, iLen = jqTds.length; i <= iLen; i++) {
+                LocTable.fnUpdate(aData[i], nLocRow, i, false);
+            }
+            LocTable.fnDraw();
+        }
+        function editLocRow(LocTable, nLocRow) {
+            var aData = LocTable.fnGetData(nLocRow);
+            var jqTds = $('>td', nLocRow);
+            jqTds[0].innerHTML = '<input type="text" value="' + aData[2] + '">';
+            jqTds[1].innerHTML = '<input type="text" value="' + aData[3] + '">';
+            jqTds[2].innerHTML = '<input type="text" value="' + aData[4] + '">';
+            jqTds[3].innerHTML = '<input type="text" value="' + aData[5] + '">';
+            jqTds[4].innerHTML = '<input type="text" value="' + aData[6] + '">';
+            jqTds[5].innerHTML = '<input type="text" value="' + aData[7] + '">';
+            jqTds[6].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[7].innerHTML = '<a class="cancel" href="" onclick="gototab();">Cancel</a>';
+        }
+        function saveLocRow(LocTable, nLocRow) {
+            var jqInputs = $('input', nLocRow);
+            LocTable.fnUpdate(jqInputs[0].value, nLocRow, 2, false);
+            LocTable.fnUpdate(jqInputs[1].value, nLocRow, 3, false);
+            LocTable.fnUpdate(jqInputs[2].value, nLocRow, 4, false);
+            LocTable.fnUpdate(jqInputs[3].value, nLocRow, 5, false);
+            LocTable.fnUpdate(jqInputs[4].value, nLocRow, 6, false);
+            LocTable.fnUpdate(jqInputs[5].value, nLocRow, 7, false);
+            LocTable.fnUpdate('<a class="edit" href="">Edit</a>', nLocRow, 8, false);
+            LocTable.fnDraw();
+        }
+        function onSuccess(result) {
+            if (result != 'Qualification details has been saved successfully.' && result != 'Qualification has been deleted.' && result != 'Details have been saved successfully.'
+                && result != 'Selected detail has been deleted.' && result != 'Clinic has been deleted.')
+                alert(result);
+            location.reload(true);
+        }
+        function onFailure(error) {
+            alert(error);
+            location.reload(true);
+        }
+        $(".input-block-level").keyup(function () {
+            Page_ClientValidate();
+        });
+
+        $(document).ready(function () {
+            $('#dob').datepicker($('#txtDob').val());
+
+            /*initialize Qulification datatable*/
+            var oTable = $('#Education-list').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false,
+                "aoColumns": [
+                /* DoctorId */{ "bVisible": false },
+                /* DegreeId */{ "bVisible": false },
+                /* Degree */null,
+                /*  university*/null,
+                /* Edit */null,
+                /* Delete */null
+                ]
+            });
+            var nEditing = null;
+            $('#addQualification').click(function (e) {
+                e.preventDefault();
+                if (nEditing != null) {
+                    aData = oTable.fnGetData(nEditing);
+                    if (aData == null || aData[0] == "") {
+                        oTable.fnDeleteRow(nEditing);
+                        nEditing = null;
+                    }
+                    else
+                        restoreRow(oTable, nEditing);
+                }
+                if (DocDetailEditing != null) {
+                    aData = ODTable.fnGetData(DocDetailEditing);
+                    if (aData == null || aData[0] == "") {
+                        ODTable.fnDeleteRow(DocDetailEditing);
+                        DocDetailEditing = null;
+                    }
+                    else {
+                        restoreDocDetailsRow(ODTable, DocDetailEditing);
+                    }
+                }
+                var aiNew = oTable.fnAddData(['', '', '', '', '<a class="edit" href="">Edit</a>', '<a class="delete" id="Cancel" href="" onclick="gototab();">Cancel</i></a>']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                var doctorID =
+                editRow(oTable, nRow);
+                nEditing = nRow;
+            });
+            /* delete degree detail*/
+            $(document).on("click", "#Education-list a.delete", function (e) {
+                e.preventDefault();
+                var nRow = $(this).parents('tr')[0];
+                var e = document.getElementById("Cancel").innerHTML;
+                if (e == 'Cancel' && this.innerHTML != "Delete") {
+                    oTable.fnDeleteRow(nRow);
+                    nEditing = null;
+                }
+                else {
+                    if (nEditing == nRow && this.innerHTML == "Save") {
+                        var e = document.getElementById("selectdegree");
+                        var e2 = document.getElementById("txtuniversity");
+                        var selecteddegreeid = e.options[e.selectedIndex].value;
+                        var university = e2.value;
+                        if (aData[0] > 0 && aData[1] > 0) {
+                            if (confirm("Are you sure you want to delete this qualification details?") == true) {
+                                PageMethods.DeleteDegreeUniversityByDoctorAndDegrreId(aData[0], aData[1], university, onSuccess, onFailure);
+                                oTable.fnDeleteRow(nRow);
+                            }
+                        }
+                    }
+                    else {
+                        aData = oTable.fnGetData(nRow);
+                        if (confirm("Are you sure you want to delete this qualification details?") == true) {
+                            PageMethods.DeleteDegreeUniversityByDoctorAndDegrreId(aData[0], aData[1], aData[3], onSuccess, onFailure);
+                            oTable.fnDeleteRow(nRow);
+                        }
+                    }
+                }
+            });
+            /* Update degree detail*/
+            function savedegree(doctorId, lastselecteddegreeId, selecteddegreeid, university) {
+                PageMethods.UpdateDegreeUniversityByDoctorAndDegrreId(doctorId, lastselecteddegreeId, selecteddegreeid, university, onSuccess, onFailure);
+            }
+            /* check which operation perform qulification*/
+            $(document).on("click", "#Education-list a.edit", function (e) {
+                e.preventDefault();
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+                if (nEditing != null && nEditing != nRow) {
+                    /* A different row is being edited - the edit should be cancelled and this row edited */
+                    if (nEditing != null) {
+                        aData = oTable.fnGetData(nEditing);
+                        if (aData == null || aData[0] == "") {
+                            oTable.fnDeleteRow(nEditing);
+                            nEditing = null;
+                        }
+                        else {
+                            restoreRow(oTable, nEditing);
+                        }
+                    }
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
+                else if (nEditing == nRow && this.innerHTML == "Save") {
+                    /* This row is being edited and should be saved */
+                    var e = document.getElementById("selectdegree");
+                    var e2 = document.getElementById("txtuniversity");
+                    var selecteddegreeid = e.options[e.selectedIndex].value;
+                    var university = e2.value;
+                    savedegree(docId, aData[1], selecteddegreeid, university);
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                }
+                else {
+                    /* No row currently being edited */
+                    if (DocDetailEditing != null) {
+                        aData = ODTable.fnGetData(DocDetailEditing);
+                        if (aData == null || aData[0] == "") {
+                            ODTable.fnDeleteRow(DocDetailEditing);
+                            DocDetailEditing = null;
+                        }
+                        else
+                            restoreDocDetailsRow(ODTable, DocDetailEditing);
+                    }
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
+            });
+            /*initialize Other Detail datatable*/
+            var ODTable = $('#OtherDetail-List').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false,
+                "aoColumns": [
+                /* DoctorId */{ "bVisible": false },
+                /* DoctorDetailsId */{ "bVisible": false },
+                /* certification */null,
+                /* society*/null,
+                /* Edit */null,
+                /* Delete */null]
+            });
+            $(document).on("click", "#OtherDetail-List  a.delete", function (e) {
+                e.preventDefault();
+                var DocDetailRow = $(this).parents('tr')[0];
+                var e = document.getElementById("odCancel").innerHTML;
+                if (e == 'Cancel' && this.innerHTML != "Delete") {
+                    ODTable.fnDeleteRow(DocDetailRow);
+                    DocDetailEditing = null;
+                }
+                else {
+                    aData = ODTable.fnGetData(DocDetailRow);
+                    if (aData[1] > 0) {
+                        if (confirm("Are you sure you want to delete this details?") == true) {
+                            PageMethods.DeleteDoctorDetailsByDoctorDetailsId(aData[1], onSuccess, onFailure);
+                            ODTable.fnDeleteRow(DocDetailRow);
+                        }
+                    }
+                    else
+                        ODTable.fnDeleteRow(DocDetailRow);
+                }
+            });
+            var DocDetailEditing = null;
+            $('#AddDetail').click(function (e) {
+                e.preventDefault();
+                if (DocDetailEditing != null) {
+                    aData = ODTable.fnGetData(DocDetailEditing);
+                    if (aData == null || aData[0] == "") {
+                        ODTable.fnDeleteRow(DocDetailEditing);
+                        DocDetailEditing = null
+                    }
+                    else {
+                        restoreDocDetailsRow(ODTable, DocDetailEditing);
+                    }
+                }
+                if (nEditing != null) {
+                    aData = oTable.fnGetData(nEditing);
+                    if (aData == null || aData[0] == "") {
+                        oTable.fnDeleteRow(nEditing);
+                        nEditing = null;
+                    }
+                    else {
+                        restoreRow(oTable, nEditing);
+                    }
+                }
+                var aiNew = ODTable.fnAddData(['', '', '', '', '', '<a class="delete" id="odCancel"  href="" onclick="gototab();">Cancel</i></a>']);
+                var DocDetailRow = ODTable.fnGetNodes(aiNew[0]);
+                editDocDetailsRow(ODTable, DocDetailRow);
+                DocDetailEditing = DocDetailRow;
+            });
+            $(document).on("click", "#OtherDetail-List a.edit", function (e) {
+                e.preventDefault();
+                /* Get the row as a parent of the link that was clicked on */
+                var DocDetailRow = $(this).parents('tr')[0];
+                if (DocDetailEditing != null && DocDetailEditing != DocDetailRow) {
+                    /* A different row is being edited - the edit should be cancelled and this row edited */
+                    if (DocDetailEditing != null) {
+                        aData = ODTable.fnGetData(DocDetailEditing);
+                        if (aData == null || aData[0] == "") {
+                            ODTable.fnDeleteRow(DocDetailEditing);
+                            DocDetailEditing = null
+                        }
+                        else {
+                            restoreDocDetailsRow(ODTable, DocDetailEditing);
+                        }
+                    }
+                    editDocDetailsRow(ODTable, DocDetailRow);
+                    DocDetailEditing = DocDetailRow;
+                }
+                else if (DocDetailEditing == DocDetailRow && this.innerHTML == "Save") {
+                    /* This row is being edited and should be saved */
+                    var e = document.getElementById("txtcertification");
+                    var e2 = document.getElementById("txtsociety");
+                    var certification = e.value;
+                    var society = e2.value;
+                    if ($.trim(certification) == "" && $.trim(society) == "")
+                        alert("Please enter certification.");
+                    if ($.trim(certification) == "" && $.trim(society) != "")
+                        alert("Please enter certification.");
+                    editDocDetailsRow(ODTable, DocDetailRow);
+                    if (($.trim(certification) != "" && $.trim(society) != "") || ($.trim(certification) != "" && $.trim(society) == "")) {
+                        PageMethods.UpdateDoctorDetailsByDoctorDetailsId(docId, aData[1], certification, society, onSuccess, onFailure);
+                        saveDocDetailsRow(ODTable, DocDetailEditing);
+                        DocDetailEditing = null;
+                    }
+                }
+                else {
+                    /* No row currently being edited */
+                    if (nEditing != null) {
+                        aData = oTable.fnGetData(nEditing);
+                        if (aData == null || aData[0] == "") {
+                            oTable.fnDeleteRow(nEditing);
+                            nEditing = null;
+                        }
+                        else {
+                            restoreRow(oTable, nEditing);
+                        }
+                    }
+                    editDocDetailsRow(ODTable, DocDetailRow);
+                    DocDetailEditing = DocDetailRow;
+                }
+            });
+            /*initialize Location datatable*/
+            var LocTable = $('#Location-List').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false,
+                "aoColumns": [
+                /*docLocationId*/{ "bVisible": false },
+                /* DoctorId */{ "bVisible": false },
+               /* countryId */{ "bVisible": false },
+               /* StateId */{ "bVisible": false },
+               /* cityid */{ "bVisible": false },
+                /* locationId */{ "bVisible": false },
+                /* city  */null,
+                /* location */null,
+                /* Address*/null,
+                /* clinic name*/null,
+                /*TelephoneNo  */null,
+                /* Edit */null,
+                /* Delete */null
+                ]
+            });
+            $('#addlocation').click(function (e) {
+                document.getElementById("country_select").selectedIndex = 0;
+                document.getElementById("state_select").value = "";
+                document.getElementById("city_select").value = "";
+                document.getElementById("location_select").value = "";
+                document.getElementById("locationDiv").style.display = "block";
+                document.getElementById("txtClinicName").value = "";
+                document.getElementById("txtTelephoneNo").value = "";
+                document.getElementById("txtAddress").value = "";
+                document.getElementById("hdnDocLocationId").value = "0";
+                if (nEditing != null) {
+                    aData = oTable.fnGetData(nEditing);
+                    if (aData == null || aData[0] == "") {
+                        oTable.fnDeleteRow(nEditing);
+                        nEditing = null;
+                    }
+                    else {
+                        restoreRow(oTable, nEditing);
+                    }
+                }
+            });
+            $(document).on("click", "#Location-List a.delete", function (e) {
+                e.preventDefault();
+                var nLocRow = $(this).parents('tr')[0];
+                aData = LocTable.fnGetData(nLocRow);
+                if (aData[1] > 0) {
+                    if (confirm("Are you sure you want to delete this location?") == true) {
+                        PageMethods.DeleteDoctorLocattonByDoctorLocationId(aData[0], onSuccess, onFailure);
+                        LocTable.fnDeleteRow(nLocRow);
+                    }
+                }
+            });
+            var nLocEditing = null;
+            $(document).on("click", "#Location-List a.edit", function (e) {
+                e.preventDefault();
+                /* Get the row as a parent of the link that was clicked on */
+                var nLocRow = $(this).parents('tr')[0];
+                if (nLocEditing !== null && nLocEditing != nLocRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreLocRow(LocTable, nLocEditing);
+                    editLocRow(LocTable, nLocRow);
+                    nLocEditing = nLocRow;
+                }
+                else if (nLocEditing == nLocRow && this.innerHTML == "Save") {
+                    /* Editing this row and want to save it */
+                    saveLocRow(LocTable, nLocEditing);
+                    nLocEditing = null;
+                }
+                else {
+                    var aData = LocTable.fnGetData(nLocRow);
+                    document.getElementById("locationDiv").style.display = "block";
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '../../Services/UserService.svc/getCountryStateCityData?countryId=' + aData[2] + '&stateId=' + aData[3] + '&cityId=' + aData[4] + '&locationId=' + aData[5],
+                        success: function (response) {
+                            response = JSON.parse(response);
+                            if (response != null) {
+                                for (var i = 0; i < response.Country.length; i++) {
+                                    $("#country_select").append($('<option>').text(response.Country[i].name).attr('value', response.Country[i].countryid));
+                                }
+                                $("#state_select").empty();
+                                $("#city_select").empty();
+                                $("#location_select").empty();
+                                for (var i = 0; i < response.State.length; i++) {
+                                    $("#state_select").append($('<option>').text(response.State[i].name).attr('value', response.State[i].stateid));
+                                }
+                                for (var i = 0; i < response.City.length; i++) {
+                                    $("#city_select").append($('<option>').text(response.City[i].name).attr('value', response.City[i].cityid));
+                                }
+                                for (var i = 0; i < response.Location.length; i++) {
+                                    $("#location_select").append($('<option>').text(response.Location[i].name).attr('value', response.Location[i].locationid));
+                                }
+                            };
+                            document.getElementById("country_select").value = aData[2];
+                            document.getElementById("state_select").value = aData[3];
+                            document.getElementById("city_select").value = aData[4];
+                            document.getElementById("location_select").value = "";
+                            document.getElementById("location_select").value = aData[5];
+                            document.getElementById("txtClinicName").value = aData[9];
+                            var telphoneno = aData[10];
+                            var regex = /(<([^>]+)>)/ig
+                           , body = telphoneno
+                           , result = body.replace(regex, "");
+                            document.getElementById("txtTelephoneNo").value = result;
+                            document.getElementById("txtAddress").value = aData[8];
+                            document.getElementById("hdnDocLocationId").value = aData[0];
+                            document.getElementById("hiddenCountryId").value = aData[2];
+                            document.getElementById("hiddenStateId").value = aData[3];
+                            document.getElementById("hiddenCityId").value = aData[4];
+                            document.getElementById("hiddenLocationId").value = aData[5];
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                }
+            });
+        });
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-48132984-2', 'askmirai.com');
+        ga('send', 'pageview');
+
+    </script>*@

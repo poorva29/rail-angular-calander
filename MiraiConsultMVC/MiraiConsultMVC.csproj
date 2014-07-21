@@ -44,7 +44,7 @@
       <HintPath>..\DAL\bin\DAL.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
+      <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -220,6 +220,7 @@
     <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\DoctorProfile.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\User\Login.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
@@ -596,6 +597,7 @@
     <Content Include="Views\Home\HowWeWorks.cshtml" />
     <Content Include="Views\Patients\PatientProfile.cshtml" />
     <Content Include="Views\Questions\_DoctorQuestionList.cshtml" />
+    <Content Include="Views\Doctors\DoctorProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

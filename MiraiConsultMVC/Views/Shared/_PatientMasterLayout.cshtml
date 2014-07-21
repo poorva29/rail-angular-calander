@@ -53,26 +53,21 @@
                             <div class="pull-right paddingrightby3">
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @*<%= Session["UserFullName"] %>*@ <b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @Session["UserFullName"] <b class="caret"></b></a>
                                         <ul class="dropdown-menu pull-right">
-                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                            @if (Convert.ToInt32(Session["UserType"]) == 2)
                                             {
                                                 <li><a href="../Profile/patientprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
                                             }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                                            else if (Convert.ToInt32(Session["UserType"]) == 1)
                                             {
                                                 <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
-                                            }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
-                                            {
-                                                @*<%--
-                                                    <li><a href="../admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
+                                                <li><a href="/User/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             <li>
-                                                <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
-                                                                OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
+                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"
+                                                   onclick="linkLogout_Click"><i class="icon-off"></i>Logout</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -115,7 +110,7 @@
                                 <div class="span12 center_align">
                                     <div class="span8 text-center custom-border-around hidden-phone hidden-tablet reg-menu" style="margin-left:0px;margin-bottom:.5%">
                                         <ul class="nav" id="global-actions">
-                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                            @if (Convert.ToInt32(Session["UserType"]) == 2)
                                             {
                                                 <li id="liaskdoc" class="ask-doctor">
                                                     <a href="../patient/askdoctor.aspx">
@@ -138,7 +133,7 @@
                                                     </a>
                                                 </li>
                                             }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                                            else if (Convert.ToInt32(Session["UserType"]) == 1)
                                             {
                                                 <li id="liDocFeed">
                                                     <a href="../Feed/doctorfeed.aspx">
@@ -153,7 +148,7 @@
                                                     </a>
                                                 </li>
                                             }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                            else if (Convert.ToInt32(Session["UserType"]) == 0)
                                             {
                                                 <li id="liAdminQuestions">
                                                     <a href="../../app/admin/QuestionList.aspx">
@@ -196,7 +191,7 @@
                             </div>
                         </div>
                         <div class="span8 collapse nav-collapse visible-phone visible-tablet" style="padding-top:3%;">
-                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                            @if (Convert.ToInt32(Session["UserType"]) ==2)
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li class="ask-doctor">
@@ -227,7 +222,7 @@
                                     </li>
                                 </ul>
                             }
-                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                            else if (Convert.ToInt32(Session["UserType"]) ==1)
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
@@ -246,7 +241,7 @@
                                     </li>
                                 </ul>
                             }
-                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                            else if (Convert.ToInt32(Session["UserType"]) == 0)
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>

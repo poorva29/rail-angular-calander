@@ -22,6 +22,49 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Changepassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Changepassword(ChangePassword passwords)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+                int userID = Convert.ToInt32(Session["UserId"]);
+                string dbpasswd = UtilityManager.Encrypt(passwords.currentPassword);
+                var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
+
+                if (userRecord != null)
+                {
+                    userRecord.password = UtilityManager.Encrypt(passwords.newPassword); ;
+                    db.SubmitChanges();
+                    ViewBag.errorMsg = "Password has been changed successfully.";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.errorMsg = "Please enter valid current password.";
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -30,7 +73,7 @@ namespace MiraiConsultMVC.Controllers
             //Utilities U = new Utilities();
             string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
             string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
-            string dbpasswd = UtilityManager.Decrypt(log.Password);
+            string dbpasswd = UtilityManager.Encrypt(log.Password);
             if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();

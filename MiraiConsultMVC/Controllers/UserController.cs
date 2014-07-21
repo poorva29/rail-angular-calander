@@ -8,7 +8,7 @@ using MiraiConsultMVC.Models;
 using System.Configuration;
 using MiraiConsultMVC.Models.Utilities;
 using System.Data;
-using DAL;
+
 using System.Data.SqlClient;
 
 
@@ -34,7 +34,7 @@ namespace MiraiConsultMVC.Controllers
             //Utilities U = new Utilities();
             string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
             string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
-            string dbpasswd = UtilityManager.Decrypt(log.Password);
+            string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Decrypt(log.Password);
             if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
             {
                
@@ -106,13 +106,13 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ManageDoctors()
         {
-            IList<Users> lstdoctors = getAllDoctorDetails();
+            IList<ModelUser> lstdoctors = getAllDoctorDetails();
             return View();
         }
 
-        public IList<Users> getAllDoctorDetails()
+        public IList<ModelUser> getAllDoctorDetails()
         {
-            IList<Users> lstdoctors = new List<Users>();
+            IList<ModelUser> lstdoctors = new List<ModelUser>();
             DataSet dsDoctorDetails = null;
             SqlConnection conn = null;
             using (conn = SqlHelper.GetSQLConnection())
@@ -123,10 +123,10 @@ namespace MiraiConsultMVC.Controllers
             return lstdoctors;
         }
 
-        private static IList<Users> populateDoctorDetails(DataSet dsDoctorDetails)
+        private static IList<ModelUser> populateDoctorDetails(DataSet dsDoctorDetails)
         {
-            IList<Users> lstdoctors = new List<Users>();
-            Users doctor;
+            IList<ModelUser> lstdoctors = new List<ModelUser>();
+            ModelUser doctor;
             int doctorid;
             DataView dvdocspecialities, dvdoctorlocations, dvdoctorqualifications, dvdoctorsdetails;
             DataRow[] datarows;
@@ -134,7 +134,7 @@ namespace MiraiConsultMVC.Controllers
             {
                 foreach (DataRow dr in dsDoctorDetails.Tables[0].Rows)
                 {
-                    doctor = new User();
+                    doctor = new ModelUser();
 
                     doctorid = Convert.ToInt32(dr["userid"]);
                     doctor.UserId = doctorid;
@@ -268,7 +268,7 @@ namespace MiraiConsultMVC.Controllers
                         datarows = dvdoctorqualifications.Table.Select(expression, sortOrder);
                         foreach (DataRow dr1 in datarows)
                         {
-                            doctorqualification doctorqualification = new doctorqualification();
+                            doctorqualifications doctorqualification = new doctorqualifications();
                             if (!String.IsNullOrEmpty(Convert.ToString(dr1["degreeid"])))
                             {
                                 doctorqualification.DegreeId = Convert.ToInt32(dr1["degreeid"]);
@@ -320,6 +320,7 @@ namespace MiraiConsultMVC.Controllers
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@username", username);
             param[1] = new SqlParameter("@password", password);
+            SqlConnection conn = null;
             using (conn = SqlHelper.GetSQLConnection())
             {
                 dsUserDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AuthenticateData", param);
@@ -356,7 +357,7 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult DoctorSignUp()
         {
-            UtilityManager utilityManager = new UtilityManager();
+            MiraiConsultMVC.Models.Utilities.UtilityManager utilityManager = new MiraiConsultMVC.Models.Utilities.UtilityManager();
             _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
             ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
             ViewBag.Specialities = new SelectList(_db.specialities, "specialityid", "Name");

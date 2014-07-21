@@ -40,7 +40,7 @@ namespace MiraiConsultMVC.Models
         private string photourl;
         public IList<DoctorSpecialities> specialities;
         public IList<DoctorLocations> locations;
-        public IList<doctorqualification> qualification;
+        public IList<doctorqualifications> qualification;
         public IList<doctordetails> details;
         public IEnumerable<SelectListItem> Countries;
 
@@ -101,7 +101,7 @@ namespace MiraiConsultMVC.Models
         {
             specialities = new List<DoctorSpecialities>();
             locations = new List<DoctorLocations>();
-            qualification = new List<doctorqualification>();
+            qualification = new List<doctorqualifications>();
             details = new List<doctordetails>();
             
         }

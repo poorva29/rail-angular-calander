@@ -5,12 +5,10 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Xml;
-
 using System.Collections;
 
-namespace DAL
+namespace MiraiConsultMVC.Models.Utilities
 {
-
     /// <summary>
     /// The SqlHelper class is intended to encapsulate high performance, scalable best practices for 
     /// common uses of SqlClient
@@ -2613,6 +2611,3 @@ namespace DAL
 
     }
 }
-
-
-

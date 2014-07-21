@@ -76,6 +76,7 @@
     <Compile Include="FeedManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionManager.cs" />
+    <Compile Include="SqlHelper.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="UtilityManager.cs" />
   </ItemGroup>

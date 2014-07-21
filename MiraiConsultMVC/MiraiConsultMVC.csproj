@@ -44,7 +44,7 @@
       <HintPath>..\DAL\bin\DAL.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
+      <HintPath>..\..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -213,9 +213,6 @@
     <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\User\Login.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
-    <Compile Include="Scripts\google-code-prettify\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="Scripts\google-code-prettify\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="Scripts\google-code-prettify\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Models\doctordetails.cs" />
     <Compile Include="Models\DoctorLocations.cs" />
     <Compile Include="Models\doctorqualification.cs" />
@@ -502,6 +499,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

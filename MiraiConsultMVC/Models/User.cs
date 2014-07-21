@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 namespace MiraiConsultMVC.Models
 {
-    public class User
+    public class ModelUser
     {
         private int userid;
         private string firstname;
@@ -97,7 +97,7 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
 
-        public User()
+        public ModelUser()
         {
             specialities = new List<DoctorSpecialities>();
             locations = new List<DoctorLocations>();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Model
+namespace MiraiConsultMVC.Models
 {
     public class doctorqualification
     {

@@ -20,7 +20,7 @@ namespace DAL
 
         public static SqlConnection GetSQLConnection()
         {
-            string connectionString = System.Configuration.ConfigurationSettings.AppSettings["constr"].ToString();
+            //string connectionString = System.Configuration.ConfigurationSettings.AppSettings["constr"].ToString();
             SqlConnection conn = new SqlConnection(connectionString);
 
             if (conn.State == System.Data.ConnectionState.Closed)

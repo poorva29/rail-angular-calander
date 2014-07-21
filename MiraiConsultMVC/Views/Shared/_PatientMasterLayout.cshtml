@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head runat="server">
+<head>
     <title>Mirai Consult™</title>
     <link rel="stylesheet" href="../Content/bootstrap.min.css" />
     <link href="../Content/navigation.css" rel="stylesheet" />
@@ -35,7 +35,8 @@
     @*<asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>*@
 </head>
-<body>
+<body class ="form-horizontal">
+    @RenderSection("featured", required: false)
     <div id="wrap">
         @*<form id="form1" runat="server" autocomplete="off" class="form-horizontal" onsubmit="fun()">*@
             <div class="navbar custom-navbar">
@@ -57,7 +58,7 @@
                                         <ul class="dropdown-menu pull-right">
                                             @if (Convert.ToInt32(Session["UserType"]) == 2)
                                             {
-                                                <li><a href="../Profile/patientprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href =" @Url.Action("PatientProfile", "Patients")"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             else if (Convert.ToInt32(Session["UserType"]) == 1)
@@ -93,8 +94,8 @@
                                 </ul>
                             </div>
                             @*<div class="singup_btn paddingrightby3">
-                                <a href="../admin/Login.aspx" class="btn singup_a ">Log in</a>
-                            </div>*@
+                                    <a href="../admin/Login.aspx" class="btn singup_a ">Log in</a>
+                                </div>*@
                         }
                     </div>
                 </div>

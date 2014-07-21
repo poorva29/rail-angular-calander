@@ -9,7 +9,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 
-namespace askmirai
+namespace MiraiConsultMVC
 {
     public class Utilities
     {

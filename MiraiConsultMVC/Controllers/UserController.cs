@@ -89,14 +89,14 @@ namespace MiraiConsultMVC.Controllers
                         Session["UserEmail"] = isLogin.email;
                         Session["UserId"] = isLogin.userid;
                         Session["UserType"] = isLogin.usertype;
-                        if (Convert.ToInt32(Session["UserType"]) == 1)
+                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                         {
-                            if (Convert.ToInt32(isLogin.status) == 1)
+                            if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
                             {
                                 ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
                                 return View();
                             }
-                            else if (Convert.ToInt32(isLogin.status) == 3)
+                            else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
                             {
                                 ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
                                 return View();
@@ -104,12 +104,12 @@ namespace MiraiConsultMVC.Controllers
                             return RedirectToAction("ManageDoctors");
                             //redirect to doctor page
                         }
-                        else if (Convert.ToInt32(Session["UserType"]) == 2)
+                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                         {
                             return RedirectToAction("ManageDoctors");
                             // redirect to patient page
                         }
-                        else if (Convert.ToInt32(Session["UserType"]) == 3)
+                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
                         {
                             return RedirectToAction("ManageDoctors");
                             // redirect to assistent page

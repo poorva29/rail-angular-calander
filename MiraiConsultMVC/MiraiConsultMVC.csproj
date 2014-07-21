@@ -220,9 +220,7 @@
     <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerModel.cs" />
-    <Compile Include="Models\ComparePassword.cs" />
     <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\DoctorProfile.cs" />
     <Compile Include="Models\User\Login.cs" />

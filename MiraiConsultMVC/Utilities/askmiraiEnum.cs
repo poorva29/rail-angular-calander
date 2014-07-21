@@ -16,7 +16,8 @@
     {
         SuperAdmin, //0
         Doctor,//1
-        Patient//2
+        Patient,//2
+        Assistent//3
     }
     public enum Privileges
     {

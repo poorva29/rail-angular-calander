@@ -7,12 +7,16 @@ using MiraiConsultMVC.Models.User;
 using MiraiConsultMVC.Models;
 using System.Configuration;
 using MiraiConsultMVC.Models.Utilities;
+using System.Data;
+using DAL;
+using System.Data.SqlClient;
 
 
 namespace MiraiConsultMVC.Controllers
 {
     public class UserController : Controller
     {
+        _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
        
         //
         // GET: /User/
@@ -33,7 +37,7 @@ namespace MiraiConsultMVC.Controllers
             string dbpasswd = UtilityManager.Decrypt(log.Password);
             if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
             {
-                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+               
                 var isLogin = db.users.FirstOrDefault(x => x.email.Equals(log.Email) && x.password.Equals(dbpasswd));
                 if (isLogin != null)
                 {
@@ -102,7 +106,229 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ManageDoctors()
         {
+            IList<Users> lstdoctors = getAllDoctorDetails();
             return View();
+        }
+
+        public IList<Users> getAllDoctorDetails()
+        {
+            IList<Users> lstdoctors = new List<Users>();
+            DataSet dsDoctorDetails = null;
+            SqlConnection conn = null;
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails");
+            }
+            lstdoctors = populateDoctorDetails(dsDoctorDetails);
+            return lstdoctors;
+        }
+
+        private static IList<Users> populateDoctorDetails(DataSet dsDoctorDetails)
+        {
+            IList<Users> lstdoctors = new List<Users>();
+            Users doctor;
+            int doctorid;
+            DataView dvdocspecialities, dvdoctorlocations, dvdoctorqualifications, dvdoctorsdetails;
+            DataRow[] datarows;
+            if (dsDoctorDetails != null && dsDoctorDetails.Tables.Count > 0 && dsDoctorDetails.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsDoctorDetails.Tables[0].Rows)
+                {
+                    doctor = new User();
+
+                    doctorid = Convert.ToInt32(dr["userid"]);
+                    doctor.UserId = doctorid;
+                    doctor.FirstName = Convert.ToString(dr["firstname"]);
+                    doctor.LastName = Convert.ToString(dr["lastname"]);
+                    doctor.Email = Convert.ToString(dr["email"]);
+                    doctor.MobileNo = Convert.ToString(dr["mobileno"]);
+                    doctor.Gender = Convert.ToInt32(dr["gender"]);
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["dateofbirth"])))
+                    {
+                        doctor.DateOfBirth = Convert.ToDateTime(dr["dateofbirth"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["photopath"])))
+                    {
+                        doctor.Image = Convert.ToString(dr["photopath"]);
+                    }
+                    doctor.UserName = Convert.ToString(dr["username"]);
+                    doctor.Password = Convert.ToString(dr["password"]);
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["isemailverified"])))
+                    {
+                        doctor.IsEmailVerified = Convert.ToBoolean(dr["isemailverified"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["status"])))
+                    {
+                        doctor.Status = Convert.ToInt32(dr["status"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["registrationdate"])))
+                    {
+                        doctor.RegistrationDate = Convert.ToDateTime(dr["registrationdate"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["registrationnumber"])))
+                    {
+                        doctor.RegistrationNumber = Convert.ToString(dr["registrationnumber"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["registrationcouncil"])))
+                    {
+                        doctor.RegistrationCouncil = Convert.ToInt32(dr["registrationcouncil"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["aboutme"])))
+                    {
+                        doctor.AboutMe = Convert.ToString(dr["aboutme"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["countryid"])))
+                    {
+                        doctor.CountryId = Convert.ToInt32(dr["countryid"]);
+                    }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["photourl"])))
+                    {
+                        doctor.PhotoUrl = Convert.ToString(dr["photourl"]);
+                    }
+                    if (dsDoctorDetails.Tables.Count == 5)
+                    {
+                        dvdocspecialities = new DataView(dsDoctorDetails.Tables[1]);
+                        dvdoctorlocations = new DataView(dsDoctorDetails.Tables[2]);
+                        dvdoctorqualifications = new DataView(dsDoctorDetails.Tables[3]);
+                        dvdoctorsdetails = new DataView(dsDoctorDetails.Tables[4]);
+                        string expression = "userid =" + doctorid;
+                        string sortOrder = "";
+                        datarows = dvdocspecialities.Table.Select(expression, sortOrder);
+                        foreach (DataRow dr1 in datarows)
+                        {
+                            DoctorSpecialities doctorspeciality = new DoctorSpecialities();
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
+                            {
+                                doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["speciality_name"])))
+                            {
+                                doctorspeciality.Speciality = Convert.ToString(dr1["speciality_name"]);
+
+                            }
+                            doctor.specialities.Add(doctorspeciality);
+                        }
+                        datarows = dvdoctorlocations.Table.Select(expression, sortOrder);
+                        bool isloc_already_added = false;
+
+                        foreach (DataRow drlocation in datarows)
+                        {
+                            DoctorLocations doctorlocation = new DoctorLocations();
+                            isloc_already_added = doctor.locations.Any(e => e.DoctorLocationId == Convert.ToInt32(drlocation["doctorlocationid"]));
+                            if (!isloc_already_added)
+                            {
+                                doctorlocation.DoctorLocationId = Convert.ToInt32(drlocation["doctorlocationid"]);
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["countryid"])))
+                                {
+                                    doctorlocation.CountryId = Convert.ToInt32(drlocation["countryid"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["country_name"])))
+                                {
+                                    doctorlocation.Country = Convert.ToString(drlocation["country_name"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["stateid"])))
+                                {
+                                    doctorlocation.StateId = Convert.ToInt32(drlocation["stateid"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["state_name"])))
+                                {
+                                    doctorlocation.State = Convert.ToString(drlocation["state_name"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["cityid"])))
+                                {
+                                    doctorlocation.CityId = Convert.ToInt32(drlocation["cityid"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["city_name"])))
+                                {
+                                    doctorlocation.City = Convert.ToString(drlocation["city_name"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["locationid"])))
+                                {
+                                    doctorlocation.LocationId = Convert.ToInt32(drlocation["locationid"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["clinicname"])))
+                                {
+                                    doctorlocation.ClinicName = Convert.ToString(drlocation["clinicname"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["location_name"])))
+                                {
+                                    doctorlocation.Location = Convert.ToString(drlocation["location_name"]);
+                                }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["telephone"])))
+                                {
+                                    doctorlocation.Telephone = Convert.ToString(drlocation["telephone"]);
+                                }
+                                if (!String.IsNullOrEmpty(drlocation["address"].ToString()))
+                                {
+                                    doctorlocation.Address = drlocation["address"].ToString();
+                                }
+                                doctor.locations.Add(doctorlocation);
+                            }
+                        }
+                        datarows = dvdoctorqualifications.Table.Select(expression, sortOrder);
+                        foreach (DataRow dr1 in datarows)
+                        {
+                            doctorqualification doctorqualification = new doctorqualification();
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["degreeid"])))
+                            {
+                                doctorqualification.DegreeId = Convert.ToInt32(dr1["degreeid"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["degree_name"])))
+                            {
+                                doctorqualification.Degree = Convert.ToString(dr1["degree_name"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["university"])))
+                            {
+                                doctorqualification.University = Convert.ToString(dr1["university"]);
+
+                            }
+                            doctor.qualification.Add(doctorqualification);
+                        }
+                        datarows = dvdoctorsdetails.Table.Select(expression, sortOrder);
+                        foreach (DataRow drdoctorsdetails in datarows)
+                        {
+                            doctordetails doctordetails = new doctordetails();
+                            if (!String.IsNullOrEmpty(Convert.ToString(drdoctorsdetails["docdetailsid"])))
+                            {
+                                doctordetails.DocDetailsId = Convert.ToInt32(drdoctorsdetails["docdetailsid"]);
+                            }
+
+                            if (!String.IsNullOrEmpty(Convert.ToString(drdoctorsdetails["userid"])))
+                            {
+                                doctordetails.UserId = Convert.ToInt32(drdoctorsdetails["userid"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(drdoctorsdetails["certification"])))
+                            {
+                                doctordetails.Certification = Convert.ToString(drdoctorsdetails["certification"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(drdoctorsdetails["society"])))
+                            {
+                                doctordetails.Society = Convert.ToString(drdoctorsdetails["society"]);
+                            }
+                            doctor.details.Add(doctordetails);
+                        }
+                        lstdoctors.Add(doctor);
+                    }
+                }
+            }
+            return lstdoctors;
+        }
+
+        public DataSet get_AuthenticateData(string username, string password)
+        {
+            DataSet dsUserDetails = null;
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@username", username);
+            param[1] = new SqlParameter("@password", password);
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                dsUserDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AuthenticateData", param);
+            }
+
+            if (dsUserDetails != null && dsUserDetails.Tables.Count != 0)
+                return dsUserDetails;
+            else
+                return null;
         }
 
     }

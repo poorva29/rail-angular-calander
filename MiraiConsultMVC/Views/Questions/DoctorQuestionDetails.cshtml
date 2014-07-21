@@ -27,7 +27,6 @@
                                         else
                                         {
                                             <img src="../Content/image/img-na.png" />
-                                            //<img src='../Resources/image/img-na.png' />
                                         }
                                     </div>
                                 </div>
@@ -39,7 +38,6 @@
                                     else
                                     {
                                         <img src="../Content/image/img-na.png" />
-                                        //<img src='../Resources/image/img-na.png' />
                                     }
                                 </div>
                                 <div class='span8'>
@@ -72,7 +70,7 @@
                                     </div>
                                 }
                             </div>
-                            if (6!=Convert.ToInt32(item.DocId)@*userId as 6 != Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["Docid"])*@)
+                            if (Convert.ToInt32(Session["UserId"]) != Convert.ToInt32(item.DocId))
                             {
                                 <div class='row-fluid'>
                                     <div style="width:100%">
@@ -81,11 +79,10 @@
                                             isendorse = Convert.ToBoolean(item.IsEndorse);
                                         if (!isendorse)
                                         {
-                                            if (!String.IsNullOrEmpty(Convert.ToString(item.AnswerId)) && !String.IsNullOrEmpty(item.LastName) && !String.IsNullOrEmpty(item.MobileNo) && !String.IsNullOrEmpty(item.Email) && !String.IsNullOrEmpty(item.QuestionText) && !String.IsNullOrEmpty(Convert.ToString(Session["UserId"])) && !String.IsNullOrEmpty(Convert.ToString(item.EndorseCount)))//UserFullName is in questiontext endorsecount
-                                            //@*Session["UserId"] != null && QuestionDetails.Tables[0].Rows[i]["answerid"]!= System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["lastname"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["mobileno"] !=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["Email"]!=System.DBNull.Value && Session["UserFullName"]!=System.DBNull.Value && QuestionDetails.Tables[0].Rows[i]["questiontext"]!=System.DBNull.Value  && QuestionDetails.Tables[0].Rows[i]["endorsecount"]!=System.DBNull.Value *@
+                                            if (Session["UserId"] != null && Session["UserFullName"] != null&& !String.IsNullOrEmpty(Convert.ToString(item.AnswerId)) && !String.IsNullOrEmpty(item.LastName) && !String.IsNullOrEmpty(item.MobileNo) && !String.IsNullOrEmpty(item.Email) && !String.IsNullOrEmpty(item.QuestionText) && !String.IsNullOrEmpty(Convert.ToString(item.EndorseCount)))//UserFullName is in questiontext endorsecount
                                             {
                                                 //<a class='custom-link' onclick='return endorseToDoctor(" <%=  Session["UserId"] %> ","  <%=  QuestionDetails.Tables[0].Rows[i]["answerid"] %>   ",this,"  <%=  QuestionDetails.Tables[0].Rows[i]["lastname"] %>"," <%=  QuestionDetails.Tables[0].Rows[i]["mobileno"] %>  ","<%=  QuestionDetails.Tables[0].Rows[i]["Email"] %>"," <%=  Session["UserFullName"] %> ","<%=  QuestionDetails.Tables[0].Rows[i]["questiontext"] %>","<%=  QuestionDetails.Tables[0].Rows[i]["endorsecount"] %>")'><b>Want to endorse?</b></a>
-                                               <a class='custom-link' onclick="return endorseToDoctor(@(6),'@(item.AnswerId)',@("this"),' @(item.LastName)','@(item.MobileNo)','@(item.Email)','@(Session["UserFullName"])','@(item.QuestionText)','@(item.EndorseCount)')"><b>Want to endorse?</b></a>
+                                               <a class='custom-link' onclick="return endorseToDoctor(@(Convert.ToInt32(Session["UserId"])),'@(item.AnswerId)',@("this"),' @(item.LastName)','@(item.MobileNo)','@(item.Email)','@(Session["UserFullName"])','@(item.QuestionText)','@(item.EndorseCount)')"><b>Want to endorse?</b></a>
                                             }
                                         }
                                         else
@@ -96,7 +93,7 @@
                                     </div>
                                 </div>
                             }
-                            if (Model.LastOrDefault()!=item @*i != (QuestionDetails.Tables[0].Rows.Count -1)*@)
+                            if (Model.LastOrDefault()!=item)
                             {
                                 <hr class='hr_color' />
                             }

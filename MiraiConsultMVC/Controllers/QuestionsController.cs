@@ -57,11 +57,10 @@ namespace MiraiConsultMVC.Controllers
             return View(Questions);
         }
         [HttpGet]
-        public ActionResult DoctorQuestionDetails(int QuestionId = 13)
+        public ActionResult DoctorQuestionDetails(int QuestionId = 0)
         {
             try
             {
-                int userId = Convert.ToInt32(Session["UserId"]);
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;
                 db = new _dbAskMiraiDataContext();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
+using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -20,7 +21,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult PatientProfile()
         {
-            return View(getPatientDetailsByPatientId(6));
+            return View(getPatientDetailsByPatientId(63));
         }
         
         [HttpPost]
@@ -29,8 +30,23 @@ namespace MiraiConsultMVC.Controllers
            if(ModelState.IsValid)
            {
                profile.RegistrationDate = DateTime.Now;
-               profile.UserType = 2;
+               profile.UserType = Convert.ToInt32(UserType.Patient);
+               profile.UserId = 63;
+               profile.Status = Convert.ToInt32(UserStatus.Pending);
+               if(ViewBag.email != profile.Email)
+               {
+                   profile.IsEmailVerified = false;
+               }
+               else
+               {
+                   profile.IsEmailVerified = true;
+               }
+               profile.DateOfBirth = DateTime.Parse(Convert.ToString(profile.DateOfBirth));
                var result = db.askmirai_patient_Insert_Update(profile.FirstName, profile.FirstName, profile.Email, profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified);
+               if(result != null && result.Count() > 0)
+               {
+                  
+               }
            }
            return RedirectToAction("PatientProfile");
         }
@@ -111,9 +127,8 @@ namespace MiraiConsultMVC.Controllers
             return locationLst;
         }
 
-
         [HttpGet]
-        public IList<State> poupulateStateByCountry(int countryId)
+        public JsonResult poupulateStateByCountry(int countryId)
         {
             IList<State> stateLst = new List<State>();
             var stateList = db.states.Where(s => s.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
@@ -128,8 +143,47 @@ namespace MiraiConsultMVC.Controllers
                     stateLst.Add(state1);
                 }
             }
-            return stateLst;
+            return Json(stateLst,JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult poupulateCityByState(int stateId)
+        {
+            IList<City> cityLst = new List<City>();
+            var cityList = db.cities.Where(s => s.stateid.Equals(stateId)).ToList().OrderBy(c => c.name);
+            if (cityList != null && cityList.Count() > 0)
+            {
+                foreach (var city in cityList)
+                {
+                    City city1 = new City();
+                    city1.cityid = Convert.ToInt32(city.cityid);
+                    city1.stateid = Convert.ToInt32(city.stateid);
+                    city1.name = Convert.ToString(city.name);
+                    cityLst.Add(city1);
+                }
+            }
+            return Json(cityLst, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult poupulateLocationByCity(int cityId)
+        {
+            IList<Location> locationLst = new List<Location>();
+            var locationList = db.locations.Where(c => c.cityid.Equals(cityId)).ToList().OrderBy(c => c.name);
+            if (locationList != null && locationList.Count() > 0)
+            {
+                foreach (var location in locationList)
+                {
+                    Location location1 = new Location();
+                    location1.locationid = Convert.ToInt32(location.locationid);
+                    location1.cityid = Convert.ToInt32(location.cityid);
+                    location1.name = Convert.ToString(location.name);
+                    locationLst.Add(location1);
+                }
+            }
+            return Json(locationLst, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public Profile getPatientDetailsByPatientId(int userid)
         {
@@ -142,6 +196,7 @@ namespace MiraiConsultMVC.Controllers
                 patientDetail.FirstName = Convert.ToString(patient.firstname);
                 patientDetail.LastName = Convert.ToString(patient.lastname);
                 patientDetail.Email = Convert.ToString(patient.email);
+                ViewBag.email = Convert.ToString(patient.email);
                 if (patient.mobileno != null)
                     patientDetail.MobileNo = Convert.ToString(patient.mobileno);
                 if (patient.gender != null)
@@ -187,7 +242,9 @@ namespace MiraiConsultMVC.Controllers
                 if (patient.status != null)
                     patientDetail.Status = Convert.ToInt32(patient.status);
                 if (patient.isemailverified != null)
+                {
                     patientDetail.IsEmailVerified = Convert.ToBoolean(patient.isemailverified);
+                }
             }
             return patientDetail;
         }

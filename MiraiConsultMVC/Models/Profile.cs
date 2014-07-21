@@ -10,13 +10,14 @@ namespace MiraiConsultMVC.Models
     public class Profile
     {
         private int userid;
-        [Required]
+        [Required(ErrorMessage = "Please Enter First Name.")]
         private string firstname;
-        [Required]
+        [Required(ErrorMessage = "Please Enter Last Name.")]
         private string lastname;
-        [Required]
+        [Required(ErrorMessage = "Please Enter Email.")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)", ErrorMessage = "Please enter valid email address.")]
         private string email;
-        [Required]
+          [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         private string mobileno;
         private int gender;
         private DateTime? dateofbirth = null;
@@ -26,7 +27,9 @@ namespace MiraiConsultMVC.Models
         private int stateid;
         private int cityid;
         private int locationid;
+        [RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
         private int height;
+        [RegularExpression(@"(\+)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Please Enter Weight In Positive Numbers.")]
         private decimal weight;
         private DateTime registrationdate;
         private int status;
@@ -34,6 +37,7 @@ namespace MiraiConsultMVC.Models
         private string image;
         private bool isemailverified;
         private string address;
+        [RegularExpression(@"^(\d|,)*\d*$", ErrorMessage = "Please Enter Pin Code In Positive Integer Numbers.")]
         private int pincode;
         private string registrationnumber;
         private int registrationcouncil;

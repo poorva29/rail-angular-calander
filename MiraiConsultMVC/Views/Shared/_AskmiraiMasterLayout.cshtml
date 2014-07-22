@@ -150,21 +150,21 @@
                                             <ul class="dropdown-menu pull-right">
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
-                                                <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../doctor/questionlist.aspx"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/Profile/DoctorProfile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/Questions/DoctorQuestionList"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                 <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="../feed/feed.aspx"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                                 {
                                                 @*<%--
                                                 <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
-                                                <li><a href="../../app/admin/ManageDoctors.aspx"><i class="icon-edit"></i>My Account</a></li>
+                                                <li><a href="/User/Managedoctor"><i class="icon-edit"></i>My Account</a></li>
                                                 }
                                                 <li>
                                                     <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"

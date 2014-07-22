@@ -192,6 +192,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomHandleErrorAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -215,15 +216,12 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\State.cs" />
-    <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="Views\Home\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\DoctorProfile.cs" />
     <Compile Include="Models\User\Login.cs" />
+    <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\doctordetails.cs" />
     <Compile Include="Models\DoctorLocations.cs" />
@@ -605,6 +603,9 @@
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\User\Changepassword.cshtml" />
     <Content Include="Views\Doctors\DoctorProfile.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\CustomError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

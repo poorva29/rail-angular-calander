@@ -1,4 +1,4 @@
-﻿@if (Convert.ToInt32(Session["UserType"]) == 0 && Session["UserType"] != null)
+﻿@if ((Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)) && Session["UserType"] != null)
 {
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }

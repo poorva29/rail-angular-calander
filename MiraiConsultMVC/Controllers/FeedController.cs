@@ -11,7 +11,11 @@ namespace MiraiConsultMVC.Controllers
         //
         // GET: /Feed/
 
-        public ActionResult Index()
+        public ActionResult Feed()
+        {
+            return View();
+        }
+        public ActionResult DoctorFeed()
         {
             return View();
         }

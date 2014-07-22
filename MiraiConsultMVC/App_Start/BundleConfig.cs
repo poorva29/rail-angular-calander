@@ -24,6 +24,7 @@ namespace MiraiConsultMVC
                      "~/Content/js/jquery.dataTables.js",
                      "~/Content/js/bootstrap-pagination.js"
                     ));
+            bundles.Add(new ScriptBundle("~/bundles/ViewsScripts").Include("~/Scripts/ViewScrips/QuestionListScript.js"));
 
              bundles.Add(new ScriptBundle("~/bundles/assignquestioncss").Include(
                      "~/Content/chosen/chosen.css"

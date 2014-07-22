@@ -65,7 +65,7 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
     if (button.childNodes[0].data != 'Is it useful?') {
         $(div).getElementsByTagName('a').onclick = '';
     }
-    button.innerHTML = '<div class="custom-green-text"><img src="../resources/image/thanks.png"/> Thanks its useful</div>';
+    button.innerHTML = '<div class="custom-green-text"><img src="../Content/image/thanks.png"/> Thanks its useful</div>';
     var div = "#" + answerid + "ans";
     div = div.replace(/ /g, '');
     var thanxcount = $(div).get(0).childNodes[0].innerHTML;
@@ -77,11 +77,13 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
         dataType: 'json',
         contentType: 'application/json',
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","emailid":"' + emailid + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","thanxcount":"' + thanxcount + '"}',
-        url: "../../Services/UserService.svc/thanktodoctor",
+        url: "../Services/UserService.svc/thanktodoctor",
         success: function (response) {
             response = JSON.parse(response);
+            alert('Success');
         },
         error: function (e) {
+            alert('Fail');
         }
     });
     return false;
@@ -148,13 +150,13 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     var space = ' ' + endorsecount + ' ';
     $(div).get(0).childNodes[1].innerHTML = space;
    
-    button.innerHTML = '<img src="../resources/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
+    button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
     $.ajax({
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","Email":"' + Email + '","answerreplyedby":"' + answerreplyedby + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","endorsecount":"' + endorsecount + '"}',
-        url: "../../Services/UserService.svc/endorsetodoctor",
+        url: "../Services/UserService.svc/endorsetodoctor",
         success: function (response) {
             response = JSON.parse(response);
         },

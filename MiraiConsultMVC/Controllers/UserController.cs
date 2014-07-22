@@ -8,8 +8,11 @@ using MiraiConsultMVC.Models;
 using System.Configuration;
 using MiraiConsultMVC.Models.Utilities;
 using System.Data;
-
+using System.Reflection;
 using System.Data.SqlClient;
+using System.Data.Linq;
+using System.Reflection;
+using System.Data.Linq.Mapping;
 
 
 namespace MiraiConsultMVC.Controllers
@@ -106,22 +109,12 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ManageDoctors()
         {
-            IList<ModelUser> lstdoctors = getAllDoctorDetails();
+            IMultipleResults lstdoctors = db.getAllDoctorDetails();
+
             return View();
         }
 
-        public IList<ModelUser> getAllDoctorDetails()
-        {
-            IList<ModelUser> lstdoctors = new List<ModelUser>();
-            DataSet dsDoctorDetails = null;
-            SqlConnection conn = null;
-            using (conn = SqlHelper.GetSQLConnection())
-            {
-                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails");
-            }
-            lstdoctors = populateDoctorDetails(dsDoctorDetails);
-            return lstdoctors;
-        }
+        
 
         private static IList<ModelUser> populateDoctorDetails(DataSet dsDoctorDetails)
         {

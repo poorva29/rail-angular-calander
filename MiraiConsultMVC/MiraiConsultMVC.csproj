@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\CustomContext.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\User\Login.cs" />

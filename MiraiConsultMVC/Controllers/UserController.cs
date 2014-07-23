@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using MiraiConsultMVC.Models.User;
 using MiraiConsultMVC.Models;
 using System.Configuration;
+using System.Data;
+using DAL;
+using Newtonsoft.Json;
 using MiraiConsultMVC.Models.Utilities;
 
 
@@ -42,12 +45,12 @@ namespace MiraiConsultMVC.Controllers
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
                 int userID = Convert.ToInt32(Session["UserId"]);
-                string dbpasswd = UtilityManager.Encrypt(passwords.currentPassword);
+                string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.currentPassword);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
 
                 if (userRecord != null)
                 {
-                    userRecord.password = UtilityManager.Encrypt(passwords.newPassword); ;
+                    userRecord.password = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.newPassword); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been changed successfully.";
                     return View();
@@ -73,7 +76,7 @@ namespace MiraiConsultMVC.Controllers
             //Utilities U = new Utilities();
             string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
             string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
-            string dbpasswd = UtilityManager.Encrypt(log.Password);
+            string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(log.Password);
             if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
@@ -171,7 +174,7 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult DoctorSignUp()
         {
-            UtilityManager utilityManager = new UtilityManager();
+            MiraiConsultMVC.Models.Utilities.UtilityManager utilityManager = new MiraiConsultMVC.Models.Utilities.UtilityManager();
             _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
             ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
             ViewBag.Specialities = new SelectList(_db.specialities, "specialityid", "Name");
@@ -189,9 +192,10 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-        //public ActionResult GetCounsilList(int CountryId)
-        //{ 
-        //return 
-        //}
+        public string AutoComplete(string term)
+        {
+            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
+            return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
+        }
     }
 }

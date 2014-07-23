@@ -6,16 +6,26 @@ using System.Web.Mvc;
 using MiraiConsultMVC.Models.Home;
 using System.Configuration;
 using MiraiConsultMVC.Models;
+using MiraiConsultMVC;
+using Newtonsoft.Json;
+using System.Data;
+using DAL;
 
 namespace MiraiConsultMVC.Controllers
 {
     public class HomeController : Controller
     {
+        _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         public ActionResult Home()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            if(Request.IsAjaxRequest())
+            {
+              return  PartialView("_AutoCompleteSearch");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
@@ -81,6 +91,12 @@ namespace MiraiConsultMVC.Controllers
                 }
             }
             return View();
+        }
+
+        public string AutoComplete(string term)
+        {
+            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
+            return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
         }
     }
 }

@@ -6,6 +6,11 @@ using System.Web.Mvc;
 using MiraiConsultMVC.Models;
 using MiraiConsultMVC;
 using System.Configuration;
+using System.Data;
+using Newtonsoft.Json;
+using DAL;
+using System.Web.UI.HtmlControls;
+using System.Web.UI;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -15,6 +20,13 @@ namespace MiraiConsultMVC.Controllers
         // GET: /Patients/
 
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+        public int questionId;
+        private int userId;
+        public DataSet QuestionDetails;
+        public String AskmiraiUrl = "";
+        public String FacebookAppKey = "";
+        int assignQuestion = 0;
+
         public ActionResult Index()
         {
             return View();
@@ -290,6 +302,66 @@ namespace MiraiConsultMVC.Controllers
                 }
             }
             return patientDetail;
+        }
+        public string AutoComplete(string term)
+        {
+            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
+            return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
+        }
+
+        [HttpGet]
+        public ActionResult PatientQuestionDetails()        
+        {
+            try
+            {
+                if (Request.QueryString["questionid"] != null)
+                {
+                    questionId = Convert.ToInt32(Request.QueryString["questionid"]);
+                }
+                if (Session["UserId"] != null)
+                {
+                    userId = Convert.ToInt32(Session["UserId"]);
+                }
+                IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
+                QuestionDtlModel qm;
+                System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(questionId, 63, 0, Convert.ToInt32(QuestionStatus.Approved));
+                foreach (var item in ModelQuestion)
+                {
+                    qm = new QuestionDtlModel();
+                    qm.AnswerDate = Convert.ToDateTime(item.answerdate);
+                    qm.AnswerId = Convert.ToInt32(item.answerid);
+                    qm.AnswerImg = item.answerimg;
+                    qm.AnswerText = item.answertext;
+                    qm.CreateDate = Convert.ToDateTime(item.createdate);
+                    qm.DocconnectDoctorId = item.docconnectdoctorid;
+                    qm.DocId = Convert.ToInt32(item.Docid);
+                    qm.Doctor = item.doctor;
+                    qm.DoctorImg = item.doctorimg;
+                    qm.Email = item.Email;
+                    qm.EndorseCount = Convert.ToInt32(item.endorsecount);
+                    qm.Gender = Convert.ToInt32(item.gender);
+                    qm.Id = item.id;
+                    qm.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
+                    qm.IsEndorse = Convert.ToBoolean(item.isendorse);
+                    qm.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
+                    qm.LastName = item.lastname;
+                    qm.MobileNo = item.mobileno;
+                    qm.PatientEmail = item.patientemail;
+                    qm.PatientLastName = item.patientlastname;
+                    qm.QuestionId = Convert.ToInt32(item.questionid);
+                    qm.QuestionText = item.questiontext;
+                    qm.status = Convert.ToInt32(item.status);
+                    qm.ThanxCount = Convert.ToInt32(item.thanxcount);
+                    qm.Title = item.title;
+                    qm.UserId = Convert.ToInt32(item.userid);
+                    QDModel.Add(qm);
+                }
+                return View(QDModel);
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
         }
     }
 }

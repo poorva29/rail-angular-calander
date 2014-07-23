@@ -11,7 +11,7 @@
     <link rel="Stylesheet" href="../Content/chosen/chosen.css" />
     <link rel="stylesheet" href="../Content/custom.css" />
     <link rel="stylesheet" href="../Content/datepicker.css" />
- 
+
     @*<%--
         <link rel="stylesheet" href="app/Resources/css/jquery-ui.css" />--%>*@
     <link href="../Content/jquery-ui.css" rel="stylesheet" />
@@ -25,6 +25,14 @@
     <!--[if IE 7]>
     <link rel="stylesheet" href="app/assets/css/font-awesome-ie7.min.css">
     <![endif]-->
+
+    <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Scripts/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../Content/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="../Scripts/utility.js"></script>
     @*<asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>*@
 </head>
@@ -34,148 +42,147 @@
         <div class="navbar custom-navbar">
             <div class="custom-navbar-links">
                 <div class="container">
-
                     <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
                     <div class="paddingtopby1">
                         <div>
-                            @{                   
+                            @{
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword.aspx")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarquestions.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails.aspx"))
-                                {
-                                <div class="pull-right">
-                                    <ul class="nav">
-                                        <li><a href="@Url.Action("Login", "User")">Already have an account? <b><u>Login</u></b></a></li>
-                                    </ul>
-                                </div>
-                                }                                
-                                else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()))
-                                {
-                                <div class="row-fluid">
-                                    <div style="float:left">
-                                        <a class="btn btn-navbar custom-btn-navbar visible-tablet" data-toggle="collapse" data-target=".mobile-menu">
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </a>
-                                    </div>
-                                    <div class="span8 pull-right">
-                                        <div class="row-fluid hidden-phone dropdown-div-margin">
-                                            <div class="span11 margin-top-athome-nav dropdown-link-margin-left pull-right">
-                                                <ul class="nav pull-right inline">
-                                                    <li><a href="@Url.Action("Login", "User")">Existing user <b><u>Login</u></b> here </a></li>
-                                                    <li><a href="#">|</a></li>
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;?  <b><u>Signup</u></b> here <b class="caret"></b></a>
-                                                        <ul class="dropdown-menu" style="margin-right:5%">
-                                                            <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
-                                                            <li class="divider"></li>
-                                                            <li>
-                                                                <a href="@Url.Action("DoctorSignUp","User")">
-                                                                    <i class="icon-user-md"></i>Signup as Doctor
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
+                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails.aspx"))
+                                    {
+                                        <div class="pull-right">
+                                            <ul class="nav">
+                                                <li><a href="@Url.Action("Login", "User")">Already have an account? <b><u>Login</u></b></a></li>
+                                            </ul>
                                         </div>
-                                        <div class="row-fluid visible-phone">
+                                    }
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()))
+                                    {
+                                        <div class="row-fluid">
                                             <div style="float:left">
-                                                <a class="btn btn-navbar custom-btn-navbar visible-tablet visible-phone" data-toggle="collapse" data-target=".mobile-menu">
+                                                <a class="btn btn-navbar custom-btn-navbar visible-tablet" data-toggle="collapse" data-target=".mobile-menu">
                                                     <span class="icon-bar"></span>
                                                     <span class="icon-bar"></span>
                                                     <span class="icon-bar"></span>
                                                 </a>
                                             </div>
-                                            <div class="span6 offset6 margin-top-athome-nav topmenupadding-right">
-                                                <ul class="nav pull-right">
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><u>Signup</u></b><b class="caret"></b></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
-                                                            <li class="divider"></li>
-                                                            <li>
-                                                                <a href="@Url.Action("DoctorSignUp","User")">
-                                                                    <i class="icon-user-md"></i>Signup as Doctor
-                                                                </a>
+                                            <div class="span8 pull-right">
+                                                <div class="row-fluid hidden-phone dropdown-div-margin">
+                                                    <div class="span11 margin-top-athome-nav dropdown-link-margin-left pull-right">
+                                                        <ul class="nav pull-right inline">
+                                                            <li><a href="@Url.Action("Login", "User")">Existing user <b><u>Login</u></b> here </a></li>
+                                                            <li><a href="#">|</a></li>
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;?  <b><u>Signup</u></b> here <b class="caret"></b></a>
+                                                                <ul class="dropdown-menu" style="margin-right:5%">
+                                                                    <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li>
+                                                                        <a href="@Url.Action("DoctorSignUp","User")">
+                                                                            <i class="icon-user-md"></i>Signup as Doctor
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="row-fluid visible-phone">
+                                                    <div style="float:left">
+                                                        <a class="btn btn-navbar custom-btn-navbar visible-tablet visible-phone" data-toggle="collapse" data-target=".mobile-menu">
+                                                            <span class="icon-bar"></span>
+                                                            <span class="icon-bar"></span>
+                                                            <span class="icon-bar"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="span6 offset6 margin-top-athome-nav topmenupadding-right">
+                                                        <ul class="nav pull-right">
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><u>Signup</u></b><b class="caret"></b></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li>
+                                                                        <a href="@Url.Action("DoctorSignUp","User")">
+                                                                            <i class="icon-user-md"></i>Signup as Doctor
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li class="inline">
+                                                                <a href="@Url.Action("Login", "User")"><b><u>Login</u></b></a>
                                                             </li>
                                                         </ul>
-                                                    </li>
-                                                    <li class="inline">
-                                                        <a href="@Url.Action("Login", "User")"><b><u>Login</u></b></a>
-                                                    </li>
-                                                </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                 }
-                                else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/User/Login"))
-                                {
-                                <div class="pull-right">
-                                    <ul class="nav">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle menu-padding" data-toggle="dropdown">New to Mirai Consult&#8482;? <b><u>Signup</u></b> here<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Sign Up as Patient</a></li>
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <a href="@Url.Action("DoctorSignUp","User")">
-                                                        <i class="icon-user-md"></i>Sign Up as Doctor
-                                                    </a>
+                                    }
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/User/Login"))
+                                    {
+                                        <div class="pull-right">
+                                            <ul class="nav">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle menu-padding" data-toggle="dropdown">New to Mirai Consult&#8482;? <b><u>Signup</u></b> here<b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Sign Up as Patient</a></li>
+                                                        <li class="divider"></li>
+                                                        <li>
+                                                            <a href="@Url.Action("DoctorSignUp","User")">
+                                                                <i class="icon-user-md"></i>Sign Up as Doctor
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
                                             </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                }
+                                        </div>
+                                    }
                                 }
                                 else
                                 {
-                                <div style="float:left">
-                                    <a class="btn btn-navbar custom-btn-navbar visible-tablet visible-phone" data-toggle="collapse" data-target=".mobile-menu">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </a>
-                                </div>
-                                <div class="paddingrightby3 pull-right ">
-                                    <ul class="nav">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Welcome @Session["UserFullName"] <b class="caret"></b></a>
-                                            <ul class="dropdown-menu pull-right">
-                                                 @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
-                                                {
-                                                <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../doctor/questionlist.aspx"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
-                                                }
-                                                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
-                                                {
-                                                <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../feed/feed.aspx"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
-                                                }
-                                                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
-                                                {
-                                                @*<%--
-                                                <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
-                                                <li><a href="../../app/admin/ManageDoctors.aspx"><i class="icon-edit"></i>My Account</a></li>
-                                                }
-                                                <li>
-                                                    <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
-                                                                    OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <div style="float:left">
+                                        <a class="btn btn-navbar custom-btn-navbar visible-tablet visible-phone" data-toggle="collapse" data-target=".mobile-menu">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </a>
+                                    </div>
+                                    <div class="paddingrightby3 pull-right ">
+                                        <ul class="nav">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Welcome @Session["UserFullName"] <b class="caret"></b></a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                                                    {
+                                                        <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                        <li><a href="../doctor/questionlist.aspx"><i class="icon-list-alt"></i>My Account</a></li>
+                                                        <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                                    }9
+                                                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                                    {
+                                                    <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
+                                                    <li><a href="../feed/feed.aspx"><i class="icon-list-alt"></i>My Account</a></li>
+                                                    <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
+                                                    }
+                                                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                                    {
+                                                    @*<%--
+                                                        <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
+                                                    <li><a href="../../app/admin/ManageDoctors.aspx"><i class="icon-edit"></i>My Account</a></li>
+                                                    }
+                                                    <li>
+                                                        <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
+                                                                        OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 }
-                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -208,7 +215,7 @@
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
-                                <input id="txtsearch" type="text" class="form-control pull-right form-search search-float input-searchsize search-query search-margin" placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+                                @Html.Partial("_AutoCompleteSearch","")
                             </div>
                         </div>
                     </div>
@@ -304,7 +311,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $(".navigation li.active").removeClass("active");

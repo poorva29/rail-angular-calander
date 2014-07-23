@@ -192,6 +192,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomHandleErrorAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\DoctorProfile.cs" />
     <Compile Include="Models\User\Login.cs" />
+    <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\doctordetails.cs" />
     <Compile Include="Models\DoctorLocations.cs" />
@@ -663,6 +665,9 @@
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\User\Changepassword.cshtml" />
     <Content Include="Views\Doctors\DoctorProfile.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\CustomError.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Login.cshtml" />

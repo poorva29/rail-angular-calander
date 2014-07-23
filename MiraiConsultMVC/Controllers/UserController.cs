@@ -150,6 +150,62 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+          [HttpPost]
+        public ActionResult ForgotPassword(string name)
+        {
+            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            var UserRecord = db.users.FirstOrDefault(x => x.email.Equals(name));
+            if (UserRecord != null)
+            {
+                string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
+                string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname+" "+UserRecord.lastname, emailVerficationURL);
+                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
+                ViewBag.success="true";
+                ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
+            }
+            else{
+                  ViewBag.success="false";
+                  ViewBag.Msg = "Invalid email address or you have not verified your email address.";
+            }
+
+            return View(); //return some view to the user
+        }
+
+        public ActionResult ResetPassword(string id)
+        {
+            TempData["userid"] = Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+"));
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPassword passwords)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+                int userID = Convert.ToInt32(TempData["userid"].ToString());
+                string dbpasswd = UtilityManager.Encrypt(passwords.Password);
+                var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
+                if (userRecord != null)
+                {
+                    userRecord.password = UtilityManager.Encrypt(passwords.Password); ;
+                    db.SubmitChanges();
+                    ViewBag.errorMsg = "Password has been Reset successfully.";
+                   
+                }
+            }
+            return View();
+        }
         [HttpGet]
         public ActionResult PatientSignUp()
         {

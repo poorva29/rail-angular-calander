@@ -203,19 +203,23 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
 
+    <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\Home\Contact.cs" />
+    <Compile Include="Models\RegistrationCouncil.cs" />
+    <Compile Include="Models\Specialities.cs" />
+    <Compile Include="Models\Utilities\UtilityManager.cs" />
+
     <Compile Include="Models\admin\AssignQuestion.cs" />
 
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
-    <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\AnswerModel.cs" />
-    <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\DoctorProfile.cs" />
+    <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\User\Login.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Models\doctordetails.cs" />
@@ -223,7 +227,7 @@
     <Compile Include="Models\doctorqualifications.cs" />
     <Compile Include="Models\DoctorSpecialities.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ModelUser.cs" />
     <Compile Include="Models\_dbAskMirai.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -479,6 +483,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\tokenfield-typeahead.css" />
     <Content Include="Controllers\bin\log4net.dll" />
+    <Content Include="DAL.dll" />
     <Content Include="favicon.ico" />
     <Content Include="feed\answerPhotos\10782167001_ROC_10_20_11_1.jpg" />
     <Content Include="feed\answerPhotos\1082216710056780x1386629963.png" />
@@ -662,8 +667,8 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\TermsOfUse.cshtml" />
     <Content Include="Views\Home\HowWeWorks.cshtml" />
-    <Content Include="Views\Patients\PatientProfile.cshtml" />
     <Content Include="Views\Questions\_DoctorQuestionList.cshtml" />
+    <Content Include="Views\Patients\PatientProfile.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
@@ -677,10 +682,12 @@
     <Content Include="Views\User\CustomError.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
+    <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\QuestionList.cshtml" />
     <None Include="Service References\LoginServiceReference1\UserService.wsdl" />
@@ -694,6 +701,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
+    <Folder Include="Views\Home\obj\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,0 +1,83 @@
+﻿@model IList<ModelUser>
+
+
+                <tbody id="AllDoctorDetails">
+    @foreach (ModelUser doctor in Model)
+    {
+        string DoctorId = Convert.ToString(doctor.UserId);
+        string DoctorMobile = Convert.ToString(doctor.MobileNo);
+        string DoctorEmail = Convert.ToString(doctor.Email);
+        string DoctorName = Convert.ToString(doctor.LastName);
+        string encDoctorId = HttpUtility.UrlEncode(askmirai.Utilities.Encrypt(DoctorId));
+        <tr>
+            <td style='word-wrap: break-word'>
+                Dr. @doctor.FirstName doctor.LastName
+            </td>
+            <td style='word-wrap: break-word'>
+                @doctor.RegistrationDate.ToString("dd/MM/yyyy")
+            </td>
+            <td style='word-wrap: break-word'>
+                @doctor.Email
+            </td>
+            <td style='word-wrap: break-word'>
+                @if (doctor.specialities.Count != 0)
+                {
+                    @doctor.specialities[0].Speciality;
+                }
+                else
+                {
+                    @:NA
+                                                            }
+            </td>
+            <td style='word-wrap: break-word'>
+                @doctor.MobileNo
+            </td>
+            <td>
+                @if (doctor.Status == 0)
+                {
+                    @:Pending
+
+                }
+                else if (doctor.Status == 1)
+                {
+                    @:Registered
+                                                            }
+                else if (doctor.Status == 2)
+                {
+                    @:Approved
+                                                            }
+                else if (doctor.Status == 3)
+                {
+                    @:Rejected
+                                                            }
+            </td>
+            <td class="last-row">
+                @if (doctor.Status == 3)
+                {
+                    <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('@(encDoctorId)')"><img class="cust-icon" src="~/Content/image/edit2.png"></a>
+                    <a title="Approve" class="hand-cursor" id="btnApproved" onclick="approveStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)', '@(DoctorName)')"></a>
+                    <img class="cust-icon hand-cursor" src="~/Content/image/check.png">
+                }
+                else if (doctor.Status == 2)
+                {
+                    <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('@(encDoctorId)')"><img class="cust-icon" src="~/Content/image/edit2.png"></a>
+                    <a title="Reject" class="hand-cursor" id="btnRejected" onclick="rejectStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)')"></a>
+                    <img class="cust-icon" src="~/Content/image/revoke.png">
+                }
+                else if (doctor.Status == 1)
+                {
+                    <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('@(encDoctorId)')"><img class="cust-icon" src="~/Content/image/edit2.png"></a>
+                    <a title="Approve" class="hand-cursor" id="btnApproved1" onclick="approveStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)', '@(DoctorName)')">
+                        <img class="cust-icon" src="~/Content/image/check.png">
+                    </a>
+                    <a title="Reject" class="hand-cursor" id="btnRejected1" onclick="rejectStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)')">
+                        <img class="cust-icon" src="~/Content/image/revoke.png">
+                    </a>
+                }
+
+            </td>
+        </tr>
+    }
+</tbody>
+
+            

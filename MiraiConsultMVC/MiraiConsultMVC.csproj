@@ -490,6 +490,12 @@
     <Content Include="Views\Home\TermsOfUse.cshtml" />
     <Content Include="Views\Home\HowWeWorks.cshtml" />
     <Content Include="Views\Questions\_DoctorQuestionList.cshtml" />
+    <Content Include="Views\User\AssignQuestion.cshtml" />
+    <Content Include="Views\User\DoctorSignUp.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\ManageDoctors.cshtml" />
+    <Content Include="Views\User\PatientSignUp.cshtml" />
+    <Content Include="Views\User\_DoctorDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

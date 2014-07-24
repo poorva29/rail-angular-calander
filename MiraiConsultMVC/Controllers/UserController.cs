@@ -107,13 +107,90 @@ namespace MiraiConsultMVC.Controllers
           
         }
 
-        public ActionResult ManageDoctors()
+        public ActionResult ManageDoctors(string Registered=null,string Approved=null,string Rejected=null )
         {
-            IMultipleResults lstdoctors = db.getAllDoctorDetails();
-
-            return View();
+            IList<ModelUser> lstdoctors = getAllDoctorDetails();
+            if(Request.IsAjaxRequest())
+            {
+                Boolean IsRegistered = false;
+                Boolean IsApproved = false;
+                Boolean IsRejected = false;
+                IList<ModelUser> lstFilterDoctors;
+                if (!String.IsNullOrEmpty(Registered))
+                {
+                    IsRegistered = true;
+                }
+                if (!String.IsNullOrEmpty(Approved))
+                {
+                    IsApproved = true;
+                }
+                if (!String.IsNullOrEmpty(Rejected))
+                {
+                    IsRejected = true;
+                }
+                if (IsRegistered && IsApproved && IsRejected)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2) || d.Status.Equals(3)).ToList();
+                }
+                else if (IsRegistered && IsApproved)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2)).ToList();
+                }
+                else if (IsRegistered && IsRejected)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(3)).ToList();
+                }
+                else if (IsApproved && IsRejected)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2) || d.Status.Equals(3)).ToList();
+                }
+                else if (IsRegistered)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1)).ToList();
+                }
+                else if (IsRejected)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(3)).ToList();
+                }
+                else if (IsApproved)
+                {
+                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2)).ToList();
+                }
+                else
+                {
+                    lstFilterDoctors = lstdoctors;
+                }
+                return PartialView("_DoctorDetails", lstFilterDoctors);
+            }
+            lstdoctors = lstdoctors.Where(d => d.Status.Equals(1)).ToList();
+            return View(lstdoctors);
         }
 
+        public JsonResult ApproveDoctor(string doctorid, string DoctorMobile, string DoctorName)
+        {
+            object jsonOj = "{update: true}";
+            return Json(jsonOj, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult FilterManageDoctors()
+        {
+            IList<ModelUser> lstdoctors = getAllDoctorDetails();
+            return PartialView(lstdoctors);
+        }
+
+        public IList<ModelUser> getAllDoctorDetails()
+        {
+            IList<ModelUser> lstdoctors = new List<ModelUser>();
+            DataSet dsDoctorDetails = null;
+            SqlConnection conn = null;
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails");
+            }
+            lstdoctors = populateDoctorDetails(dsDoctorDetails);
+            return lstdoctors;
+        }
         
 
         private static IList<ModelUser> populateDoctorDetails(DataSet dsDoctorDetails)

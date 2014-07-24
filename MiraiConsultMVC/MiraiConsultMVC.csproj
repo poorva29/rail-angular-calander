@@ -192,6 +192,7 @@
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\FindDoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
@@ -214,6 +215,8 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
+    <Compile Include="Models\FindDoctorModel.cs" />
+    <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\State.cs" />
@@ -426,6 +429,35 @@
     <Content Include="Content\image\ua-question.png" />
     <Content Include="Content\image\UnAssignQ.jpg" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\js\autocomplete.js" />
+    <Content Include="Content\js\bootstrap-alert.js" />
+    <Content Include="Content\js\bootstrap-button.js" />
+    <Content Include="Content\js\bootstrap-carousel.js" />
+    <Content Include="Content\js\bootstrap-collapse.js" />
+    <Content Include="Content\js\bootstrap-datepicker.js" />
+    <Content Include="Content\js\bootstrap-dropdown.js" />
+    <Content Include="Content\js\bootstrap-modal.js" />
+    <Content Include="Content\js\bootstrap-pagination.js" />
+    <Content Include="Content\js\bootstrap-popover.js" />
+    <Content Include="Content\js\bootstrap-scrollspy.js" />
+    <Content Include="Content\js\bootstrap-tab.js" />
+    <Content Include="Content\js\bootstrap-tokenfield.js" />
+    <Content Include="Content\js\bootstrap-tooltip.js" />
+    <Content Include="Content\js\bootstrap-transition.js" />
+    <Content Include="Content\js\bootstrap-typeahead.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\dateofbirthvalidation.js" />
+    <Content Include="Content\js\google-code-prettify\prettify.css" />
+    <Content Include="Content\js\google-code-prettify\prettify.js" />
+    <Content Include="Content\js\holder.js" />
+    <Content Include="Content\js\jquery-1.9.0.min.js" />
+    <Content Include="Content\js\jquery-1.9.1.min.js" />
+    <Content Include="Content\js\jquery-ui-1.10.0.custom.min.js" />
+    <Content Include="Content\js\jquery-ui.min.js" />
+    <Content Include="Content\js\jquery.dataTables.js" />
+    <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\jquery.placeholder.js" />
+    <Content Include="Content\js\utility.js" />
     <Content Include="Content\navigation.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -670,7 +702,6 @@
     <Content Include="Views\Questions\_DoctorQuestionList.cshtml" />
     <Content Include="Views\Patients\PatientProfile.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
-    <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\User\PatientSignUp.cshtml" />
@@ -681,20 +712,16 @@
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\User\CustomError.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
-    <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
-    <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
+    <Content Include="Views\FindDoctor\FindDoctors.cshtml" />
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\QuestionList.cshtml" />
     <None Include="Service References\LoginServiceReference1\UserService.wsdl" />
     <None Include="Service References\LoginServiceReference1\UserService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LoginServiceReference1\UserService1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

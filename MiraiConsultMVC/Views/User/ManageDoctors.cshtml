@@ -1,159 +1,145 @@
-﻿<script src="~/Content/js/jquery.dataTables.js"></script>
+﻿@model IList<ModelUser>
+
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/jquery.dataTables.js"></script>
 <script src="~/Content/js/bootstrap-pagination.js"></script>
 <div class="row-fluid div_margin_bottom">
-    @*<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-        <contenttemplate>*@
-            <div class="span12 main-outter-padding">
-                <div class="row-fluid">
-                    <div class="span12 finddoc-title">
-                        Manage Doctors
-                    </div>
-                </div>
-                <div class="main row-fluid">
-                    <div class="span12">
-                        <div class="">
-                            <div class="row-fluid registerDoctor">
-                                <div class="row-fluid filter-div btn-padding-left">
-                                    <div class="span1">
-                                        <b>Filter:</b>
-                                    </div>
-                                    <div class="span3">
-                                        <input id="ChkRegistered" name="view" type="checkbox" checked="checked" oncheckedchanged="ChkRegistered_Checked" />
-                                        <label class="checkbox chk_box_inline">Registered Doctors</label>
-                                    </div>
-                                    <div class="span3">
-                                        <input id="ChkApproved" name="view" type="checkbox"  oncheckedchanged="ChkApproved_Checked" />
-                                        <label class="checkbox chk_box_inline ">Approved Doctors </label>
-                                    </div>
-                                    <div class="span3">
-                                        <input id="ChkRejected" name="view" type="checkbox"  oncheckedchanged="ChkRejected_Checked" />
-                                        <label class="checkbox chk_box_inline">Rejected Doctors </label>
-                                    </div>
+    <div class="span12 main-outter-padding">
+        <div class="row-fluid">
+            <div class="span12 finddoc-title">
+                Manage Doctors
+            </div>
+        </div>
+        <div class="main row-fluid">
+            <div class="span12">
+                <div class="">
+                    <div class="row-fluid registerDoctor">
+                        <div class="row-fluid filter-div btn-padding-left">
+                            <div class="span1">
+                                <b>Filter:</b>
+                            </div>
+                            @using (Ajax.BeginForm("ManageDoctors", new AjaxOptions
+                                    {
+                                        HttpMethod = "get",
+                                        InsertionMode = InsertionMode.Replace,
+                                        UpdateTargetId = "AllDoctorDetails",
+                                        LoadingElementId = "DoctorDetailForm"
+                                    }))
+                            {
+                                <div class="span3">
+                                    <input id="ChkRegisteredhdn" value="1"  name="Registered" type="hidden" />
+                                    <input id="ChkRegistered"  type="checkbox" checked="checked" />
+                                    <label class="checkbox chk_box_inline">Registered Doctors</label>
                                 </div>
-                                <div class="row-fluid div_margin_bottom">
-                                    <div class="span12">
-                                        <div class="table-responsive">
-                                            <table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"
-                                                   id="Doctorlist">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <b>Name</b>
-                                                        </th>
-                                                        <th>
-                                                            <b>Registration Date</b>
-                                                        </th>
-                                                        <th>
-                                                            <b>Email ID</b>
-                                                        </th>
-                                                        <th>
-                                                            <b>Specialities</b>
-                                                        </th>
-                                                        <th>
-                                                            <b>Mobile No.</b>
-                                                        </th>
-                                                        <th>
-                                                            <b>Status</b>
-                                                        </th>
-                                                        <th class="edit_th_min_width">
-                                                            <b>Edit </b>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @*<%foreach (Model.User doctor in lstdoctors)
-                                                    {
-                                                    string DoctorId = Convert.ToString(doctor.UserId);
-                                                    string DoctorMobile = Convert.ToString(doctor.MobileNo);
-                                                    string DoctorEmail = Convert.ToString(doctor.Email);
-                                                    string DoctorName = Convert.ToString(doctor.LastName);
-                                                    string encDoctorId = HttpUtility.UrlEncode(askmirai.Utilities.Encrypt(DoctorId));   %>
-                                                    <tr>
-                                                        <td style='word-wrap: break-word'>
-                                                            Dr. <%=doctor.FirstName%> <%=doctor.LastName %>
-                                                        </td>
-                                                        <td style='word-wrap: break-word'>
-                                                            <%=doctor.RegistrationDate.ToString("dd/MM/yyyy")%>
-                                                        </td>
-                                                        <td style='word-wrap: break-word'>
-                                                            <%=doctor.Email%>
-                                                        </td>
-                                                        <td style='word-wrap: break-word'>
-                                                            <%if (doctor.specialities.Count != 0)
-                                                            {%>
-                                                            <%=doctor.specialities[0].Speciality%>
-                                                            <%}
-                                                            else
-                                                            { %>
-                                                            NA
-                                                            <%}%>
-                                                        </td>
-                                                        <td style='word-wrap: break-word'>
-                                                            <%=doctor.MobileNo%>
-                                                        </td>
-                                                        <td>
-                                                            <%if (doctor.Status == 0)
-                                                            {%>
-                                                            Pending
-                                                            <%}
-                                                            else if (doctor.Status == 1)
-                                                            { %>
-                                                            Registered
-                                                            <%}
-                                                            else if (doctor.Status == 2)
-                                                            { %>
-                                                            Approved
-                                                            <%}
-                                                            else if (doctor.Status == 3)
-                                                            { %>
-                                                            Rejected
-                                                            <%}%>
-                                                        </td>
-                                                        <td class="last-row">
-                                                            <%if (doctor.Status == 3)
-                                                            {%>
-                                                            <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('<%=encDoctorId%>')"><img class="cust-icon" src="../Resources/image/edit2.png"></a>
-                                                            <a title="Approve" class="hand-cursor" id="btnApproved" onclick="approveStatusByDoctorID('<%=DoctorId%>','<%=DoctorMobile%>','<%=DoctorEmail%>','<%=DoctorName%>')">
-                                                                <img class="cust-icon hand-cursor" src="../Resources/image/check.png">
-                                                                <%}
-                                                                else if (doctor.Status == 2)
-                                                                { %>
-                                                                <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('<%=encDoctorId%>')"><img class="cust-icon" src="../Resources/image/edit2.png"></a>
-                                                                <a title="Reject" class="hand-cursor" id="btnRejected" onclick="rejectStatusByDoctorID('<%=DoctorId%>','<%=DoctorMobile%>','<%=DoctorEmail%>')">
-                                                                    <img class="cust-icon" src="../Resources/image/revoke.png">
-                                                                    <%}
-                                                                    else if (doctor.Status == 1)
-                                                                    { %>
-                                                                    <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('<%=encDoctorId%>')"><img class="cust-icon" src="../Resources/image/edit2.png"></a>
-                                                                    <a title="Approve" class="hand-cursor" id="btnApproved1" onclick="approveStatusByDoctorID('<%=DoctorId%>','<%=DoctorMobile%>','<%=DoctorEmail%>','<%=DoctorName%>')">
-                                                                        <img class="cust-icon" src="../Resources/image/check.png">
-                                                                    </a>
-                                                                    <a title="Reject" class="hand-cursor" id="btnRejected1" onclick="rejectStatusByDoctorID('<%=DoctorId%>','<%=DoctorMobile%>','<%=DoctorEmail%>')">
-                                                                        <img class="cust-icon" src="../Resources/image/revoke.png">
-                                                                        <%}
-                                                                        %>
-                                                        </td>
-                                                    </tr>
-                                                    <%  }
-                                                    %>*@
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                <div class="span3">
+                                    <input id="ChkApprovedhdn" name="Approved" type="hidden" />
+                                    <input id="ChkApproved" type="checkbox" />
+                                    <label class="checkbox chk_box_inline ">Approved Doctors </label>
                                 </div>
+                                <div class="span3">
+                                    <input id="ChkRejectedhdn" name="Rejected" type="hidden" />
+                                    <input id="ChkRejected"  type="checkbox" />
+                                    <label class="checkbox chk_box_inline">Rejected Doctors </label>
+                                </div>
+                            }
+                        </div>
+                        <div class="row-fluid div_margin_bottom" >
+                            <div class="span12">
+                                <div class="table-responsive">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"
+                                           id="Doctorlist">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <b>Name</b>
+                                                </th>
+                                                <th>
+                                                    <b>Registration Date</b>
+                                                </th>
+                                                <th>
+                                                    <b>Email ID</b>
+                                                </th>
+                                                <th>
+                                                    <b>Specialities</b>
+                                                </th>
+                                                <th>
+                                                    <b>Mobile No.</b>
+                                                </th>
+                                                <th>
+                                                    <b>Status</b>
+                                                </th>
+                                                <th class="edit_th_min_width">
+                                                    <b>Edit </b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        @Html.Partial("_DoctorDetails", Model);
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
 
+
+                    </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        @*</contenttemplate>
-    </asp:UpdatePanel>*@
+
+    </div>
 </div>
 
 <script type="text/javascript">
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
     var responsFlag = 1;
+    var ajaxFormSubmit
+    $(function () {
+         ajaxFormSubmit = function () {
+            var $form = $(this);
+
+            var options = {
+                url: $form.attr("action"),
+                type: $form.attr("data-ajax-method"),
+                data: $form.serialize()
+            };
+
+            $.ajax(options).done(function (data) {
+                var $target = $($form.attr("data-ajax-update"));
+                $target.replaceWith(data);
+                initDataTable();
+            });
+            return false;
+         };
+         $("form[data-ajax='true']").submit(ajaxFormSubmit);
+    })
+    $(document).on("click", "#ChkRegistered", function () {
+       if($('#ChkRegistered').prop('checked')==true){ 
+            $('#ChkRegisteredhdn').val("1");
+       }
+       else{
+           $('#ChkRegisteredhdn').val("");
+       }
+        $('form').submit();
+    });
+
+    $(document).on("click", "#ChkApproved", function () {
+        if ($('#ChkApproved').prop('checked') == true) {
+            $('#ChkApprovedhdn').val("1");
+        }
+        else {
+            $('#ChkApprovedhdn').val("");
+        }
+        $('form').submit();
+    });
+    $(document).on("click", "#ChkRejected", function () {
+        if ($('#ChkRejected').prop('checked') == true) {
+            $('#ChkRejectedhdn').val("1");
+        }
+        else {
+            $('#ChkRejectedhdn').val("");
+        }
+        $('form').submit();
+    });
+
+
     function onSuccess(result) {
         alert(result);
         window.location.assign(location.href);
@@ -162,21 +148,51 @@
         window.location.assign(location.href);
     }
     function approveStatusByDoctorID(doctorid, DoctorMobile, DoctorEmail, DoctorName) {
-        if (responsFlag == 1) {
             if (confirm("Are you sure you want to approve this user?") == true) {
                 document.body.style.cursor = 'wait';
-                PageMethods.ApproveStatusByDoctorId(doctorid, DoctorMobile, DoctorEmail, DoctorName, onSuccess, onFailure);
-                responsFlag = 0;
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: "/User/ApproveDoctor?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorName=" + DoctorName+"&DoctorEmail="+DoctorEmail,
+                    success: function (response) {
+                        if (response == "Doctor has been Approved successfully.") {
+                            $('form').submit();
+                            alert(response);
+                            document.body.style.cursor = 'default';
+                        }
+                        else if (response == "Unable to change the status.") {
+                            alert(response);
+                            document.body.style.cursor = 'default';
+                        }
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
             }
-            else {
-                responsFlag = 1;
-            }
-        }
     }
     function rejectStatusByDoctorID(doctorid, DoctorMobile, DoctorEmail) {
         if (confirm("Are you sure you want to reject this user?") == true) {
             document.body.style.cursor = 'wait';
-            PageMethods.RejectDoctorByDoctorId(doctorid, DoctorMobile, DoctorEmail, onSuccess, onFailure);
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/User/RejectDoctorByDoctorId?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorEmail=" + DoctorEmail,
+                success: function (response) {
+                    if (response == "Doctor has been Rejected successfully.") {
+                        $('form').submit();
+                        alert(response);
+                        document.body.style.cursor = 'default';
+                    }
+                    else if (response == "Unable to change the status.") {
+                        alert(response);
+                        document.body.style.cursor = 'default';
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
         }
     }
     function showDoctorDetailById(DoctorID) {
@@ -185,9 +201,7 @@
     function EndRequestHandler() {
         initDataTable();
     }
-</script>
-
-<script type="text/javascript">
+    
 
     /* Table initialisation */
     function initDataTable() {

@@ -1,0 +1,158 @@
+﻿@model IEnumerable< MiraiConsultMVC.Models.QuestionModel>
+@{
+    ViewBag.Title = "AskDoctor";
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+}
+<script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    {
+        <div class="row-fluid div_margin_bottom">
+            <div class="span12 main-outter-padding">
+                <div class="row-fluid">
+                    <div class="span12 finddoc-title">
+                        Ask Doctor
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="row-fluid img-bgcolor">
+                            <img src="../Content/image/askDoctors1.png" id="dispImage"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_margin content_border find-Doc-gbColor" style="max-width:100%">
+                    <div class="row-fluid" id="buttonDiv">
+                        <div class="span10 div-left-padding">
+                            Enter your question here
+                        </div>
+                        <div class="span1">
+                            <label id="count" class="btndiv">0/200</label>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12 div-left-padding controls-right-padding">
+                            <label id="msglabel"></label>
+                            @Html.TextAreaFor(m=>m.FirstOrDefault().QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
+                            @Html.ValidationMessageFor(m => m.FirstOrDefault().QuestionText, string.Empty, new { @class = "validation-summary-errors" })
+                        </div>
+                    </div>
+                    <div class="row-fluid div-left-padding askdoctor-button">
+                        <input type="button" class="btn thanx" value="Next" id="btnNext">
+                        <input type="button" class="btn thanx" value="Ask" id="btnAskMirai">
+                    </div>
+                </div>
+                <div class="row-fluid" id="searchDiv">
+                    <div class="span12">
+                        <div class="control-group">
+                            <div id="ansCount">
+                                <label class="finddoc-title">Relevant answers</label>
+                                <hr class="hr_margin" />                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 offset4">
+                        <a href="#" id="seeMoreResultAnchor">See more results</a>
+                        <span id="searchResultSpan"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script type="text/javascript">
+    function Count(x) {
+        document.getElementById('count').innerHTML = x.value.length + "/200";
+    }
+    $("#txtAreaQuestion").keypress(function () {
+        $("#rqfvQuestion").hide();
+    });
+    $(function () {
+        document.getElementById('btnAskMirai').style.display = 'none';
+        document.getElementById('searchDiv').style.display = 'none';
+        document.getElementById('seeMoreResultAnchor').style.display = 'none';
+        document.getElementById('msglabel').style.display = 'none';
+        $(".navigation li.active").removeClass("active");
+        $('#liaskdoc').addClass("active");
+
+        var MaxLength = 200;
+        $('#txtAreaQuestion').keypress(function (e) {
+            if ($(this).val().length >= MaxLength) {
+                e.preventDefault();
+            }
+        });
+    });
+    $("#btnNext").click(function () {
+        var questionText = document.getElementById('txtAreaQuestion').value;
+        $.ajax({
+            type: "GET",           
+            url: 'GetSimilarQuestion?questionText=' + questionText,
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                var TextToAppend = '';
+                for (var i = 0; i < response.length; i++) {
+
+                    TextToAppend = TextToAppend + '<div class=\'ans_time_detail\'><p>' + response[i].Counts + '</p></div>' +
+                                '<a href=\'PatientQuestionDetails?questionid=' + response[i].QuestionId + '\'>' +
+                                    '<p id=\"questionText\">' + response[i].QuestionText + '</p>' +
+                                '</a>' + 
+                                '<hr class="hr_margin" style="margin-top:22px" />'
+                };
+
+                $("#ansCount").append(TextToAppend);
+                if (response.length > 5)
+                {
+                    document.getElementById('seeMoreResultAnchor').style.display = 'block';
+                }
+                else if (response.length == 0)
+                {
+                    document.getElementById('searchResultSpan').innerHTML = 'No records found';
+                }
+                document.getElementById('btnAskMirai').style.display = 'block';
+                document.getElementById('searchDiv').style.display = 'block';
+                document.getElementById('btnNext').style.display = 'none';
+                document.getElementById('dispImage').src = '../Content/image/askDoctors2.png';              
+            },
+            error: function (data) {
+                if (data.responseText.indexOf('Authentication failed') > -1) {                  
+                    alert(data);
+                }
+            }
+        });
+        return false;
+    });
+
+    $("#btnAskMirai").click(function () {
+        var questionText = document.getElementById('txtAreaQuestion').value;
+        $.ajax({
+            type: "GET",
+            url: 'question_Insert?questionText=' + questionText,
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (returndata) {
+                if(returndata == 1)
+                {
+                    document.getElementById('dispImage').src = '../Content/image/askDoctors3.png';
+                    document.getElementById('msglabel').style.display = 'block';
+                    document.getElementById('msglabel').innerHTML = "Your Question has been sent for review and it is added to your activity. You will be notified when it is answered.";
+                    document.getElementById('buttonDiv').style.display = 'none';
+                    document.getElementById('msglabel').className = 'alert alert-success';
+                    document.getElementById('btnAskMirai').style.display = 'none';
+                    document.getElementById('txtAreaQuestion').style.display = 'none'; 
+                    document.getElementById('searchResultSpan').InnerHtml = '';
+                    document.getElementById('ansCount').style.display = 'none';
+                }
+            },
+            error: function (data) {
+                if (data.responseText.indexOf('Authentication failed') > -1) {
+                    alert(data);
+                }
+            }
+        });
+    });
+</script>

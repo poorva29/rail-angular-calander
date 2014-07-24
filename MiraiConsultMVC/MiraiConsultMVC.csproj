@@ -192,7 +192,6 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\CustomHandleErrorAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -209,7 +208,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\AutoComplete.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
@@ -675,6 +673,7 @@
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
+    <Content Include="Views\Patients\AskDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -114,7 +114,7 @@
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                             {
                                                 <li id="liaskdoc" class="ask-doctor">
-                                                    <a href="../patient/askdoctor.aspx">
+                                                    <a href="@Url.Action("AskDoctor", "Patients")">
                                                         <span class="Icon Icon--ask-doctor Icon--large"></span><span class="text"><br />Ask Doctors</span>
                                                     </a>
                                                 </li>

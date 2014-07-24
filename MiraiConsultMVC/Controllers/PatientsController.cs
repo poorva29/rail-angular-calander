@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using DAL;
 using System.Web.UI.HtmlControls;
 using System.Web.UI;
+using Model;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -22,11 +23,6 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         public int questionId;
         private int userId;
-        public DataSet QuestionDetails;
-        public String AskmiraiUrl = "";
-        public String FacebookAppKey = "";
-        int assignQuestion = 0;
-
         public ActionResult Index()
         {
             return View();
@@ -362,6 +358,51 @@ namespace MiraiConsultMVC.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult AskDoctor()
+        {
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            QuestionModel qModel = new QuestionModel();
+            qModel.QuestionText = "";
+            lstQuestions.Add(qModel);
+            return View(lstQuestions);
+        }
+
+        [HttpGet]
+        public JsonResult GetSimilarQuestion(string questionText)
+        {
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            if (questionList != null && questionList.Count() > 0)
+            {
+                foreach (var item in questionList)
+                {
+                    QuestionModel qModel = new QuestionModel();
+                    qModel.QuestionId = Convert.ToInt32(item.questionid);
+                    qModel.QuestionText = item.questiontext;
+                    qModel.Counts = item.counts;
+                    lstQuestions.Add(qModel);
+                }
+            }
+            return Json(lstQuestions,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult question_Insert(string questionText)
+        {
+            int userId = 0;
+            int result = 0;
+            if (Session["UserId"] != null && Session["UserType"] != null)
+            {
+                userId = Convert.ToInt32(Session["UserId"]);
+            }
+            Question question = new Question();
+            question.UserId = userId;
+            question.Status = Convert.ToInt32(QuestionStatus.Pending);
+            question.QuestionText = questionText;
+            result = QuestionManager.getInstance().insertQuestion(question);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

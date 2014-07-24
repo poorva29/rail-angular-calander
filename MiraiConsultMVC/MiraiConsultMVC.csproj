@@ -689,6 +689,7 @@
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
+    <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\QuestionList.cshtml" />
     <None Include="Service References\LoginServiceReference1\UserService.wsdl" />

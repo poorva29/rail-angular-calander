@@ -2,7 +2,14 @@
 
 @{
     ViewBag.Title = "PatientQuestionDetails";
-    Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    if(Session["UserId"] == null)
+    {
+         Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
+    else
+    { 
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
 }
 
 <link rel="stylesheet" href="../Content/chosen/chosen.css" />

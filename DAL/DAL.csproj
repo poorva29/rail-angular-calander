@@ -81,9 +81,14 @@
     <Compile Include="UtilityManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\DAL.dll" />
+    <Content Include="bin\DAL.pdb" />
+    <Content Include="bin\Model.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\DAL.dll.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

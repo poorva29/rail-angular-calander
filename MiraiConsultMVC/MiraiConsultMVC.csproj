@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AutoComplete.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
@@ -250,7 +251,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\DAL.dll" />
     <Content Include="bin\DAL.pdb" />
     <Content Include="bin\de\Microsoft.Data.Edm.resources.dll" />
     <Content Include="bin\de\Microsoft.Data.OData.resources.dll" />
@@ -481,6 +481,65 @@
     <Content Include="Content\tokenfield-typeahead.css" />
     <Content Include="Controllers\bin\log4net.dll" />
     <Content Include="favicon.ico" />
+    <Content Include="feed\answerPhotos\10782167001_ROC_10_20_11_1.jpg" />
+    <Content Include="feed\answerPhotos\1082216710056780x1386629963.png" />
+    <Content Include="feed\answerPhotos\10822193download %285%29.jpg" />
+    <Content Include="feed\answerPhotos\1102173image.jpg" />
+    <Content Include="feed\answerPhotos\110322344AskMirai.png" />
+    <Content Include="feed\answerPhotos\1105246askmirai_img.png" />
+    <Content Include="feed\answerPhotos\1108246bg_sunrise_icon.jpg" />
+    <Content Include="feed\answerPhotos\11301464AskMirai.png" />
+    <Content Include="feed\answerPhotos\1130246download %282%29.jpg" />
+    <Content Include="feed\answerPhotos\11482461387451768438.png" />
+    <Content Include="feed\answerPhotos\11486anuja.jpg" />
+    <Content Include="feed\answerPhotos\11532234about-breast-cancer.jpg" />
+    <Content Include="feed\answerPhotos\1154246image.jpg" />
+    <Content Include="feed\answerPhotos\1155173image.jpg" />
+    <Content Include="feed\answerPhotos\11616anuja.jpg" />
+    <Content Include="feed\answerPhotos\1162246image.jpg" />
+    <Content Include="feed\answerPhotos\11706janssen_cilag_mini_logo.jpg" />
+    <Content Include="feed\answerPhotos\11746logo1.png" />
+    <Content Include="feed\answerPhotos\1180246Koala.jpg" />
+    <Content Include="feed\answerPhotos\1186246image.jpg" />
+    <Content Include="feed\answerPhotos\118722344AskMirai.png" />
+    <Content Include="feed\answerPhotos\1191246image.jpg" />
+    <Content Include="feed\answerPhotos\21673302AskMirai.png" />
+    <Content Include="feed\answerPhotos\218933161393582563474.jpg" />
+    <Content Include="feed\answerPhotos\22142234ui-icons_cd0a0a_256x240.png" />
+    <Content Include="feed\answerPhotos\22201anuja.jpg" />
+    <Content Include="feed\answerPhotos\2221246Screenshot_2014-05-21-16-03-27.png" />
+    <Content Include="feed\answerPhotos\222324610380125_244994635697474_6934314279218651171_o.png" />
+    <Content Include="feed\answerPhotos\2225246Chrysanthemum.jpg" />
+    <Content Include="feed\answerPhotos\22283302AskMirai.png" />
+    <Content Include="feed\answerPhotos\2247246Screenshot_2014-05-16-12-09-27.png" />
+    <Content Include="feed\answerPhotos\22553359DSC_0031.jpg" />
+    <Content Include="feed\answerPhotos\22563359DSC_0031.jpg" />
+    <Content Include="feed\answerPhotos\22673375Screen Shot 2014-05-30 at 12.02.05 PM.png" />
+    <Content Include="feed\answerPhotos\2268246Screenshot_2014-05-26-14-26-44.png" />
+    <Content Include="feed\answerPhotos\22683375Screen Shot 2014-05-30 at 12.02.28 PM.png" />
+    <Content Include="feed\answerPhotos\2272246export_11.png" />
+    <Content Include="feed\answerPhotos\2274246image.jpg" />
+    <Content Include="feed\answerPhotos\22766anuja.jpg" />
+    <Content Include="feed\answerPhotos\22793390Doc.jpg" />
+    <Content Include="feed\answerPhotos\2281246Screenshot_2014-05-16-11-57-17.png" />
+    <Content Include="feed\answerPhotos\22822465E0DF618-BE80-489C-9A7D-D3E9671DEAB1[3].png" />
+    <Content Include="feed\answerPhotos\2297246Pain.jpeg" />
+    <Content Include="feed\answerPhotos\22996u92.png" />
+    <Content Include="feed\answerPhotos\2318246neck_pain.jpeg" />
+    <Content Include="feed\answerPhotos\23323425listing.png" />
+    <Content Include="feed\answerPhotos\2337246Pain.jpeg" />
+    <Content Include="feed\answerPhotos\23403425link.png" />
+    <Content Include="feed\answerPhotos\2343246Title.png" />
+    <Content Include="feed\answerPhotos\23453445open-uri20140605-23699-19mnjyk.jpeg" />
+    <Content Include="feed\answerPhotos\2353246fever-adult.jpeg" />
+    <Content Include="feed\answerPhotos\23593445Tulips.jpg" />
+    <Content Include="feed\answerPhotos\2374246download %281%29.jpg" />
+    <Content Include="feed\answerPhotos\23793595Penguins.jpg" />
+    <Content Include="feed\answerPhotos\23813595Hydrangeas.jpg" />
+    <Content Include="feed\answerPhotos\238364.5mb.jpg" />
+    <Content Include="feed\answerPhotos\23886app_error.png" />
+    <Content Include="feed\answerPhotos\37anuja.jpg" />
+    <Content Include="feed\answerPhotos\801464AskMirai.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
@@ -539,6 +598,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\otf.js" />
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\ViewScrips\QuestionListScript.js" />
     <Content Include="Services\UserService.svc" />
@@ -613,6 +673,8 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\User\PatientSignUp.cshtml" />
+    <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
+    <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

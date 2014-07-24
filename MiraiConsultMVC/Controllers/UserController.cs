@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using MiraiConsultMVC.Models.User;
 using MiraiConsultMVC.Models;
 using System.Configuration;
+using System.Data;
+using DAL;
+using Newtonsoft.Json;
 using MiraiConsultMVC.Models.Utilities;
 using System.Data;
 using System.Reflection;
@@ -29,6 +32,49 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Changepassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Changepassword(ChangePassword passwords)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+                int userID = Convert.ToInt32(Session["UserId"]);
+                string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.currentPassword);
+                var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
+
+                if (userRecord != null)
+                {
+                    userRecord.password = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.newPassword); ;
+                    db.SubmitChanges();
+                    ViewBag.errorMsg = "Password has been changed successfully.";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.errorMsg = "Please enter valid current password.";
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -37,7 +83,7 @@ namespace MiraiConsultMVC.Controllers
             //Utilities U = new Utilities();
             string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
             string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
-            string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Decrypt(log.Password);
+            string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(log.Password);
             if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
             {
                
@@ -53,14 +99,14 @@ namespace MiraiConsultMVC.Controllers
                         Session["UserEmail"] = isLogin.email;
                         Session["UserId"] = isLogin.userid;
                         Session["UserType"] = isLogin.usertype;
-                        if (Convert.ToInt32(Session["UserType"]) == 1)
+                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                         {
-                            if (Convert.ToInt32(isLogin.status) == 1)
+                            if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
                             {
                                 ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
                                 return View();
                             }
-                            else if (Convert.ToInt32(isLogin.status) == 3)
+                            else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
                             {
                                 ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
                                 return View();
@@ -68,12 +114,12 @@ namespace MiraiConsultMVC.Controllers
                             return RedirectToAction("ManageDoctors");
                             //redirect to doctor page
                         }
-                        else if (Convert.ToInt32(Session["UserType"]) == 2)
+                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                         {
                             return RedirectToAction("ManageDoctors");
                             // redirect to patient page
                         }
-                        else if (Convert.ToInt32(Session["UserType"]) == 3)
+                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
                         {
                             return RedirectToAction("ManageDoctors");
                             // redirect to assistent page
@@ -402,6 +448,61 @@ namespace MiraiConsultMVC.Controllers
                 return null;
         }
 
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+          [HttpPost]
+        public ActionResult ForgotPassword(string name)
+        {
+            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            var UserRecord = db.users.FirstOrDefault(x => x.email.Equals(name));
+            if (UserRecord != null)
+            {
+                string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
+                string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname+" "+UserRecord.lastname, emailVerficationURL);
+                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
+                ViewBag.success="true";
+                ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
+            }
+            else{
+                  ViewBag.success="false";
+                  ViewBag.Msg = "Invalid email address or you have not verified your email address.";
+            }
+
+            return View(); //return some view to the user
+        }
+
+        public ActionResult ResetPassword(string id)
+        {
+            TempData["userid"] = Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+"));
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPassword passwords)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+                int userID = Convert.ToInt32(TempData["userid"].ToString());
+                string dbpasswd = UtilityManager.Encrypt(passwords.Password);
+                var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
+                if (userRecord != null)
+                {
+                    userRecord.password = UtilityManager.Encrypt(passwords.Password); ;
+                    db.SubmitChanges();
+                    ViewBag.errorMsg = "Password has been Reset successfully.";
+                   
+                }
+            }
+            return View();
+        }
 
         [HttpGet]
         public ActionResult PatientSignUp()
@@ -445,10 +546,12 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-        //public ActionResult GetCounsilList(int CountryId)
-        //{ 
-        //return 
-        //}
+
+        public string AutoComplete(string term)
+        {
+            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
+            return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
+        }
 
     }
 }

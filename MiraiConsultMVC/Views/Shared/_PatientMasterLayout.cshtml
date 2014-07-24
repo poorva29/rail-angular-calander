@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head runat="server">
+<head>
     <title>Mirai Consult™</title>
     <link rel="stylesheet" href="../Content/bootstrap.min.css" />
     <link href="../Content/navigation.css" rel="stylesheet" />
@@ -35,7 +35,8 @@
     @*<asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>*@
 </head>
-<body>
+<body class ="form-horizontal">
+    @RenderSection("featured", required: false)
     <div id="wrap">
         @*<form id="form1" runat="server" autocomplete="off" class="form-horizontal" onsubmit="fun()">*@
             <div class="navbar custom-navbar">
@@ -53,26 +54,21 @@
                             <div class="pull-right paddingrightby3">
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @*<%= Session["UserFullName"] %>*@ <b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome @Session["UserFullName"] <b class="caret"></b></a>
                                         <ul class="dropdown-menu pull-right">
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                             {
-                                                <li><a href="../Profile/patientprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href =" @Url.Action("PatientProfile", "Patients")"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                             {
                                                 <li><a href="../../app/Profile/doctorprofile.aspx"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../admin/changepassword.aspx"><i class="icon-key"></i>Change Password</a></li>
-                                            }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
-                                            {
-                                                @*<%--
-                                                    <li><a href="../admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
+                                                <li><a href="/User/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             <li>
-                                                <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
-                                                                OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
+                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"
+                                                   onclick="linkLogout_Click"><i class="icon-off"></i>Logout</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -86,10 +82,10 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;? Signup here<b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="../SignUp/PatientSignUp.aspx"><i class="icon-user"></i>Signup as Patient</a></li>
+                                            <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
                                             <li class="divider"></li>
                                             <li>
-                                                <a href="../SignUp/DoctorSignUp.aspx">
+                                                <a href="@Url.Action("DoctorSignUp","User")">
                                                     <i class="icon-user-md"></i>Signup as Doctor
                                                 </a>
                                             </li>
@@ -98,8 +94,8 @@
                                 </ul>
                             </div>
                             @*<div class="singup_btn paddingrightby3">
-                                <a href="../admin/Login.aspx" class="btn singup_a ">Log in</a>
-                            </div>*@
+                                    <a href="../admin/Login.aspx" class="btn singup_a ">Log in</a>
+                                </div>*@
                         }
                     </div>
                 </div>
@@ -190,7 +186,7 @@
                                         </ul>
                                     </div>
                                     <div class="span4 pull-right btn-margin-bottom search-width center_align topnavbar-btn-margin reg-search-margin regsearch-position register-search-margin searchmargin-top" align="center" style="width:100%;">
-                                        <input id="txtsearch" type="text" class="form-control form-search input-searchsize search-query" placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+                                       @Html.Partial("_AutoCompleteSearch")
                                     </div>
                                 </div>
                             </div>
@@ -380,6 +376,7 @@
         @*</form>*@
     </div>
     <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
+    
     <script type="text/javascript">
         $(".navigation").on('click', 'li', function () {
             $(".navigation li.active").removeClass("active"); //Remove any "active" class

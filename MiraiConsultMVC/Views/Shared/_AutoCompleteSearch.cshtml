@@ -1,0 +1,56 @@
+﻿<form autocomplete="on">    
+    <input id="txtsearch" type="search" name="txtsearch" class="form-control pull-right form-search search-float input-searchsize search-query " placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+</form>
+    <script type="text/javascript">
+        var currentLocation = window.location;
+        var strUrl = null;
+        if(currentLocation == '@(ConfigurationManager.AppSettings["defaultUrl"].ToString())')
+        {
+           strUrl = 'Home/AutoComplete';
+        }
+        else{
+           strUrl = 'AutoComplete';
+        }
+        $("#txtsearch").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: 'GET',
+                    url: strUrl,
+                    data: '{"searchstr":"' + $('#txtsearch').val() + '"}',
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            var temp = document.createElement("pre");
+                            temp.innerHTML = item.questiontext;
+                            return {
+                                label: temp.firstChild.nodeValue,
+                                value: 'Patients/PatientQuestionDetails?questionid=' + item.questionid
+                            }
+                        }));
+                    },
+                    error: function (data) {
+                        console.log('Error in ajax request');
+                    }
+                });
+            },
+            select: function (event, ui) {
+                window.location.href = ui.item.value;
+
+                this.value = "";
+                return false;
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            },
+            focus: function (event, ui) {
+                this.value = ui.item.label;
+                return false;
+            }
+        });
+   </script>         
+
+

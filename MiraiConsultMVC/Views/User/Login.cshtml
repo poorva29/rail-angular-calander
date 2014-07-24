@@ -1,5 +1,10 @@
 ﻿@model MiraiConsultMVC.Models.User.Login
 <script src="~/Content/js/bootstrap-dropdown.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="../Scripts/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../Scripts/utility.js"></script>
 <div class="row-fluid">
     <div>
         <div class="row-fluid">
@@ -16,11 +21,11 @@
                                 <div class="row-fluid">
                                     <div class="span12 btn-padding-left controls-right-padding">
                                         @if (!String.IsNullOrEmpty(ViewBag.errorMsg))
-{
-    <div id="message" class="alert alert-error">
-        <label id="lblError">@ViewBag.errorMsg</label>
-    </div>
-}
+                                        {
+                                            <div id="message" class="alert alert-error">
+                                                <label id="lblError">@ViewBag.errorMsg</label>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +73,7 @@
                             <div class="span8 pull-right btn-padding-left controls-right-padding offset4">
                                 <input id="btnLogin" class="btn thanx gray-border" type="submit" value="Sign in" />
                                 <div class="pull-right">
-                                    <a href="forgotpassword.aspx" type="checkbox" style="color:#a7af38;font-weight:600; padding-top:5px;">Forgot Password?</a>
+                                    <a href="/User/forgotpassword" type="checkbox" style="color:#a7af38;font-weight:600; padding-top:5px;">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>

@@ -97,6 +97,7 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
 
+
         public ModelUser()
         {
             specialities = new List<DoctorSpecialities>();
@@ -120,6 +121,6 @@ namespace MiraiConsultMVC.Models
         public void RemoveLocations(DoctorLocations Location)
         {
             this.locations.Remove(Location);
-        }       
+        }  
     }
 }

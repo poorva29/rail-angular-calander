@@ -186,7 +186,7 @@
                                         </ul>
                                     </div>
                                     <div class="span4 pull-right btn-margin-bottom search-width center_align topnavbar-btn-margin reg-search-margin regsearch-position register-search-margin searchmargin-top" align="center" style="width:100%;">
-                                        <input id="txtsearch" type="text" class="form-control form-search input-searchsize search-query" placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+                                       @Html.Partial("_AutoCompleteSearch")
                                     </div>
                                 </div>
                             </div>
@@ -376,6 +376,7 @@
         @*</form>*@
     </div>
     <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
+    
     <script type="text/javascript">
         $(".navigation").on('click', 'li', function () {
             $(".navigation li.active").removeClass("active"); //Remove any "active" class

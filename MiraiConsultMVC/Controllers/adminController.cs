@@ -112,11 +112,11 @@ namespace MiraiConsultMVC.Controllers
                 return View(viewmodel);
         }
 
-        public ActionResult QuestionList()
+        public ActionResult QuestionList(bool filter = false)
         {
-
-            
-            return View();
+            QuestionModel Qmodel = new QuestionModel();
+            Qmodel.Filter = filter;
+            return View(Qmodel);
         }
 
     }

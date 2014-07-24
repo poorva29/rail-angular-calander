@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
+﻿@model MiraiConsultMVC.Models.QuestionModel
 @{
     ViewBag.Title = "QuestionList";
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
@@ -18,11 +18,11 @@
                 <div class="pull-right span11">
                     <label class="radio inline">
                         @*<asp:RadioButton ID="rdbFilterAll" GroupName="filter" Text="All Questions" runat="server" Checked="true" AutoPostBack="true" />*@
-                        @Html.RadioButton("rdbFilterAll", "All Questions") All Questions
+                        @Html.RadioButton("rdbFilterAll", "All Questions", !Model.FirstOrDefault().Filter) All Questions
                     </label>
                     <label class="radio inline">
                         @*<asp:RadioButton ID="rdbFilterUnass" GroupName="filter" Text="Unassigned Questions" runat="server" AutoPostBack="true" />*@
-                        @Html.RadioButton("rdbFilterUnass", "Unanswered Questions") Unassigned Questions
+                        @Html.RadioButton("rdbFilterUnass", "Unanswered Questions", !Model.FirstOrDefault().Filter) Unassigned Questions
                     </label>
                 </div>
             </div>
@@ -38,11 +38,19 @@
                 <asp:HiddenField ID="HdnRecordSize" runat="server" ClientIDMode="Static" />
                 <div class="row-fluid" style="margin-top: 20px;">
                     <div class="span11">
-                        <img src="../Content/image/ua-question.png" class="icon_Stethoscope" />
-                        Unassigned Questions
-                        &nbsp;&nbsp;
+                        @if (Model.FirstOrDefault().Filter)
+                        {
+                            <img src="../Content/image/ua-question.png" class="icon_Stethoscope" />
+                                @:Unassigned Questions
+                        }
+                        else
+                        {
+                           
                         <img src="../Content/image/a-question.png" class="icon_Stethoscope" />
-                        Assigned questions
+                                @:Assigned questions
+                        }
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -94,6 +102,14 @@
             populateQuestionData(indexoF)
         }
     });
+    $(function () {
+        $(":radio").change(function () {
+            var $textValue = $(this).val();
+            var filter = !($textValue == 'All Questions');
+            window.location.href = "QuestionList?userId = 6&filter=" + filter;
+        });
+
+    });
     function populateQuestionData(index) {
         //var RecordSize = document.getElementById("HdnRecordSize").value;
         //var Flag = document.getElementById("HdnFlag").value;
@@ -101,7 +117,7 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: "../Services/UserService.svc/getQuestionList?RecordSize=" + 100 + "&Flag=" + true + "&lastQuestionNo=" + index,
+            url: "/Services/UserService.svc/getQuestionList?RecordSize=" + 100 + "&Flag=" + 1 + "&lastQuestionNo=" + index,
             success: function (response) {
                 var Question = 0;
                 response = JSON.parse(response);
@@ -112,16 +128,16 @@
                 for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
                     var Flag = document.getElementById("HdnFlag").value;
                     if (response[indexcnt].questionstatus == 1)
-                        var img = "<img style='width:30px;margin:0 5px 0 5px;' src='../Resources/image/a-question.png'>";
+                        var img = "<img style='width:30px;margin:0 5px 0 5px;' src='../Content/image/a-question.png'>";
                     else
-                        var img = "<img style='width:30px;margin:0 5px 0 5px;' src='../Resources/image/ua-question.png'>";
+                        var img = "<img style='width:30px;margin:0 5px 0 5px;' src='../Content/image/ua-question.png'>";
                     var template;
                     var title;
                     title = "";
                     if (indexcnt % 2 != 0)
-                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Resources/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
                     else
-                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Resources/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
 
                     $("#question").append(template);
                     Question++;

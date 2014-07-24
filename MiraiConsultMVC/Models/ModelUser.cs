@@ -101,30 +101,5 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
         public int Specialityid { get { return specialityid; } set { specialityid = value; } }
-
-        //public ModelUser()
-        //{
-        //    specialities = new List<DoctorSpecialities>();
-        //    locations = new List<DoctorLocations>();
-        //    qualification = new List<doctorqualification>();
-        //    details = new List<doctordetails>();
-            
-        //}
-        //public void AddSpeciality(DoctorSpecialities Speciality)
-        //{
-        //    specialities.Add(Speciality);
-        //}
-        //public void RemoveSpeciality(DoctorSpecialities Speciality)
-        //{
-        //    this.specialities.Remove(Speciality);
-        //}
-        //public void AddLocations(DoctorLocations Location)
-        //{
-        //    locations.Add(Location);
-        //}
-        //public void RemoveLocations(DoctorLocations Location)
-        //{
-        //    this.locations.Remove(Location);
-        //}  
     }
 }

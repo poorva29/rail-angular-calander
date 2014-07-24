@@ -48,6 +48,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
@@ -188,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -200,6 +202,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+
+    <Compile Include="Models\admin\AssignQuestion.cs" />
+
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
@@ -225,6 +230,11 @@
       <DependentUpon>_dbAskMirai.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\LoginServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\UserService.svc.cs">
       <DependentUpon>UserService.svc</DependentUpon>
@@ -590,6 +600,13 @@
     <Content Include="Scripts\otf.js" />
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\ViewScrips\QuestionListScript.js" />
+    <None Include="Service References\LoginServiceReference1\UserService.disco" />
+    <None Include="Service References\LoginServiceReference1\configuration91.svcinfo" />
+    <None Include="Service References\LoginServiceReference1\configuration.svcinfo" />
+    <None Include="Service References\LoginServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Services\UserService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -664,6 +681,15 @@
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
+    <Content Include="Views\admin\assignquestion.cshtml" />
+    <Content Include="Views\admin\QuestionList.cshtml" />
+    <None Include="Service References\LoginServiceReference1\UserService.wsdl" />
+    <None Include="Service References\LoginServiceReference1\UserService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LoginServiceReference1\UserService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -684,6 +710,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{6b65a3ee-e5a5-4bfb-9c30-7ed8382ef7be}</Project>
       <Name>DAL</Name>
@@ -692,6 +719,12 @@
       <Project>{b8fd3a08-c7c8-4e2b-aa31-4343783f0682}</Project>
       <Name>Model</Name>
     </ProjectReference>
+
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\LoginServiceReference1\" />
+
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

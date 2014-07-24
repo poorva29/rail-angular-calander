@@ -43,7 +43,7 @@
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
                                     @*<input type="password" class="input-block-level gray-border txt-position" id="txtEmail" maxlength="40" textmode="Email Id" autocomplete="off" placeholder="Password" >*@
                                     @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border txt-position", maxlength = "40", textmode = "text", placeholder = "Email" })
-                                    @Html.ValidationMessageFor(m => m.Email)
+                                    @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
                             </div>
                     </div>
@@ -55,7 +55,7 @@
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
                                 @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position", maxlength = "30", type = "Password", placeholder = "Password" })
 
-                                @Html.ValidationMessageFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                                 @*<input type="password" class="input-block-level gray-border txt-position" id="txtPassword" maxlength="30" textmode="Password" placeholder="Password">*@
                             </div>
                         </div>

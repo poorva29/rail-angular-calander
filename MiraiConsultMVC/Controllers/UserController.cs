@@ -75,7 +75,7 @@ namespace MiraiConsultMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login log)
         {
-            //Utilities U = new Utilities();
+            //Utilities U = new Utilities()
             string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
             string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
             string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(log.Password);
@@ -267,12 +267,6 @@ namespace MiraiConsultMVC.Controllers
             var specialityList = poupulateSpeciality();
             modelUser.Specialities = new SelectList(specialityList, "specialityid", "name");
             return View(modelUser);
-            //MiraiConsultMVC.Models.Utilities.UtilityManager utilityManager = new MiraiConsultMVC.Models.Utilities.UtilityManager();
-            //_dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
-            //ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
-            //ViewBag.Specialities = new SelectList(_db.specialities, "specialityid", "Name");
-            //ViewBag.Registrationcouncil = new SelectList(_db.registrationcouncils, "regcouncilid", "name");
-            //return View();
         }
         [HttpPost]
         public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file)
@@ -297,16 +291,7 @@ namespace MiraiConsultMVC.Controllers
                 doctor.RegistrationCouncil = Convert.ToInt32(1);//modelUser.Regcouncilid);
                 doctor.AboutMe = modelUser.AboutMe;
                 doctor.Status = Convert.ToInt32(UserStatus.Pending);
-                doctor.UserType = Convert.ToInt32(UserType.Doctor);
-                //foreach (ListItem li in lstSpecialities.Items)
-                //{
-                //    if (li.Selected)
-                //    {
-                //        DoctorSpecialities speciality = new DoctorSpecialities();
-                //        speciality.SpecialityId = Convert.ToInt32(li.Value);
-                //        doctor.AddSpeciality(speciality);
-                //    }
-                //}
+                doctor.UserType = Convert.ToInt32(UserType.Doctor);             
                 if (filename != "")
                     doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
                 else

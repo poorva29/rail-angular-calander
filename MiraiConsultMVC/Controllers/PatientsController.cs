@@ -362,30 +362,33 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult AskDoctor()
         {
-            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            QuestionModel qModel = new QuestionModel();
-            qModel.QuestionText = "";
-            lstQuestions.Add(qModel);
-            return View(lstQuestions);
+            return View(new AskDoctor());
         }
 
         [HttpGet]
-        public JsonResult GetSimilarQuestion(string questionText)
-        {
-            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
-            if (questionList != null && questionList.Count() > 0)
+        public ActionResult GetSimilarQuestion(string questionText)
+        {            
+            IList<AskDoctor> lstQuestions = new List<AskDoctor>();
+            if (ModelState.IsValid)
             {
-                foreach (var item in questionList)
+                var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+                if (questionList != null && questionList.Count() > 0)
                 {
-                    QuestionModel qModel = new QuestionModel();
-                    qModel.QuestionId = Convert.ToInt32(item.questionid);
-                    qModel.QuestionText = item.questiontext;
-                    qModel.Counts = item.counts;
-                    lstQuestions.Add(qModel);
+                    foreach (var item in questionList)
+                    {
+                        AskDoctor qModel = new AskDoctor();
+                        qModel.QuestionId = Convert.ToInt32(item.questionid);
+                        qModel.QuestionText = item.questiontext;
+                        qModel.Counts = item.counts;
+                        lstQuestions.Add(qModel);
+                    }
                 }
+                return Json(lstQuestions, JsonRequestBehavior.AllowGet);
             }
-            return Json(lstQuestions,JsonRequestBehavior.AllowGet);
+            else
+            {
+                return View(new AskDoctor());
+            }
         }
 
         [HttpGet]

@@ -1,9 +1,10 @@
-﻿@model IEnumerable< MiraiConsultMVC.Models.QuestionModel>
+﻿@model MiraiConsultMVC.Models.AskDoctor
 @{
     ViewBag.Title = "AskDoctor";
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+@Scripts.Render("~/bundles/validation")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -35,8 +36,8 @@
                     <div class="row-fluid">
                         <div class="span12 div-left-padding controls-right-padding">
                             <label id="msglabel"></label>
-                            @Html.TextAreaFor(m=>m.FirstOrDefault().QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
-                            @Html.ValidationMessageFor(m => m.FirstOrDefault().QuestionText, string.Empty, new { @class = "validation-summary-errors" })
+                            @Html.TextAreaFor(m => m.QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
+                            @Html.ValidationMessageFor(m => m.QuestionText, string.Empty, new { @class = "validation-summary-errors" })
                         </div>
                     </div>
                     <div class="row-fluid div-left-padding askdoctor-button">

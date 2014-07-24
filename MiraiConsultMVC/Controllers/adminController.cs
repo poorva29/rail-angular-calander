@@ -21,6 +21,7 @@ namespace MiraiConsultMVC.Controllers
         public DataSet QuestionDetails;
         public DataTable AssignDoctors;
         int assignQuestion = 1;
+        _dbAskMiraiDataContext db;
         public ActionResult assignquestion()
         {
 
@@ -56,7 +57,7 @@ namespace MiraiConsultMVC.Controllers
                                 {
                                     string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAssign(msgText, Convert.ToString(AssignDoctors.Rows[i]["lastname"]), QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString());
                                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                                    string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
                                     Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(AssignDoctors.Rows[i]["email"]), "Mirai Consult - Assigned one question to you", emailBody, Logoimage);
                                     string SmsText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendSMS"].ToString();
                                     SMS.SendSMS(Convert.ToString(AssignDoctors.Rows[i]["mobileno"]), SmsText);
@@ -109,6 +110,13 @@ namespace MiraiConsultMVC.Controllers
                 
 
                 return View(viewmodel);
+        }
+
+        public ActionResult QuestionList()
+        {
+
+            
+            return View();
         }
 
     }

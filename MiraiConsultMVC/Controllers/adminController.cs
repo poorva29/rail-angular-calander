@@ -9,6 +9,7 @@ using DAL;
 using System.Configuration;
 using askmirai;
 using MiraiConsultMVC.Models.admin;
+using System.Data.SqlClient;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -16,19 +17,19 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /admin/
-        public int questionId = 2355;
-        private int userId = 6;
+        public int questionId;
+        private int userId;
         public DataSet QuestionDetails;
         public DataTable AssignDoctors;
         int assignQuestion = 1;
         _dbAskMiraiDataContext db;
-        public ActionResult assignquestion()
+        public ActionResult assignquestion(int? QuestionId)
         {
 
-            if (Request.QueryString["questionid"] != null)
-            {
-                questionId = Convert.ToInt32(Request.QueryString["questionid"].ToString());
-            }
+            //if (Request.QueryString["questionid"] != null)
+            //{
+            //    questionId = Convert.ToInt32(Request.QueryString["questionid"].ToString());
+            //}
             if (Session["UserId"] != null)
             {
                 userId = Convert.ToInt32(Session["UserId"].ToString());
@@ -38,33 +39,33 @@ namespace MiraiConsultMVC.Controllers
             //{
             //    if (Request.Params["__EVENTTARGET"] == "AssignDoctor")
             //    {
-                    string[] ArrayOfID = null;
-                    string AssignDoctorIds = "6";
-                    questionId = 2355;// Convert.ToInt32(Request.QueryString["questionid"].ToString());
-                    AssignDoctors = QuestionManager.getInstance().assignDoctorToQuestion(questionId, AssignDoctorIds).Tables[0];
-                    if (AssignDoctors != null && AssignDoctors.Rows.Count != 0)
-                    {
-                        if (!String.IsNullOrEmpty(AssignDoctorIds))
-                        {
-                            ArrayOfID = AssignDoctorIds.Split(',');
-                        }
-                        for (int i = 0; i < AssignDoctors.Rows.Count; i++)
-                        {
-                            if (ArrayOfID.Contains(Convert.ToString(AssignDoctors.Rows[i]["userid"])))
-                            {
-                                string msgText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendEmail"].ToString();
-                                if (AssignDoctors.Rows[i]["lastname"] != System.DBNull.Value && QuestionDetails.Tables[0].Rows[0]["questiontext"] != System.DBNull.Value && AssignDoctors.Rows[i]["mobileno"] != System.DBNull.Value)
-                                {
-                                    string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAssign(msgText, Convert.ToString(AssignDoctors.Rows[i]["lastname"]), QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString());
-                                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
-                                    Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(AssignDoctors.Rows[i]["email"]), "Mirai Consult - Assigned one question to you", emailBody, Logoimage);
-                                    string SmsText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendSMS"].ToString();
-                                    SMS.SendSMS(Convert.ToString(AssignDoctors.Rows[i]["mobileno"]), SmsText);
-                                }
-                            }
-                        }
-                    }
+                    //string[] ArrayOfID = null;
+                    //string AssignDoctorIds = "6";
+                    //questionId = 2355;// Convert.ToInt32(Request.QueryString["questionid"].ToString());
+                    //AssignDoctors = QuestionManager.getInstance().assignDoctorToQuestion(questionId, AssignDoctorIds).Tables[0];
+                    //if (AssignDoctors != null && AssignDoctors.Rows.Count != 0)
+                    //{
+                    //    if (!String.IsNullOrEmpty(AssignDoctorIds))
+                    //    {
+                    //        ArrayOfID = AssignDoctorIds.Split(',');
+                    //    }
+                    //    for (int i = 0; i < AssignDoctors.Rows.Count; i++)
+                    //    {
+                    //        if (ArrayOfID.Contains(Convert.ToString(AssignDoctors.Rows[i]["userid"])))
+                    //        {
+                    //            string msgText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendEmail"].ToString();
+                    //            if (AssignDoctors.Rows[i]["lastname"] != System.DBNull.Value && QuestionDetails.Tables[0].Rows[0]["questiontext"] != System.DBNull.Value && AssignDoctors.Rows[i]["mobileno"] != System.DBNull.Value)
+                    //            {
+                    //                string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAssign(msgText, Convert.ToString(AssignDoctors.Rows[i]["lastname"]), QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString());
+                    //                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                    //                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    //                Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(AssignDoctors.Rows[i]["email"]), "Mirai Consult - Assigned one question to you", emailBody, Logoimage);
+                    //                string SmsText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendSMS"].ToString();
+                    //                SMS.SendSMS(Convert.ToString(AssignDoctors.Rows[i]["mobileno"]), SmsText);
+                    //            }
+                    //        }
+                    //    }
+                    //}
             //    }
             //}
             //else
@@ -112,12 +113,41 @@ namespace MiraiConsultMVC.Controllers
                 return View(viewmodel);
         }
 
-        public ActionResult QuestionList(bool filter = false)
+        public ActionResult QuestionList(bool filter = true)
         {
-            QuestionModel Qmodel = new QuestionModel();
-            Qmodel.Filter = filter;
+            List<QuestionModel> Qmodel = new List<QuestionModel>();
+            Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
             return View(Qmodel);
         }
 
+        public JsonResult RejectQuestionByQuestionID(int qusetionID)
+        {
+            SqlConnection conn = null;
+            string jsonObj;
+            int QusetionID = qusetionID;
+            int statusRejected = (int)QuestionStatus.Rejected;
+            DataTable dtUserDetails = null;
+            dtUserDetails = QuestionManager.getInstance().RejectQuestionFromQuestionList(QusetionID, statusRejected);
+            string mobileno = Convert.ToString(dtUserDetails.Rows[0]["mobileno"]);
+            string email = Convert.ToString(dtUserDetails.Rows[0]["email"]);
+            if (dtUserDetails != null)
+            {
+                string emailText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListEmail"].ToString();
+                string emailBody = EmailTemplates.GetEmailTemplateOnRejectQuestionFromQuestionList(emailText, Convert.ToString(dtUserDetails.Rows[0]["firstname"] + " " + dtUserDetails.Rows[0]["lastname"]));
+                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                string Logoimage = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\image\\LogoForMail.png";
+                Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(dtUserDetails.Rows[0]["email"]), "Mirai Consult - Your question has been rejected", emailBody, Logoimage);
+                string SmsText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListSMS"].ToString();
+                SMS.SendSMS(Convert.ToString(dtUserDetails.Rows[0]["mobileno"]), SmsText);
+                jsonObj = "Question has been Rejected successfully.";
+                
+            }
+            else
+            {
+                jsonObj = "Unable to change the status.";
+            }
+            return Json(jsonObj, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

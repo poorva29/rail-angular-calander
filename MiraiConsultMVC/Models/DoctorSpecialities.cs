@@ -10,10 +10,6 @@ namespace MiraiConsultMVC.Models
         private int specialityid;
         private string speciality;
         // constructor
-        public DoctorSpecialities()
-        {
-        }
-
         public string Speciality { get { return speciality; } set { speciality = value; } }
         public int SpecialityId { get { return specialityid; } set { specialityid = value; } }
     }

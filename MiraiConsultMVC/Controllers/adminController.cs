@@ -9,6 +9,7 @@ using DAL;
 using System.Configuration;
 using askmirai;
 using MiraiConsultMVC.Models.admin;
+using System.Data.SqlClient;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -16,13 +17,13 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /admin/
-        public int questionId = 2355;
-        private int userId = 6;
+        public int questionId;
+        private int userId;
         public DataSet QuestionDetails;
         public DataTable AssignDoctors;
         int assignQuestion = 1;
         _dbAskMiraiDataContext db;
-        public ActionResult assignquestion()
+        public ActionResult assignquestion(int? QuestionId)
         {
 
             if (Request.QueryString["questionid"] != null)
@@ -112,12 +113,44 @@ namespace MiraiConsultMVC.Controllers
                 return View(viewmodel);
         }
 
-        public ActionResult QuestionList(bool filter = false)
+        public ActionResult QuestionList(bool filter = true)
         {
-            QuestionModel Qmodel = new QuestionModel();
-            Qmodel.Filter = filter;
+            List<QuestionModel> Qmodel = new List<QuestionModel>();
+            Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
             return View(Qmodel);
         }
 
+        public JsonResult RejectQuestionByQuestionID(int qusetionID)
+        {
+            SqlConnection conn = null;
+            int result = 0;
+            string jsonObj;
+            string msg = "";
+            int QusetionID = qusetionID;
+            int statusRejected = (int)QuestionStatus.Rejected;
+            DataTable dtUserDetails = null;
+            dtUserDetails = QuestionManager.getInstance().RejectQuestionFromQuestionList(QusetionID, statusRejected);
+            string mobileno = Convert.ToString(dtUserDetails.Rows[0]["mobileno"]);
+            string email = Convert.ToString(dtUserDetails.Rows[0]["email"]);
+            if (dtUserDetails != null)
+            {
+                string emailText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListEmail"].ToString();
+                string emailBody = EmailTemplates.GetEmailTemplateOnRejectQuestionFromQuestionList(emailText, Convert.ToString(dtUserDetails.Rows[0]["firstname"] + " " + dtUserDetails.Rows[0]["lastname"]));
+                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                string Logoimage = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\image\\LogoForMail.png";
+                Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(dtUserDetails.Rows[0]["email"]), "Mirai Consult - Your question has been rejected", emailBody, Logoimage);
+                string SmsText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListSMS"].ToString();
+                SMS.SendSMS(Convert.ToString(dtUserDetails.Rows[0]["mobileno"]), SmsText);
+                msg = "Question has been Rejected successfully.";
+                jsonObj = "Question has been Rejected successfully.";
+                
+            }
+            else
+            {
+                jsonObj = "Unable to change the status.";
+            }
+            return Json(jsonObj, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

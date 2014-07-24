@@ -194,11 +194,11 @@ namespace MiraiConsultMVC.Controllers
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
                 int userID = Convert.ToInt32(TempData["userid"].ToString());
-                string dbpasswd = UtilityManager.Encrypt(passwords.Password);
+                string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.Password);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
                 if (userRecord != null)
                 {
-                    userRecord.password = UtilityManager.Encrypt(passwords.Password); ;
+                    userRecord.password = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.Password); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been Reset successfully.";
                    

@@ -184,7 +184,6 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\CustomHandleErrorAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -201,7 +200,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\AutoComplete.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
@@ -210,14 +208,11 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\AnswerModel.cs" />
-    <Compile Include="Models\CustomContext.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\User\ChangePassword.cs" />
     <Compile Include="Models\DoctorProfile.cs" />
     <Compile Include="Models\User\Login.cs" />
-    <Compile Include="Models\Utilities\SqlHelper.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
-    <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\doctordetails.cs" />
     <Compile Include="Models\DoctorLocations.cs" />
     <Compile Include="Models\doctorqualifications.cs" />
@@ -665,7 +660,6 @@
     <Content Include="Views\User\CustomError.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\User\PatientSignUp.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />

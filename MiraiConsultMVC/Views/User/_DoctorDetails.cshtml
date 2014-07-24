@@ -8,7 +8,7 @@
         string DoctorMobile = Convert.ToString(doctor.MobileNo);
         string DoctorEmail = Convert.ToString(doctor.Email);
         string DoctorName = Convert.ToString(doctor.LastName);
-        string encDoctorId = HttpUtility.UrlEncode(askmirai.Utilities.Encrypt(DoctorId));
+        string encDoctorId = HttpUtility.UrlEncode(Utilities.Encrypt(DoctorId));
         <tr>
             <td style='word-wrap: break-word'>
                 Dr. @doctor.FirstName doctor.LastName
@@ -55,14 +55,16 @@
                 @if (doctor.Status == 3)
                 {
                     <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('@(encDoctorId)')"><img class="cust-icon" src="~/Content/image/edit2.png"></a>
-                    <a title="Approve" class="hand-cursor" id="btnApproved" onclick="approveStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)', '@(DoctorName)')"></a>
-                    <img class="cust-icon hand-cursor" src="~/Content/image/check.png">
+    <a title="Approve" class="hand-cursor" id="btnApproved" onclick="approveStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)', '@(DoctorName)')">
+        <img class="cust-icon hand-cursor" src="~/Content/image/check.png">
+    </a>
                 }
                 else if (doctor.Status == 2)
                 {
                     <a title="Edit" class="anchor hand-cursor" onclick="showDoctorDetailById('@(encDoctorId)')"><img class="cust-icon" src="~/Content/image/edit2.png"></a>
-                    <a title="Reject" class="hand-cursor" id="btnRejected" onclick="rejectStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)')"></a>
-                    <img class="cust-icon" src="~/Content/image/revoke.png">
+    <a title="Reject" class="hand-cursor" id="btnRejected" onclick="rejectStatusByDoctorID('@(DoctorId)', '@(DoctorMobile)', '@(DoctorEmail)')">
+        <img class="cust-icon" src="~/Content/image/revoke.png">
+    </a>
                 }
                 else if (doctor.Status == 1)
                 {

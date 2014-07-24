@@ -9,13 +9,14 @@ using System.Configuration;
 using System.Data;
 using DAL;
 using Newtonsoft.Json;
-using MiraiConsultMVC.Models.Utilities;
 using System.Data;
 using System.Reflection;
 using System.Data.SqlClient;
 using System.Data.Linq;
 using System.Reflection;
 using System.Data.Linq.Mapping;
+using MiraiConsultMVC;
+
 
 
 namespace MiraiConsultMVC.Controllers
@@ -52,12 +53,12 @@ namespace MiraiConsultMVC.Controllers
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
                 int userID = Convert.ToInt32(Session["UserId"]);
-                string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.currentPassword);
+                string dbpasswd = Utilities.Encrypt(passwords.currentPassword);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
 
                 if (userRecord != null)
                 {
-                    userRecord.password = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(passwords.newPassword); ;
+                    userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been changed successfully.";
                     return View();
@@ -81,76 +82,80 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult Login(Login log)
         {
             //Utilities U = new Utilities();
-            string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
-            string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
-            string dbpasswd = MiraiConsultMVC.Models.Utilities.UtilityManager.Encrypt(log.Password);
-            if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
+            if (ModelState.IsValid)
             {
-               
-                var isLogin = db.users.FirstOrDefault(x => x.email.Equals(log.Email) && x.password.Equals(dbpasswd));
-                if (isLogin != null)
+                string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
+                string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
+                string dbpasswd = Utilities.Encrypt(log.Password);
+                if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
                 {
-                    if (Convert.ToBoolean(isLogin.isemailverified))
+
+                    var isLogin = db.users.FirstOrDefault(x => x.email.Equals(log.Email) && x.password.Equals(dbpasswd));
+                    if (isLogin != null)
                     {
-                        Session["UserFirstName"] = isLogin.firstname;
-                        Session["UserLastName"] = isLogin.lastname;
-                        Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
-                        Session["UserName"] = isLogin.username;
-                        Session["UserEmail"] = isLogin.email;
-                        Session["UserId"] = isLogin.userid;
-                        Session["UserType"] = isLogin.usertype;
-                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                        if (Convert.ToBoolean(isLogin.isemailverified))
                         {
-                            if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
+                            Session["UserFirstName"] = isLogin.firstname;
+                            Session["UserLastName"] = isLogin.lastname;
+                            Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
+                            Session["UserName"] = isLogin.username;
+                            Session["UserEmail"] = isLogin.email;
+                            Session["UserId"] = isLogin.userid;
+                            Session["UserType"] = isLogin.usertype;
+                            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                             {
-                                ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
-                                return View();
+                                if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
+                                {
+                                    ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
+                                    return View();
+                                }
+                                else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
+                                {
+                                    ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
+                                    return View();
+                                }
+                                return RedirectToAction("ManageDoctors");
+                                //redirect to doctor page
                             }
-                            else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
+                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                             {
-                                ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
-                                return View();
+                                return RedirectToAction("ManageDoctors");
+                                // redirect to patient page
                             }
-                            return RedirectToAction("ManageDoctors");
-                            //redirect to doctor page
+                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
+                            {
+                                return RedirectToAction("ManageDoctors");
+                                // redirect to assistent page
+                            }
                         }
-                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                        else
                         {
-                            return RedirectToAction("ManageDoctors");
-                            // redirect to patient page
-                        }
-                        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
-                        {
-                            return RedirectToAction("ManageDoctors");
-                            // redirect to assistent page
+                            ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
+                            return View();
                         }
                     }
-                    else
                     {
-                        ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
+                        ViewBag.errorMsg = "Email Id or Password does not match.";
                         return View();
                     }
+
                 }
+                else if (log.Email == SuperAdminEmailId)
                 {
-                    ViewBag.errorMsg = "Email Id or Password does not match.";
+                    Session["UserFirstName"] = "super";
+                    Session["UserLastName"] = "admin";
+                    Session["UserEmail"] = SuperAdminEmailId;
+                    Session["UserId"] = 9999999;
+                    Session["UserType"] = 0;
+                    return RedirectToAction("ManageDoctors");
+                }
+                else
+                {
+                    ViewBag.errorMsg = "Email Id or Password does not match";
                     return View();
                 }
-            
             }
-            else if (log.Email == SuperAdminEmailId)
-            {
-                Session["UserFirstName"] = "super";
-                Session["UserLastName"] = "admin";
-                Session["UserEmail"] = SuperAdminEmailId;
-                Session["UserId"] = 9999999;
-                Session["UserType"] = 0;
-                return RedirectToAction("ManageDoctors");
-            }
-            else{
-                ViewBag.errorMsg= "Email Id or Password does not match";
-                  return View();
-            }
-          
+            return View();
         }
 
         public ActionResult ManageDoctors(string Registered=null,string Approved=null,string Rejected=null )
@@ -212,10 +217,60 @@ namespace MiraiConsultMVC.Controllers
             return View(lstdoctors);
         }
 
-        public JsonResult ApproveDoctor(string doctorid, string DoctorMobile, string DoctorName)
+        public JsonResult ApproveDoctor(string doctorid, string DoctorMobile, string DoctorName, string DoctorEmail)
         {
-            object jsonOj = "{update: true}";
-            return Json(jsonOj, JsonRequestBehavior.AllowGet);
+            string smsText = ConfigurationManager.AppSettings["DocApproveNotificationTextMsg"].ToString();
+            string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+            string subject = "Mirai Consult - Your registration request to Mirai Consult has been approved";
+            string body = EmailTemplates.GetTemplateOfApprovalNotificationEmailToDoc(DoctorName);
+            int DoctorID = Convert.ToInt32(doctorid);
+            object jsonObj ;
+            int statusApp = (int)UserStatus.Approved;
+             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            var UserRecord = db.users.FirstOrDefault(x => x.userid.Equals(DoctorID));
+            if (UserRecord != null)
+            {
+                    UserRecord.status = statusApp; 
+                    db.SubmitChanges();
+                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
+                    SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
+                    jsonObj = "Doctor has been Approved successfully.";
+                   
+             }
+             else
+             {
+                 jsonObj = "Unable to change the status.";
+             }
+            return Json(jsonObj, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RejectDoctorByDoctorId(string doctorID, string DoctorMobile, string DoctorEmail)
+        {
+            
+            string smsText = ConfigurationManager.AppSettings["DocRejectNotificationTextMsg"].ToString();
+            string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+            string subject = "Mirai Consult - your registration request has been rejected.";
+            string body = EmailTemplates.EmailNotificationTempleteForRejectedDoctor();
+            int DoctorID = Convert.ToInt32(doctorID);
+            int statusRejected = (int)UserStatus.Rejected;
+            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            object jsonObj;
+            var UserRecord = db.users.FirstOrDefault(x => x.userid.Equals(DoctorID));
+            if (UserRecord != null)
+            {
+                    UserRecord.status = statusRejected; 
+                    db.SubmitChanges();
+                    string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                    Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
+                    SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
+                    jsonObj = "Doctor has been Rejected successfully.";
+            }
+            else
+            {
+                   jsonObj = "Unable to change the status";
+            }
+            return Json(jsonObj, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -491,11 +546,11 @@ namespace MiraiConsultMVC.Controllers
             {
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
                 int userID = Convert.ToInt32(TempData["userid"].ToString());
-                string dbpasswd = UtilityManager.Encrypt(passwords.Password);
+                string dbpasswd = Utilities.Encrypt(passwords.Password);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
                 if (userRecord != null)
                 {
-                    userRecord.password = UtilityManager.Encrypt(passwords.Password); ;
+                    userRecord.password = Utilities.Encrypt(passwords.Password); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been Reset successfully.";
                    
@@ -528,7 +583,6 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult DoctorSignUp()
         {
-            MiraiConsultMVC.Models.Utilities.UtilityManager utilityManager = new MiraiConsultMVC.Models.Utilities.UtilityManager();
             _dbAskMiraiDataContext _db = new _dbAskMiraiDataContext();
             ViewBag.Countries = new SelectList(_db.countries, "countryid", "Name");
             ViewBag.Specialities = new SelectList(_db.specialities, "specialityid", "Name");

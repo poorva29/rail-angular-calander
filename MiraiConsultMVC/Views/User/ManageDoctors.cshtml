@@ -148,35 +148,52 @@
         window.location.assign(location.href);
     }
     function approveStatusByDoctorID(doctorid, DoctorMobile, DoctorEmail, DoctorName) {
-        if (responsFlag == 1) {
             if (confirm("Are you sure you want to approve this user?") == true) {
                 document.body.style.cursor = 'wait';
-                //$.getJSON(, function (json) {
-                //    alert("JSON Data: " + json);
-                //});
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
-                    url: "/User/ApproveDoctor?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorName=" + DoctorName,
+                    url: "/User/ApproveDoctor?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorName=" + DoctorName+"&DoctorEmail="+DoctorEmail,
                     success: function (response) {
-                        alert(response);
+                        if (response == "Doctor has been Approved successfully.") {
+                            $('form').submit();
+                            alert(response);
+                            document.body.style.cursor = 'default';
+                        }
+                        else if (response == "Unable to change the status.") {
+                            alert(response);
+                            document.body.style.cursor = 'default';
+                        }
                     },
                     error: function () {
                         alert("Error");
                     }
                 });
                // PageMethods.ApproveStatusByDoctorId(doctorid, DoctorMobile, DoctorEmail, DoctorName, onSuccess, onFailure);
-                responsFlag = 0;
             }
-            else {
-                responsFlag = 1;
-            }
-        }
     }
     function rejectStatusByDoctorID(doctorid, DoctorMobile, DoctorEmail) {
         if (confirm("Are you sure you want to reject this user?") == true) {
             document.body.style.cursor = 'wait';
-            PageMethods.RejectDoctorByDoctorId(doctorid, DoctorMobile, DoctorEmail, onSuccess, onFailure);
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "/User/RejectDoctorByDoctorId?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorEmail=" + DoctorEmail,
+                success: function (response) {
+                    if (response == "Doctor has been Rejected successfully.") {
+                        $('form').submit();
+                        alert(response);
+                        document.body.style.cursor = 'default';
+                    }
+                    else if (response == "Unable to change the status.") {
+                        alert(response);
+                        document.body.style.cursor = 'default';
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
         }
     }
     function showDoctorDetailById(DoctorID) {

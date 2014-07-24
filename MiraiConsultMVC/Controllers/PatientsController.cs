@@ -32,6 +32,7 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult PatientProfile()
         {
             return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));

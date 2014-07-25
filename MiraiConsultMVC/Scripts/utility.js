@@ -2,12 +2,12 @@
     FB.init({
         appId: appkey,
     });
-    var logourl = url + '/Content/image/logoImage.png'; 
+    var logourl = url + '/Content/image/logoImage.png';
     if (id == 0) {
-        LinkUrl = url + '/Home/Home';
+        LinkUrl =  url+'Home/Home';
     }
     else {
-        LinkUrl = url + '/Patients/PatientQuestionDetails?questionid=' + id;
+        LinkUrl = url + 'Patients/PatientQuestionDetails?questionid=' + id;
     }
     FB.ui(
     {

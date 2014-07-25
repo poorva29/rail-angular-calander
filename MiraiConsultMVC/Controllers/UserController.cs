@@ -209,7 +209,6 @@ namespace MiraiConsultMVC.Controllers
                 }
                 return PartialView("_DoctorDetails", lstFilterDoctors);
             }
-            lstdoctors = lstdoctors.Where(d => d.Status.Equals(1)).ToList();
             return View(lstdoctors);
         }
 

@@ -214,6 +214,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
+    <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FindDoctorModel.cs" />
     <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\Location.cs" />
@@ -707,6 +708,7 @@
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\QuestionList.cshtml" />
+    <Content Include="Views\Feed\Feed.cshtml" />
     <None Include="Service References\LoginServiceReference1\UserService.wsdl" />
     <None Include="Service References\LoginServiceReference1\UserService.xsd">
       <SubType>Designer</SubType>

@@ -23,8 +23,8 @@ namespace MiraiConsultMVC.Controllers
                feed.HiddenUserType = Convert.ToString(Session["UserType"]);
                feed.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
             }
-            AskmiraiUrl =  Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
-            FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+            feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
             return View(feed);
         }
 

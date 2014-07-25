@@ -210,6 +210,7 @@
     <Compile Include="Models\Specialities.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\admin\AssignQuestion.cs" />
+    <Compile Include="Models\AskDoctor.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />

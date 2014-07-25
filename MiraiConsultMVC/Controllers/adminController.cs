@@ -149,6 +149,92 @@ namespace MiraiConsultMVC.Controllers
 
         }
 
+        public ActionResult Report(string cityid = null, string locationid = null, string specialityOrName = null)
+        {
+            DataSet doctorList = null;
+            SqlParameter[] param = new SqlParameter[4];
+            Report reportData;
+            List<Report> ListreportData = new List<Report>();
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                
+                if (!String.IsNullOrEmpty(cityid))
+                {
+                    param[0] = new SqlParameter("@cityid", Convert.ToInt32(cityid));
+                }
+                else
+                {
+                    param[0] = new SqlParameter("@cityid", System.DBNull.Value);
+                }
+                if (!String.IsNullOrEmpty(locationid))
+                {
+                    param[1] = new SqlParameter("@locationid", Convert.ToInt32(locationid));
+                }
+                else
+                {
+                    param[1] = new SqlParameter("@locationid", System.DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(specialityOrName))
+                {
+                    param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                }
+                else
+                {
+                    param[2] = new SqlParameter("@specialityOrName", System.DBNull.Value);
+                }
+                param[3] = new SqlParameter("@userStatus", UserStatus.Approved);
+                doctorList = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "getDoctorListByLoactionNameCitySpeciality", param);
+            }
+            if ((doctorList != null) && (doctorList.Tables.Count > 0) && doctorList.Tables[0].Rows.Count > 0)
+            {
+                if (!String.IsNullOrEmpty((Convert.ToString(doctorList.Tables[0].Rows[0]["averageresponsetime"]))))
+                {
+                    string avgtime = Convert.ToString((Convert.ToDouble(doctorList.Tables[0].Rows[0]["averageresponsetime"]) / 60).ToString("0.00"));
+                    ViewBag.avgresponsetime = avgtime;
+                }
+                DataTable dtDoctors = doctorList.Tables[0];
+                if (dtDoctors != null && dtDoctors.Rows.Count != 0)
+                     {
+                                       for (int i = 0; i < dtDoctors.Rows.Count; i++)
+                                       {
+                                        reportData = new Report();
+                                        reportData.userid =Convert.ToInt32(dtDoctors.Rows[i]["userid"]);
+                                        reportData.name = dtDoctors.Rows[i]["name"].ToString();
+                                        reportData.city= dtDoctors.Rows[i]["cities"].ToString();
+                                        reportData.location= dtDoctors.Rows[i]["locations"] .ToString();
+                                        if(!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString())){
+                                             reportData.appointmentbooked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"] );
+                                        }
+                                        else{
+                                            reportData.appointmentbooked = 0;
+                                        }
+                                        if(!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString())){
+                                             reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"] );
+                                        }
+                                        else{
+                                            reportData.appointmentbooked = 0;
+                                        }
+                                        if (dtDoctors.Rows[i]["avgresponsetime"] != null && Convert.ToString(dtDoctors.Rows[i]["avgresponsetime"]) != "")
+                                         reportData.avgresponsetime = Convert.ToString((Convert.ToDouble(dtDoctors.Rows[i]["avgresponsetime"]) / 60).ToString("0.00"));
+
+                                        ListreportData.Add(reportData);
+                                        }
+                           } 
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Report", ListreportData);
+            }
+            else
+            {
+                return View(ListreportData);
+            }
+        }
+
+
+
+        public SqlConnection conn { get; set; }
         public ActionResult ManageTag()
         {
             return View();

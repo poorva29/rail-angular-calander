@@ -37,7 +37,7 @@
                         <div class="span12 div-left-padding controls-right-padding">
                             <label id="msglabel"></label>
                             @Html.TextAreaFor(m => m.QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
-                            @Html.ValidationMessageFor(m => m.QuestionText, string.Empty, new { @class = "validation-summary-errors" })
+                            <label id="lblValidation" style="color:red" class="validation-summary-errors"></label>
                         </div>
                     </div>
                     <div class="row-fluid div-left-padding askdoctor-button">
@@ -77,11 +77,13 @@
         document.getElementById('searchDiv').style.display = 'none';
         document.getElementById('seeMoreResultAnchor').style.display = 'none';
         document.getElementById('msglabel').style.display = 'none';
+        document.getElementById('lblValidation').style.display = 'none';
         $(".navigation li.active").removeClass("active");
         $('#liaskdoc').addClass("active");
 
         var MaxLength = 200;
         $('#txtAreaQuestion').keypress(function (e) {
+            document.getElementById('lblValidation').style.display = 'none';
             if ($(this).val().length >= MaxLength) {
                 e.preventDefault();
             }
@@ -89,43 +91,48 @@
     });
     $("#btnNext").click(function () {
         var questionText = document.getElementById('txtAreaQuestion').value;
-        $.ajax({
-            type: "GET",           
-            url: 'GetSimilarQuestion?questionText=' + questionText,
-            datatype: "JSON",
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                var TextToAppend = '';
-                for (var i = 0; i < response.length; i++) {
+        if (questionText == null || questionText == '') {
+            document.getElementById('lblValidation').style.display = 'block';
+            document.getElementById('lblValidation').innerHTML = "Please Enter Question";
+            return true;
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                url: 'GetSimilarQuestion?questionText=' + questionText,
+                datatype: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    var TextToAppend = '';
+                    for (var i = 0; i < response.length; i++) {
 
-                    TextToAppend = TextToAppend + '<div class=\'ans_time_detail\'><p>' + response[i].Counts + '</p></div>' +
-                                '<a href=\'PatientQuestionDetails?questionid=' + response[i].QuestionId + '\'>' +
-                                    '<p id=\"questionText\">' + response[i].QuestionText + '</p>' +
-                                '</a>' + 
-                                '<hr class="hr_margin" style="margin-top:22px" />'
-                };
+                        TextToAppend = TextToAppend + '<div class=\'ans_time_detail\'><p>' + response[i].Counts + '</p></div>' +
+                                    '<a href=\'PatientQuestionDetails?questionid=' + response[i].QuestionId + '\'>' +
+                                        '<p id=\"questionText\">' + response[i].QuestionText + '</p>' +
+                                    '</a>' +
+                                    '<hr class="hr_margin" style="margin-top:22px" />'
+                    };
 
-                $("#ansCount").append(TextToAppend);
-                if (response.length > 5)
-                {
-                    document.getElementById('seeMoreResultAnchor').style.display = 'block';
+                    $("#ansCount").append(TextToAppend);
+                    if (response.length > 5) {
+                        document.getElementById('seeMoreResultAnchor').style.display = 'block';
+                    }
+                    else if (response.length == 0) {
+                        document.getElementById('searchResultSpan').innerHTML = 'No records found';
+                    }
+                    document.getElementById('btnAskMirai').style.display = 'block';
+                    document.getElementById('searchDiv').style.display = 'block';
+                    document.getElementById('btnNext').style.display = 'none';
+                    document.getElementById('dispImage').src = '../Content/image/askDoctors2.png';
+                },
+                error: function (data) {
+                    if (data.responseText.indexOf('Authentication failed') > -1) {
+                        alert(data);
+                    }
                 }
-                else if (response.length == 0)
-                {
-                    document.getElementById('searchResultSpan').innerHTML = 'No records found';
-                }
-                document.getElementById('btnAskMirai').style.display = 'block';
-                document.getElementById('searchDiv').style.display = 'block';
-                document.getElementById('btnNext').style.display = 'none';
-                document.getElementById('dispImage').src = '../Content/image/askDoctors2.png';              
-            },
-            error: function (data) {
-                if (data.responseText.indexOf('Authentication failed') > -1) {                  
-                    alert(data);
-                }
-            }
-        });
-        return false;
+            });
+            return false;
+        }
     });
 
     $("#btnAskMirai").click(function () {

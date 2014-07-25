@@ -369,26 +369,19 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult GetSimilarQuestion(string questionText)
         {            
             IList<AskDoctor> lstQuestions = new List<AskDoctor>();
-            if (ModelState.IsValid)
+            var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            if (questionList != null && questionList.Count() > 0)
             {
-                var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
-                if (questionList != null && questionList.Count() > 0)
+                foreach (var item in questionList)
                 {
-                    foreach (var item in questionList)
-                    {
-                        AskDoctor qModel = new AskDoctor();
-                        qModel.QuestionId = Convert.ToInt32(item.questionid);
-                        qModel.QuestionText = item.questiontext;
-                        qModel.Counts = item.counts;
-                        lstQuestions.Add(qModel);
-                    }
+                    AskDoctor qModel = new AskDoctor();
+                    qModel.QuestionId = Convert.ToInt32(item.questionid);
+                    qModel.QuestionText = item.questiontext;
+                    qModel.Counts = item.counts;
+                    lstQuestions.Add(qModel);
                 }
-                return Json(lstQuestions, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return View(new AskDoctor());
-            }
+            return Json(lstQuestions, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

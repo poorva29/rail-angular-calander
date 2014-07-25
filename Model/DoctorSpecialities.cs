@@ -5,12 +5,12 @@ using System.Web;
 
 namespace Model
 {
-    public class DoctorSpecialities
+    public class DoctorSpeciality
     {
         private int specialityid;
         private string speciality;
         // constructor
-        public DoctorSpecialities()
+        public DoctorSpeciality()
         {
         }
 

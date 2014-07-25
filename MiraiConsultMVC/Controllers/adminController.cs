@@ -148,5 +148,10 @@ namespace MiraiConsultMVC.Controllers
             return Json(jsonObj, JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult ManageTag()
+        {
+            return View();
+        }
     }
 }

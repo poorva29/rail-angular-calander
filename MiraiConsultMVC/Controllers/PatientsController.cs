@@ -12,7 +12,6 @@ using DAL;
 using System.Web.UI.HtmlControls;
 using System.Web.UI;
 using Model;
-
 namespace MiraiConsultMVC.Controllers
 {
     public class PatientsController : Controller
@@ -400,6 +399,53 @@ namespace MiraiConsultMVC.Controllers
             question.QuestionText = questionText;
             result = QuestionManager.getInstance().insertQuestion(question);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult InviteFriend()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult InviteFriend(MiraiConsultMVC.Models.Patients.InviteFriend inviteFriend)
+        {
+            ViewBag.Message = "";
+            if(ModelState.IsValid)
+            {
+                string from_address = null;
+                bool sent_mail = false;
+                string emailsIds = inviteFriend.email;
+                string msgBody = inviteFriend.message;
+                msgBody = "<html><body> <form name=frmMessage method=post>" +
+                            msgBody + "<br><br>" +
+                            "<font size=2 face=verdana> Best wishes,</font>" +
+                            "<br>" +
+                            "<font size=2 face=verdana>Mirai Health Team</font>" +
+                            "<br>" +
+                            "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
+                            "<br>" +
+                            "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                            "<br>" + "<br>" + "<br>" +
+                            "<img src='cid:logoImage' ></img>" +
+                            "</form></body></html>";
+                string subject = "I want to invite you to use Mirai Consult";
+                if (Session["UserId"] != null && Session["UserEmail"] != null)
+                {
+                    from_address = Convert.ToString(Session["UserEmail"]);
+                }
+                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                sent_mail = Mail.SendHTMLMailWithImage(from_address, emailsIds.Split(','), subject, msgBody, Logoimage);
+                if (!sent_mail)
+                {
+                    ViewBag.Message = "Failed to send email.";
+                }
+                else
+                {
+                    ViewBag.Message = "Your email sent successfully.";
+                    ModelState.Clear();
+                }
+            }
+            return View();
         }
     }
 }

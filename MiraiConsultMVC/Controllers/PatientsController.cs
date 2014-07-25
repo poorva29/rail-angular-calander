@@ -12,6 +12,7 @@ using DAL;
 using System.Web.UI.HtmlControls;
 using System.Web.UI;
 using Model;
+using System.Data.SqlClient;
 namespace MiraiConsultMVC.Controllers
 {
     public class PatientsController : Controller
@@ -32,7 +33,33 @@ namespace MiraiConsultMVC.Controllers
         {
             return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));
         }
-        
+
+        public ActionResult Myactivity()
+        {
+             SqlConnection conn = null;
+            DataSet dsQuestion = null;
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            SqlParameter[] param = new SqlParameter[1];
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                param[0] = new SqlParameter("@Userid", Convert.ToInt32(Session["UserId"]));
+                dsQuestion = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AllQuestionsByUserId", param);
+            }
+            QuestionModel questions;
+            if (dsQuestion != null && dsQuestion.Tables.Count > 0 && dsQuestion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsQuestion.Tables[0].Rows)
+                {
+                    questions = new QuestionModel();
+                    questions.QuestionId = Convert.ToInt32(dr["questionid"]);
+                    questions.QuestionText = Convert.ToString(dr["questiontext"]);
+                    questions.Counts = Convert.ToString(dr["counts"]);
+                    questions.CreateDate = Convert.ToDateTime(dr["createdate"]);
+                    lstQuestions.Add(questions);
+                }
+            }
+            return View(lstQuestions);
+        }
         [HttpPost]
         public ActionResult PatientProfile(Profile profile)
         {

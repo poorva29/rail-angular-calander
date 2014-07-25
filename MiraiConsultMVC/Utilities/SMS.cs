@@ -8,7 +8,7 @@ using System.IO;
 using System.Configuration;
 using log4net;
 
-namespace askmirai
+namespace MiraiConsultMVC
 {
     public class SMS
     {

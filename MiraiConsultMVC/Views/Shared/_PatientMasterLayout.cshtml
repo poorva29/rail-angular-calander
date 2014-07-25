@@ -129,7 +129,7 @@
                                                     </a>
                                                 </li>
                                                 <li id="liFindDoc" class="find-doctors">
-                                                    <a href="../patient/finddoctor.aspx">
+                                                    <a href="@Url.Action("FindDoctors", "FindDoctor")">
                                                         <span class="Icon Icon--find-doctor Icon--large"></span><span class="text"><br />Find a Doctor</span>
                                                     </a>
                                                 </li>
@@ -152,7 +152,7 @@
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                             {
                                                 <li id="liAdminQuestions">
-                                                    <a href="../../app/admin/QuestionList.aspx">
+                                                    <a href="/admin/QuestionList">
                                                         <span class="Icon Icon--questions Icon--large"></span><span class="text"><br />Questions</span>
                                                     </a>
                                                 </li>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MiraiConsultMVC.Models
 {
-    public class doctorqualification
+    public class doctorqualifications
     {
         private int docqualificationid;
         private string degree;
@@ -13,7 +13,7 @@ namespace MiraiConsultMVC.Models
         private int userid;
         private string university;
         // constructor
-        public doctorqualification()
+        public doctorqualifications()
         {
         }
         public int DocQualificationId { get { return docqualificationid; } set { docqualificationid = value; } }

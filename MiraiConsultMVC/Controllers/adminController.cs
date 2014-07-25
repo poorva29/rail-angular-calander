@@ -235,5 +235,9 @@ namespace MiraiConsultMVC.Controllers
 
 
         public SqlConnection conn { get; set; }
+        public ActionResult ManageTag()
+        {
+            return View();
+        }
     }
 }

@@ -124,7 +124,7 @@
                                                     </a>
                                                 </li>
                                                 <li id="liFeed" class="feed">
-                                                    <a href="../Feed/feed.aspx">
+                                                    <a href="@Url.Action("Feed", "Feed")">
                                                         <span class="Icon Icon--answers Icon--large"></span><span class="text"><br />Answers</span>
                                                     </a>
                                                 </li>
@@ -157,7 +157,7 @@
                                                     </a>
                                                 </li>
                                                 <li id="liAdminFeed">
-                                                    <a href="../Feed/feed.aspx">
+                                                    <a href="@Url.Action("Feed", "Feed")">
                                                         <span class="Icon Icon--answers Icon--large"></span><span class="text"><br />Answers</span>
                                                     </a>
                                                 </li>
@@ -178,7 +178,7 @@
                                                 </li>
                                             }
                                             <li id="liinvitefriends">
-                                                <a href="../patient/invitefriends.aspx">
+                                                <a href="@Url.Action("InviteFriend","Patients")">
                                                     <span class="Icon Icon--invite-friends Icon--large"></span>
                                                     <span class="text"><br />Invite Friends</span>
                                                 </a>
@@ -210,9 +210,9 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li class="feed">
-                                        <a href="../Feed/feed.aspx" class="menu-padding  reg-menu-padding">
-                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
-                                        </a>
+                                            <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
+                                                <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
+                                            </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
@@ -253,7 +253,7 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="../Feed/feed.aspx" class="menu-padding  reg-menu-padding">
+                                        <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top"> Answers</span>
                                         </a>
                                     </li>

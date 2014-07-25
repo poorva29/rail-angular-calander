@@ -13,7 +13,6 @@ namespace MiraiConsultMVC.Models
         public string hdnDocconnecturl { get; set; }
         public string AskmiraiUrl { get; set; }
         public string FacebookAppKey { get; set; }
-        
-            
+        public string HdnUserFullName { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     });
     var logourl = url + '/Content/image/logoImage.png'; 
     if (id == 0) {
-        LinkUrl =  url+'/home/home.aspx';
+        LinkUrl = url + '/Home/Home';
     }
     else {
         LinkUrl = url + '/Patients/PatientQuestionDetails?questionid=' + id;

@@ -11,9 +11,6 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /Feed/
-        public String AskmiraiUrl="";
-        public String FacebookAppKey = "";
-
         public ActionResult Feed(Feed feed)
         {
             if (Session["UserId"] != null && Session["UserType"] != null)
@@ -28,9 +25,17 @@ namespace MiraiConsultMVC.Controllers
             return View(feed);
         }
 
-        public ActionResult DoctorFeed()
-        {
-            return View();
+        public ActionResult DoctorFeed(Feed feed)
+         {
+            if (Session["UserId"] != null && Session["UserType"] != null)
+            {
+                feed.HdnUserID = Convert.ToString(Session["UserId"]);
+                feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecored"].ToString();
+                feed.HdnUserFullName = Convert.ToString(Session["UserFullName"]);
+            }
+            feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+            return View(feed);
         }
 
     }

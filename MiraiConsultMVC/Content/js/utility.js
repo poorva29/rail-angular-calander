@@ -2,12 +2,12 @@
     FB.init({
         appId: appkey,
     });
-    var logourl = url + '/Resources/image/logoImage.png';
+    var logourl = url + '../Content/image/logoImage.png'; 
     if (id == 0) {
-        LinkUrl =  url+'/home/home.aspx';
+        LinkUrl =  url+'/Home/Home';
     }
     else {
-        LinkUrl = url + '/patient/questiondetails.aspx?questionid=' + id;
+        LinkUrl = url + '/Patients/PatientQuestionDetails?questionid=' + id;
     }
     FB.ui(
     {
@@ -65,7 +65,7 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
     if (button.childNodes[0].data != 'Is it useful?') {
         $(div).getElementsByTagName('a').onclick = '';
     }
-    button.innerHTML = '<div class="custom-green-text"><img src="../resources/image/thanks.png"/> Thanks its useful</div>';
+    button.innerHTML = '<div class="custom-green-text"><img src="../Content/image/thanks.png"/> Thanks its useful</div>'; 
     var div = "#" + answerid + "ans";
     div = div.replace(/ /g, '');
     var thanxcount = $(div).get(0).childNodes[0].innerHTML;
@@ -148,7 +148,7 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     var space = ' ' + endorsecount + ' ';
     $(div).get(0).childNodes[1].innerHTML = space;
    
-    button.innerHTML = '<img src="../resources/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
+    button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
     $.ajax({
         type: 'POST',
         dataType: 'json',

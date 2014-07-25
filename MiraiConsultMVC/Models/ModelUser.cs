@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,12 +40,18 @@ namespace MiraiConsultMVC.Models
         private int docconectdoctorid;
         private string photourl;
         private int specialityid;
+        private int registrationcouncil;
 
         public IEnumerable<System.Web.Mvc.SelectListItem> Countries;
         public IEnumerable<System.Web.Mvc.SelectListItem> States;
         public IEnumerable<System.Web.Mvc.SelectListItem> Cities;
         public IEnumerable<System.Web.Mvc.SelectListItem> Locations;
         public IEnumerable<System.Web.Mvc.SelectListItem> Specialities;
+        public IList<DoctorSpeciality> specialities;
+        public IList<DoctorLocations> locations;
+        public IList<doctorqualifications> qualification;
+        public IList<doctordetails> details;
+        //public IEnumerable<SelectListItem> Countries;
 
         public int UserId { get { return userid; } set { userid = value; } }
 
@@ -67,11 +74,12 @@ namespace MiraiConsultMVC.Models
         public int Gender { get { return gender; } set { gender = value; } }
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
-        
+
+        public int RegistrationCouncil { get { return registrationcouncil; } set { registrationcouncil = value; } }
         [Required(ErrorMessage = "Please Enter Password")]
         [StringLength(6, ErrorMessage = "Password length should be minimum {1} characters.", MinimumLength = 6)]
         public string Password { get { return password; } set { password = value; } }
-        
+
         [Required(ErrorMessage = "Please Enter Confirm Password")]
         [System.Web.Mvc.Compare("Password", ErrorMessage = "Password and Confirm password should be same.")]
         public string ConfirmPassword { get { return confirmPassword; } set { confirmPassword = value; } }
@@ -101,5 +109,30 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
         public int Specialityid { get { return specialityid; } set { specialityid = value; } }
+
+        public ModelUser()
+        {
+            specialities = new List<DoctorSpeciality>();
+            locations = new List<DoctorLocations>();
+            qualification = new List<doctorqualifications>();
+            details = new List<doctordetails>();
+        }
+        public void AddSpeciality(DoctorSpeciality Speciality)
+        {
+            specialities.Add(Speciality);
+        }
+        public void RemoveSpeciality(DoctorSpeciality Speciality)
+        {
+            this.specialities.Remove(Speciality);
+        }
+        public void AddLocations(DoctorLocations Location)
+        {
+            locations.Add(Location);
+        }
+        public void RemoveLocations(DoctorLocations Location)
+        {
+            this.locations.Remove(Location);
+        }
+
     }
 }

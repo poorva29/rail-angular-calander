@@ -16,13 +16,12 @@ using System.Reflection;
 using System.Data.Linq.Mapping;
 using MiraiConsultMVC;
 using System.IO;
+using Model;
 
 namespace MiraiConsultMVC.Controllers
 {
     public class UserController : Controller
     {
-        _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-       
         //
         // GET: /User/
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
@@ -364,7 +363,7 @@ namespace MiraiConsultMVC.Controllers
                         datarows = dvdocspecialities.Table.Select(expression, sortOrder);
                         foreach (DataRow dr1 in datarows)
                         {
-                            DoctorSpecialities doctorspeciality = new DoctorSpecialities();
+                            DoctorSpeciality doctorspeciality = new DoctorSpeciality();
                             if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
                             {
                                 doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);

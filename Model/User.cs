@@ -36,7 +36,7 @@ namespace Model
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
-        public IList<DoctorSpecialities> specialities;
+        public IList<DoctorSpeciality> specialities;
         [DataMember]
         public IList<DoctorLocations> locations;
         public IList<doctorqualification> qualification;
@@ -73,16 +73,16 @@ namespace Model
 
         public User()
         {
-            specialities = new List<DoctorSpecialities>();
+            specialities = new List<DoctorSpeciality>();
             locations = new List<DoctorLocations>();
             qualification = new List<doctorqualification>();
             details = new List<doctordetails>();
         }
-        public void AddSpeciality(DoctorSpecialities Speciality)
+        public void AddSpeciality(DoctorSpeciality Speciality)
         {
             specialities.Add(Speciality);
         }
-        public void RemoveSpeciality(DoctorSpecialities Speciality)
+        public void RemoveSpeciality(DoctorSpeciality Speciality)
         {
             this.specialities.Remove(Speciality);
         }

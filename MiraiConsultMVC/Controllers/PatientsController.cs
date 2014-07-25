@@ -363,30 +363,26 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult AskDoctor()
         {
-            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            QuestionModel qModel = new QuestionModel();
-            qModel.QuestionText = "";
-            lstQuestions.Add(qModel);
-            return View(lstQuestions);
+            return View(new AskDoctor());
         }
 
         [HttpGet]
-        public JsonResult GetSimilarQuestion(string questionText)
-        {
-            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+        public ActionResult GetSimilarQuestion(string questionText)
+        {            
+            IList<AskDoctor> lstQuestions = new List<AskDoctor>();
             var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
             {
                 foreach (var item in questionList)
                 {
-                    QuestionModel qModel = new QuestionModel();
+                    AskDoctor qModel = new AskDoctor();
                     qModel.QuestionId = Convert.ToInt32(item.questionid);
                     qModel.QuestionText = item.questiontext;
                     qModel.Counts = item.counts;
                     lstQuestions.Add(qModel);
                 }
             }
-            return Json(lstQuestions,JsonRequestBehavior.AllowGet);
+            return Json(lstQuestions, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

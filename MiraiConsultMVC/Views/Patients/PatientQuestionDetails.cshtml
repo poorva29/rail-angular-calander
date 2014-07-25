@@ -249,7 +249,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '../../Services/UserService.svc/addNewTags?newTag=' + newTag + '&questionid=' + questionid,
+                url: '/Services/UserService.svc/addNewTags?newTag=' + newTag + '&questionid=' + questionid,
                 success: function (response) {
                     if (parseInt(response) > 0) {
                         var newTag = $('#txtAddNewTag').val();

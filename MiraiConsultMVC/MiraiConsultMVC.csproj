@@ -712,8 +712,10 @@
     <None Include="Service References\LoginServiceReference1\UserService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Feed\DoctorFeed.cshtml" />
     <Content Include="Views\admin\ManageTag.cshtml" />
     <Content Include="Views\Questions\QuestionDetails.cshtml" />
+	<Content Include="Views\Patients\Myactivity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -164,7 +164,7 @@
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                 <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../feed/feed.aspx"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/feed/feed"><i class="icon-list-alt"></i>My Account</a></li>
                                                 <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
@@ -211,7 +211,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="../patient/finddoctor.aspx" class="topmenu-links">Our Doctors</a>
+                                    <a href="/finddoctor/finddoctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

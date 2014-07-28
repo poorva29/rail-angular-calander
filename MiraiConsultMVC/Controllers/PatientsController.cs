@@ -481,17 +481,17 @@ namespace MiraiConsultMVC.Controllers
 
             List<QuestionModel> viewmodel = new List<QuestionModel>();
 
-            viewmodel = QuestionDetails.Tables[0].AsEnumerable().Select(dataRow => new QuestionModel
-            {
-                UserId = dataRow.Field<int>("UserID"),
-                name = dataRow.Field<string>("name"),
-                cities = dataRow.Field<string>("cities"),
-                specialities = dataRow.Field<string>("specialities"),
-                userid = dataRow.Field<int>("userid"),
-                locations = dataRow.Field<string>("locations"),
-                questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString()
+            //viewmodel = QuestionDetails.Tables[0].AsEnumerable().Select(dataRow => new QuestionModel
+            //{
+            //    UserId = dataRow.Field<int>("UserID"),
+            //    QuestionId = dataRow.Field<string>("questionid"),
+            //    QuestionText = dataRow.Field<string>("cities"),
+            //    isdocconnectuser = dataRow.Field<string>("specialities"),
+            //    userid = dataRow.Field<int>("userid"),
+            //    locations = dataRow.Field<string>("locations"),
+            //    questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString()
 
-            }).ToList();
+            //}).ToList();
 
             return View();
         }

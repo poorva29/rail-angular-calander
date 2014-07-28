@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
+using System.Configuration;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -103,6 +104,48 @@ namespace MiraiConsultMVC.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult QuestionDetails(int QuestionId = 0)
+        {
+            int userId = Convert.ToInt32(Session["UserId"]);
+            IList<QuestionDtlModel> IListQuestionDetails = new List<QuestionDtlModel>();
+            QuestionDtlModel QuestionDetail;
+            db = new _dbAskMiraiDataContext();
+            System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(QuestionId, userId, 0, 1);
+            foreach (var item in ModelQuestion)
+            {
+                QuestionDetail = new QuestionDtlModel();
+                QuestionDetail.AnswerDate = Convert.ToDateTime(item.answerdate);
+                QuestionDetail.AnswerId = Convert.ToInt32(item.answerid);
+                QuestionDetail.AnswerImg = item.answerimg;
+                QuestionDetail.AnswerText = item.answertext;
+                QuestionDetail.CreateDate = Convert.ToDateTime(item.createdate);
+                QuestionDetail.DocconnectDoctorId = item.docconnectdoctorid;
+                QuestionDetail.DocId = Convert.ToInt32(item.Docid);
+                QuestionDetail.Doctor = item.doctor;
+                QuestionDetail.DoctorImg = item.doctorimg;
+                QuestionDetail.Email = item.Email;
+                QuestionDetail.EndorseCount = Convert.ToInt32(item.endorsecount);
+                QuestionDetail.Gender = Convert.ToInt32(item.gender);
+                QuestionDetail.Id = item.id;
+                QuestionDetail.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
+                QuestionDetail.IsEndorse = Convert.ToBoolean(item.isendorse);
+                QuestionDetail.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
+                QuestionDetail.LastName = item.lastname;
+                QuestionDetail.MobileNo = item.mobileno;
+                QuestionDetail.PatientEmail = item.patientemail;
+                QuestionDetail.PatientLastName = item.patientlastname;
+                QuestionDetail.QuestionId = Convert.ToInt32(item.questionid);
+                QuestionDetail.QuestionText = item.questiontext;
+                QuestionDetail.status = Convert.ToInt32(item.status);
+                QuestionDetail.ThanxCount = Convert.ToInt32(item.thanxcount);
+                QuestionDetail.Title = item.title;
+                QuestionDetail.UserId = Convert.ToInt32(item.userid);
+                IListQuestionDetails.Add(QuestionDetail);
+            }
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+            return View(IListQuestionDetails);
         }
     }
 }

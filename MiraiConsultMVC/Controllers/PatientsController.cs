@@ -474,5 +474,10 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
+
+        public ActionResult similarQuestions()
+        {
+            return View();
+        }
     }
 }

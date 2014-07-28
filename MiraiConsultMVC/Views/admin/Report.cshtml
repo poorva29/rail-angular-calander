@@ -1,4 +1,17 @@
 ﻿@model IEnumerable<MiraiConsultMVC.Models.Report>
+
+@{
+    ViewBag.Title = "Report";
+    if (Session["UserId"] == null)
+    {
+        Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
+
+}
 <link rel="stylesheet" href="~/Content/chosen/chosen.css" />
 <script type="text/javascript" src="~/Content/chosen/chosen.jquery.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery.dataTables.js"></script>

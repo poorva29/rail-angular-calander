@@ -12,7 +12,7 @@ using DAL;
 using System.Web.UI.HtmlControls;
 using System.Web.UI;
 using Model;
-
+using System.Data.SqlClient;
 namespace MiraiConsultMVC.Controllers
 {
     public class PatientsController : Controller
@@ -33,7 +33,33 @@ namespace MiraiConsultMVC.Controllers
         {
             return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));
         }
-        
+
+        public ActionResult Myactivity()
+        {
+             SqlConnection conn = null;
+            DataSet dsQuestion = null;
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            SqlParameter[] param = new SqlParameter[1];
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                param[0] = new SqlParameter("@Userid", Convert.ToInt32(Session["UserId"]));
+                dsQuestion = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AllQuestionsByUserId", param);
+            }
+            QuestionModel questions;
+            if (dsQuestion != null && dsQuestion.Tables.Count > 0 && dsQuestion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsQuestion.Tables[0].Rows)
+                {
+                    questions = new QuestionModel();
+                    questions.QuestionId = Convert.ToInt32(dr["questionid"]);
+                    questions.QuestionText = Convert.ToString(dr["questiontext"]);
+                    questions.Counts = Convert.ToString(dr["counts"]);
+                    questions.CreateDate = Convert.ToDateTime(dr["createdate"]);
+                    lstQuestions.Add(questions);
+                }
+            }
+            return View(lstQuestions);
+        }
         [HttpPost]
         public ActionResult PatientProfile(Profile profile)
         {
@@ -400,6 +426,74 @@ namespace MiraiConsultMVC.Controllers
             question.QuestionText = questionText;
             result = QuestionManager.getInstance().insertQuestion(question);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult InviteFriend()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult InviteFriend(MiraiConsultMVC.Models.Patients.InviteFriend inviteFriend)
+        {
+            ViewBag.Message = "";
+            if(ModelState.IsValid)
+            {
+                string from_address = null;
+                bool sent_mail = false;
+                string emailsIds = inviteFriend.email;
+                string msgBody = inviteFriend.message;
+                msgBody = "<html><body> <form name=frmMessage method=post>" +
+                            msgBody + "<br><br>" +
+                            "<font size=2 face=verdana> Best wishes,</font>" +
+                            "<br>" +
+                            "<font size=2 face=verdana>Mirai Health Team</font>" +
+                            "<br>" +
+                            "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
+                            "<br>" +
+                            "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                            "<br>" + "<br>" + "<br>" +
+                            "<img src='cid:logoImage' ></img>" +
+                            "</form></body></html>";
+                string subject = "I want to invite you to use Mirai Consult";
+                if (Session["UserId"] != null && Session["UserEmail"] != null)
+                {
+                    from_address = Convert.ToString(Session["UserEmail"]);
+                }
+                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                sent_mail = Mail.SendHTMLMailWithImage(from_address, emailsIds.Split(','), subject, msgBody, Logoimage);
+                if (!sent_mail)
+                {
+                    ViewBag.Message = "Failed to send email.";
+                }
+                else
+                {
+                    ViewBag.Message = "Your email sent successfully.";
+                    ModelState.Clear();
+                }
+            }
+            return View();
+        }
+
+        public ActionResult similarQuestions(string questionText)
+        {
+            DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(questionText, Convert.ToInt32(QuestionStatus.Approved));
+
+            List<QuestionModel> viewmodel = new List<QuestionModel>();
+
+            viewmodel = QuestionDetails.Tables[0].AsEnumerable().Select(dataRow => new QuestionModel
+            {
+                UserId = dataRow.Field<int>("UserID"),
+                QuestionId = dataRow.Field<string>("questionID"),
+                cities = dataRow.Field<string>("cities"),
+                specialities = dataRow.Field<string>("specialities"),
+                userid = dataRow.Field<int>("userid"),
+                locations = dataRow.Field<string>("locations"),
+                questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString()
+
+            }).ToList();
+
+            return View();
         }
     }
 }

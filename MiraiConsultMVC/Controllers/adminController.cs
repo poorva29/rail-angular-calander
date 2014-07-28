@@ -9,6 +9,7 @@ using DAL;
 using System.Configuration;
 using MiraiConsultMVC.Models.admin;
 using System.Data.SqlClient;
+using Model;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -30,7 +31,7 @@ namespace MiraiConsultMVC.Controllers
                 userId = Convert.ToInt32(Session["UserId"].ToString());
             }
             QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
-            
+
             AssignDoctors = QuestionDetails.Tables[2];
 
 
@@ -50,36 +51,42 @@ namespace MiraiConsultMVC.Controllers
                 Selectedtags = QuestionDetails.Tables[1].AsEnumerable().Select(dataRow => new tag
                 {
                     tagid = dataRow.Field<int>("tagid")
-                    
+
                 }).ToList();
 
-                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", Selectedtags);
+                int[] values = new int[Selectedtags.Count];
+                for (int i=0; i < Selectedtags.Count; i++)
+	            {
+		            values[i] = Selectedtags.ToList()[i].tagid;
+	            }
+
+                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
                 ViewBag.tags = makeSelected;
             }
 
-            
 
-                List<AssignQuestion> viewmodel = new List<AssignQuestion>();
 
-                viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
-                {
-                    id = dataRow.Field<int>("id"),
-                    name = dataRow.Field<string>("name"),
-                    cities = dataRow.Field<string>("cities"),
-                    specialities = dataRow.Field<string>("specialities"),
-                    userid = dataRow.Field<int>("userid"),
-                    locations = dataRow.Field<string>("locations"),
-                    questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
-                    Questionid = Convert.ToInt32(QuestionId)
-                }).ToList();
+            List<AssignQuestion> viewmodel = new List<AssignQuestion>();
 
-                return View(viewmodel);
+            viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
+            {
+                id = dataRow.Field<int>("id"),
+                name = dataRow.Field<string>("name"),
+                cities = dataRow.Field<string>("cities"),
+                specialities = dataRow.Field<string>("specialities"),
+                userid = dataRow.Field<int>("userid"),
+                locations = dataRow.Field<string>("locations"),
+                questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
+                Questionid = Convert.ToInt32(QuestionId)
+            }).ToList();
+
+            return View(viewmodel);
         }
 
         public JsonResult AssignDoctor(int QuestionId, string AssignDoctorIds)
         {
             string[] ArrayOfID = null;
-            
+
             questionId = QuestionId;
             AssignDoctors = QuestionManager.getInstance().assignDoctorToQuestion(questionId, AssignDoctorIds).Tables[0];
 
@@ -158,7 +165,7 @@ namespace MiraiConsultMVC.Controllers
                 string SmsText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListSMS"].ToString();
                 SMS.SendSMS(Convert.ToString(dtUserDetails.Rows[0]["mobileno"]), SmsText);
                 jsonObj = "Question has been Rejected successfully.";
-                
+
             }
             else
             {
@@ -183,5 +190,64 @@ namespace MiraiConsultMVC.Controllers
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //public JsonResult AddTags()
+        //{
+
+        //    DataTable Oldtags = null;
+        //    int flag;
+        //    if (QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[1].Rows.Count != 0)
+        //    {
+        //        Oldtags = QuestionDetails.Tables[1];
+        //    }
+        //    IList<Tag> ToAddlstTags = new List<Tag>();
+        //    IList<Tag> ToDeletelstTags = new List<Tag>();
+        //    foreach (ListItem li in lstOfTags.Items)
+        //    {
+        //        flag = 0;
+        //        if (li.Selected)
+        //        {
+        //            if (Oldtags != null)
+        //            {
+        //                for (int i = 0; i < Oldtags.Rows.Count; i++)
+        //                {
+        //                    if (Convert.ToString(Oldtags.Rows[i]["tagid"]) == li.Value)
+        //                    {
+        //                        flag = 1;
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //            if (flag == 0)
+        //            {
+        //                Tag tags = new Tag();
+        //                tags.TagId = Convert.ToInt32(li.Value);
+        //                ToAddlstTags.Add(tags);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (Oldtags != null)
+        //            {
+        //                for (int i = 0; i < Oldtags.Rows.Count; i++)
+        //                {
+        //                    if (Convert.ToString(Oldtags.Rows[i]["tagid"]) == li.Value)
+        //                    {
+        //                        flag = 1;
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //            if (flag == 1)
+        //            {
+        //                Tag tags = new Tag();
+        //                tags.TagId = Convert.ToInt32(li.Value);
+        //                ToDeletelstTags.Add(tags);
+        //            }
+        //        }
+        //    }
+        //    int result = QuestionManager.getInstance().assignTagsToQuestion(ToAddlstTags, ToDeletelstTags, questionId);
+        //}
+
     }
 }

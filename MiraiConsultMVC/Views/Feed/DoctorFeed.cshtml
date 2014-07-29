@@ -76,10 +76,10 @@
             var UserFullName = document.getElementById("HdnUserFullName").value;
             var urladdress = '';
             if (document.getElementById('radFilterMyFeed').checked) {
-                urladdress = "/Services/UserService.svc/getFeedList?lastQuestionNo=" + index + "&RecordSize=" + RecordSize + "&UserId=" + UserId + "&myFeed=" + 1 + "&isEncrypt=false" ;
+                urladdress = "../Services/UserService.svc/getFeedList?lastQuestionNo=" + index + "&RecordSize=" + RecordSize + "&UserId=" + UserId + "&myFeed=" + 1 + "&isEncrypt=false" ;
             }
             else {
-                urladdress = "/Services/UserService.svc/getFeedList?lastQuestionNo=" + index + "&RecordSize=" + RecordSize + "&UserId=" + UserId + "&myFeed=" + 0 + "&isEncrypt=false";
+                urladdress = "../Services/UserService.svc/getFeedList?lastQuestionNo=" + index + "&RecordSize=" + RecordSize + "&UserId=" + UserId + "&myFeed=" + 0 + "&isEncrypt=false";
             }
             $.ajax({
                 type: 'GET',

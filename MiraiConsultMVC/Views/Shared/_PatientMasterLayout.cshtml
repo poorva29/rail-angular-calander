@@ -67,8 +67,7 @@
                                                 <li><a href="/User/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             <li>
-                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"
-                                                   onclick="linkLogout_Click"><i class="icon-off"></i>Logout</a>
+                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"><i class="icon-off"></i>Logout</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -142,9 +141,9 @@
                                                     </a>
                                                 </li>
                                                 <li id="liDocQuestions">
-                                                    <a href="/Questions/QuestionList">
+                                                    <a href="/Questions/DoctorQuestionList">
                                                         <span class="Icon Icon--questions Icon--large"></span>
-                                                        <span runat="server" visible="false" id="unansweredQuestionCount" class="unansweredQuestionCount" clientidmode="Static"></span>
+                                                        <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount"></span>
                                                         <span class="rightpaddingdiv text"><br />Questions</span>
                                                     </a>
                                                 </li>

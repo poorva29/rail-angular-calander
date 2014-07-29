@@ -58,14 +58,14 @@
                                     </div>
                                 </div>
                                 <div class="span3">
-                                    <div id="@item.AnswerId ans"><div class="inner-count-likes pull-right" title="Thanked by patient"> @item.ThanxCount</div><div class="inner-count-endorse pull-right" title="Endorsed">@item.EndorseCount</div></div>
+                                    <div id="@(item.AnswerId+"ans")"><div class="inner-count-likes pull-right" title="Thanked by patient"> @item.ThanxCount</div><div class="inner-count-endorse pull-right" title="Endorsed">@item.EndorseCount</div></div>
                                 </div>
                                 <div class="span3 pull-right hidden-phone" style="margin-bottom:10px">
                                     @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor) || Session["UserId"] == null)
                                     {
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                         {
-                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(@item.DocId)) %>&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(@item.DocId))")'>Book Appointment </a>
+                                             <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) @Utilities.Encrypt(Convert.ToString(item.DocId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
                                         }
                                     }
                                 </div>
@@ -94,7 +94,7 @@
                                 {
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                     {
-                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(@item.DocId)) %>&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @Utilities.Encrypt(Convert.ToString(item.DocId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -107,46 +107,44 @@
                                             <div style="width:72%" class="pull-left hidden-phone">
                                                 <hr style="margin:12px;" />
                                             </div>
-                                            <a href='#' onclick='shareOnFacebook(" @HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(@item.QuestionText))) "," @HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(@item.AnswerText)) )","questionId","AskmiraiUrl","FacebookAppKey")'>
-                                                <img title='Facebook' class='share_icons_width' src='../Content/image/fb.png' alt='Facebook'>
+                                            <a href='#' onclick='shareOnFacebook("@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.QuestionText)))","@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.AnswerText)) )","@item.QuestionId","@ViewBag.AskmiraiUrl","@ViewBag.FacebookAppKey")'>
+                                                <img title='Facebook' class='share_icons_width' src='~/Content/image/fb.png' alt='Facebook'>
                                             </a>
-                                            @*<%--<a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= Q. <%=  QuestionDetails.Tables[0].Rows[0]["questiontext"] %>   Ans.  <%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %> '>
-                                                    <img title='Twitter' class='share_icons_width' src='../Resources/image/twitter.png' alt='Twitter'>
-                                                </a>--%>*@
-                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=  <%=AskmiraiUrl%>/patient/questiondetails.aspx?questionid=<%=questionId %>'><img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'></a>
+                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/patient/QuestionDetails/QuestionId=@item.QuestionId'><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
 
-                                            <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has shared an Answer with you &amp;Body= Q @item.QuestionText %0D%0A  Ans. ' @(item.AnswerText)>
-                                                <img title='Email' class='share_icons_width' src='../Content/image/mail.png' style="margin-right:10px;" alt='Email'>
-                                            </a>
-                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                                            <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has shared an Answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
+                                                <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email'>
+                                                @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
-                                                bool isuserthanked;
-                                                isuserthanked = Convert.ToBoolean(@item.IsPatientThank);
-                                                if (isuserthanked == false)
-                                                {
+                                                    bool isuserthanked;
+                                                    isuserthanked = Convert.ToBoolean(@item.IsPatientThank);
+                                                    if (isuserthanked == false)
+                                                    {
                                                         <a class="custom-link" onclick="return thankToDoctor(@Session["UserId"],'  @(item.AnswerId)   ',this,' @(item.LastName) ','@(item.MobileNo) ','@(item.Email) ','@HttpUtility.UrlEncode(Convert.ToString(item.QuestionText)) ','@(item.ThanxCount) ')">Is it useful?</a>
-                                                }else{
+                                                    }
+                                                    else
+                                                    {
                                                         <a class='custom-green-text'><img src='../Content/image/thanks.png' />Thanks its useful</a>
-                                                }
+                                                    }
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
-                                                if (Convert.ToInt32(Session["UserId"].ToString()) != Convert.ToInt32(@item.DocId))
-                                                {
-                                                bool isendorse;
-                                                isendorse = Convert.ToBoolean(@item.IsEndorse);
-                                                if (isendorse == false)
-                                                {
-                                                        <a class="custom-link" onclick='return endorseToDoctor(@Session["UserId"]," @item.AnswerId ",this)'><b>Want to endorse?</b></a>
+                                                    if (Convert.ToInt32(Session["UserId"].ToString()) != Convert.ToInt32(@item.DocId))
+                                                    {
+                                                        bool isendorse;
+                                                        isendorse = Convert.ToBoolean(@item.IsEndorse);
+                                                        if (isendorse == false)
+                                                        {
+                                                            <a class="custom-link" onclick='return endorseToDoctor(@Session["UserId"]," @item.AnswerId ",this)'><b>Want to endorse?</b></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class='custom-green-text'><img src='../Content/image/thanks.png' /> Endorsed</a>
+                                                        }
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                        <a class='custom-green-text'><img src='../Content/image/thanks.png' /> Endorsed</a>
-                                                }
-                                            }
-                                            }
 
-                                        </div>
+</div>
                                     </div>
                                     }
                                 </div>
@@ -171,7 +169,11 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label">Assign More Tags:</label>
                                     <div class="controls">
-                                        <asp:ListBox ID="lstOfTags" ClientIDMode="Static" runat="server" SelectionMode="Multiple" class="chzn-select min-width max-width" onkeypress="return CheckKey(event)"></asp:ListBox>
+                                        @Html.ListBox(
+                                                 "NamelstOfTags",
+                                                 ViewBag.tags as MultiSelectList,
+                                                             new { @class = "chzn-select max-width", id="lstOfTags", onkeypress = "return CheckKey(event)" }
+                                    )
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +191,7 @@
                                 <div class="control-group">
                                     <label class="control-label"></label>
                                     <div class="controls">
-                                        <input type="submit" class="btn thanx" onclick="return validatedata();" value="Assign" />
+                                        <input type="button" class="btn thanx" onclick="return validatedata();" value="Assign" />
                                         <input type="reset" value="Cancel" class="btn" />
                                     </div>
                                 </div>
@@ -201,10 +203,17 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
 <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">
+    var slectedtag = [];
+    $(function () {
+        slectedtag = $("select").val();
+    });
     $(function () {
         var refUrl = document.referrer;
+       // var seletedTagslist = JSON.parse(@ViewBag.seletedTagslist);
+        //var selectdTags = JSON.parse(@ViewBag.selectdTags);
         if (refUrl.indexOf("feed.aspx") >= 0 || refUrl.indexOf("doctorfeed.aspx") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liAdminFeed').addClass("active");
@@ -235,6 +244,33 @@
             errormsg = "Please select at least one tag.";
         }
         if (errormsg == "") {
+            Updatedslectedtag = $("select").val();
+            var newtags = [];
+            var deletedtags = [];
+            for (var i = 0; i < Updatedslectedtag.length; i++) {
+                var index = $.inArray(Updatedslectedtag[i], slectedtag)
+                if (index == -1) {
+                    newtags.push(Updatedslectedtag[i])
+                }
+            }
+            for (var i = 0; i < slectedtag.length; i++) {
+                var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                if (index == -1) {
+                    deletedtags.push(slectedtag[i])
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                data: '{ "Addedtags":"' + newtags.toString() + '" , "DeletedTags":"' + deletedtags.toString() + '", "QuestionID":"' + $("#hdnQuestionid").val() + '"}',
+                contentType: 'application/json',
+                url: "../../Services/UserService.svc/UpdateQuestionTags",
+                success: function (response) {
+                    alert("Successfully Tags assigned to question.")
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
             return true;
         }
         else {
@@ -257,7 +293,7 @@
                         $("#lstOfTags").append("<option value=" + response + " selected='true'>" + newTag + "</option>");
                         $("#lstOfTags").trigger("liszt:updated");
                         $('#txtAddNewTag').val('');
-                        location.reload();
+                        slectedtag = $("select").val();
                         return false;
                     }
                     else if (parseInt(response) <= 0) {

@@ -356,5 +356,34 @@ namespace Services
             }
             
         }
+
+        public void UpdateQuestionTags(string Addedtags, string DeletedTags, string QuestionID)
+        {
+            string[] AddedtagsArr = Addedtags.Split(',');
+            string[] DeletedTagsArr = DeletedTags.Split(',');
+            IList<Tag> ToAddlstTags = new List<Tag>();
+            IList<Tag> ToDeletelstTags = new List<Tag>();
+            Tag tags;
+            if (!string.IsNullOrEmpty(Addedtags))
+            {
+                foreach (string item in AddedtagsArr)
+                {
+                     tags = new Tag();
+                    tags.TagId = Convert.ToInt32(item);
+                    ToAddlstTags.Add(tags);
+                }
+            }
+            if (!string.IsNullOrEmpty(DeletedTags))
+            {
+                foreach (string item in DeletedTagsArr)
+                {
+                    tags = new Tag();
+                    tags.TagId = Convert.ToInt32(item);
+                    ToDeletelstTags.Add(tags);
+                }
+
+            }
+            QuestionManager.getInstance().assignTagsToQuestion(ToAddlstTags, ToDeletelstTags, Convert.ToInt32(QuestionID));
+        }
     }
 }

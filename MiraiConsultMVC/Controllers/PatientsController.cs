@@ -503,8 +503,6 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult similarQuestions(string question)
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();
-
-<<<<<<< HEAD
           ViewBag.Question = question;
           if (question.Length != 0)
           {

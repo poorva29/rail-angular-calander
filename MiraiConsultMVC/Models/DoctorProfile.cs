@@ -4,19 +4,16 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Model;
 
 namespace MiraiConsultMVC.Models
 {
     public class DoctorProfile
     {
         private int userid;
-        [Required]
         private string firstname;
-        [Required]
         private string lastname;
-        [Required]
         private string email;
-        [Required]
         public string username; 
         private string mobileno;
         private int gender;
@@ -38,7 +35,13 @@ namespace MiraiConsultMVC.Models
         private string speciality;
         public IEnumerable<SelectListItem> Countries;
         public IEnumerable<SelectListItem> Registrationcouncils;
-        public IEnumerable<SelectListItem> Specialities;
+        //public IEnumerable<SelectListItem> Specialities;
+
+        public IList<DoctorSpeciality> specialities;
+        public IList<DoctorLocations> locations;
+        public IList<doctorqualifications> qualification;
+        public IList<doctordetails> details;
+        
 
         public int UserId { get { return userid; } set { userid = value; } }
         public string FirstName { get { return firstname; } set { firstname = value; } }
@@ -63,5 +66,29 @@ namespace MiraiConsultMVC.Models
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
         public string Speciality { get { return speciality; } set { speciality = value; } }
         public int SpecialityId { get { return specialityid; } set { specialityid = value; } }
+
+        public DoctorProfile()
+        {
+            specialities = new List<DoctorSpeciality>();
+            locations = new List<DoctorLocations>();
+            qualification = new List<doctorqualifications>();
+            details = new List<doctordetails>();
+        }
+        public void AddSpeciality(DoctorSpeciality Speciality)
+        {
+            specialities.Add(Speciality);
+        }
+        public void RemoveSpeciality(DoctorSpeciality Speciality)
+        {
+            this.specialities.Remove(Speciality);
+        }
+        public void AddLocations(DoctorLocations Location)
+        {
+            locations.Add(Location);
+        }
+        public void RemoveLocations(DoctorLocations Location)
+        {
+            this.locations.Remove(Location);
+        }
     }
 }

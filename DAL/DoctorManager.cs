@@ -245,20 +245,20 @@ namespace DAL
                         string expression = "userid =" + doctorid;
                         string sortOrder = "";
                         datarows = dvdocspecialities.Table.Select(expression, sortOrder);
-                        foreach (DataRow dr1 in datarows)
-                        {
-                            DoctorSpecialities doctorspeciality = new DoctorSpecialities();
-                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
-                            {
-                                doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);
-                            }
-                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["speciality_name"])))
-                            {
-                                doctorspeciality.Speciality = Convert.ToString(dr1["speciality_name"]);
+                        //foreach (DataRow dr1 in datarows)
+                        //{
+                        //    DoctorSpecialities doctorspeciality = new DoctorSpecialities();
+                        //    if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
+                        //    {
+                        //        doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);
+                        //    }
+                        //    if (!String.IsNullOrEmpty(Convert.ToString(dr1["speciality_name"])))
+                        //    {
+                        //        doctorspeciality.Speciality = Convert.ToString(dr1["speciality_name"]);
 
-                            }
-                            doctor.specialities.Add(doctorspeciality);
-                        }
+                        //    }
+                        //    doctor.specialities.Add(doctorspeciality);
+                        //}
                         datarows = dvdoctorlocations.Table.Select(expression, sortOrder);
                         bool isloc_already_added = false;
 

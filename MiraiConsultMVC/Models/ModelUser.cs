@@ -51,6 +51,8 @@ namespace MiraiConsultMVC.Models
         public IEnumerable<System.Web.Mvc.SelectListItem> Councils;
         public IEnumerable<string> Selectedspecialities { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> Specialities;
+        public IList<DoctorSpeciality> specialities;
+        public IList<DoctorLocations> locations;
         public IList<doctorqualifications> qualification;
         public IList<doctordetails> details;
         //public IEnumerable<SelectListItem> Countries;
@@ -110,7 +112,30 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
         public int Specialityid { get { return specialityid; } set { specialityid = value; } }
-        public int hdnRegcouncilid { get; set; }      
-
+        public int hdnRegcouncilid { get; set; }
+        
+        public ModelUser()
+        {
+            specialities = new List<DoctorSpeciality>();
+            locations = new List<DoctorLocations>();
+            qualification = new List<doctorqualifications>();
+            details = new List<doctordetails>();
+        }
+        public void AddSpeciality(DoctorSpeciality Speciality)
+        {
+            specialities.Add(Speciality);
+        }
+        public void RemoveSpeciality(DoctorSpeciality Speciality)
+        {
+            this.specialities.Remove(Speciality);
+        }
+        public void AddLocations(DoctorLocations Location)
+        {
+            locations.Add(Location);
+        }
+        public void RemoveLocations(DoctorLocations Location)
+        {
+            this.locations.Remove(Location);
+        }
     }
 }

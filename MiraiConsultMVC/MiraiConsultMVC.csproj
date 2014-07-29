@@ -629,6 +629,7 @@
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\ViewScrips\QuestionListScript.js" />
     <Content Include="Services\UserService.svc" />
+    <Content Include="Views\admin\QuestionList.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -703,7 +704,6 @@
     <Content Include="Views\FindDoctor\FindDoctors.cshtml" />
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
-    <Content Include="Views\admin\QuestionList.cshtml" />
     <Content Include="Views\admin\Report.cshtml" />
     <Content Include="Views\admin\_Report.cshtml" />
     <Content Include="Views\Patients\InviteFriend.cshtml" />
@@ -715,7 +715,6 @@
     <Content Include="Views\Feed\DoctorFeed.cshtml" />
     <Content Include="Views\admin\ManageTag.cshtml" />
     <Content Include="Views\Patients\Myactivity.cshtml" />
-    <Content Include="Views\Questions\QuestionDetails.cshtml" />
     <Content Include="Views\Patients\similarQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>

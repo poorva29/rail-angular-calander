@@ -203,7 +203,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\admin\Tags.cs" />
     <Compile Include="Models\Patients\InviteFriend.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\Home\Contact.cs" />

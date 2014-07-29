@@ -49,7 +49,7 @@
                         <div class="controls">
                             @*<asp:Button ID="btnCreateDoctorAccount" class="btn thanx" runat="server" AutoPostBack="true" OnClick="btnAddTags_Click" OnClientClick="return validatedata();"
                                         Text="Add Tags" ValidationGroup="submit"></asp:Button>*@
-                            <input type="button" id="btnCreateDoctorAccount" value="Add Tags" class="btn thanx" />
+                            <input type="button" id="btnCreateDoctorAccount" onclick="validatedata()" value="Add Tags" class="btn thanx" />
                             <input type="button" id="btnClear" value="Cancel" class="btn cancel" onclick=" removeAssigntags()" />
                         </div>
                     </div>
@@ -188,6 +188,7 @@
             </div>
         </div>
         @*<asp:HiddenField ID="hdndoctorIds" ClientIDMode="Static" runat="server" />*@
+        <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
         <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" />
         <input type="hidden" id="hdnQuestionId" name="hdnQuestionId" value="@Model.ToList()[0].Questionid" />
         <div class="row-fluid">
@@ -512,6 +513,98 @@
             }
         });
     }
+
+    $(function () {
+        slectedtag = $("select").val();
+    });
+
+
+    function validatedata() {
+        var errormsg = "";
+        if ($("#lstOfTags :selected").length == 0) {
+            errormsg = "Please select at least one tag.";
+        }
+        if (errormsg == "") {
+            Updatedslectedtag = $("select").val();
+            var newtags = [];
+            var deletedtags = [];
+            for (var i = 0; i < Updatedslectedtag.length; i++) {
+                var index = $.inArray(Updatedslectedtag[i], slectedtag)
+                if (index == -1) {
+                    newtags.push(Updatedslectedtag[i])
+                }
+            }
+            for (var i = 0; i < slectedtag.length; i++) {
+                var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                if (index == -1) {
+                    deletedtags.push(slectedtag[i])
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                data: '{ "Addedtags":"' + newtags.toString() + '" , "DeletedTags":"' + deletedtags.toString() + '", "QuestionID":"' + $("#hdnQuestionid").val() + '"}',
+                contentType: 'application/json',
+                url: "../../Services/UserService.svc/UpdateQuestionTags",
+                success: function (response) {
+                    alert("Tag's assigned to questions")
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+            return true;
+        }
+        else {
+            alert(errormsg);
+            return false;
+        }
+    }
+
+    $(function () {
+        slectedtag = $("select").val();
+    });
+
+    function validatedata() {
+        var errormsg = "";
+        if ($("#lstOfTags :selected").length == 0) {
+            errormsg = "Please select at least one tag.";
+        }
+        if (errormsg == "") {
+            Updatedslectedtag = $("select").val();
+            var newtags = [];
+            var deletedtags = [];
+            for (var i = 0; i < Updatedslectedtag.length; i++) {
+                var index = $.inArray(Updatedslectedtag[i], slectedtag)
+                if (index == -1) {
+                    newtags.push(Updatedslectedtag[i])
+                }
+            }
+            for (var i = 0; i < slectedtag.length; i++) {
+                var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                if (index == -1) {
+                    deletedtags.push(slectedtag[i])
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                data: '{ "Addedtags":"' + newtags.toString() + '" , "DeletedTags":"' + deletedtags.toString() + '", "QuestionID":"' + $("#hdnQuestionid").val() + '"}',
+                contentType: 'application/json',
+                url: "../../Services/UserService.svc/UpdateQuestionTags",
+                success: function (response) {
+                    alert("Tag's assigned to questions")
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+            return true;
+        }
+        else {
+            alert(errormsg);
+            return false;
+        }
+    }
+
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

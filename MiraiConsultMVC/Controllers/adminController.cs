@@ -25,7 +25,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db;
         public ActionResult assignquestion(int? QuestionId)
         {
-
+            ViewBag.questionid = QuestionId;
             if (Session["UserId"] != null)
             {
                 userId = Convert.ToInt32(Session["UserId"].ToString());

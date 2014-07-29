@@ -505,21 +505,6 @@ namespace MiraiConsultMVC.Controllers
             DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(questionText, Convert.ToInt32(QuestionStatus.Approved));
 
             List<QuestionModel> viewmodel = new List<QuestionModel>();
-
-
-            //viewmodel = QuestionDetails.Tables[0].AsEnumerable().Select(dataRow => new QuestionModel
-            //{
-            //    UserId = dataRow.Field<int>("UserID"),
-            //    QuestionId = dataRow.Field<string>("questionid"),
-            //    QuestionText = dataRow.Field<string>("cities"),
-            //    isdocconnectuser = dataRow.Field<string>("specialities"),
-            //    userid = dataRow.Field<int>("userid"),
-            //    locations = dataRow.Field<string>("locations"),
-            //    questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString()
-
-            //}).ToList();
-
-
             return View();
         }
     }

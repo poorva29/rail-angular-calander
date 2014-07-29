@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
+@{
     ViewBag.Title = "similarQuestions";
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
@@ -7,22 +8,23 @@
     <div class="row-fluid">
         <div style="margin-top:5%">
             <div class='row-fluid span7'>
-                <asp:TextBox ID="txtQuestion" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container" TextMode="multiline" Columns="50" Rows="2" runat="server" ClientIDMode="Static" /><br />
+                @*<asp:TextBox ID="txtQuestion" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container" TextMode="multiline" Columns="50" Rows="2" runat="server" ClientIDMode="Static" />*@<br />
+                <input type="text" id="txtQuestion" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container" />
             </div>
             <div class="row-fluid">
                 <div class="span3">
-                    <label id="count" class="control-label count_align" runat="server" clientidmode="Static" style="text-align:left">0/200</label>
+                    <label id="count" class="control-label count_align" clientidmode="Static" style="text-align:left">0/200</label>
                 </div>
             </div>
             <div class='row-fluid similarquestions_title_margin'>
 
-                @if (Session["UserId"] == null && QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[0].Rows.Count != 0)
+                @if (Session["UserId"] == null && Model != null && Model.ToList().Count != 0)
                 {
                     <div class="span10 similarquestions_loginlink">
                         <a href="../admin/Login.aspx" class="divredirectlogin">Not Satisfied with below Answers? <strong>Send your Question to the Mirai Consult&#8482; panel of doctors</strong> </a>
                     </div>
                 }
-                else if (Session["UserId"] == null && (QuestionDetails == null || QuestionDetails.Tables.Count == 0 || QuestionDetails.Tables[0].Rows.Count == 0))
+                else if (Session["UserId"] == null && (Model == null || Model.ToList().Count == 0))
                 {
                     <div class="span10 similarquestions_loginlink">
                         <a href="../admin/Login.aspx" class="divredirectlogin">Send your Question to the Mirai Consult&#8482; panel of doctors</a>
@@ -37,41 +39,41 @@
             </div>
 
             <div class="margin_bottom">
-                @if (QuestionDetails != null && (QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[0].Rows.Count != 0))
+                @if (Model != null && (Model.ToList().Count != 0))
                 {
-                    for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)
+                    for (int i = 0; i < Model.ToList().Count; i++)
                     {
                         <div class='row-fluid'>
                             <div class='span12 custom-green-container' style="display:table">
-                                <a style="display:table-row" href='questiondetails.aspx?questionid=+ <%= QuestionDetails.Tables[0].Rows[i]["questionid"] %> +'>
-                                    <div class='question_text custom-middle'>@QuestionDetails.Tables[0].Rows[i]["questiontext"] </div>
+                                <a style="display:table-row" href='questiondetails.aspx?questionid=+ @Model.ToList()[i].QuestionId +'>
+                                    <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                 </a>
                             </div>
                         </div>
                         <div class='row-fluid'>
                             <div id="feedDocImage_SQ" class='span1'>
                                 <div class='feedDocImage img'>
-                                    @if ((QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != "" && (QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString()) != null)
+                                    @if ((Model.ToList()[i].DocImg) != "" && (Model.ToList()[i].DocImg) != null)
                                     {
-                                        <img src='@QuestionDetails.Tables[0].Rows[i]["doctorimg"]' />
+                                        <img src='@Model.ToList()[i].DocImg' />
                                     }
                                     else
                                     {
-                                        <img src='../Resources/image/img-na.png' />
+                                        <img src='../Content/image/img-na.png' />
                                     }
                                 </div>
                             </div>
                             <div class='span6 middle-size-padding'>
-                                <div class='ans_time_detail'>Dr. @QuestionDetails.Tables[0].Rows[i]["answerreplyedby"] </div>
+                                <div class='ans_time_detail'>Dr. @Model.ToList()[i].AnsweredBy </div>
                                 <div class='title_text'>
-                                    @QuestionDetails.Tables[0].Rows[i]["title"] %>
+                                    @Model.ToList()[i].Title %>
                                 </div>
                             </div>
 
-                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"]))
+                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                             {
                                 <div class="span3  pull-right hidden-phone">
-                                    <a class='btn book_appt_button' href='<%= Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + askmirai.Utilities.Encrypt(Convert.ToString(QuestionDetails.Tables[0].Rows[i]["userid"])) %>&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "<%= askmirai.Utilities.Encrypt(Convert.ToString(QuestionDetails.Tables[0].Rows[i]["userid"])) %>")'>Book Appointment </a>
+                                    <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
                                     <br />
                                     <br />
                                 </div>
@@ -79,31 +81,31 @@
 
 
                             <div class='span11 middle-size-padding'>
-                                @if (QuestionDetails.Tables[0].Rows[i]["answerimg"] != System.DBNull.Value)
+                                @if (Model.ToList()[i].answers[i].AnswerImage != "")
                                 {
                                     <div class='span5 '>
-                                        <p class='ans_text'>@QuestionDetails.Tables[0].Rows[i]["answertext"] </p>
+                                        <p class='ans_text'>@Model.ToList()[i].answers[i].AnswerText </p>
                                     </div>
                                     <div class='span3 offset1' id="feedAnsImage_SQ">
                                         <div class='feedAnsImage img'>
-                                            <img src="../feed/answerPhotos/<%=  QuestionDetails.Tables[0].Rows[i][" answerimg"] %>">
+                                            <img src="../feed/answerPhotos/@Model.ToList()[i].answers[i].AnswerImage">
                                         </div>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class='span11'>
-                                        <p class='ans_text'><%=  QuestionDetails.Tables[0].Rows[i]["answertext"] %></p>
+                                        <p class='ans_text'>@Model.ToList()[i].answers[i].AnswerImage</p>
                                     </div>
 
                                 }
                             </div>
 
                         </div>
-                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"]))
+                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                         {
                             <div class="span3 offset1 pull-left visible-phone">
-                                <a class='btn book_appt_button' href='<%= Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + askmirai.Utilities.Encrypt(Convert.ToString(QuestionDetails.Tables[0].Rows[i]["userid"])) %>&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "<%= askmirai.Utilities.Encrypt(Convert.ToString(QuestionDetails.Tables[0].Rows[i]["userid"])) %>")'>Book Appointment </a>
+                                <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
                             </div>
                             <br />
                         }
@@ -117,7 +119,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../Resources/js/utility.js"></script>
+<script type="text/javascript" src="../Content/js/utility.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#txtQuestion").attr('maxlength', '200');

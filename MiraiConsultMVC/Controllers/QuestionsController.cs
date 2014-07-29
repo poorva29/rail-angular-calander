@@ -105,7 +105,7 @@ namespace MiraiConsultMVC.Controllers
                 return View();
             }
         }
-        public ActionResult QuestionDetails(int QuestionId = 0)
+        public ActionResult QuestionDetails(int QuestionId)
         {
             int userId = Convert.ToInt32(Session["UserId"]);
             IList<QuestionDtlModel> IListQuestionDetails = new List<QuestionDtlModel>();

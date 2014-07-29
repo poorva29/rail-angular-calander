@@ -348,6 +348,7 @@ namespace MiraiConsultMVC.Controllers
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;
                 System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(questionId, 63, 0, Convert.ToInt32(QuestionStatus.Approved));
+                @ViewBag.questionid = questionId;
                 foreach (var item in ModelQuestion)
                 {
                     qm = new QuestionDtlModel();
@@ -379,6 +380,30 @@ namespace MiraiConsultMVC.Controllers
                     qm.UserId = Convert.ToInt32(item.userid);
                     QDModel.Add(qm);
                 }
+                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+
+                DataTable dtTags = UtilityManager.getInstance().getAlltags();
+
+                List<tag> tags = new List<tag>();
+
+                var selectdTags = db.questiontags.Where(x => x.questionid.Equals(questionId)).ToList();
+
+                tags = dtTags.AsEnumerable().Select(dataRow => new tag
+                {
+                    tagid = dataRow.Field<int>("tagid"),
+                    tagname = dataRow.Field<string>("tagname"),
+                }).ToList();
+
+                List<tag> seletedTagslist = new List<tag>();
+                int[] values = new int[selectdTags.Count];
+                int count = 0;
+                foreach (var item in selectdTags)
+	            {
+                    values[count++]=Convert.ToInt32(item.tagid);
+	            }
+                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
+                ViewBag.tags = makeSelected;
                 return View(QDModel);
             }
             catch(Exception e)

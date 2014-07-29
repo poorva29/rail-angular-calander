@@ -1,4 +1,4 @@
-﻿@model MiraiConsultMVC.Models.QuestionModel
+﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
 @{
     ViewBag.Title = "QuestionList";
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
@@ -17,12 +17,10 @@
                 <label class="span1 hidden-phone" style="padding-top: 5px; text-align: right">Filter:</label>
                 <div class="pull-right span11">
                     <label class="radio inline">
-                        @*<asp:RadioButton ID="rdbFilterAll" GroupName="filter" Text="All Questions" runat="server" Checked="true" AutoPostBack="true" />*@
-                        @Html.RadioButton("rdbFilterAll", "All Questions", !Model.FirstOrDefault().Filter) All Questions
+                        @Html.RadioButton("rdbFilter", "All Questions", Model.FirstOrDefault().Filter) All Questions
                     </label>
                     <label class="radio inline">
-                        @*<asp:RadioButton ID="rdbFilterUnass" GroupName="filter" Text="Unassigned Questions" runat="server" AutoPostBack="true" />*@
-                        @Html.RadioButton("rdbFilterUnass", "Unanswered Questions", !Model.FirstOrDefault().Filter) Unassigned Questions
+                        @Html.RadioButton("rdbFilter", "Unanswered Questions", !Model.FirstOrDefault().Filter) Unassigned Questions
                     </label>
                 </div>
             </div>
@@ -34,23 +32,15 @@
             </div>
             <div class="margin_bottom">
                 <div id="question"></div>
-                <asp:HiddenField ID="HdnFlag" runat="server" ClientIDMode="Static" />
-                <asp:HiddenField ID="HdnRecordSize" runat="server" ClientIDMode="Static" />
+                <input type="hidden" id="HdnFlag" name="HdnFlag" value="@Model.FirstOrDefault().AnsweredBy" />
+                <input type="hidden" id="HdnRecordSize" name="HdnRecordSize" value="@Model.FirstOrDefault().Counts" />
                 <div class="row-fluid" style="margin-top: 20px;">
                     <div class="span11">
-                        @if (Model.FirstOrDefault().Filter)
-                        {
-                            <img src="../Content/image/ua-question.png" class="icon_Stethoscope" />
-                                @:Unassigned Questions
-                        }
-                        else
-                        {
-                           
+                        <img src="../Content/image/ua-question.png" class="icon_Stethoscope" />
+                        Unassigned Questions
+                        &nbsp;&nbsp;
                         <img src="../Content/image/a-question.png" class="icon_Stethoscope" />
-                                @:Assigned questions
-                        }
-                        
-                        
+                        Assigned questions
                     </div>
                 </div>
             </div>
@@ -64,6 +54,7 @@
 <script type="text/javascript">
     var indexoF;
     var responsFlag = 1;
+    
     $(function () {
         $(".navigation li.active").removeClass("active");
         $("#liAdminQuestions").addClass("active");
@@ -90,7 +81,21 @@
     function rejectQuestionByQuestionID(questionId, rejectbtn) {
         if (responsFlag == 1) {
             if (confirm("Are you sure you want to Reject this question?") == true) {
-                PageMethods.RejectQuestionByQuestionID(questionId, onSuccess, onFailure);
+                //PageMethods.RejectQuestionByQuestionID(questionId, onSuccess, onFailure);
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: "/admin/RejectQuestionByQuestionID?qusetionID=" + questionId,
+                    success: function (response) {
+                        alert(response);
+                        window.location.href = "QuestionList?filter=" + true;
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+
                 responsFlag = 0;
             }
         }
@@ -104,20 +109,32 @@
     });
     $(function () {
         $(":radio").change(function () {
+
             var $textValue = $(this).val();
             var filter = !($textValue == 'All Questions');
-            window.location.href = "QuestionList?userId = 6&filter=" + filter;
+            if (($textValue == 'All Questions'))
+            {
+                document.getElementById("HdnFlag").value = 1;
+                filter = true;
+            }
+            else if (!($textValue == 'All Questions'))
+            {
+                document.getElementById("HdnFlag").value = 0;
+                filter = false;
+            }
+            
+            window.location.href = "QuestionList?filter=" + filter;
         });
 
     });
     function populateQuestionData(index) {
-        //var RecordSize = document.getElementById("HdnRecordSize").value;
-        //var Flag = document.getElementById("HdnFlag").value;
+        var RecordSize = document.getElementById("HdnRecordSize").value;
+        var Flag = document.getElementById("HdnFlag").value;
         var cnt = 0;
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: "/Services/UserService.svc/getQuestionList?RecordSize=" + 100 + "&Flag=" + 1 + "&lastQuestionNo=" + index,
+            url: "/Services/UserService.svc/getQuestionList?RecordSize=" + RecordSize + "&Flag=" + Flag + "&lastQuestionNo=" + index,
             success: function (response) {
                 var Question = 0;
                 response = JSON.parse(response);
@@ -135,9 +152,9 @@
                     var title;
                     title = "";
                     if (indexcnt % 2 != 0)
-                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='/admin/assignquestion?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
                     else
-                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='assignquestion.aspx?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='/admin/assignquestion?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
 
                     $("#question").append(template);
                     Question++;

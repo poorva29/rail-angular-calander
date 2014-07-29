@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Model
+namespace MiraiConsultMVC.Models
 {
-    public class doctorqualification
+    public class doctorqualifications
     {
         private int docqualificationid;
         private string degree;
@@ -13,7 +13,7 @@ namespace Model
         private int userid;
         private string university;
         // constructor
-        public doctorqualification()
+        public doctorqualifications()
         {
         }
         public int DocQualificationId { get { return docqualificationid; } set { docqualificationid = value; } }

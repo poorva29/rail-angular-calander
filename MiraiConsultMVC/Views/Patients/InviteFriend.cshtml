@@ -1,0 +1,133 @@
+﻿@model MiraiConsultMVC.Models.Patients.InviteFriend
+@{
+    ViewBag.Title = "InviteFriend";
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Html.BeginForm(new { autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    {
+<div class="row-fluid">
+    <div class="custom-center-small-div span7  ">
+        <div class='row-fluid'>
+            <div class="span12 ">
+                <div class="finddoc-title ">
+                    Invite your friends
+                </div>
+            </div>
+        </div>
+        <div class="custom-green-container custom-equal-padding gray-border ">
+            <div class='row-fluid'>
+                <div class="span12 btn-padding-left controls-right-padding">
+                    @if (ViewBag.Message != null && ViewBag.Message == "Failed to send email.")
+                    {
+                        <div class="wrapper-bordered alert alert-error" id="Messagediv">
+                            <label id="lblMessage">@ViewBag.Message</label>
+                        </div>
+                    }
+                    else if (ViewBag.Message != null && ViewBag.Message == "Your email sent successfully.")   
+                    {
+                         <div class="wrapper-bordered alert alert-success" id="Messagediv">
+                            <label ID="lblMessage">@ViewBag.Message</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class='row-fluid'>
+                <div class="span12">
+                    <div class="span4 pull-left btn-padding-left">
+                        <label class="required">Email Id:</label>
+                    </div>
+                    <div class="span8 pull-right btn-padding-left controls-right-padding">
+                        @Html.TextBoxFor(m=>m.email,new{@Class="input-block-level gray-border",Id="txtEmail",placeholder="Enter comma separated email addresses list..."})
+                        @Html.ValidationMessageFor(m=>m.email,string.Empty, new { @class = "validation-summary-errors" })                       
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class='row-fluid'>
+                <div class="span12">
+                    <div class="span4 pull-left btn-padding-left">
+                        <label class="required">Your Message:</label>
+                    </div>
+                    <div class="span8 pull-right btn-padding-left controls-right-padding">
+                        @Html.TextAreaFor(m => m.message, new {@class = "input-block-level gray-border",rows = "4"})
+                        @Html.ValidationMessageFor(m => m.message, string.Empty, new { @class = "validation-summary-errors" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="span8 pull-right btn-padding-left">
+                        <input type="submit" class="btn thanx tab_margin gray-border" value="Submit" onclick="if (!Page_ClientValidate()){ this.disabled = false;} else{ this.disabled = true;}">
+                        <input type="reset" class="btn tab_margin cancel gray-border" value="Reset">                       
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class='row-fluid'>
+                <div class="span12">
+                    <div class="span4 pull-left btn-padding-left">
+                        <label>Share Mirai Consult&#8482; on:</label>
+                    </div>
+                    <div class="span8 pull-right btn-padding-left">
+                        <div class='top_marging_sharelink'>
+                            @{string webaddress = "";
+                              string AskmiraiUrl = "";
+                              string FacebookAppKey = "";
+                              string userName = "";
+                              if(Session["UserFullName"] != null)
+                                {
+                                    userName = Convert.ToString(Session["UserFullName"]);
+                                }
+
+                               webaddress = Convert.ToString(ConfigurationManager.AppSettings["websiteUrl"]);
+                               AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                               FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+                            }
+                            <a href='#' onclick="shareOnFacebook('MiraiConsult','Healthcare now more accessible and convenient at Mirai Consult&#8482;','0','@(AskmiraiUrl)', '@(FacebookAppKey)')">
+                                <img title='Facebook' class='share_icons_width' src='../Content/image/fb.png' alt='Facebook'>
+                            </a>
+                            <a class='share_link-margin ' target='_blank' href="https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= @(webaddress)">
+                                <img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'>
+                            </a>
+                            <a class='share_link-margin ' target='_blank' href="mailto:?Subject= I want to invite you to use Mirai Consult &amp;Body= @(webaddress)%0D%0A@(userName) @(ConfigurationManager.AppSettings["shareMessage"])">
+                                <img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+}
+}
+<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript" src="../Scripts/utility.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".navigation li.active").removeClass("active");
+        $('#liinvitefriends').addClass("active");
+    });
+
+    $(".input-block-level").keyup(function () {
+        Page_ClientValidate();
+    });
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-48132984-2', 'askmirai.com');
+    ga('send', 'pageview');
+
+</script>

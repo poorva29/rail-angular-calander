@@ -48,8 +48,8 @@
                             @{
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
-                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword.aspx")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword.aspx") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails.aspx"))
+                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
+                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">
@@ -164,7 +164,7 @@
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                 <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="../feed/feed.aspx"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/feed/feed"><i class="icon-list-alt"></i>My Account</a></li>
                                                 <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
@@ -183,7 +183,6 @@
                                 </div>
                                 }
                                 }
-                            }
                         </div>
                     </div>
                 </div>
@@ -212,7 +211,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="../patient/finddoctor.aspx" class="topmenu-links">Our Doctors</a>
+                                    <a href="/finddoctor/finddoctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

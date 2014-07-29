@@ -16,6 +16,10 @@ namespace MiraiConsultMVC
     {
         protected void Application_Start()
         {
+            ModelValidatorProviders.Providers.Clear();
+            ModelValidatorProviders.Providers.Add(new DataAnnotationsModelValidatorProvider());
+            DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

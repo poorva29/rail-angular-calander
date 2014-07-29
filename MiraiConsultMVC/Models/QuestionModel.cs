@@ -45,7 +45,6 @@ namespace MiraiConsultMVC.Models
         public bool IsDocconnectUser { get; set; }
         public string DocconnectDoctorId { get; set; }
         
-        
     }
     public class QuestionModel
     {

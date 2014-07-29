@@ -333,7 +333,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetails()        
+        public ActionResult PatientQuestionDetails()
         {
             try
             {
@@ -347,7 +347,7 @@ namespace MiraiConsultMVC.Controllers
                 }
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;
-                System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(questionId, 63, 0, Convert.ToInt32(QuestionStatus.Approved));
+                System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(questionId, userId, 0, Convert.ToInt32(QuestionStatus.Approved));
                 @ViewBag.questionid = questionId;
                 foreach (var item in ModelQuestion)
                 {

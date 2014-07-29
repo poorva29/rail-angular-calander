@@ -110,6 +110,8 @@ namespace MiraiConsultMVC.Controllers
                                     ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
                                     return View();
                                 }
+
+                                 Session["UnQuestionCount"] = showUnansweredQuestionCount();
                                 return RedirectToAction("ManageDoctors");
                                 //redirect to doctor page
                             }
@@ -907,6 +909,15 @@ namespace MiraiConsultMVC.Controllers
         {
             DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
             return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
+        }
+
+        public int showUnansweredQuestionCount()
+        {
+            if (Session["UserId"] != null && Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+            {
+                return QuestionManager.getInstance().getUnansweredQuestionCount(Convert.ToInt32(Session["UserId"]));
+            }
+            return 0;
         }
 
     }

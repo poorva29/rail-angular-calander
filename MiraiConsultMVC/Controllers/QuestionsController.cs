@@ -18,9 +18,14 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userId = 6,bool filter = false)
+        public ActionResult DoctorQuestionList(int userId = 0,bool filter = false)
         {
+            if (Session["userid"] != null)
+            {
+                userId = Convert.ToInt32(Session["userid"].ToString());
+            }
             IList<QuestionModel> Questions = new List<QuestionModel>();
+            
             db = new _dbAskMiraiDataContext();
             var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
             QuestionModel QModel;

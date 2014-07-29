@@ -1,5 +1,7 @@
 ﻿@model IList<ModelUser>
-
+@{
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";        
+}
 <script src="~/Content/js/jquery-1.9.1.min.js"></script>
 <script src="~/Content/js/jquery.dataTables.js"></script>
 <script src="~/Content/js/bootstrap-pagination.js"></script>
@@ -28,7 +30,7 @@
                             {
                                 <div class="span3">
                                     <input id="ChkRegisteredhdn" value="1"  name="Registered" type="hidden" />
-                                    <input id="ChkRegistered"  type="checkbox" checked="checked" />
+                                    <input id="ChkRegistered"  type="checkbox"  />
                                     <label class="checkbox chk_box_inline">Registered Doctors</label>
                                 </div>
                                 <div class="span3">
@@ -196,7 +198,7 @@
         }
     }
     function showDoctorDetailById(DoctorID) {
-        window.location.href = "../profile/doctorprofile.aspx?UserId=" + DoctorID;
+        window.location.href = "/profile/doctorprofile?UserId=" + DoctorID;
     }
     function EndRequestHandler() {
         initDataTable();

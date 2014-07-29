@@ -204,9 +204,11 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\admin\Tags.cs" />
+    <Compile Include="Models\Patients\InviteFriend.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\Home\Contact.cs" />
     <Compile Include="Models\RegistrationCouncil.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Specialities.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\admin\AssignQuestion.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\dbConnection.cs" />
+    <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FindDoctorModel.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Profile.cs" />
@@ -582,7 +585,6 @@
     </Content>
     <Content Include="bin\MiraiConsultMVC.dll.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap-alert.js" />
     <Content Include="Scripts\bootstrap-button.js" />
     <Content Include="Scripts\bootstrap-carousel.js" />
@@ -703,10 +705,18 @@
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\QuestionList.cshtml" />
+    <Content Include="Views\admin\Report.cshtml" />
+    <Content Include="Views\admin\_Report.cshtml" />
+    <Content Include="Views\Patients\InviteFriend.cshtml" />
+    <Content Include="Views\Feed\Feed.cshtml" />
     <None Include="Service References\LoginServiceReference1\UserService.wsdl" />
     <None Include="Service References\LoginServiceReference1\UserService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Feed\DoctorFeed.cshtml" />
+    <Content Include="Views\admin\ManageTag.cshtml" />
+    <Content Include="Views\Patients\Myactivity.cshtml" />
+    <Content Include="Views\Patients\similarQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

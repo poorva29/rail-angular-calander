@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MiraiConsultMVC.Models.Report>
+<tbody id="DoctorsReoprt">
+     @if (Model != null && Model.ToList().Count > 0 )
+            { 
+    foreach(Report repObj in Model)
+    {
+   
+    <tr>
+        <td style='word-wrap: break-word'>
+            @repObj.name
+        </td>
+        <td style='word-wrap: break-word'>
+            @repObj.city
+        </td>
+        <td style='word-wrap: break-word'>
+            @repObj.location
+        </td>
+        <td>
+            @repObj.appointmentbooked
+        </td>
+        <td>
+           @repObj.appointmentclicked
+        </td>
+        <td>
+            @repObj.avgresponsetime
+        </td>
+    </tr>
+    }
+    } 
+</tbody>

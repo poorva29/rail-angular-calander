@@ -307,7 +307,8 @@
         });
     }
     function btnCancel_Click() {
-        __doPostBack(null, null);
+        //__doPostBack(null, null);
+        window.location.reload(true);
         //$('#doctor-list input:checked').each(function () {
         //    this.attr('checked', false);
         //});

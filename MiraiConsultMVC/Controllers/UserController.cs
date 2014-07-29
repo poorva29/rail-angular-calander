@@ -211,13 +211,9 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult PatientSignUp()
         {
-            ModelUser modelUser = new ModelUser();
+          ModelUser modelUser = new ModelUser();
           var countryList = poupulateCountry();
           modelUser.Countries = new SelectList(countryList, "countryid", "name");
-
-          TempData["CountryId"] = "1";
-          TempData["Gender"] = 1;
-
           return View(modelUser);
         }
         [HttpPost]
@@ -233,7 +229,6 @@ namespace MiraiConsultMVC.Controllers
                 modelUser.IsEmailVerified = false;
                 modelUser.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
                 var result = (db.askmirai_patient_Insert_Update(modelUser.FirstName, modelUser.LastName, modelUser.Email, modelUser.MobileNo, modelUser.Gender, modelUser.DateOfBirth, modelUser.CountryId, modelUser.StateId, modelUser.LocationId, modelUser.CityId, modelUser.Password, modelUser.Height, modelUser.Weight, modelUser.Address, modelUser.Pincode, modelUser.UserId, modelUser.RegistrationDate, modelUser.Status, modelUser.UserType, modelUser.UserName, modelUser.IsEmailVerified)).ToList();
-                
                 var res = result.FirstOrDefault();
                 if (Convert.ToBoolean(res.EmailAvailable))
                 {
@@ -242,10 +237,9 @@ namespace MiraiConsultMVC.Controllers
                     string emailBody = EmailTemplates.SendNotificationEmailtoUser(modelUser.FirstName, patientid, emailVerficationURL, "Patient");
 
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";   
-               
                 }
                 else if (!Convert.ToBoolean(res.EmailAvailable))
                 {
@@ -254,6 +248,19 @@ namespace MiraiConsultMVC.Controllers
             }
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
+            modelUser.CountryId = modelUser.CountryId;
+
+            var stateList = poupulateState(Convert.ToInt32(modelUser.CountryId));
+            modelUser.States = new SelectList(stateList, "stateId", "name");
+            modelUser.StateId = Convert.ToInt32(modelUser.StateId);
+
+            var cityList = poupulateCity(Convert.ToInt32(modelUser.StateId));
+            modelUser.Cities = new SelectList(cityList, "cityId", "name");
+            modelUser.CityId = Convert.ToInt32(modelUser.CityId);
+
+            var locationList = poupulateLocation(Convert.ToInt32(modelUser.CityId));
+            modelUser.Locations = new SelectList(locationList, "locationId", "name");
+            modelUser.LocationId = Convert.ToInt32(modelUser.LocationId);
 
             return View(modelUser);
         }
@@ -263,9 +270,16 @@ namespace MiraiConsultMVC.Controllers
             ModelUser modelUser = new ModelUser();
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
+            DataTable dtSpecialities = DAL.UtilityManager.getInstance().getAllSpecialities();
+            List<speciality> specialities = new List<speciality>();
+            specialities = dtSpecialities.AsEnumerable().Select(dataRow => new speciality
+            {
+                specialityid = dataRow.Field<int>("specialityid"),
+                name = dataRow.Field<string>("name"),
+            }).ToList();
+            MultiSelectList makeSelected = new MultiSelectList(specialities, "specialityid", "name", specialities);
+            ViewBag.specialities = makeSelected;
 
-            var specialityList = poupulateSpeciality();
-            modelUser.Specialities = new SelectList(specialityList, "specialityid", "name");
             return View(modelUser);
         }
         [HttpPost]
@@ -276,8 +290,21 @@ namespace MiraiConsultMVC.Controllers
             {
                 User doctor = new User();
                 string filename = "";
-                filename = file.FileName;
+                if (filename != "")
+                {
+                    filename = file.FileName;
+                }
+                //foreach (ListItem li in lstSpecialities.Items)
+                //{
+                //    if (li.Selected)
+                //    {
+                //        DoctorSpecialities speciality = new DoctorSpecialities();
+                //        speciality.SpecialityId = Convert.ToInt32(li.Value);
+                //        doctor.AddSpeciality(speciality);
+                //    }
+                //}
                 doctor.Image = filename;
+                modelUser.Image=filename;
                 doctor.FirstName = modelUser.FirstName;
                 doctor.LastName = modelUser.LastName;
                 doctor.Gender = modelUser.Gender;
@@ -288,7 +315,7 @@ namespace MiraiConsultMVC.Controllers
                 doctor.Password = encpassword;
                 doctor.CountryId = Convert.ToInt32(modelUser.CountryId);
                 doctor.RegistrationNumber = modelUser.RegistrationNumber;
-                doctor.RegistrationCouncil = Convert.ToInt32(1);//modelUser.Regcouncilid);
+                doctor.RegistrationCouncil = Convert.ToInt32(modelUser.Regcouncilid);//modelUser.Regcouncilid);
                 doctor.AboutMe = modelUser.AboutMe;
                 doctor.Status = Convert.ToInt32(UserStatus.Pending);
                 doctor.UserType = Convert.ToInt32(UserType.Doctor);             
@@ -336,12 +363,11 @@ namespace MiraiConsultMVC.Controllers
                                 }
                             }
                         }
-
                         string doctorid = Convert.ToString(dtDoctor.Rows[0]["UserId"]);
                         string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                         string emailBody = EmailTemplates.SendNotificationEmailtoUser(doctor.FirstName, doctorid, emailVerficationURL, "Doctor");
                         string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                        string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                        string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
                         Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                     }
@@ -356,13 +382,11 @@ namespace MiraiConsultMVC.Controllers
                     //return;
                 }
             }
-            
+            modelUser.hdnRegcouncilid=modelUser.Regcouncilid;
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
-
             var specialityList = poupulateSpeciality();
             modelUser.Specialities = new SelectList(specialityList, "specialityid", "name");
-           
             return View(modelUser);
         }
         [HttpGet]

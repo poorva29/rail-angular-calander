@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -44,7 +45,10 @@ namespace MiraiConsultMVC.Models
         public IEnumerable<System.Web.Mvc.SelectListItem> States;
         public IEnumerable<System.Web.Mvc.SelectListItem> Cities;
         public IEnumerable<System.Web.Mvc.SelectListItem> Locations;
-        public IEnumerable<System.Web.Mvc.SelectListItem> Specialities;
+        //public IEnumerable<System.Web.Mvc.SelectListItem> Specialities;
+        public IEnumerable<System.Web.Mvc.SelectListItem> Councils;
+        public IEnumerable<string> Selectedspecialities { get; set; }
+        public IEnumerable<SelectListItem> Specialities { get; set; }
 
         public int UserId { get { return userid; } set { userid = value; } }
 
@@ -61,7 +65,7 @@ namespace MiraiConsultMVC.Models
         [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
 
-        [RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
+        //[RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
         public int Height { get { return height; } set { height = value; } }
 
         public int Gender { get { return gender; } set { gender = value; } }
@@ -82,7 +86,7 @@ namespace MiraiConsultMVC.Models
         public int LocationId { get { return locationid; } set { locationid = value; } }
 
 
-        [RegularExpression(@"(\+)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Please Enter Weight In Positive Numbers.")]
+        //[RegularExpression(@"(\+)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Please Enter Weight In Positive Numbers.")]
         public decimal Weight { get { return weight; } set { weight = value; } }
 
         public DateTime RegistrationDate { get { return registrationdate; } set { registrationdate = value; } }
@@ -92,7 +96,7 @@ namespace MiraiConsultMVC.Models
         public bool IsEmailVerified { get { return isemailverified; } set { isemailverified = value; } }
         public string Address { get { return address; } set { address = value; } }
 
-        [RegularExpression(@"^(\d|,)*\d*$", ErrorMessage = "Please Enter Pin Code In Positive Integer Numbers.")]
+        //[RegularExpression(@"^(\d|,)*\d*$", ErrorMessage = "Please Enter Pin Code In Positive Integer Numbers.")]
         public int Pincode { get { return pincode; } set { pincode = value; } }
         public string RegistrationNumber { get { return registrationnumber; } set { registrationnumber = value; } }
         public int Regcouncilid { get { return regcouncilid; } set { regcouncilid = value; } }
@@ -101,5 +105,6 @@ namespace MiraiConsultMVC.Models
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
         public int Specialityid { get { return specialityid; } set { specialityid = value; } }
+        public int hdnRegcouncilid { get; set; }      
     }
 }

@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
 @{
     ViewBag.Title = "similarQuestions";
-    Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    if (Session["UserId"] != null &&  Convert.ToInt32(Session["UserType"]) == Convert.ToInt32( UserType.Patient))
+    {
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
 }
 @using (Html.BeginForm())
 {

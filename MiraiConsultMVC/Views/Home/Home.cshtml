@@ -93,7 +93,7 @@
             question = "";
         var session = '<%=Session["userType"]%>';
         if (session != null && session == 2)
-            window.location.href = "../Patients/AskDoctor?question=" + question;
+            window.location.href = "../Patients/similarQuestions?question=" + question;
         else
             window.location.href = "../Patients/similarQuestions?question=" + question;
     }

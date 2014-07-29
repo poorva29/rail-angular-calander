@@ -45,6 +45,7 @@ namespace MiraiConsultMVC.Models
         public bool IsDocconnectUser { get; set; }
         public string DocconnectDoctorId { get; set; }
         
+        
     }
     public class QuestionModel
     {
@@ -72,6 +73,7 @@ namespace MiraiConsultMVC.Models
         public string Title { get { return _title; } set { _title = value; } }
         public bool isdocconnectuser { get { return _isdocconnectuser; } set { _isdocconnectuser = value; } }
         public bool Filter { get; set; }
+        public string answerreplyedby { get; set; }
         public QuestionModel()
         {
             answers = new List<AnswerModel>();

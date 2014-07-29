@@ -47,8 +47,6 @@
                     <div class="control-group">
                         <label class="control-label"></label>
                         <div class="controls">
-                            @*<asp:Button ID="btnCreateDoctorAccount" class="btn thanx" runat="server" AutoPostBack="true" OnClick="btnAddTags_Click" OnClientClick="return validatedata();"
-                                        Text="Add Tags" ValidationGroup="submit"></asp:Button>*@
                             <input type="button" id="btnCreateDoctorAccount" onclick="validatedata()" value="Add Tags" class="btn thanx" />
                             <input type="button" id="btnClear" value="Cancel" class="btn cancel" onclick=" removeAssigntags()" />
                         </div>
@@ -187,7 +185,6 @@
                 </div>
             </div>
         </div>
-        @*<asp:HiddenField ID="hdndoctorIds" ClientIDMode="Static" runat="server" />*@
         <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
         <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" />
         <input type="hidden" id="hdnQuestionId" name="hdnQuestionId" value="@Model.ToList()[0].Questionid" />

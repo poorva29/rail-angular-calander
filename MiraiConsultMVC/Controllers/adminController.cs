@@ -191,64 +191,6 @@ namespace MiraiConsultMVC.Controllers
             }
         }
 
-        //public JsonResult AddTags()
-        //{
-
-        //    DataTable Oldtags = null;
-        //    int flag;
-        //    if (QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[1].Rows.Count != 0)
-        //    {
-        //        Oldtags = QuestionDetails.Tables[1];
-        //    }
-        //    IList<Tag> ToAddlstTags = new List<Tag>();
-        //    IList<Tag> ToDeletelstTags = new List<Tag>();
-        //    foreach (ListItem li in lstOfTags.Items)
-        //    {
-        //        flag = 0;
-        //        if (li.Selected)
-        //        {
-        //            if (Oldtags != null)
-        //            {
-        //                for (int i = 0; i < Oldtags.Rows.Count; i++)
-        //                {
-        //                    if (Convert.ToString(Oldtags.Rows[i]["tagid"]) == li.Value)
-        //                    {
-        //                        flag = 1;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            if (flag == 0)
-        //            {
-        //                Tag tags = new Tag();
-        //                tags.TagId = Convert.ToInt32(li.Value);
-        //                ToAddlstTags.Add(tags);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (Oldtags != null)
-        //            {
-        //                for (int i = 0; i < Oldtags.Rows.Count; i++)
-        //                {
-        //                    if (Convert.ToString(Oldtags.Rows[i]["tagid"]) == li.Value)
-        //                    {
-        //                        flag = 1;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            if (flag == 1)
-        //            {
-        //                Tag tags = new Tag();
-        //                tags.TagId = Convert.ToInt32(li.Value);
-        //                ToDeletelstTags.Add(tags);
-        //            }
-        //        }
-        //    }
-        //    int result = QuestionManager.getInstance().assignTagsToQuestion(ToAddlstTags, ToDeletelstTags, questionId);
-        //}
-
         public ActionResult Report(string cityid = null, string locationid = null, string specialityOrName = null)
         {
             DataSet doctorList = null;
@@ -331,8 +273,6 @@ namespace MiraiConsultMVC.Controllers
                 return View(ListreportData);
             }
         }
-
-
 
         public SqlConnection conn { get; set; }
         public ActionResult ManageTag()

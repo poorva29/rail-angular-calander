@@ -100,7 +100,10 @@ namespace Services
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/SaveDoctorAnswer", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void SaveDoctorAnswer(int questionId, int userId, string title, string answer);
-        
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/UpdateQuestionTags", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void UpdateQuestionTags(string Addedtags, string DeletedTags, string QuestionID);
         #endregion POST
     }
 }

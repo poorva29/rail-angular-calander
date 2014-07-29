@@ -5,12 +5,12 @@ using System.Web;
 
 namespace Model
 {
-    public class Tag
+    public class Tags
     {
         private int tagid;
         private string tagname;
         // constructor
-        public Tag()
+        public Tags()
         {
         }
         public string TagName { get { return tagname; } set { tagname = value; } }

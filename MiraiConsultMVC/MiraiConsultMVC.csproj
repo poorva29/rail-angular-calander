@@ -715,6 +715,7 @@
     <Content Include="Views\Feed\DoctorFeed.cshtml" />
     <Content Include="Views\admin\ManageTag.cshtml" />
     <Content Include="Views\Patients\Myactivity.cshtml" />
+    <Content Include="Views\Questions\QuestionDetails.cshtml" />
     <Content Include="Views\Patients\similarQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>

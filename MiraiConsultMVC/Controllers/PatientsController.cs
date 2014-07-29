@@ -500,12 +500,33 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
-        public ActionResult similarQuestions(string questionText)
+        public ActionResult similarQuestions(string question)
         {
-            DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(questionText, Convert.ToInt32(QuestionStatus.Approved));
-
-            List<QuestionModel> viewmodel = new List<QuestionModel>();
-            return View();
+          List<QuestionModel> questionModel = new List<QuestionModel>();
+          ViewBag.Question = question;
+          if (question.Length != 0)
+          {
+              ViewBag.Count = Convert.ToString(question.Length) + "/200";
+          }
+          DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(question, Convert.ToInt32(QuestionStatus.Approved));
+          for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)
+          {
+              QuestionModel questions = new QuestionModel();
+              AnswerModel Answer = new AnswerModel();
+              questions.UserId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["userid"].ToString());
+              questions.QuestionId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["questionid"].ToString());
+              questions.QuestionText = QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString();
+              questions.DocImg = QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString();
+              questions.answerreplyedby = QuestionDetails.Tables[0].Rows[i]["answerreplyedby"].ToString(); 
+              questions.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
+              questions.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
+              Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
+              Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
+              questions.answers.Add(Answer);
+              //Counts = Convert.ToString(QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString().Length) + "/200"
+              questionModel.Add(questions);
+          }
+            return View(questionModel);
         }
     }
 }

@@ -661,6 +661,7 @@
     <Content Include="Views\Patients\Myactivity.cshtml" />
     <Content Include="Views\Patients\similarQuestions.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
+    <Content Include="Views\User\Verifyemail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

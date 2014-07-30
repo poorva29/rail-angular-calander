@@ -505,6 +505,58 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult Verifyemail(string id, string userType)
+        {
+            if (id != null)
+            {
+                bool isEmailVerify = false;
+                if (Request.QueryString["isemailverify"] == null)
+                {
+                    int isLinkActivate = 0;
+                    string email = "";
+                    int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+")));
+                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, email, out isLinkActivate);
+                    if (isLinkActivate == 0)
+                    {
+                         ViewBag.Message= "Sorry, this link has already been used.";
+                        //, please contact the system administrator to reissue new link to activate your account
+                    }
+                    else
+                    {
+                        if (isLinkActivate == 1)
+                        {
+                            if (userType == "Doctor")
+                            {
+                               ViewBag.Message = "Thank you for activating your account. Your request will be verified by an administrator and you will be notified once your account is ready for use.";
+                            }
+                            if (userType == "Patient")
+                            {
+                                ViewBag.Message = "Thank you for activating your account. Your email has been verified. Now you can login to the system with your credentials";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    int isLinkActivate = 0;
+                    int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["id"].ToString()).Replace(" ", "+")));
+                    isEmailVerify = Convert.ToBoolean(Request.QueryString["isemailverify"]);
+                    string emailid = Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["email"].ToString()).Replace(" ", "+"));
+                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, emailid, out isLinkActivate);
+                    if (isLinkActivate == 1)
+                    {
+                        ViewBag.Message = "Thank you for email verification. Now you can receive email notifications from MiraiConsult";
+                        Session["IsEmailVerified"] = isEmailVerify;
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Sorry, this link has already been used.";
+                    }
+                }
+            }
+            return View();
+        }
+
           [HttpPost]
         public ActionResult ForgotPassword(string name)
         {

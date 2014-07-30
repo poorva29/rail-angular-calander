@@ -635,26 +635,23 @@ namespace MiraiConsultMVC.Controllers
 
         }
         [HttpPost]
-        public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file)
+        public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file, FormCollection collection)
         {
             DataTable dtDoctor = null;
             if (ModelState.IsValid)
             {
                 User doctor = new User();
                 string filename = "";
-                if (filename != "")
+                filename = file.FileName;
+                var lstSpeciality = collection["specialities"];
+                string[] specilaity = lstSpeciality.Split(',');
+                foreach (var specialityId in specilaity)
                 {
-                    filename = file.FileName;
+                    DoctorSpeciality speciality = new DoctorSpeciality();
+                    speciality.SpecialityId = Convert.ToInt32(specialityId);
+                    doctor.specialities.Add(speciality);
+                    //doctor.AddSpeciality(speciality);
                 }
-                //foreach (ListItem li in lstSpecialities.Items)
-                //{
-                //    if (li.Selected)
-                //    {
-                //        DoctorSpecialities speciality = new DoctorSpecialities();
-                //        speciality.SpecialityId = Convert.ToInt32(li.Value);
-                //        doctor.AddSpeciality(speciality);
-                //    }
-                //}
                 doctor.Image = filename;
                 modelUser.Image=filename;
                 doctor.FirstName = modelUser.FirstName;
@@ -737,8 +734,15 @@ namespace MiraiConsultMVC.Controllers
             modelUser.hdnRegcouncilid=modelUser.Regcouncilid;
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
-            var specialityList = poupulateSpeciality();
-            modelUser.Specialities = new SelectList(specialityList, "specialityid", "name");
+            DataTable dtSpecialities = DAL.UtilityManager.getInstance().getAllSpecialities();
+            List<speciality> specialities = new List<speciality>();
+            specialities = dtSpecialities.AsEnumerable().Select(dataRow => new speciality
+            {
+                specialityid = dataRow.Field<int>("specialityid"),
+                name = dataRow.Field<string>("name"),
+            }).ToList();
+            MultiSelectList makeSelected = new MultiSelectList(specialities, "specialityid", "name", specialities);
+            ViewBag.specialities = makeSelected;
             return View(modelUser);
         }
         [HttpGet]

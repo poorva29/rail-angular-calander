@@ -79,11 +79,11 @@ namespace DAL
             }
         }
 
-        private static DataTable CreateDataTable(IList<DoctorSpecialities> specialityIds, string columnName)
+        private static DataTable CreateDataTable(IList<DoctorSpeciality> specialityIds, string columnName)
         {
             DataTable table = new DataTable();
             table.Columns.Add(columnName, typeof(long));
-            foreach (DoctorSpecialities ds in specialityIds)
+            foreach (DoctorSpeciality ds in specialityIds)
             {
                 table.Rows.Add(ds.SpecialityId);
             }
@@ -247,7 +247,7 @@ namespace DAL
                         datarows = dvdocspecialities.Table.Select(expression, sortOrder);
                         foreach (DataRow dr1 in datarows)
                         {
-                            DoctorSpecialities doctorspeciality = new DoctorSpecialities();
+                            DoctorSpeciality doctorspeciality = new DoctorSpeciality();
                             if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
                             {
                                 doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);

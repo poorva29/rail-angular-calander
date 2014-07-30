@@ -15,7 +15,7 @@
 <script src="../Content/chosen/chosen.jquery.js"></script>
 
 @*<a href="~/Content/less/datepicker.less"></a>*@
-@using (Html.BeginForm(Html.BeginForm("DoctorSignUp", "User", FormMethod.Post, new { @encType = "multipart/form-data" })))
+@using (Html.BeginForm(Html.BeginForm("DoctorSignUp", "User", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off" })))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -31,7 +31,7 @@
 
                     @if (ViewBag.message != null && ViewBag.message == "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.")
                     {
-                        <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv" visible="true">
+                        <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv">
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label id="lblSuccessMessage">@ViewBag.message</label>
@@ -41,11 +41,11 @@
                     }
                     else
                     {
-                        <div id="controlcontainer" class="wrapper-bordered" visible="false">
+                        <div id="controlcontainer" class="wrapper-bordered">
                             <div class="row-fluid">
                                 @if (ViewBag.message != null && ViewBag.message == "This email is not available. Please select a different email.")
                                 {
-                                    <div class="span12 alert alert-error" id="errorMessageDiv" visible="true">
+                                    <div class="span12 alert alert-error" id="errorMessageDiv">
                                         <label id="lblErrorMessage">@ViewBag.message</label>
                                     </div>
                                 }
@@ -147,11 +147,7 @@
                                                 <label class="cust-font-style">Specialities:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.ListBox(
-                                    "specialities",
-                                     ViewBag.specialities as MultiSelectList,
-                  new { @class = "chzn-select max-width" }
-                                    )
+                                                @Html.ListBox("specialities",ViewBag.specialities as MultiSelectList,new { @class = "chzn-select max-width" })
                                             </div>
                                         </div>
                                         <div class="span6">
@@ -187,15 +183,7 @@
                                                 <label class="cust-font-style">Registration Council:</label>
                                             </div>
                                             <div class="span8">
-                                                @*@if (Model.Regcouncilid != null)
-                                                    {
-                                                    ViewBag.councils = Model.Councils;
-                                                    @Html.DropDownListFor(m => Model.Regcouncilid, new SelectList(ViewBag.councils, "Value", "Text", Model.Regcouncilid), "--- Registration Council ---", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlRegistrationCouncil" })
-                                                    }
-                                                    else
-                                                    {*@
                                                 @Html.DropDownListFor(m => m.Regcouncilid, new SelectList(string.Empty), "--- Registration Council ---", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlRegistrationCouncil" })
-                                                @*}*@
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +233,7 @@
                                 <div class="row-fluid cust-padding-bw-row text-center">
                                     <div class="span12">
                                         <input type="submit" name="btnCreateDoctorAccount" value="Create Account" id="btnCreateDoctorAccount" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style">
-                                        <input type="reset" name="btnClear" value="Clear" id="btnClear" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style">
+                                        <input type="reset" name="btnClear" value="Clear" id="btnClear" onclick="window.location.href = '/User/DoctorSignUp'" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style">
                                     </div>
                                 </div>
                             </div>

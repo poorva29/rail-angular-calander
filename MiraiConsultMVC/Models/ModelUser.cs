@@ -40,7 +40,7 @@ namespace MiraiConsultMVC.Models
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
-        public int specialityid;
+        private int specialityid;
         private int registrationcouncil;
 
         public IEnumerable<System.Web.Mvc.SelectListItem> Countries;

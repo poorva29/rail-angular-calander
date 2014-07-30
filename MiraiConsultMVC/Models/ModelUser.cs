@@ -40,7 +40,7 @@ namespace MiraiConsultMVC.Models
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
-        private int specialityid;
+        public int specialityid;
         private int registrationcouncil;
 
         public IEnumerable<System.Web.Mvc.SelectListItem> Countries;
@@ -67,13 +67,8 @@ namespace MiraiConsultMVC.Models
         [Required(ErrorMessage = "Please Enter Email.")]
         [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Please enter valid email address.")]
         public string Email { get { return email; } set { email = value; } }
-
-        [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
-
-        //[RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
         public int Height { get { return height; } set { height = value; } }
-
         public int Gender { get { return gender; } set { gender = value; } }
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
@@ -91,19 +86,13 @@ namespace MiraiConsultMVC.Models
         public int StateId { get { return stateid; } set { stateid = value; } }
         public int CityId { get { return cityid; } set { cityid = value; } }
         public int LocationId { get { return locationid; } set { locationid = value; } }
-
-
-        //[RegularExpression(@"(\+)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Please Enter Weight In Positive Numbers.")]
         public decimal Weight { get { return weight; } set { weight = value; } }
-
         public DateTime RegistrationDate { get { return registrationdate; } set { registrationdate = value; } }
         public int Status { get { return status; } set { status = value; } }
         public int UserType { get { return usertype; } set { usertype = value; } }
         public string Image { get { return image; } set { image = value; } }
         public bool IsEmailVerified { get { return isemailverified; } set { isemailverified = value; } }
         public string Address { get { return address; } set { address = value; } }
-
-        //[RegularExpression(@"^(\d|,)*\d*$", ErrorMessage = "Please Enter Pin Code In Positive Integer Numbers.")]
         public int Pincode { get { return pincode; } set { pincode = value; } }
         public string RegistrationNumber { get { return registrationnumber; } set { registrationnumber = value; } }
         public int Regcouncilid { get { return regcouncilid; } set { regcouncilid = value; } }

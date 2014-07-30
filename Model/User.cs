@@ -36,7 +36,7 @@ namespace Model
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
-        public IList<DoctorSpeciality> specialities;
+        public IList<Model.DoctorSpeciality> specialities;
         [DataMember]
         public IList<DoctorLocations> locations;
         public IList<doctorqualification> qualification;

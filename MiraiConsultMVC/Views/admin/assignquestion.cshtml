@@ -307,7 +307,8 @@
         });
     }
     function btnCancel_Click() {
-        __doPostBack(null, null);
+        //__doPostBack(null, null);
+        window.location.reload(true);
         //$('#doctor-list input:checked').each(function () {
         //    this.attr('checked', false);
         //});
@@ -389,7 +390,7 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '/Services/UserService.svc/fillDropdowns',
+            url: '../Services/UserService.svc/fillDropdowns',
             success: function (response) {
                 response = JSON.parse(response);
                 for (cnt = 0; cnt < response.length; cnt++)
@@ -441,7 +442,7 @@
             type: 'POST',
             data: '{ "cityid":"' + cityid + '" , "locationid":"' + locationid + '", "specialityOrName":"' + specialityOrName + '", "isEncrypt": "false"}',
             contentType: 'application/json',
-            url: "/Services/UserService.svc/getDoctorList",
+            url: "../Services/UserService.svc/getDoctorList",
             success: function (response) {
                 response = JSON.parse(response);
                 $("#searchResult").empty();
@@ -487,7 +488,7 @@
             dataType: 'json',
             data: '"' + $('#city-select').val() + '"',
             contentType: 'application/json',
-            url: '/Services/UserService.svc/getLocationsbyCity',
+            url: '../Services/UserService.svc/getLocationsbyCity',
             success: function (response) {
                 $('#locality-select').empty();
                 $('#locality-select').append('<option></option>');

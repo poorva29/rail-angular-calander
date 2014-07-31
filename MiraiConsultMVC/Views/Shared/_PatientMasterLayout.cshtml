@@ -143,7 +143,7 @@
                                                 <li id="liDocQuestions">
                                                     <a href="/Questions/DoctorQuestionList">
                                                         <span class="Icon Icon--questions Icon--large"></span>
-                                                        <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount"></span>
+                                                        <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
                                                         <span class="rightpaddingdiv text"><br />Questions</span>
                                                     </a>
                                                 </li>
@@ -237,7 +237,7 @@
                                     <li>    
                                         <a href="/Questions/QuestionList" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
-                                            <span runat="server" visible="false" id="Span1" class="unansweredQuestionCount"></span>
+                                            <span id="Span1" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
                                             <span class="rightpaddingdiv text font-bold menutext-margin-top">Questions</span>
                                         </a>
                                     </li>

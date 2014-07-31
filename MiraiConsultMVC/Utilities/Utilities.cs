@@ -171,7 +171,7 @@ namespace MiraiConsultMVC
         {
             if (HttpContext.Current.Session != null && HttpContext.Current.Session["UserId"] == null)
             {
-                HttpContext.Current.Response.Redirect("../admin/Login.aspx");
+                HttpContext.Current.Response.Redirect("/User/Login");
             }
         }
         public static Boolean isAuthorisedandSessionExpired(int privilege)

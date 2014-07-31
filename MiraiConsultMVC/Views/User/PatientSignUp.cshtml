@@ -7,7 +7,8 @@
 <script src="~/Scripts/dateofbirthvalidation.js"></script>
 <script type="text/javascript" src="../Scripts/utility.js"></script>
 
-@using (Html.BeginForm())
+@Scripts.Render("~/bundles/jqueryval")
+@using (Html.BeginForm(new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -22,7 +23,7 @@
                 @if (ViewBag.message != null && ViewBag.message == "Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.")
                 {
 
-                    <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv" visible="true">
+                    <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv">
                         <div class="row-fluid">
                             <div class="span12">
                                 <label id="lblSuccessMessage">@ViewBag.message</label>
@@ -32,7 +33,7 @@
                 }
                 else
                 {
-                    <div id="controlcontainer" class="wrapper-bordered cust-font-style" visible="true">
+                    <div id="controlcontainer" class="wrapper-bordered cust-font-style">
                         <div class="">
                             <div class="row-fluid">
                                 <div class="span12 cust-header-name-text">
@@ -42,7 +43,7 @@
 
                             @if (ViewBag.message != null && ViewBag.message == "This email is not available. Please select a different email.")
                             {
-                                <div class="span12 alert alert-error" id="errorMessageDiv" visible="true">
+                                <div class="span12 alert alert-error" id="errorMessageDiv">
                                     <label id="lblErrorMessage">@ViewBag.message</label>
                                 </div>
                             }
@@ -87,24 +88,12 @@
                                             <label class="cust-font-style">Gender:</label>
                                         </div>
                                         <div class="span8">
-                                            @*@if (Model.Gender != null)
-                                                {
-                                                    <label class="radio inline cust-font-style">
-                                                        @Html.RadioButton("Gender", "0", Model.Gender == 0, new { @class = "cust-font-style" }) Male
-                                                    </label>
-                                                    <label class="radio inline gendermargin cust-font-style">
-                                                        @Html.RadioButton("Gender", "1", Model.Gender == 1, new { @class = "cust-font-style" }) Female
-                                                    </label>
-                                                }
-                                                else
-                                                {*@
                                             <label class="radio inline cust-font-style">
                                                 @Html.RadioButton("Gender", "0", true, new { @class = "cust-font-style" }) Male
                                             </label>
                                             <label class="radio inline gendermargin cust-font-style">
                                                 @Html.RadioButton("Gender", "1", false, new { @class = "cust-font-style" }) Female
                                             </label>
-                                            @*}*@
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +221,7 @@
                                     </div>
                                     <div class="span8">
                                         @Html.TextBoxFor(m => m.MobileNo, new { @Class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width", placeholder = "Mobile No" })<br />
-                                        @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
+                                        @*@Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })*@
                                     </div>
                                 </div>
                                 <div class="row-fluid">
@@ -276,7 +265,7 @@
                             <div class="row-fluid cust-padding-bw-row text-center">
                                 <div class="span12">
                                     <input type="submit" name="btnCreatePatientAccount" value="Create Account" onclick="" id="btnCreatePatientAccount" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" />
-                                    <input type="submit" name="btnClear" value="Clear" id="btnClear" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" />
+                                    <input type="reset" name="btnClear" value="Clear" id="btnClear" onclick="window.location.href = '/User/PatientSignUp'" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" />
                                 </div>
                             </div>
                         </div>
@@ -287,7 +276,6 @@
     }
 }
 <script type="text/javascript">
-    $("#Height").removeAttr("data-val-required");
     function isNumber(evt) {
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;

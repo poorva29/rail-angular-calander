@@ -17,6 +17,7 @@ using System.Data.Linq.Mapping;
 using MiraiConsultMVC;
 using System.IO;
 using Model;
+using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -25,6 +26,7 @@ namespace MiraiConsultMVC.Controllers
         //
         // GET: /User/
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+        BasePage BPage = new BasePage();
         public ActionResult Login()
         {
             return View();
@@ -38,6 +40,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult Changepassword()
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.changepassword));
             return View();
         }
 
@@ -84,6 +87,8 @@ namespace MiraiConsultMVC.Controllers
                 string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
                 string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
                 string dbpasswd = Utilities.Encrypt(log.Password);
+                int userType;
+                User user;
                 if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
                 {
                     var isLogin = db.users.FirstOrDefault(x => x.email.Equals(log.Email) && x.password.Equals(dbpasswd));
@@ -91,6 +96,7 @@ namespace MiraiConsultMVC.Controllers
                     {
                         if (Convert.ToBoolean(isLogin.isemailverified))
                         {
+                            user = new User();
                             Session["UserFirstName"] = isLogin.firstname;
                             Session["UserLastName"] = isLogin.lastname;
                             Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
@@ -98,6 +104,8 @@ namespace MiraiConsultMVC.Controllers
                             Session["UserEmail"] = isLogin.email;
                             Session["UserId"] = isLogin.userid;
                             Session["UserType"] = isLogin.usertype;
+                            userType = Convert.ToInt32(user.UserType);
+                            setUserPrivilegesBasedOnUsertype(userType);
                             if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                             {
                                 if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
@@ -110,12 +118,14 @@ namespace MiraiConsultMVC.Controllers
                                     ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
                                     return View();
                                 }
-                                return RedirectToAction("ManageDoctors");
+
+                                 Session["UnQuestionCount"] = showUnansweredQuestionCount();
+                                 return RedirectToAction("DoctorQuestionList", "Questions");
                                 //redirect to doctor page
                             }
                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                             {
-                                return RedirectToAction("ManageDoctors");
+                                return RedirectToAction("feed", "feed");
                                 // redirect to patient page
                             }
                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
@@ -143,6 +153,9 @@ namespace MiraiConsultMVC.Controllers
                     Session["UserEmail"] = SuperAdminEmailId;
                     Session["UserId"] = 9999999;
                     Session["UserType"] = 0;
+
+                    setUserPrivilegesBasedOnUsertype(0);
+
                     return RedirectToAction("ManageDoctors");
                 }
                 else
@@ -156,6 +169,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ManageDoctors(string Registered=null,string Approved=null,string Rejected=null )
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.manageDoctor));
             IList<ModelUser> lstdoctors = getAllDoctorDetails();
             if(Request.IsAjaxRequest())
             {
@@ -503,6 +517,58 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult Verifyemail(string id, string userType)
+        {
+            if (id != null)
+            {
+                bool isEmailVerify = false;
+                if (Request.QueryString["isemailverify"] == null)
+                {
+                    int isLinkActivate = 0;
+                    string email = "";
+                    int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+")));
+                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, email, out isLinkActivate);
+                    if (isLinkActivate == 0)
+                    {
+                         ViewBag.Message= "Sorry, this link has already been used.";
+                        //, please contact the system administrator to reissue new link to activate your account
+                    }
+                    else
+                    {
+                        if (isLinkActivate == 1)
+                        {
+                            if (userType == "Doctor")
+                            {
+                               ViewBag.Message = "Thank you for activating your account. Your request will be verified by an administrator and you will be notified once your account is ready for use.";
+                            }
+                            if (userType == "Patient")
+                            {
+                                ViewBag.Message = "Thank you for activating your account. Your email has been verified. Now you can login to the system with your credentials";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    int isLinkActivate = 0;
+                    int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["id"].ToString()).Replace(" ", "+")));
+                    isEmailVerify = Convert.ToBoolean(Request.QueryString["isemailverify"]);
+                    string emailid = Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["email"].ToString()).Replace(" ", "+"));
+                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, emailid, out isLinkActivate);
+                    if (isLinkActivate == 1)
+                    {
+                        ViewBag.Message = "Thank you for email verification. Now you can receive email notifications from MiraiConsult";
+                        Session["IsEmailVerified"] = isEmailVerify;
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Sorry, this link has already been used.";
+                    }
+                }
+            }
+            return View();
+        }
+
           [HttpPost]
         public ActionResult ForgotPassword(string name)
         {
@@ -575,6 +641,7 @@ namespace MiraiConsultMVC.Controllers
                 modelUser.UserId = Convert.ToInt32(Session["UserId"]);
                 modelUser.Status = Convert.ToInt32(UserStatus.Pending);
                 modelUser.IsEmailVerified = false;
+                if (modelUser.DateOfBirth != null)
                 modelUser.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
                 var result = (db.askmirai_patient_Insert_Update(modelUser.FirstName, modelUser.LastName, modelUser.Email, modelUser.MobileNo, modelUser.Gender, modelUser.DateOfBirth, modelUser.CountryId, modelUser.StateId, modelUser.LocationId, modelUser.CityId, modelUser.Password, modelUser.Height, modelUser.Weight, modelUser.Address, modelUser.Pincode, modelUser.UserId, modelUser.RegistrationDate, modelUser.Status, modelUser.UserType, modelUser.UserName, modelUser.IsEmailVerified)).ToList();
                 var res = result.FirstOrDefault();
@@ -633,26 +700,23 @@ namespace MiraiConsultMVC.Controllers
 
         }
         [HttpPost]
-        public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file)
+        public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file, FormCollection collection)
         {
             DataTable dtDoctor = null;
             if (ModelState.IsValid)
             {
                 User doctor = new User();
                 string filename = "";
-                if (filename != "")
+                filename = file.FileName;
+                var lstSpeciality = collection["specialities"];
+                string[] specilaity = lstSpeciality.Split(',');
+                foreach (var specialityId in specilaity)
                 {
-                    filename = file.FileName;
+                    DoctorSpeciality speciality = new DoctorSpeciality();
+                    speciality.SpecialityId = Convert.ToInt32(specialityId);
+                    doctor.specialities.Add(speciality);
+                    //doctor.AddSpeciality(speciality);
                 }
-                //foreach (ListItem li in lstSpecialities.Items)
-                //{
-                //    if (li.Selected)
-                //    {
-                //        DoctorSpecialities speciality = new DoctorSpecialities();
-                //        speciality.SpecialityId = Convert.ToInt32(li.Value);
-                //        doctor.AddSpeciality(speciality);
-                //    }
-                //}
                 doctor.Image = filename;
                 modelUser.Image=filename;
                 doctor.FirstName = modelUser.FirstName;
@@ -735,8 +799,15 @@ namespace MiraiConsultMVC.Controllers
             modelUser.hdnRegcouncilid=modelUser.Regcouncilid;
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
-            var specialityList = poupulateSpeciality();
-            modelUser.Specialities = new SelectList(specialityList, "specialityid", "name");
+            DataTable dtSpecialities = DAL.UtilityManager.getInstance().getAllSpecialities();
+            List<speciality> specialities = new List<speciality>();
+            specialities = dtSpecialities.AsEnumerable().Select(dataRow => new speciality
+            {
+                specialityid = dataRow.Field<int>("specialityid"),
+                name = dataRow.Field<string>("name"),
+            }).ToList();
+            MultiSelectList makeSelected = new MultiSelectList(specialities, "specialityid", "name", specialities);
+            ViewBag.specialities = makeSelected;
             return View(modelUser);
         }
         [HttpGet]
@@ -907,6 +978,46 @@ namespace MiraiConsultMVC.Controllers
         {
             DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
             return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
+        }
+
+        public int showUnansweredQuestionCount()
+        {
+            if (Session["UserId"] != null && Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+            {
+                return QuestionManager.getInstance().getUnansweredQuestionCount(Convert.ToInt32(Session["UserId"]));
+            }
+            return 0;
+        }
+
+        private void setUserPrivilegesBasedOnUsertype(int userType)
+        {
+            List<int> privileges = new List<int>();
+            switch (userType)
+            {
+                case 2: privileges.Add(Convert.ToInt32(Privileges.askdoctor)); // for patient
+                    privileges.Add(Convert.ToInt32(Privileges.patientprofile));
+                    privileges.Add(Convert.ToInt32(Privileges.patientfeed));
+                    privileges.Add(Convert.ToInt32(Privileges.changepassword));
+                    privileges.Add(Convert.ToInt32(Privileges.Invitefriend));
+                    privileges.Add(Convert.ToInt32(Privileges.Myactivity));
+                    break;
+                case 1: privileges.Add(Convert.ToInt32(Privileges.changepassword)); // for doctor
+                    privileges.Add(Convert.ToInt32(Privileges.doctorquestiondetails));
+                    privileges.Add(Convert.ToInt32(Privileges.questionlist));
+                    privileges.Add(Convert.ToInt32(Privileges.Invitefriend));
+                    privileges.Add(Convert.ToInt32(Privileges.doctorprofile));
+                    break;
+                case 0: privileges.Add(Convert.ToInt32(Privileges.patientfeed)); // for superadmin
+                    privileges.Add(Convert.ToInt32(Privileges.doctorprofile));
+                    privileges.Add(Convert.ToInt32(Privileges.manageDoctor));
+                    privileges.Add(Convert.ToInt32(Privileges.questionlist));
+                    privileges.Add(Convert.ToInt32(Privileges.Invitefriend));
+                    privileges.Add(Convert.ToInt32(Privileges.managetags));
+                    privileges.Add(Convert.ToInt32(Privileges.assignQuestion));
+                    privileges.Add(Convert.ToInt32(Privileges.reports));
+                    break;
+            }
+            Session["privileges"] = privileges;
         }
 
     }

@@ -13,14 +13,20 @@ namespace MiraiConsultMVC.Controllers
         //
         // GET: /Questions/
         _dbAskMiraiDataContext db;
+        BasePage BPage = new BasePage();
         public ActionResult Index()
         {
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userId = 6,bool filter = false)
+        public ActionResult DoctorQuestionList(int userId = 0,bool filter = false)
         {
+            if (Session["userid"] != null)
+            {
+                userId = Convert.ToInt32(Session["userid"].ToString());
+            }
             IList<QuestionModel> Questions = new List<QuestionModel>();
+            
             db = new _dbAskMiraiDataContext();
             var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
             QuestionModel QModel;
@@ -62,6 +68,7 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
+                BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
                 int userId = Convert.ToInt32(Session["UserId"]);
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;

@@ -10,12 +10,13 @@ using System.Configuration;
 using MiraiConsultMVC.Models.admin;
 using System.Data.SqlClient;
 using Model;
+using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {
     public class adminController : Controller
     {
-        //
+        BasePage BPage = new BasePage();
         // GET: /admin/
         public int questionId;
         private int userId;
@@ -25,6 +26,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db;
         public ActionResult assignquestion(int? QuestionId)
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
             ViewBag.questionid = QuestionId;
             if (Session["UserId"] != null)
             {
@@ -140,6 +142,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult QuestionList(bool filter = true)
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
             List<QuestionModel> Qmodel = new List<QuestionModel>();
             Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
             return View(Qmodel);
@@ -193,6 +196,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult Report(string cityid = null, string locationid = null, string specialityOrName = null)
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.reports));
             DataSet doctorList = null;
             SqlParameter[] param = new SqlParameter[4];
             Report reportData;
@@ -277,6 +281,7 @@ namespace MiraiConsultMVC.Controllers
         public SqlConnection conn { get; set; }
         public ActionResult ManageTag()
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.managetags));
             return View();
         }
     }

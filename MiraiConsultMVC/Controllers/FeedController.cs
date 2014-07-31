@@ -11,6 +11,7 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /Feed/
+        BasePage BPage = new BasePage();
         public ActionResult Feed(Feed feed)
         {
             if (Session["UserId"] != null && Session["UserType"] != null)

@@ -17,6 +17,7 @@ namespace MiraiConsultMVC.Controllers
     public class HomeController : Controller
     {
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+        BasePage BPage = new BasePage();
         public ActionResult Home()
         {
             if(Request.IsAjaxRequest())

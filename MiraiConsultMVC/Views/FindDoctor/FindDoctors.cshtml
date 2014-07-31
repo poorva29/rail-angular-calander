@@ -94,7 +94,7 @@
                     type: 'GET',
                     dataType: 'json',
                     contentType: "application/json; charset=utf-8",
-                    url: '/Services/UserService.svc/fillDropdowns',
+                    url: '../../Services/UserService.svc/fillDropdowns',
                     success: function (response) {
                         response = JSON.parse(response);
                         for (cnt = 0; cnt < response.length; cnt++)
@@ -136,7 +136,7 @@
                     type: 'POST',
                     data: '{ "cityid":"' + cityid + '" , "locationid":"' + locationid + '", "specialityOrName":"' + specialityOrName + '", "isEncrypt": "true"}',
                     contentType: 'application/json',
-                    url: "/Services/UserService.svc/getDoctorList",
+                    url: "../../Services/UserService.svc/getDoctorList",
                     success: function (response) {
                         response = JSON.parse(response);
                         $("#searchResult").empty();
@@ -200,7 +200,7 @@
                     dataType: 'json',
                     data: '"' + $('#city-select').val() + '"',
                     contentType: 'application/json',
-                    url: '/Services/UserService.svc/getLocationsbyCity',
+                    url: '../../Services/UserService.svc/getLocationsbyCity',
                     success: function (response) {
                         $('#locality-select').empty();
                         $('#locality-select').append('<option></option>');

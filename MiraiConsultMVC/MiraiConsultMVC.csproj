@@ -43,7 +43,8 @@
       <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Model">
+    <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Model\bin\Model.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -200,7 +201,6 @@
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -251,92 +251,6 @@
     <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\DAL.pdb" />
-    <Content Include="bin\de\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\de\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\de\System.Spatial.resources.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
-    <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.xml" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\es\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\es\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\es\System.Spatial.resources.dll" />
-    <Content Include="bin\fr\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\fr\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\fr\System.Spatial.resources.dll" />
-    <Content Include="bin\it\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\it\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\it\System.Spatial.resources.dll" />
-    <Content Include="bin\ja\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ja\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ja\System.Spatial.resources.dll" />
-    <Content Include="bin\ko\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ko\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ko\System.Spatial.resources.dll" />
-    <Content Include="bin\log4net.dll" />
-    <Content Include="bin\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\Microsoft.Data.OData.dll" />
-    <Content Include="bin\Microsoft.Data.OData.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
-    <Content Include="bin\Microsoft.Web.WebPages.OAuth.dll" />
-    <Content Include="bin\Microsoft.Web.WebPages.OAuth.xml" />
-    <Content Include="bin\MiraiConsultMVC.dll" />
-    <Content Include="bin\MiraiConsultMVC.pdb" />
-    <Content Include="bin\Model.dll" />
-    <Content Include="bin\Model.pdb" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\ru\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ru\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ru\System.Spatial.resources.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\System.Spatial.dll" />
-    <Content Include="bin\System.Spatial.xml" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.OData.dll" />
-    <Content Include="bin\System.Web.Http.OData.xml" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\WebMatrix.Data.dll" />
-    <Content Include="bin\WebMatrix.Data.xml" />
-    <Content Include="bin\WebMatrix.WebData.dll" />
-    <Content Include="bin\WebMatrix.WebData.xml" />
-    <Content Include="bin\zh-Hans\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\zh-Hans\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\zh-Hans\System.Spatial.resources.dll" />
-    <Content Include="bin\zh-Hant\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\zh-Hant\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\zh-Hant\System.Spatial.resources.dll" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-tokenfield.css" />
@@ -510,67 +424,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\tokenfield-typeahead.css" />
     <Content Include="Controllers\bin\log4net.dll" />
-    <Content Include="DAL.dll" />
     <Content Include="favicon.ico" />
     <Content Include="feed\answerPhotos\10782167001_ROC_10_20_11_1.jpg" />
-    <Content Include="feed\answerPhotos\1082216710056780x1386629963.png" />
-    <Content Include="feed\answerPhotos\10822193download %285%29.jpg" />
-    <Content Include="feed\answerPhotos\1102173image.jpg" />
-    <Content Include="feed\answerPhotos\110322344AskMirai.png" />
-    <Content Include="feed\answerPhotos\1105246askmirai_img.png" />
-    <Content Include="feed\answerPhotos\1108246bg_sunrise_icon.jpg" />
-    <Content Include="feed\answerPhotos\11301464AskMirai.png" />
-    <Content Include="feed\answerPhotos\1130246download %282%29.jpg" />
-    <Content Include="feed\answerPhotos\11482461387451768438.png" />
-    <Content Include="feed\answerPhotos\11486anuja.jpg" />
-    <Content Include="feed\answerPhotos\11532234about-breast-cancer.jpg" />
-    <Content Include="feed\answerPhotos\1154246image.jpg" />
-    <Content Include="feed\answerPhotos\1155173image.jpg" />
-    <Content Include="feed\answerPhotos\11616anuja.jpg" />
-    <Content Include="feed\answerPhotos\1162246image.jpg" />
-    <Content Include="feed\answerPhotos\11706janssen_cilag_mini_logo.jpg" />
-    <Content Include="feed\answerPhotos\11746logo1.png" />
-    <Content Include="feed\answerPhotos\1180246Koala.jpg" />
-    <Content Include="feed\answerPhotos\1186246image.jpg" />
-    <Content Include="feed\answerPhotos\118722344AskMirai.png" />
-    <Content Include="feed\answerPhotos\1191246image.jpg" />
-    <Content Include="feed\answerPhotos\21673302AskMirai.png" />
-    <Content Include="feed\answerPhotos\218933161393582563474.jpg" />
-    <Content Include="feed\answerPhotos\22142234ui-icons_cd0a0a_256x240.png" />
-    <Content Include="feed\answerPhotos\22201anuja.jpg" />
-    <Content Include="feed\answerPhotos\2221246Screenshot_2014-05-21-16-03-27.png" />
-    <Content Include="feed\answerPhotos\222324610380125_244994635697474_6934314279218651171_o.png" />
-    <Content Include="feed\answerPhotos\2225246Chrysanthemum.jpg" />
-    <Content Include="feed\answerPhotos\22283302AskMirai.png" />
-    <Content Include="feed\answerPhotos\2247246Screenshot_2014-05-16-12-09-27.png" />
-    <Content Include="feed\answerPhotos\22553359DSC_0031.jpg" />
-    <Content Include="feed\answerPhotos\22563359DSC_0031.jpg" />
-    <Content Include="feed\answerPhotos\22673375Screen Shot 2014-05-30 at 12.02.05 PM.png" />
-    <Content Include="feed\answerPhotos\2268246Screenshot_2014-05-26-14-26-44.png" />
-    <Content Include="feed\answerPhotos\22683375Screen Shot 2014-05-30 at 12.02.28 PM.png" />
-    <Content Include="feed\answerPhotos\2272246export_11.png" />
-    <Content Include="feed\answerPhotos\2274246image.jpg" />
-    <Content Include="feed\answerPhotos\22766anuja.jpg" />
-    <Content Include="feed\answerPhotos\22793390Doc.jpg" />
-    <Content Include="feed\answerPhotos\2281246Screenshot_2014-05-16-11-57-17.png" />
-    <Content Include="feed\answerPhotos\22822465E0DF618-BE80-489C-9A7D-D3E9671DEAB1[3].png" />
-    <Content Include="feed\answerPhotos\2297246Pain.jpeg" />
-    <Content Include="feed\answerPhotos\22996u92.png" />
-    <Content Include="feed\answerPhotos\2318246neck_pain.jpeg" />
-    <Content Include="feed\answerPhotos\23323425listing.png" />
-    <Content Include="feed\answerPhotos\2337246Pain.jpeg" />
-    <Content Include="feed\answerPhotos\23403425link.png" />
-    <Content Include="feed\answerPhotos\2343246Title.png" />
-    <Content Include="feed\answerPhotos\23453445open-uri20140605-23699-19mnjyk.jpeg" />
-    <Content Include="feed\answerPhotos\2353246fever-adult.jpeg" />
-    <Content Include="feed\answerPhotos\23593445Tulips.jpg" />
-    <Content Include="feed\answerPhotos\2374246download %281%29.jpg" />
-    <Content Include="feed\answerPhotos\23793595Penguins.jpg" />
-    <Content Include="feed\answerPhotos\23813595Hydrangeas.jpg" />
-    <Content Include="feed\answerPhotos\238364.5mb.jpg" />
-    <Content Include="feed\answerPhotos\23886app_error.png" />
-    <Content Include="feed\answerPhotos\37anuja.jpg" />
-    <Content Include="feed\answerPhotos\801464AskMirai.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
@@ -585,7 +440,7 @@
       <LastGenOutput>_dbAskMirai.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="bin\MiraiConsultMVC.dll.config" />
+    <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-alert.js" />
     <Content Include="Scripts\bootstrap-button.js" />
@@ -628,10 +483,10 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\otf.js" />
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\ViewScrips\QuestionListScript.js" />
     <Content Include="Services\UserService.svc" />
+    <Content Include="Views\admin\QuestionList.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -697,7 +552,6 @@
     <Content Include="Views\Doctors\DoctorProfile.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
-    <Content Include="Views\User\CustomError.cshtml" />
     <Content Include="Views\User\AssignQuestion.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ManageDoctors.cshtml" />
@@ -706,7 +560,6 @@
     <Content Include="Views\FindDoctor\FindDoctors.cshtml" />
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
-    <Content Include="Views\admin\QuestionList.cshtml" />
     <Content Include="Views\admin\Report.cshtml" />
     <Content Include="Views\admin\_Report.cshtml" />
     <Content Include="Views\Patients\InviteFriend.cshtml" />
@@ -718,9 +571,9 @@
     <Content Include="Views\Feed\DoctorFeed.cshtml" />
     <Content Include="Views\admin\ManageTag.cshtml" />
     <Content Include="Views\Patients\Myactivity.cshtml" />
-    <Content Include="Views\Questions\QuestionDetails.cshtml" />
     <Content Include="Views\Patients\similarQuestions.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
+    <Content Include="Views\User\Verifyemail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -766,7 +619,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53706</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

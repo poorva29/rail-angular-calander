@@ -81,7 +81,14 @@ namespace MiraiConsultMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login log)
         {
-            //Utilities U = new Utilities();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+            if (Request.Cookies["Consult_UName"] != null)
+                log.Email = Request.Cookies["Consult_UName"].Value;
+            if (Request.Cookies["Consult_PWD"] != null)
+                log.Password = Request.Cookies["Consult_PWD"].Value;
+            if (Request.Cookies["Consult_UName"] != null && Request.Cookies["Consult_PWD"] != null)
+                log.RememberMe = true;
+
             if (ModelState.IsValid)
             {
                 string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
@@ -106,6 +113,7 @@ namespace MiraiConsultMVC.Controllers
                             Session["UserType"] = isLogin.usertype;
                             userType = Convert.ToInt32(user.UserType);
                             setUserPrivilegesBasedOnUsertype(userType);
+                            RememberMe(log.RememberMe, log.Email, dbpasswd);
                             if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                             {
                                 if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
@@ -163,7 +171,22 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-
+        protected void RememberMe(bool rememberMe,string email, string password)
+        {
+            if (rememberMe == true)
+            {
+                Response.Cookies["Consult_UName"].Value = email;
+                Response.Cookies["Consult_PWD"].Value = password;
+                Response.Cookies["Consult_UName"].Expires = DateTime.Now.AddMonths(2);
+                Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(2);
+            }
+            else
+            {
+                Response.Cookies["Consult_UName"].Expires = DateTime.Now.AddMonths(-1);
+                Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(-1);
+            }
+        }
+        
         public ActionResult ManageDoctors(string Registered=null,string Approved=null,string Rejected=null )
         {
             BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.manageDoctor));

@@ -29,7 +29,15 @@ namespace MiraiConsultMVC.Controllers
         BasePage BPage = new BasePage();
         public ActionResult Login()
         {
-            return View();
+            Login log = new Login();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+            if (Request.Cookies["Consult_UName"] != null)
+                log.Email = Request.Cookies["Consult_UName"].Value;
+            if (Request.Cookies["Consult_PWD"] != null)
+                log.Password = Request.Cookies["Consult_PWD"].Value;
+            if (Request.Cookies["Consult_UName"] != null && Request.Cookies["Consult_PWD"] != null)
+                log.RememberMe = true;
+            return View(log);
         }
 
         public ActionResult Logout()
@@ -81,14 +89,6 @@ namespace MiraiConsultMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login log)
         {
-            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
-            if (Request.Cookies["Consult_UName"] != null)
-                log.Email = Request.Cookies["Consult_UName"].Value;
-            if (Request.Cookies["Consult_PWD"] != null)
-                log.Password = Request.Cookies["Consult_PWD"].Value;
-            if (Request.Cookies["Consult_UName"] != null && Request.Cookies["Consult_PWD"] != null)
-                log.RememberMe = true;
-
             if (ModelState.IsValid)
             {
                 string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table

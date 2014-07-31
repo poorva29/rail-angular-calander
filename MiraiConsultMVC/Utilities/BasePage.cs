@@ -31,7 +31,7 @@ namespace MiraiConsultMVC
             Utilities.checkSessionExpired();
             if (!Utilities.isAuthorisedandSessionExpired(privilege))
             {
-                Response.Redirect("../admin/NoPrivilegeError.aspx");
+                Response.Redirect("/admin/NoPrivilegeError");
             }
         }
     }

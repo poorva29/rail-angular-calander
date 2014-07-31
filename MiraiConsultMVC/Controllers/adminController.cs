@@ -10,12 +10,13 @@ using System.Configuration;
 using MiraiConsultMVC.Models.admin;
 using System.Data.SqlClient;
 using Model;
+using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {
     public class adminController : Controller
     {
-        //
+        BasePage BPage = new BasePage();
         // GET: /admin/
         public int questionId;
         private int userId;
@@ -25,6 +26,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db;
         public ActionResult assignquestion(int? QuestionId)
         {
+            //BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
             ViewBag.questionid = QuestionId;
             if (Session["UserId"] != null)
             {

@@ -15,12 +15,21 @@ namespace MiraiConsultMVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("Services/UserService.svc/{*pathInfo}");
 
+           
+
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
+                name: "Questions",
+                url: "{Question}/{questionId}",
+                defaults: new { controller = "Patients", action = "QuestionDetails" },
+                constraints: new { controller = "Patients", action = "QuestionDetails" }
+
             );
 
+            routes.MapRoute(
+               name: "Default",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
+           );
         }
     }
 }

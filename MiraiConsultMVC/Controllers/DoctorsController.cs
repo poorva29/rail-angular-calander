@@ -12,13 +12,14 @@ namespace MiraiConsultMVC.Controllers
         //
         // GET: /Doctors/
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-
+        BasePage BPage = new BasePage();
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult DoctorProfile()
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorprofile));
             return View(getDoctorDetailsByDoctorId(6));
         }
         [HttpGet]

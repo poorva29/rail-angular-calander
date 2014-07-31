@@ -17,13 +17,13 @@ namespace MiraiConsultMVC
 
            
 
-            routes.MapRoute(
-                name: "Questions",
-                url: "{Question}/{questionId}",
-                defaults: new { controller = "Patients", action = "QuestionDetails" },
-                constraints: new { controller = "Patients", action = "QuestionDetails" }
+            //routes.MapRoute(
+            //    name: "Questions",
+            //    url: "{Question}/{questionId}",
+            //    defaults: new { controller = "Patients", action = "QuestionDetails" },
+            //    constraints: new { controller = "Patients", action = "QuestionDetails" }
 
-            );
+            //);
 
             routes.MapRoute(
                name: "Default",

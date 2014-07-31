@@ -19,7 +19,7 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /Patients/
-
+        BasePage BPage = new BasePage();
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         public int questionId;
         private int userId;
@@ -31,6 +31,7 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult PatientProfile()
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.patientprofile));
             return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));
         }
 
@@ -414,6 +415,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult AskDoctor()
         {
+            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.askdoctor));
             return View(new AskDoctor());
         }
 

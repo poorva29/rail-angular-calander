@@ -12,7 +12,7 @@ namespace MiraiConsultMVC.Controllers
     {
         //
         // GET: /Find/
-
+        BasePage BPage = new BasePage();
         public ActionResult Index()
         {
             return View();

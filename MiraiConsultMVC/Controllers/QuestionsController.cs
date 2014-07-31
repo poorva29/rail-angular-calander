@@ -13,6 +13,7 @@ namespace MiraiConsultMVC.Controllers
         //
         // GET: /Questions/
         _dbAskMiraiDataContext db;
+        BasePage BPage = new BasePage();
         public ActionResult Index()
         {
             return View();
@@ -67,6 +68,7 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
+                BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
                 int userId = Convert.ToInt32(Session["UserId"]);
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
                 QuestionDtlModel qm;

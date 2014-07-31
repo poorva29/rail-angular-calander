@@ -629,6 +629,7 @@ namespace MiraiConsultMVC.Controllers
                 modelUser.UserId = Convert.ToInt32(Session["UserId"]);
                 modelUser.Status = Convert.ToInt32(UserStatus.Pending);
                 modelUser.IsEmailVerified = false;
+                if (modelUser.DateOfBirth != null)
                 modelUser.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
                 var result = (db.askmirai_patient_Insert_Update(modelUser.FirstName, modelUser.LastName, modelUser.Email, modelUser.MobileNo, modelUser.Gender, modelUser.DateOfBirth, modelUser.CountryId, modelUser.StateId, modelUser.LocationId, modelUser.CityId, modelUser.Password, modelUser.Height, modelUser.Weight, modelUser.Address, modelUser.Pincode, modelUser.UserId, modelUser.RegistrationDate, modelUser.Status, modelUser.UserType, modelUser.UserName, modelUser.IsEmailVerified)).ToList();
                 var res = result.FirstOrDefault();

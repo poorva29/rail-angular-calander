@@ -161,6 +161,9 @@ namespace MiraiConsultMVC.Controllers
                     Session["UserEmail"] = SuperAdminEmailId;
                     Session["UserId"] = 9999999;
                     Session["UserType"] = 0;
+
+                    setUserPrivilegesBasedOnUsertype(0);
+
                     return RedirectToAction("ManageDoctors");
                 }
                 else

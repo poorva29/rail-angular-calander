@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using DAL;
 using Model;
+using System.Web.Mvc;
 
 namespace MiraiConsultMVC
 {
-    public class BasePage:System.Web.UI.Page
+    public class BasePage:Controller
     {    /// <summary>
         /// Check for session expired if session is expired redirect to login page
         /// </summary>
@@ -31,7 +32,7 @@ namespace MiraiConsultMVC
             Utilities.checkSessionExpired();
             if (!Utilities.isAuthorisedandSessionExpired(privilege))
             {
-                Response.Redirect("/admin/NoPrivilegeError");
+                RedirectToAction("NoPrevilage", "Home");//Response.Redirect("/admin/NoPrivilegeError");
             }
         }
     }

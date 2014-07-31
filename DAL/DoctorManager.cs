@@ -79,11 +79,11 @@ namespace DAL
             }
         }
 
-        private static DataTable CreateDataTable(IList<DoctorSpecialities> specialityIds, string columnName)
+        private static DataTable CreateDataTable(IList<DoctorSpeciality> specialityIds, string columnName)
         {
             DataTable table = new DataTable();
             table.Columns.Add(columnName, typeof(long));
-            foreach (DoctorSpecialities ds in specialityIds)
+            foreach (DoctorSpeciality ds in specialityIds)
             {
                 table.Rows.Add(ds.SpecialityId);
             }
@@ -165,7 +165,7 @@ namespace DAL
             param[0] = new SqlParameter("@DOCID", DocId);
             using (conn = SqlHelper.GetSQLConnection())
             {
-                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails", param);
+                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails", param);             
             }
             lstdoctors = populateDoctorDetails(dsDoctorDetails);
 
@@ -244,21 +244,22 @@ namespace DAL
                         dvdoctorsdetails = new DataView(dsDoctorDetails.Tables[4]);
                         string expression = "userid =" + doctorid;
                         string sortOrder = "";
-                        datarows = dvdocspecialities.Table.Select(expression, sortOrder);
-                        //foreach (DataRow dr1 in datarows)
-                        //{
-                        //    DoctorSpecialities doctorspeciality = new DoctorSpecialities();
-                        //    if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
-                        //    {
-                        //        doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);
-                        //    }
-                        //    if (!String.IsNullOrEmpty(Convert.ToString(dr1["speciality_name"])))
-                        //    {
-                        //        doctorspeciality.Speciality = Convert.ToString(dr1["speciality_name"]);
 
-                        //    }
-                        //    doctor.specialities.Add(doctorspeciality);
-                        //}
+                        datarows = dvdocspecialities.Table.Select(expression, sortOrder);
+                        foreach (DataRow dr1 in datarows)
+                        {
+                            DoctorSpeciality doctorspeciality = new DoctorSpeciality();
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["specialityid"])))
+                            {
+                                doctorspeciality.SpecialityId = Convert.ToInt32(dr1["specialityid"]);
+                            }
+                            if (!String.IsNullOrEmpty(Convert.ToString(dr1["speciality_name"])))
+                            {
+                                doctorspeciality.Speciality = Convert.ToString(dr1["speciality_name"]);
+
+                            }
+                            doctor.specialities.Add(doctorspeciality);
+                        }
                         datarows = dvdoctorlocations.Table.Select(expression, sortOrder);
                         bool isloc_already_added = false;
 

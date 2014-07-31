@@ -43,6 +43,9 @@
       <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Model">
+      <HintPath>..\Model\bin\Model.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -717,9 +720,11 @@
     <Content Include="Views\Patients\Myactivity.cshtml" />
     <Content Include="Views\Questions\QuestionDetails.cshtml" />
     <Content Include="Views\Patients\similarQuestions.cshtml" />
+    <Content Include="Views\User\DoctorSignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\image\DoctorPhotos\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
     <Folder Include="Views\Home\obj\Debug\" />
   </ItemGroup>
@@ -741,10 +746,6 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{6b65a3ee-e5a5-4bfb-9c30-7ed8382ef7be}</Project>
       <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{b8fd3a08-c7c8-4e2b-aa31-4343783f0682}</Project>
-      <Name>Model</Name>
     </ProjectReference>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

@@ -11,9 +11,9 @@
 <script src="~/Scripts/jquery.dataTables.js"></script>
 <script src="~/Scripts/bootstrap-pagination.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
-<script src="~/Scripts/dateofbirthvalidation.js"></script>
+@*<script src="~/Scripts/dateofbirthvalidation.js"></script>*@
 <script src="~/Scripts/utility.js"></script>
-@using (Html.BeginForm())
+@using (Html.BeginForm("DoctorProfile", "Doctors", FormMethod.Post, new { @encType = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
@@ -31,14 +31,23 @@
                             <div class="span2 custom-occupy intermediate-size-padding">
                                 <div>
                                     <div class="avtar img">
-                                        <img id="imgdoctorimage" clientidmode="Static" class="img-rounded" runat="server" alt="DoctorPhoto" />
+                                        <img id="imgdoctorimage" src="@Model.Image" class="img-rounded" alt="DoctorPhoto" />
                                     </div>
                                 </div>
                             </div>
                             <div class="span9 inline intermediate-size-padding pull-left controls-right-padding" style="margin-left:0;margin-bottom:10px;">
-                                <div id="messageDiv" style="margin-left:0" visible="false">
-                                    <label id="lblMessage"></label>
-                                </div>
+                                @if (TempData["message"] != null && (TempData["message"] == "Details updated successfully. You will receive verification email shortly." || TempData["message"] == "Details updated successfully."))
+                                {
+                                    <div id="messageDiv" style="margin-left:0" class="alert alert-success margin_left_success">
+                                        <label id="lblMessage">@TempData["message"]</label>
+                                    </div>
+                                }
+                                else if (TempData["message"] != null && (TempData["message"] == "Other User with same email address already exist. Please enter other email."))
+                                {
+                                    <div id="messageDiv" style="margin-left:0" class="alert alert-error margin_left_success">
+                                        <label id="lblMessage">@TempData["message"]</label>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -46,7 +55,7 @@
                                 <div class="control-group">
                                     <label class="control-label cust-font-style text-margin-top">Photo:</label>
                                     <div class="controls ">
-                                        <input type='file' name='fileUploadForImage' id='fileUploadForImage' />
+                                        <input type="file" name="file" id="Image" value="@Model.Image" maxlength="256" style="width: 100%;">
                                     </div>
                                 </div>
                             </div>
@@ -57,8 +66,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">First Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name" })
-                                        @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name",id="txtFirstName" })
+                                        <label id="lblErrorFirstName" style="color:red"></label>
                                     </div>
                                 </div>
                             </div>
@@ -66,8 +75,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">Last Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name" })
-                                        @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name", id="txtLastName" })
+                                        <label id="lblErrorLstName" style="color:red"></label>
                                     </div>
                                 </div>
                             </div>
@@ -77,8 +86,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Mobile No:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15" })
-                                        @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
+                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15",id="txtMobileNo" })
+                                        <label id="lblErrorMobileNo" style="color:red"></label>
                                     </div>
                                 </div>
                             </div>
@@ -86,8 +95,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label required cust-font-style ">Email:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email" })
-                                        @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email",id="txtEmail"})
+                                        <label id="lblErrorEmail" style="color:red"></label>
                                     </div>
                                 </div>
                             </div>
@@ -99,8 +108,8 @@
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", placeholder = "Date Of Birth" })
-                                            @Html.ValidationMessageFor(m => m.DateOfBirth, string.Empty, new { @class = "validation-summary-errors" })
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", placeholder = "Date Of Birth",id="txtDob" })
+                                            <label id="lblErrorDateOfBirth" style="color:red"></label>
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                         </div>
                                     </div>
@@ -165,10 +174,11 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Specialities:</label>
                                     <div class="controls">
-                                        @*@Html.ListBoxFor(m=>m.SpecialityId,ViewBag.specialities)*@
-                                        @*<asp:ListBox ID="lstSpecialities" runat="server" SelectionMode="Multiple" ClientIDMode="Static"
-                                            class="chzn-select  Specialities_Width"></asp:ListBox>*@
-                                        @*@Html.DropDownListFor(m => m.SpecialityId, new SelectList(ViewBag.specialities, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })*@
+                                        @Html.ListBox(
+                                        "lstSpecialities",
+                                        ViewBag.specialities as MultiSelectList,
+                                        new { @class = "chzn-select  Specialities_Width" }
+                                        )
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +195,7 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12 btn-margin-top profile-button" style="text-align: center">
-                        <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" id="btnSubmit" value="Save" />
+                        <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" id="btnSubmit" value="Save" onclick="if (!ValidateAllControl()) return false;" />
                         <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" value="Reset" />
                     </div>
                 </div>
@@ -228,13 +238,13 @@
                                     @{string degree;
                                     string university;
                                     int degreeID;
-                                    int doctorID;                                   
+                                    int doctorID;
                                     foreach (doctorqualifications docQualification in Model.qualification)
                                     {
                                         degreeID = docQualification.DegreeId;
                                         degree = Convert.ToString(docQualification.Degree);
                                         university = Convert.ToString(docQualification.University);
-                                        doctorID = Convert.ToInt32(Model.UserId);                           
+                                        doctorID = Convert.ToInt32(Model.UserId);
                                         <tr>
                                             <td>
                                                 @doctorID
@@ -545,21 +555,13 @@
                 <div id="dialog">
                 </div>
             </div>
-            <input type="hidden" value="@Model.UserId" id="hdnDoctorId" />
-            <input type="hidden" id="hdnDocLocationId" />
-            <input type="hidden" id="hiddenCountryId" />
-            <input type="hidden" id="hiddenStateId" />
-            <input type="hidden" id="hiddenCityId" />
-            <input type="hidden" id="hiddenLocationId" />
-                   @*<asp:HiddenField ID="image" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hiddenemail" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hiddenCountryId" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hiddenStateId" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hiddenCityId" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hiddenLocationId" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hdnDocLocationId" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hdnPhotoUrl" ClientIDMode="Static" runat="server" />
-                <asp:HiddenField ID="hdn" ClientIDMode="Static" runat="server" />*@></div>
+        </div>
+        <input type="hidden" value="@Model.UserId" id="hdnDoctorId" />
+        <input type="hidden" id="hdnDocLocationId" />
+        <input type="hidden" id="hiddenCountryId" />
+        <input type="hidden" id="hiddenStateId" />
+        <input type="hidden" id="hiddenCityId" />
+        <input type="hidden" id="hiddenLocationId" />
     }
 }
 <script type="text/javascript">
@@ -593,6 +595,54 @@
                 alert("Error");
             }
         });
+    });
+   
+    function ValidateAllControl() {
+        var errormsg = "";
+        if (document.getElementById("txtFirstName").value == "") {
+            errormsg += "Please Enter First Name.";
+            document.getElementById("lblErrorFirstName").innerHTML = "Please Enter First Name.";
+        }
+        if (document.getElementById("txtLastName").value == "") {
+            errormsg += "Please Enter Last Name.";
+            document.getElementById("lblErrorLstName").innerHTML = "Please Enter Last Name.";
+        }
+        if (document.getElementById("txtEmail").value == "") {
+            errormsg += "Please Enter Email.";
+            document.getElementById("lblErrorEmail").innerHTML = "Please Enter Email.";
+        }
+        var re = /[A-Z0-9._%+-]+@@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+        if (!re.test($("#txtEmail").val())) {
+            errormsg += "Please enter valid email address.";
+            document.getElementById("lblErrorEmail").innerHTML = "Please enter valid email address.";
+        }
+        var mobileNo = document.getElementById("txtMobileNo").value;
+        if (mobileNo.length > 10) {
+            errormsg += "Please enter 10 digit mobile number.";
+            document.getElementById("lblErrorMobileNo").innerHTML = "Please enter 10 digit mobile number.";
+        }
+        if (errormsg == "") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $("#txtFirstName").keypress(function () {
+        $("#lblErrorFirstName").hide();
+    });
+    $("#txtLastName").keypress(function () {
+        $("#lblErrorLstName").hide();
+    });
+    $("#txtEmail").keypress(function () {
+        var regexEmail = '\w+([-+.\']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*\'';
+        if (!regexEmail.match(document.getElementById("txtEmail").value)) {
+            errormsg += "Please enter valid email address.";
+            $("#lblErrorEmail").show();
+            document.getElementById("lblErrorEmail").innerHTML = "Please enter valid email address.";
+            return false;
+        }
     });
     function validateclinicdata() {
         var errormsg = "";
@@ -817,9 +867,9 @@
         alert(error);
         location.reload(true);
     }
-    $(".input-block-level").keyup(function () {
-        Page_ClientValidate();
-    });
+    //$(".input-block-level").keyup(function () {
+    //    Page_ClientValidate();
+    //});
 
     $(document).ready(function () {
         $('#dob').datepicker($('#txtDob').val());
@@ -893,7 +943,7 @@
                                         alert('Qualification has been deleted.');
                                         oTable.fnDeleteRow(nRow);
                                     }
-                                    else{
+                                    else {
                                         alert('Qualification is not deleted.');
                                     }
                                 }
@@ -936,8 +986,7 @@
                         saveRow(oTable, nEditing);
                         nEditing = null;
                     }
-                    else if(returndata == 1)
-                    {
+                    else if (returndata == 1) {
                         alert('Degree already exist.');
                     }
                 }
@@ -1100,10 +1149,9 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
                             if (returndata == 0) {
-                                alert('Details have been saved successfully.');                             
+                                alert('Details have been saved successfully.');
                             }
-                            else if (returndata == 1)
-                            {
+                            else if (returndata == 1) {
                                 alert('Details are not saved.')
                             }
                         }
@@ -1180,7 +1228,7 @@
                     //PageMethods.DeleteDoctorLocattonByDoctorLocationId(aData[0], onSuccess, onFailure);
                     $.ajax({
                         type: "GET",
-                        url: 'DeleteDoctorLocattonByDoctorLocationId?docLocationId=' + aData[0],
+                        url: 'DeleteDoctorLocationByDoctorLocationId?docLocationId=' + aData[0],
                         datatype: "JSON",
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
@@ -1272,7 +1320,7 @@
         var countryId = document.getElementById("hiddenCountryId").value;
         var stateId = document.getElementById("hiddenStateId").value;
         var cityId = document.getElementById("hiddenCityId").value;
-        var locationId = document.getElementById("hiddenLocationId").value; 
+        var locationId = document.getElementById("hiddenLocationId").value;
         var docLocationId = document.getElementById("hdnDocLocationId").value;
         $.ajax({
             type: "GET",
@@ -1280,12 +1328,10 @@
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
-                if(returndata != 0)
-                {
+                if (returndata != 0) {
                     alert('Clinic details updated successfully.');
                 }
-                else if(returndata == 0)
-                {
+                else if (returndata == 0) {
                     alert('New clinic details added successfully.');
                 }
             },

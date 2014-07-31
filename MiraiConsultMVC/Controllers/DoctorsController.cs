@@ -7,6 +7,9 @@ using MiraiConsultMVC.Models;
 using DAL;
 using Model;
 using System.Data;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.IO;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -91,6 +94,7 @@ namespace MiraiConsultMVC.Controllers
                 doctorDetail.FirstName = Convert.ToString(doctor.FirstName);
                 doctorDetail.LastName = Convert.ToString(doctor.LastName);
                 doctorDetail.Email = Convert.ToString(doctor.Email);
+                TempData["Email"] = Convert.ToString(doctor.Email);
                 if (doctor.MobileNo != null)
                     doctorDetail.MobileNo = Convert.ToString(doctor.MobileNo);
                 if (doctor.Gender != null)
@@ -107,15 +111,33 @@ namespace MiraiConsultMVC.Controllers
                 }
                 if(doctor.RegistrationCouncil != null)
                 {
+                    TempData["countryId"] = doctor.CountryId;
                     var regCouncilList = PopulateRegCouncilByCountry(doctor.CountryId);
                     ViewBag.Registrationcouncils = new SelectList(regCouncilList, "regcouncilid", "name");
                     doctorDetail.RegistrationCouncil = Convert.ToInt32(doctor.RegistrationCouncil);
                 }
-                if(doctor.specialities != null)
+                DataTable dtSpecialities = UtilityManager.getInstance().getAllSpecialities();
+
+                List<DoctorSpeciality> specialities = new List<DoctorSpeciality>();
+
+                specialities = dtSpecialities.AsEnumerable().Select(dataRow => new DoctorSpeciality
                 {
-                    var specialityList = poupulateSpeciality();
-                    ViewBag.speciality = new SelectList(specialityList, "specialityid", "name");
+                    SpecialityId = dataRow.Field<int>("specialityid"),
+                    Speciality = dataRow.Field<string>("name"),
+                }).ToList();
+
+                IList<DoctorSpeciality> SelectedSpecialities = new List<DoctorSpeciality>();
+                SelectedSpecialities = doctor.specialities;
+
+                int[] values = new int[SelectedSpecialities.Count];
+                for (int i = 0; i < SelectedSpecialities.Count; i++)
+                {
+                    values[i] = SelectedSpecialities.ToList()[i].SpecialityId;
                 }
+
+                MultiSelectList makeSelected = new MultiSelectList(specialities, "SpecialityId", "Speciality", values);
+                ViewBag.specialities = makeSelected;
+
                 if (doctor.RegistrationNumber != null)
                     doctorDetail.RegistrationNumber = doctor.RegistrationNumber;
                 if (doctor.AboutMe != null)
@@ -128,8 +150,13 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Status = Convert.ToInt32(doctor.Status);
                 if (doctor.IsEmailVerified != null)
                     doctorDetail.IsEmailVerified = Convert.ToBoolean(doctor.IsEmailVerified);
-                if (doctor.PhotoUrl != null)
-                    doctorDetail.PhotoUrl = doctor.PhotoUrl;              
+                if (doctor.Image != null)
+                {
+                    doctorDetail.Image = doctor.PhotoUrl + doctor.Image;
+                    TempData["Image"] = doctor.Image;
+                }
+                else
+                    doctorDetail.Image = "..\\Content\\image\\img-na.png";
                 if (doctor.qualification != null)
                 {
                     foreach(var qualification in doctor.qualification)
@@ -314,11 +341,153 @@ namespace MiraiConsultMVC.Controllers
             return Json(docLocationId, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DeleteDoctorLocattonByDoctorLocationId(string docLocationId)
+        public JsonResult DeleteDoctorLocationByDoctorLocationId(string docLocationId)
         {
             int result = 0;
             result = DoctorManager.getInstance().DeleteDoctorLocattonByDoctorLocationId(docLocationId);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //[HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DoctorProfile(DoctorProfile profile, FormCollection collection, HttpPostedFileBase file)
+        {
+            DataTable dtDoctor = new DataTable();
+            User doctor = new User();
+            if (ModelState.IsValid)
+            {
+                doctor.UserId = Convert.ToInt32(Session["UserId"]);
+                doctor.Email = profile.Email;
+                if (!TempData["Email"].Equals(profile.Email))
+                    doctor.IsEmailVerified = false;
+                else
+                    doctor.IsEmailVerified = true;
+                doctor.Gender = profile.Gender;
+                doctor.FirstName = profile.FirstName;
+                doctor.LastName = profile.LastName;
+                doctor.MobileNo = profile.MobileNo;
+                if (profile.DateOfBirth != null)
+                    doctor.DateOfBirth = Convert.ToDateTime(profile.DateOfBirth);
+                doctor.RegistrationDate = System.DateTime.Now;
+                doctor.UserName = profile.UserName;
+                doctor.RegistrationNumber = profile.RegistrationNumber;
+
+                string filename = "";
+                filename = file.FileName;
+                if (!string.IsNullOrEmpty(filename))
+                {
+                    filename = Convert.ToString(Session["UserId"]) + filename;
+                }
+                if (file.FileName!= null)
+                {
+                    doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
+                    doctor.Image = filename;
+                }
+                else
+                {
+                    doctor.PhotoUrl = "";
+                    doctor.Image = "";
+                }
+                string docOldImage = Convert.ToString(TempData["Image"]);
+                if (Convert.ToInt32(profile.CountryId) != 0)
+                {
+                    doctor.CountryId = Convert.ToInt32(profile.CountryId);
+                }
+                if (Convert.ToInt32(profile.RegistrationCouncil) != 0)
+                {
+                    doctor.RegistrationCouncil = Convert.ToInt32(profile.RegistrationCouncil);
+                }
+                doctor.AboutMe = profile.AboutMe;
+
+                var lstSpeciality = collection["lstspecialities"];             
+                string[] specilaity = lstSpeciality.Split(',');
+                foreach (var specialityId in specilaity)
+                {
+                    DoctorSpeciality speciality = new DoctorSpeciality();
+                    speciality.SpecialityId = Convert.ToInt32(specialityId);
+                    doctor.AddSpeciality(speciality);
+                }
+                dtDoctor = DoctorManager.getInstance().UpdatedoctordetailById(doctor);
+                if (dtDoctor != null && dtDoctor.Rows.Count > 0)
+                {
+                    if (Convert.ToBoolean(dtDoctor.Rows[0]["EmailAvailable"]))
+                    {
+                        string usertype = Convert.ToString(Session["UserType"]);
+                        if (!TempData["Email"].Equals(doctor.Email))
+                        {
+                            bool isemailverfiy = true;
+                            string doctorid = Convert.ToString(dtDoctor.Rows[0]["UserId"]);
+                            String Usertype = "Doctor";
+                            string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
+                            string emailid = doctor.Email;
+                            string emailBody = EmailTemplates.SendEmailVerifcationtoUser(profile.LastName, doctorid, emailVerficationURL, Usertype, emailid, isemailverfiy);
+                            string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                            string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                            Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                            TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
+                            TempData["Email"] = doctor.Email;
+                            TempData["Image"] = doctor.Image;
+                        }
+                        else
+                        {
+                            TempData["message"] = "Details updated successfully.";
+                            TempData["Image"] = doctor.Image;
+                        }
+                        if (filename != "")
+                        {
+                            string strPhysicalFilePath = "";
+                            string strPhysicalFilePatholdimg = "";
+                            string oldimag = docOldImage;
+                            string[] array = { ".PNG", ".JPG", ".GIF", ".JPEG" };
+                            for (int i = 0; i < array.Length; i++)
+                            {
+                                if (filename.EndsWith(array[i]))
+                                {
+                                    filename = filename.Replace(array[i], array[i].ToLower());
+                                    break;
+                                }
+                            }
+                            string ImageUpoading_path = ConfigurationManager.AppSettings["DoctorPhotosPath"].ToString().Trim();
+                            string onlyFile = filename.Substring(filename.LastIndexOf('\\') + 1);
+                            string oldfile = oldimag.Substring(oldimag.LastIndexOf('\\') + 1);
+
+                            if (ImageUpoading_path != "")
+                            {
+                                strPhysicalFilePath = ImageUpoading_path + @"\" + onlyFile;
+                                strPhysicalFilePatholdimg = ImageUpoading_path + @"\" + oldfile;
+                                if (!Directory.Exists(ImageUpoading_path.Trim()))
+                                {
+                                    Directory.CreateDirectory(ImageUpoading_path.Trim());
+                                }
+                                if (!System.IO.File.Exists(strPhysicalFilePath))
+                                {
+                                    var path = Path.Combine(ImageUpoading_path, filename);
+                                    file.SaveAs(path);
+                                }
+                                else
+                                {
+                                    System.IO.File.Delete(strPhysicalFilePath);
+                                    var path = Path.Combine(ImageUpoading_path, filename);
+                                    file.SaveAs(path);
+                                }
+                            }
+                        }
+                        if (Convert.ToInt32(usertype) == Convert.ToInt32(UserType.Doctor))
+                        {
+                            HttpContext.Session["UserFirstName"] = doctor.FirstName;
+                            HttpContext.Session["UserLastName"] = doctor.LastName;
+                            HttpContext.Session["UserFullName"] = doctor.FirstName + " " + doctor.LastName;
+                            HttpContext.Session["UserMobileNo"] = doctor.MobileNo;
+                            HttpContext.Session["IsEmailVerified"] = doctor.IsEmailVerified;
+                        }
+                    }
+                    else
+                    {
+                        TempData["message"] = "Other User with same email address already exist. Please enter other email.";
+                    }
+                }
+            }
+            return RedirectToAction("DoctorProfile");
         }
     }
 }

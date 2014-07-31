@@ -577,6 +577,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\image\DoctorPhotos\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
     <Folder Include="Views\Home\obj\Debug\" />
   </ItemGroup>

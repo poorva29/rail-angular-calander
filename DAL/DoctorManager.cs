@@ -165,7 +165,7 @@ namespace DAL
             param[0] = new SqlParameter("@DOCID", DocId);
             using (conn = SqlHelper.GetSQLConnection())
             {
-                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails", param);
+                dsDoctorDetails = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_get_alldoctorsdetails", param);             
             }
             lstdoctors = populateDoctorDetails(dsDoctorDetails);
 
@@ -244,6 +244,7 @@ namespace DAL
                         dvdoctorsdetails = new DataView(dsDoctorDetails.Tables[4]);
                         string expression = "userid =" + doctorid;
                         string sortOrder = "";
+
                         datarows = dvdocspecialities.Table.Select(expression, sortOrder);
                         foreach (DataRow dr1 in datarows)
                         {

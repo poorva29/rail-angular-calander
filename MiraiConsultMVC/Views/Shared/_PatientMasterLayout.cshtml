@@ -63,7 +63,7 @@
                                             }
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                             {
-                                                <li><a href=""><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="@Url.Action("DoctorProfile","Doctors")"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/User/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             <li>
@@ -376,8 +376,6 @@
             </div>
         @*</form>*@
     </div>
-    <script type="text/javascript" src="../Scripts/autocomplete.js"></script>
-    
     <script type="text/javascript">
         $(".navigation").on('click', 'li', function () {
             $(".navigation li.active").removeClass("active"); //Remove any "active" class

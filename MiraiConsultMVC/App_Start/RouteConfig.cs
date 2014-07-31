@@ -14,6 +14,7 @@ namespace MiraiConsultMVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("Services/UserService.svc/{*pathInfo}");
+            routes.IgnoreRoute("Content/image/DoctorPhotos/{*pathInfo}");
 
            
 

@@ -34,7 +34,24 @@ namespace MiraiConsultMVC.Controllers
             }
             QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
 
-            AssignDoctors = QuestionDetails.Tables[2];
+            if (QuestionDetails.Tables[2].Rows.Count != 0)
+            {
+                AssignDoctors = QuestionDetails.Tables[2];
+            }
+            else
+            {
+                AssignDoctors = QuestionDetails.Tables[2];
+                DataRow row = AssignDoctors.NewRow();
+                row["id"] = 0;
+                row["name"] = "";
+                row["cities"] = "";
+                row["specialities"] = "";
+                row["userid"] = 0;
+                row["locations"] = "";
+                
+                AssignDoctors.Rows.Add(row);
+
+            }
 
 
             DataTable dtTags = UtilityManager.getInstance().getAlltags();
@@ -57,16 +74,26 @@ namespace MiraiConsultMVC.Controllers
                 }).ToList();
 
                 int[] values = new int[Selectedtags.Count];
-                for (int i=0; i < Selectedtags.Count; i++)
-	            {
-		            values[i] = Selectedtags.ToList()[i].tagid;
-	            }
+                for (int i = 0; i < Selectedtags.Count; i++)
+                {
+                    values[i] = Selectedtags.ToList()[i].tagid;
+                }
 
                 MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
+
                 ViewBag.tags = makeSelected;
             }
+            else
+            {
+                tag ObjectTag = new tag();
+                ObjectTag.tagid = 0;
+                ObjectTag.tagname = "";
 
+                tags.Add(ObjectTag);
+                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", tags);
 
+                ViewBag.tags = makeSelected;
+            }
 
             List<AssignQuestion> viewmodel = new List<AssignQuestion>();
 

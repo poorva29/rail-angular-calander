@@ -63,7 +63,7 @@
                     <div class="row-fluid">
                         <div class="span12 btn-padding-left">
                             <div class="span8 pull-right btn-padding-left controls-right-padding offset4">
-                                <input id="chkRemember" class="chkbox" type="checkbox" /><label class="chkLabel">Remember me</label>
+                                @Html.CheckBoxFor(u => u.RememberMe, new { @class = "chkbox" })  <label class="chkLabel">Remember me</label>   
                             </div>
                         </div>
                     </div>

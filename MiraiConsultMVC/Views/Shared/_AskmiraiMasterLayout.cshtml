@@ -57,7 +57,7 @@
                                             </ul>
                                         </div>
                                     }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()))
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()) || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home"))
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -174,8 +174,7 @@
                                                 <li><a href="/User/Managedoctor"><i class="icon-edit"></i>My Account</a></li>
                                                 }
                                                 <li>
-                                                    <asp:LinkButton ID="linkLogout" OnClientClick="return confirm('Are you sure you want to logout?');" runat="server" CausesValidation="false"
-                                                                    OnClick="linkLogout_Click"><i class="icon-off"></i>Logout</asp:LinkButton>
+                                                    <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"><i class="icon-off"></i>Logout</a>
                                                 </li>
                                             </ul>
                                         </li>

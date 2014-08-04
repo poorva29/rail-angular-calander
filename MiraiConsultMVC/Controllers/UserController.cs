@@ -12,12 +12,10 @@ using System.Data;
 using System.Reflection;
 using System.Data.SqlClient;
 using System.Data.Linq;
-using System.Reflection;
 using System.Data.Linq.Mapping;
 using MiraiConsultMVC;
 using System.IO;
 using Model;
-using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -593,25 +591,26 @@ namespace MiraiConsultMVC.Controllers
         }
 
           [HttpPost]
-        public ActionResult ForgotPassword(string name)
+        public ActionResult ForgotPassword(Login log )
         {
+            string name = log.Email;
             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
             var UserRecord = db.users.FirstOrDefault(x => x.email.Equals(name));
             if (UserRecord != null)
             {
-                string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
-                string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname+" "+UserRecord.lastname, emailVerficationURL);
-                string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
-                Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
-                ViewBag.success="true";
-                ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
+                    string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
+                    string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname + " " + UserRecord.lastname, emailVerficationURL);
+                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
+                    ViewBag.success = "true";
+                    ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
             }
-            else{
+            else
+            {
                   ViewBag.success="false";
                   ViewBag.Msg = "Invalid email address or you have not verified your email address.";
             }
-
             return View(); //return some view to the user
         }
 

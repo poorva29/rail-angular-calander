@@ -66,7 +66,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
                     db.SubmitChanges();
-                    ViewBag.errorMsg = "Password has been changed successfully.";
+                    ViewBag.success = "Password has been changed successfully.";
                     return View();
                 }
                 else

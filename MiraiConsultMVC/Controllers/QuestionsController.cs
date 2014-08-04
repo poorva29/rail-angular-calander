@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
 using System.Configuration;
-
+using DAL;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 namespace MiraiConsultMVC.Controllers
 {
     public class QuestionsController : Controller
@@ -19,20 +22,20 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userId = 0,bool filter = false)
+        public ActionResult DoctorQuestionList(int userId = 0, bool filter = false)
         {
             if (Session["userid"] != null)
             {
                 userId = Convert.ToInt32(Session["userid"].ToString());
             }
             IList<QuestionModel> Questions = new List<QuestionModel>();
-            
+
             db = new _dbAskMiraiDataContext();
             var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
             QuestionModel QModel;
             AnswerModel AModel;
 
-            
+
             if (QuestionsById != null && QuestionsById.Count > 0)
             {
                 foreach (var question in QuestionsById)
@@ -46,7 +49,7 @@ namespace MiraiConsultMVC.Controllers
                     {
                         QModel.AnsweredBy = Convert.ToInt32(question.answeredby);
                     }
-                    if (question.answertext!=null)
+                    if (question.answertext != null)
                     {
                         AModel.AnswerText = Convert.ToString(question.answertext);
                         QModel.answers.Add(AModel);
@@ -68,6 +71,7 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
+                TempData["QuestionId"] = QuestionId;
                 BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
                 int userId = Convert.ToInt32(Session["UserId"]);
                 IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
@@ -111,6 +115,128 @@ namespace MiraiConsultMVC.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult DoctorQuestionDetails(FormCollection formCollection, HttpPostedFileBase file)
+        {
+            IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
+            if (ModelState.IsValid)
+            {
+                int userId = 0;
+                DataSet QuestionDetails;
+                int QuestionId = Convert.ToInt32(TempData["QuestionId"]);
+                if (Session["UserId"] != null)
+                {
+                    userId = Convert.ToInt32(Session["UserId"].ToString());
+                }
+                file = Request.Files["AnswerImg"];
+                string filename = file.FileName;
+                if (!string.IsNullOrEmpty(filename))
+                {
+                    filename = Convert.ToString(QuestionId) + Convert.ToString(userId) + filename;
+                }
+                string answer = formCollection["answerText"]; ;
+                string title = "";
+                if (!String.IsNullOrEmpty(formCollection["Title"]))
+                {
+                    title = formCollection["Title"];
+                }
+                int result = QuestionManager.getInstance().SaveDoctorAnswer(QuestionId, userId, title, answer, filename);
+                if (result > 0)
+                {
+                    if (result == 1)
+                        ViewBag.lblSuccessMessage = "Thank you for answering the question.";
+                    else
+                        ViewBag.lblSuccessMessage = null;
+                    QuestionDtlModel qm;
+                    db = new _dbAskMiraiDataContext();
+                    System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(QuestionId, userId, 0, 1);
+                    QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(QuestionId, userId, Convert.ToInt32(QuestionStatus.Approved));
+                    foreach (var item in ModelQuestion)
+                    {
+                        qm = new QuestionDtlModel();
+                        qm.AnswerDate = Convert.ToDateTime(item.answerdate);
+                        qm.AnswerId = Convert.ToInt32(item.answerid);
+                        qm.AnswerImg = item.answerimg;
+                        qm.AnswerText = item.answertext;
+                        qm.CreateDate = Convert.ToDateTime(item.createdate);
+                        qm.DocconnectDoctorId = item.docconnectdoctorid;
+                        qm.DocId = Convert.ToInt32(item.Docid);
+                        qm.Doctor = item.doctor;
+                        qm.DoctorImg = item.doctorimg;
+                        qm.Email = item.Email;
+                        qm.EndorseCount = Convert.ToInt32(item.endorsecount);
+                        qm.Gender = Convert.ToInt32(item.gender);
+                        qm.Id = item.id;
+                        qm.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
+                        qm.IsEndorse = Convert.ToBoolean(item.isendorse);
+                        qm.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
+                        qm.LastName = item.lastname;
+                        qm.MobileNo = item.mobileno;
+                        qm.PatientEmail = item.patientemail;
+                        qm.PatientLastName = item.patientlastname;
+                        qm.QuestionId = Convert.ToInt32(item.questionid);
+                        qm.QuestionText = item.questiontext;
+                        qm.status = Convert.ToInt32(item.status);
+                        qm.ThanxCount = Convert.ToInt32(item.thanxcount);
+                        qm.Title = item.title;
+                        qm.UserId = Convert.ToInt32(item.userid);
+                        QDModel.Add(qm);
+                    }
+                    if (filename != "")
+                    {
+                        string strPhysicalFilePath = "";
+                        string[] array = { ".PNG", ".JPG", ".GIF", ".JPEG" };
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            if (filename.EndsWith(array[i]))
+                            {
+                                filename = filename.Replace(array[i], array[i].ToLower());
+                                break;
+                            }
+                        }
+                        string ImageUpoading_path = ConfigurationManager.AppSettings["AnswerPhotosPath"].ToString().Trim();
+                        string onlyFile = filename.Substring(filename.LastIndexOf('\\') + 1);
+                        if (ImageUpoading_path != "")
+                        {
+                            strPhysicalFilePath = ImageUpoading_path + @"\" + onlyFile;
+                            if (!Directory.Exists(ImageUpoading_path.Trim()))
+                            {
+                                Directory.CreateDirectory(ImageUpoading_path.Trim());
+                            }
+                            if (!System.IO.File.Exists(strPhysicalFilePath))
+                            {
+                                var path = Path.Combine(ImageUpoading_path, filename);
+                                file.SaveAs(path);
+                            }
+                            else
+                            {
+                                System.IO.File.Delete(strPhysicalFilePath);
+                                var path = Path.Combine(ImageUpoading_path, filename);
+                                file.SaveAs(path);
+                            }
+                        }
+                    }
+                    for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)
+                    {
+                        if (QuestionDetails.Tables[0].Rows[i]["DocId"].ToString() == Convert.ToString(userId))
+                        {
+                            string msgText = ConfigurationManager.AppSettings["OnDocAnswerAssignQuestionSendEmail"].ToString();
+                            string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
+                            string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                            string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);
+                            string BookAppointmentUrl = ConfigurationManager.AppSettings["BookAppointmentLink"].ToString();
+                            string Patientemailbody = EmailTemplates.GetEmailTemplateOnQuestionAnswerToPatient(QuestionDetails.Tables[0].Rows[i]["patientlastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), BookAppointmentUrl, QuestionDetails.Tables[0].Rows[i]["DocId"].ToString());
+                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["patientemail"].ToString(), "Mirai Consult - The doctor answered your question", Patientemailbody, Logoimage);
+                            string SmsText = ConfigurationManager.AppSettings["OnDocAnswerQuestionSendSMS"].ToString();
+                            SMS.SendSMS(QuestionDetails.Tables[0].Rows[i]["mobileno"].ToString(), SmsText);
+                        }
+                    }
+                }
+            }
+            return View(QDModel);
         }
         public ActionResult QuestionDetails(int QuestionId)
         {

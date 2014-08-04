@@ -242,9 +242,7 @@
       <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
     <Compile Include="Utilities\askmiraiEnum.cs" />
-    <Compile Include="Utilities\BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Utilities\BasePage.cs" />
     <Compile Include="Utilities\EmailTemplates.cs" />
     <Compile Include="Utilities\Mail.cs" />
     <Compile Include="Utilities\SMS.cs" />
@@ -577,6 +575,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\image\answerImages\" />
     <Folder Include="Content\image\DoctorPhotos\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
     <Folder Include="Views\Home\obj\Debug\" />

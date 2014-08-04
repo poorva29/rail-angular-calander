@@ -389,6 +389,19 @@
             window.onorientationchange = reorient;
             window.setTimeout(reorient, 0);
         });
+        var tryNumber = 0;
+        jQuery('input[type=submit]').click(function (event) {
+            var self = $(this);
+            if (self.closest('form').valid()) {
+                if (tryNumber > 0) {
+                    tryNumber++;
+                    self.attr('disabled', true);
+                }
+                else {
+                    tryNumber++;
+                }
+            };
+        });
     </script>
 </body>
 </html>

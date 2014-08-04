@@ -1,10 +1,10 @@
 ﻿@model MiraiConsultMVC.Models.User.Login
-<script src="~/Content/js/bootstrap-dropdown.js"></script>
 <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="../Scripts/google-code-prettify/prettify.js"></script>
 <script type="text/javascript" src="../Scripts/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../Scripts/utility.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
 <div class="row-fluid">
     <div>
         <div class="row-fluid">
@@ -41,7 +41,6 @@
                                 <label class="control-label required form-horizontal control-label">Email ID:</label>
                                 </div>
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                    @*<input type="password" class="input-block-level gray-border txt-position" id="txtEmail" maxlength="40" textmode="Email Id" autocomplete="off" placeholder="Password" >*@
                                     @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border txt-position", maxlength = "40", textmode = "text", placeholder = "Email" })
                                     @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
@@ -54,9 +53,7 @@
                                 </div>
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
                                 @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position", maxlength = "30", type = "Password", placeholder = "Password" })
-
                                 @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
-                                @*<input type="password" class="input-block-level gray-border txt-position" id="txtPassword" maxlength="30" textmode="Password" placeholder="Password">*@
                             </div>
                         </div>
                     </div>

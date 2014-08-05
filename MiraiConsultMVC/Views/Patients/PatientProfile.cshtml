@@ -147,7 +147,7 @@
                                             }
                                             else
                                             {
-                                               @Html.DropDownListFor(m => Model.StateId, new SelectList("0"), new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width", id="ddlState" })
+                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width", id = "ddlState" })
                                             }
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList("0"), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width", id = "ddlCity" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width", id = "ddlCity" })
                                             }
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList("0"), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlLocation" })
+                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(string.Empty), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlLocation" })
                                             }
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Pin Code:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.Pincode, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width", placeholder = "Pin Code", maxlength = "6", id = "txtPinCode" })<br/>
+                                            @Html.TextBoxFor(m => m.Pincode, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width", placeholder = "Pin Code", @Value = (Model.Pincode == 0) ? "" : Model.Pincode.ToString(), maxlength = "6", id = "txtPinCode" })<br/>
                                             @Html.ValidationMessageFor(m => m.Pincode, string.Empty, new { @class = "validation-summary-errors" })                                            
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                     <div class="row-fluid cust-padding-bw-row">
                         <div class="span12 btn-padding-left btn-margin-top profile-button" style="text-align:center">
                             <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" id="btnUpdatePatientAccount" value="Update" onclick="return (validation());" />
-                            <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" value="Reset" onclick="ClearMessage()" />
+                            <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" onclick="window.location.href = '/Patients/PatientProfile'" value="Reset" onclick="ClearMessage()" />
                         </div>
                     </div>
                 </div>

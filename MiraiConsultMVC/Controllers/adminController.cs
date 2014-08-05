@@ -192,8 +192,9 @@ namespace MiraiConsultMVC.Controllers
                 string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                 string Logoimage = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\image\\LogoForMail.png";
                 Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(dtUserDetails.Rows[0]["email"]), "Mirai Consult - Your question has been rejected", emailBody, Logoimage);
-                string SmsText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListSMS"].ToString();
-                SMS.SendSMS(Convert.ToString(dtUserDetails.Rows[0]["mobileno"]), SmsText);
+                //SMS is stopped for patient
+                //string SmsText = ConfigurationManager.AppSettings["OnRemoveQuestionFromListSMS"].ToString();
+                // SMS.SendSMS(Convert.ToString(dtUserDetails.Rows[0]["mobileno"]), SmsText);
                 jsonObj = "Question has been Rejected successfully.";
 
             }

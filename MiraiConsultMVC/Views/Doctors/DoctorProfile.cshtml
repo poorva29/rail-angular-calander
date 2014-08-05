@@ -146,7 +146,15 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Country:</label>
                                     <div class="controls">
-                                        @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })
+                                        @if (Model.Countries != null)
+                                        {
+                                            ViewBag.countries = Model.Countries;
+                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width" })
+                                        }
                                     </div>
                                 </div>
                             </div>

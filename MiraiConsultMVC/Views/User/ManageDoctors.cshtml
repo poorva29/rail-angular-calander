@@ -75,7 +75,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        @Html.Partial("_DoctorDetails", Model);
+                                        @Html.Partial("_DoctorDetails", Model)
                                     </table>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
         }
     }
     function showDoctorDetailById(DoctorID) {
-        window.location.href = "/profile/doctorprofile?UserId=" + DoctorID;
+        window.location.href = "/Doctors/doctorprofile?UserId=" + DoctorID;
     }
     function EndRequestHandler() {
         initDataTable();

@@ -23,10 +23,19 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
-        public ActionResult DoctorProfile()
+        public ActionResult DoctorProfile(string UserId=null)
         {
+            int userId;
             BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorprofile));
-            return View(getDoctorDetailsByDoctorId(Convert.ToInt32(Session["UserId"])));
+            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+            {
+                userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+"))); ;
+            }
+            else
+            {
+                userId = Convert.ToInt32(Session["UserId"]);
+            }
+            return View(getDoctorDetailsByDoctorId(userId));
         }
         [HttpGet]
         public IList<Country> poupulateCountry()
@@ -102,7 +111,7 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Gender = Convert.ToInt32(doctor.Gender);
                 if (doctor.Address != null)
                     doctorDetail.Address = Convert.ToString(doctor.Address);
-                if (doctor.DateOfBirth !=null) 
+                if (doctor.DateOfBirth != null)
                     doctorDetail.DateOfBirth = Convert.ToDateTime(doctor.DateOfBirth);
                 if (doctor.CountryId != null && doctor.CountryId != 0)
                 {
@@ -110,7 +119,7 @@ namespace MiraiConsultMVC.Controllers
                     ViewBag.countries = new SelectList(countryList, "countryid", "name");
                     doctorDetail.CountryId = Convert.ToInt32(doctor.CountryId);
                 }
-                if(doctor.RegistrationCouncil != null)
+                if (doctor.RegistrationCouncil != null)
                 {
                     TempData["countryId"] = doctor.CountryId;
                     var regCouncilList = PopulateRegCouncilByCountry(doctor.CountryId);
@@ -160,7 +169,7 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Image = "..\\Content\\image\\img-na.png";
                 if (doctor.qualification != null)
                 {
-                    foreach(var qualification in doctor.qualification)
+                    foreach (var qualification in doctor.qualification)
                     {
                         doctorqualifications doctorqualification = new doctorqualifications();
                         if (!String.IsNullOrEmpty(Convert.ToString(qualification.DegreeId)))
@@ -264,7 +273,7 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult UpdateDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string SelectedDegreeId, string university)
         {
             int result = 0;
-            result = DoctorManager.getInstance().UpdateDegreeUniversityByDoctorAndDegrreId(doctorId, LastSelectedDegreeID, SelectedDegreeId, university);            
+            result = DoctorManager.getInstance().UpdateDegreeUniversityByDoctorAndDegrreId(doctorId, LastSelectedDegreeID, SelectedDegreeId, university);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult DeleteDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string university)
@@ -288,7 +297,7 @@ namespace MiraiConsultMVC.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Location_Insert(int doctorid, string address, string telephone, string clinicName, string countryId, string stateId, string cityId, string locationId,string docLocationId)
+        public JsonResult Location_Insert(int doctorid, string address, string telephone, string clinicName, string countryId, string stateId, string cityId, string locationId, string docLocationId)
         {
             int docLocID;
             string msg = "";
@@ -302,7 +311,7 @@ namespace MiraiConsultMVC.Controllers
             }
             DoctorLocations docLocation = new DoctorLocations();
             docLocation.DoctorLocationId = docLocID;
-            if(!string.IsNullOrEmpty(address))
+            if (!string.IsNullOrEmpty(address))
             {
                 docLocation.Address = address;
             }
@@ -379,7 +388,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     filename = Convert.ToString(Session["UserId"]) + filename;
                 }
-                if (file.FileName!= null)
+                if (file.FileName != null)
                 {
                     doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
                     doctor.Image = filename;
@@ -400,7 +409,7 @@ namespace MiraiConsultMVC.Controllers
                 }
                 doctor.AboutMe = profile.AboutMe;
 
-                var lstSpeciality = collection["lstspecialities"];             
+                var lstSpeciality = collection["lstspecialities"];
                 string[] specilaity = lstSpeciality.Split(',');
                 foreach (var specialityId in specilaity)
                 {

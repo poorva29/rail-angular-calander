@@ -11,7 +11,7 @@
         string encDoctorId = HttpUtility.UrlEncode(Utilities.Encrypt(DoctorId));
         <tr>
             <td style='word-wrap: break-word'>
-                Dr. @doctor.FirstName doctor.LastName
+                Dr. @doctor.FirstName @doctor.LastName
             </td>
             <td style='word-wrap: break-word'>
                 @doctor.RegistrationDate.ToString("dd/MM/yyyy")

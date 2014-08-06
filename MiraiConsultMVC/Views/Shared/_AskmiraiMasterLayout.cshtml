@@ -49,7 +49,7 @@
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails"))
+                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">

@@ -90,11 +90,11 @@ function isEnterPress(evt, x) {
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode == 13) {
 
-        var session = '<%=Session["userType"]%>';
-        if (session != null && session == 2)
-            window.location.href = "../patient/askdoctor.aspx?question=" + x.value;
-        else
-            window.location.href = "../Patients/similarQuestions?question=" + x.value;
+        //var session = '<%=Session["userType"]%>';
+        //if (session != null && session == 2)
+        //    window.location.href = "../patient/askdoctor.aspx?question=" + x.value;
+        //else
+        window.location.href = "../Patients/similarQuestions?question=" + x.value;
         return false;
     }
     return true;

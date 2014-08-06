@@ -97,7 +97,7 @@
                                     }
 
                                     <div class='span11 middle-size-padding'>
-                                        @if (string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
+                                        @if (!string.IsNullOrEmpty( Model.ToList()[i].answers[0].AnswerImage))
                                         {
                                             <div class='span5 '>
                                                 <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>

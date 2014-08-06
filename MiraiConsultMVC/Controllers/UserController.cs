@@ -156,6 +156,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     Session["UserFirstName"] = "super";
                     Session["UserLastName"] = "admin";
+                    Session["UserFullName"] = "Super Admin";
                     Session["UserEmail"] = SuperAdminEmailId;
                     Session["UserId"] = 9999999;
                     Session["UserType"] = 0;

@@ -68,6 +68,8 @@ namespace MiraiConsultMVC.Models
         [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Please enter valid email address.")]
         public string Email { get { return email; } set { email = value; } }
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
+
+        [RegularExpression(@"^\d{1,4}(\.\d{1,2})?$", ErrorMessage = "Please enter valid Height.")]
         public int Height { get { return height; } set { height = value; } }
         public int Gender { get { return gender; } set { gender = value; } }
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
@@ -86,6 +88,8 @@ namespace MiraiConsultMVC.Models
         public int StateId { get { return stateid; } set { stateid = value; } }
         public int CityId { get { return cityid; } set { cityid = value; } }
         public int LocationId { get { return locationid; } set { locationid = value; } }
+
+        [RegularExpression(@"^\d{1,4}(\.\d{1,2})?$", ErrorMessage = "Please enter valid Weight.")]
         public decimal Weight { get { return weight; } set { weight = value; } }
         public DateTime RegistrationDate { get { return registrationdate; } set { registrationdate = value; } }
         public int Status { get { return status; } set { status = value; } }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
 @{
     ViewBag.Title = "similarQuestions";
-    if (Session["UserId"] != null &&  Convert.ToInt32(Session["UserType"]) == Convert.ToInt32( UserType.Patient))
+    if (Session["UserId"] != null)
     {
         Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
     }
@@ -19,7 +19,7 @@
             <div class="row-fluid">
                 <div style="margin-top:5%">
                     <div class='row-fluid span7'>
-                        <textarea cols="50" id="QuestionText" name="QuestionText" rows="2" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container" rows="2">@ViewBag.Question</textarea>
+                        <textarea cols="50" id="QuestionText" name="QuestionText" rows="2" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container">@ViewBag.Question</textarea>
                     </div>
                     <div class="row-fluid">
                         <div class="span3">
@@ -97,7 +97,7 @@
                                     }
 
                                     <div class='span11 middle-size-padding'>
-                                        @if (Model.ToList()[i].answers[0].AnswerImage != null)
+                                        @if (string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
                                         {
                                             <div class='span5 '>
                                                 <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
@@ -111,17 +111,16 @@
                                         else
                                         {
                                             <div class='span11'>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerImage</p>
+                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
                                             </div>
-
                                         }
                                     </div>
-
                                 </div>
                                 if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                 {
+                                    var href =(Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])+MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))+"&frmaskmirai=1").Trim();
                                     <div class="span3 offset1 pull-left visible-phone">
-                                        <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
+                                        <a class='btn book_appt_button' href='href' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
                                     </div>
                                     <br />
                                 }

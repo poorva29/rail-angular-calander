@@ -7,7 +7,7 @@
            strUrl = 'Home/AutoComplete';
         }
         else{
-           strUrl = 'AutoComplete';
+            strUrl = '../Home/AutoComplete';
         }
         $("#txtsearch").autocomplete({
             source: function (request, response) {
@@ -23,7 +23,7 @@
                             temp.innerHTML = item.questiontext;
                             return {
                                 label: temp.firstChild.nodeValue,
-                                value: 'Patients/PatientQuestionDetails?questionid=' + item.questionid
+                                value: '../Patients/PatientQuestionDetails?questionid=' + item.questionid
                             }
                         }));
                     },

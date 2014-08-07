@@ -20,7 +20,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="row-fluid img-bgcolor">
-                            <img src="../Content/image/askDoctors1.png" id="dispImage"/>
+                            <img src="../Content/image/askDoctors1.png" id="dispImage" />
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         <div class="control-group">
                             <div id="ansCount">
                                 <label class="finddoc-title">Relevant answers</label>
-                                <hr class="hr_margin" />                               
+                                <hr class="hr_margin" />
                             </div>
                         </div>
                     </div>
@@ -137,30 +137,37 @@
 
     $("#btnAskMirai").click(function () {
         var questionText = document.getElementById('txtAreaQuestion').value;
-        $.ajax({
-            type: "GET",
-            url: 'question_Insert?questionText=' + questionText,
-            datatype: "JSON",
-            contentType: "application/json; charset=utf-8",
-            success: function (returndata) {
-                if(returndata == 1)
-                {
-                    document.getElementById('dispImage').src = '../Content/image/askDoctors3.png';
-                    document.getElementById('msglabel').style.display = 'block';
-                    document.getElementById('msglabel').innerHTML = "Your Question has been sent for review and it is added to your activity. You will be notified when it is answered.";
-                    document.getElementById('buttonDiv').style.display = 'none';
-                    document.getElementById('msglabel').className = 'alert alert-success';
-                    document.getElementById('btnAskMirai').style.display = 'none';
-                    document.getElementById('txtAreaQuestion').style.display = 'none'; 
-                    document.getElementById('searchResultSpan').innerHTML = '';
-                    document.getElementById('ansCount').style.display = 'none';
+        if (questionText == null || questionText == '') {
+            document.getElementById('lblValidation').style.display = 'block';
+            document.getElementById('lblValidation').innerHTML = "Please Enter Question";
+            return true;
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                url: 'question_Insert?questionText=' + questionText,
+                datatype: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (returndata) {
+                    if (returndata == 1) {
+                        document.getElementById('dispImage').src = '../Content/image/askDoctors3.png';
+                        document.getElementById('msglabel').style.display = 'block';
+                        document.getElementById('msglabel').innerHTML = "Your Question has been sent for review and it is added to your activity. You will be notified when it is answered.";
+                        document.getElementById('buttonDiv').style.display = 'none';
+                        document.getElementById('msglabel').className = 'alert alert-success';
+                        document.getElementById('btnAskMirai').style.display = 'none';
+                        document.getElementById('txtAreaQuestion').style.display = 'none';
+                        document.getElementById('searchResultSpan').innerHTML = '';
+                        document.getElementById('ansCount').style.display = 'none';
+                    }
+                },
+                error: function (data) {
+                    if (data.responseText.indexOf('Authentication failed') > -1) {
+                        alert(data);
+                    }
                 }
-            },
-            error: function (data) {
-                if (data.responseText.indexOf('Authentication failed') > -1) {
-                    alert(data);
-                }
-            }
-        });
+            });
+            return false;
+        }
     });
 </script>

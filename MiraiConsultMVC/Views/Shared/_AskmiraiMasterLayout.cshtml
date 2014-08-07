@@ -57,7 +57,7 @@
                                             </ul>
                                         </div>
                                     }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()) || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home"))
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()) || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -121,7 +121,7 @@
                                         </div>
 
                                     }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/User/Login"))
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/User/Login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">

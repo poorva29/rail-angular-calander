@@ -47,7 +47,7 @@ namespace MiraiConsultMVC.Models
         [Required(ErrorMessage = "Please Enter First Name.")]
         public string FirstName { get { return firstname; } set { firstname = value; } }
 
-        [Required(ErrorMessage = "Please lkkdkdk Last Name.")]
+        [Required(ErrorMessage = "Please Enter Last Name.")]
         public string LastName { get { return lastname; } set { lastname = value; } }
 
         [Required(ErrorMessage = "Please Enter Email.")]

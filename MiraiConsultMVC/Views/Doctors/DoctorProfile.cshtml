@@ -11,7 +11,7 @@
 <script src="~/Scripts/jquery.dataTables.js"></script>
 <script src="~/Scripts/bootstrap-pagination.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
-@*<script src="~/Scripts/dateofbirthvalidation.js"></script>*@
+<script src="~/Scripts/dateofbirthvalidation.js"></script>
 <script src="~/Scripts/utility.js"></script>
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("DoctorProfile", "Doctors", FormMethod.Post, new { @encType = "multipart/form-data" }))
@@ -584,14 +584,11 @@
             return false;
         }
     }
-
-
-    //$("btnLocationSubmit").click(function () {
-    //    if ($("#txtTelephoneNo").val().trim().length > 0)
-    //        return validateTelephone();
-    //    else
-    //        return true;
-    //})
+    $("#txtDob").focusout(function () {
+        var cntrl = $(this);
+        if (cntrl.val().length > 0)
+            isValidDateofBirth(cntrl);
+    })
     $(document).ready(function () {
         var refUrl = document.referrer;
         if (refUrl.indexOf("ManageDoctors.aspx") >= 0) {
@@ -606,7 +603,6 @@
         $("#txtTelephoneNo").keypress(function () {
             validateTelephone();
         });
-
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -622,25 +618,7 @@
             }
         });
     });
-    function isNumber(evt, num, txt) {
-        evt = (evt) ? evt : window.event;
-        var len = $(txt).val().length;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if ((charCode > 31 && (charCode < 48 || charCode > 57)) || len >= num) {
-            return false;
-        }
-        return true;
-    }
-
-    function isDecimalNumber(evt, num, txt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        var len = $(txt).val().length;
-        if ((charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) || len >= num) {
-            return false;
-        }
-        return true;
-    }
+    
     function ValidateAllControl() {
         var errormsg = "";
         if (document.getElementById("txtFirstName").value == "") {

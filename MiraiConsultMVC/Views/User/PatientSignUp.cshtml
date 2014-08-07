@@ -43,9 +43,9 @@
 
                             @if (ViewBag.message != null && ViewBag.message == "This email is not available. Please select a different email.")
                             {
-                                <div class="wrapper-bordered alert alert-error" id="SuccessMessagediv">
+                                <div class="wrapper-bordered">
                                     <div class="row-fluid">
-                                        <div class="span12 " id="errorMessageDiv">
+                                        <div class="span12 alert-error alert" id="errorMessageDiv">
                                             <label id="lblErrorMessage">@ViewBag.message</label>
                                         </div>
                                     </div>

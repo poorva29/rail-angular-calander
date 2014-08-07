@@ -653,7 +653,6 @@ namespace MiraiConsultMVC.Controllers
           return View(modelUser);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult PatientSignUp(ModelUser values)
         {
             if (ModelState.IsValid)

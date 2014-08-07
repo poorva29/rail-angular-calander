@@ -24,6 +24,7 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult DoctorQuestionList(int userId = 0, bool filter = false)
         {
+            Session["UnQuestionCount"] = showUnansweredQuestionCount();
             if (Session["userid"] != null)
             {
                 userId = Convert.ToInt32(Session["userid"].ToString());
@@ -71,6 +72,7 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
+                Session["UnQuestionCount"] = showUnansweredQuestionCount();
                 TempData["QuestionId"] = QuestionId;
                 BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
                 int userId = Convert.ToInt32(Session["UserId"]);
@@ -222,6 +224,7 @@ namespace MiraiConsultMVC.Controllers
                     {
                         if (QuestionDetails.Tables[0].Rows[i]["DocId"].ToString() == Convert.ToString(userId))
                         {
+                            Session["UnQuestionCount"] = showUnansweredQuestionCount();
                             string msgText = ConfigurationManager.AppSettings["OnDocAnswerAssignQuestionSendEmail"].ToString();
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
@@ -237,6 +240,14 @@ namespace MiraiConsultMVC.Controllers
                 }
             }
             return View(QDModel);
+        }
+        private int showUnansweredQuestionCount()
+        {
+            if (Session["UserId"] != null && Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+            {
+                return QuestionManager.getInstance().getUnansweredQuestionCount(Convert.ToInt32(Session["UserId"]));
+            }
+            return 0;
         }
         public ActionResult QuestionDetails(int QuestionId)
         {

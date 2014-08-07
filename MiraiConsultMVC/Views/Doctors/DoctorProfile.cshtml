@@ -13,6 +13,7 @@
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 @*<script src="~/Scripts/dateofbirthvalidation.js"></script>*@
 <script src="~/Scripts/utility.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("DoctorProfile", "Doctors", FormMethod.Post, new { @encType = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -66,8 +67,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">First Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name",id="txtFirstName" })
-                                        <label id="lblErrorFirstName" style="color:red"></label>
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name",id="txtFirstName" })<br />
+                                        @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -75,8 +76,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">Last Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name", id="txtLastName" })
-                                        <label id="lblErrorLstName" style="color:red"></label>
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name", id="txtLastName" })<br />
+                                        @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -86,8 +87,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Mobile No:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15",id="txtMobileNo" })
-                                        <label id="lblErrorMobileNo" style="color:red"></label>
+                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15",id="txtMobileNo" })<br />
+                                        @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +96,8 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label required cust-font-style ">Email:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email",id="txtEmail"})
-                                        <label id="lblErrorEmail" style="color:red"></label>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email", id = "txtEmail" })<br />
+                                        @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
                             </div>
@@ -107,8 +108,8 @@
                                     <label class="control-label cust-font-style">Date of Birth:</label>
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
-                                             data-date-enddate="new Date()" style="width: 65%">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", placeholder = "Date Of Birth", id = "txtDob" })
+                                             data-date-enddate="new Date()">
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", @placeholder = "Date Of Birth", @id = "txtDob", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy") })
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             <label id="lblErrorDateOfBirth" style="color:red"></label>
                                         </div>
@@ -346,7 +347,8 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Telephone No:</label>
                                         <div class="controls">
-                                            <input type="text" id="txtTelephoneNo" class="input-block-level max-width min-width cust-no-border cust-gray" maxlength="15" width="233px">
+                                            <input type="text" id="txtTelephoneNo" class="input-block-level max-width min-width cust-no-border cust-gray" maxlength="15" width="233px"><br />
+                                            <span id="telephoneValidatior" style="color: red; display: inline;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +367,7 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 btn-margin-top btn-margin-bottom profile-button docprofile-btn-padding" style="text-align: center">
-                            <input type="submit" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" onclick="if(!validateclinicdata())return false;" value="Save" />
+                            <input type="submit" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" />
                             <input type="button" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" onclick="closeDiv(); return false;" value="Close" />
                         </div>
                     </div>
@@ -570,6 +572,26 @@
         window.location.hash = '#tab2';
         window.location.reload(true);
     }
+
+    function validateTelephone() {
+        var filter = /^[0-9., [\](\) -]{8,33}$/;
+        var value = $("#txtTelephoneNo").val();
+        if (filter.test(value)) {
+            $("#telephoneValidatior").html('');
+            return true
+        } else {
+            $("#telephoneValidatior").html("Please enter valid telephone number.");
+            return false;
+        }
+    }
+
+
+    //$("btnLocationSubmit").click(function () {
+    //    if ($("#txtTelephoneNo").val().trim().length > 0)
+    //        return validateTelephone();
+    //    else
+    //        return true;
+    //})
     $(document).ready(function () {
         var refUrl = document.referrer;
         if (refUrl.indexOf("ManageDoctors.aspx") >= 0) {
@@ -580,6 +602,10 @@
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
+
+        $("#txtTelephoneNo").keypress(function () {
+            validateTelephone();
+        });
 
         $.ajax({
             type: 'GET',
@@ -596,7 +622,25 @@
             }
         });
     });
-   
+    function isNumber(evt, num, txt) {
+        evt = (evt) ? evt : window.event;
+        var len = $(txt).val().length;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) || len >= num) {
+            return false;
+        }
+        return true;
+    }
+
+    function isDecimalNumber(evt, num, txt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        var len = $(txt).val().length;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) || len >= num) {
+            return false;
+        }
+        return true;
+    }
     function ValidateAllControl() {
         var errormsg = "";
         if (document.getElementById("txtFirstName").value == "") {
@@ -1331,10 +1375,12 @@
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 if (returndata != 0) {
-                    alert('Clinic details updated successfully.');
+                    if (validateclinicdata() && validateTelephone())
+                        alert('Clinic details updated successfully.');
                 }
                 else if (returndata == 0) {
-                    alert('New clinic details added successfully.');
+                    if (validateclinicdata() && validateTelephone())
+                        alert('New clinic details added successfully.');
                 }
             },
             error: function (data) {

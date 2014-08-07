@@ -654,29 +654,29 @@ namespace MiraiConsultMVC.Controllers
           return View(modelUser);
         }
         [HttpPost]
-        public ActionResult PatientSignUp(ModelUser modelUser)
+        public ActionResult PatientSignUp(ModelUser values)
         {
             if (ModelState.IsValid)
             {
-                modelUser.Password = Utilities.Encrypt(modelUser.Password);
-                modelUser.RegistrationDate = DateTime.Now;
-                modelUser.UserType = Convert.ToInt32(UserType.Patient);
-                modelUser.UserId = Convert.ToInt32(Session["UserId"]);
-                modelUser.Status = Convert.ToInt32(UserStatus.Pending);
-                modelUser.IsEmailVerified = false;
-                if (modelUser.DateOfBirth != null)
-                modelUser.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
-                var result = (db.askmirai_patient_Insert_Update(modelUser.FirstName, modelUser.LastName, modelUser.Email, modelUser.MobileNo, modelUser.Gender, modelUser.DateOfBirth, modelUser.CountryId, modelUser.StateId, modelUser.LocationId, modelUser.CityId, modelUser.Password, modelUser.Height, modelUser.Weight, modelUser.Address, modelUser.Pincode, modelUser.UserId, modelUser.RegistrationDate, modelUser.Status, modelUser.UserType, modelUser.UserName, modelUser.IsEmailVerified)).ToList();
+                values.Password = Utilities.Encrypt(values.Password);
+                values.RegistrationDate = DateTime.Now;
+                values.UserType = Convert.ToInt32(UserType.Patient);
+                values.UserId = Convert.ToInt32(Session["UserId"]);
+                values.Status = Convert.ToInt32(UserStatus.Pending);
+                values.IsEmailVerified = false;
+                if (values.DateOfBirth != null)
+                    values.DateOfBirth = DateTime.Parse(Convert.ToString(values.DateOfBirth));
+                var result = (db.askmirai_patient_Insert_Update(values.FirstName, values.LastName, values.Email, values.MobileNo == null ? "" : values.MobileNo, values.Gender, values.DateOfBirth, values.CountryId, values.StateId, values.LocationId, values.CityId, values.Password, values.Height, values.Weight, values.Address, values.Pincode, values.UserId, values.RegistrationDate, values.Status, values.UserType, values.UserName, values.IsEmailVerified)).ToList();
                 var res = result.FirstOrDefault();
                 if (Convert.ToBoolean(res.EmailAvailable))
                 {
                     string patientid = Convert.ToString(res.UserId);
                     string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
-                    string emailBody = EmailTemplates.SendNotificationEmailtoUser(modelUser.FirstName, patientid, emailVerficationURL, "Patient");
+                    string emailBody = EmailTemplates.SendNotificationEmailtoUser(values.FirstName, patientid, emailVerficationURL, "Patient");
 
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                    Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";   
                 }
                 else if (!Convert.ToBoolean(res.EmailAvailable))
@@ -685,22 +685,22 @@ namespace MiraiConsultMVC.Controllers
                 }
             }
             var countryList = poupulateCountry();
-            modelUser.Countries = new SelectList(countryList, "countryid", "name");
-            modelUser.CountryId = modelUser.CountryId;
+            values.Countries = new SelectList(countryList, "countryid", "name");
+            values.CountryId = values.CountryId;
 
-            var stateList = poupulateState(Convert.ToInt32(modelUser.CountryId));
-            modelUser.States = new SelectList(stateList, "stateId", "name");
-            modelUser.StateId = Convert.ToInt32(modelUser.StateId);
+            var stateList = poupulateState(Convert.ToInt32(values.CountryId));
+            values.States = new SelectList(stateList, "stateId", "name");
+            values.StateId = Convert.ToInt32(values.StateId);
 
-            var cityList = poupulateCity(Convert.ToInt32(modelUser.StateId));
-            modelUser.Cities = new SelectList(cityList, "cityId", "name");
-            modelUser.CityId = Convert.ToInt32(modelUser.CityId);
+            var cityList = poupulateCity(Convert.ToInt32(values.StateId));
+            values.Cities = new SelectList(cityList, "cityId", "name");
+            values.CityId = Convert.ToInt32(values.CityId);
 
-            var locationList = poupulateLocation(Convert.ToInt32(modelUser.CityId));
-            modelUser.Locations = new SelectList(locationList, "locationId", "name");
-            modelUser.LocationId = Convert.ToInt32(modelUser.LocationId);
+            var locationList = poupulateLocation(Convert.ToInt32(values.CityId));
+            values.Locations = new SelectList(locationList, "locationId", "name");
+            values.LocationId = Convert.ToInt32(values.LocationId);
 
-            return View(modelUser);
+            return View(values);
         }
         [HttpGet]
         public ActionResult DoctorSignUp()
@@ -725,32 +725,39 @@ namespace MiraiConsultMVC.Controllers
         [HttpPost]
         public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file, FormCollection collection)
         {
-            DataTable dtDoctor = null;
+            DataTable dtDoctor = null;           
             if (ModelState.IsValid)
             {
                 User doctor = new User();
                 string filename = "";
-                filename = file.FileName;
-                var lstSpeciality = collection["specialities"];
-                string[] specilaity = lstSpeciality.Split(',');
-                foreach (var specialityId in specilaity)
+                if (file != null && !string.IsNullOrEmpty(file.FileName))
+                    filename = file.FileName;
+                string lstSpeciality = "";
+                if (collection != null && collection["specialities"] != null)
                 {
-                    DoctorSpeciality speciality = new DoctorSpeciality();
-                    speciality.SpecialityId = Convert.ToInt32(specialityId);
-                    doctor.specialities.Add(speciality);
-                    //doctor.AddSpeciality(speciality);
+                    lstSpeciality = collection["specialities"];
+                    string[] specilaity = lstSpeciality.Split(',');
+                    foreach (var specialityId in specilaity)
+                    {
+                        DoctorSpeciality speciality = new DoctorSpeciality();
+                        speciality.SpecialityId = Convert.ToInt32(specialityId);
+                        doctor.specialities.Add(speciality);
+                        //doctor.AddSpeciality(speciality);
+                    }
                 }
                 doctor.Image = filename;
                 modelUser.Image=filename;
                 doctor.FirstName = modelUser.FirstName;
                 doctor.LastName = modelUser.LastName;
-                doctor.Gender = modelUser.Gender;
-                doctor.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
+                doctor.Gender = Convert.ToInt32(modelUser.Gender);
+                if (!string.IsNullOrEmpty(Convert.ToString(modelUser.DateOfBirth)))
+                    doctor.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
                 doctor.Email = modelUser.Email;
-                doctor.MobileNo = modelUser.MobileNo;
+                doctor.MobileNo = modelUser.MobileNo == null ? "" : modelUser.MobileNo;
                 string encpassword = Utilities.Encrypt(modelUser.Password);
                 doctor.Password = encpassword;
                 doctor.CountryId = Convert.ToInt32(modelUser.CountryId);
+                TempData["CountryId"] = doctor.CountryId;
                 doctor.RegistrationNumber = modelUser.RegistrationNumber;
                 doctor.RegistrationCouncil = Convert.ToInt32(modelUser.Regcouncilid);//modelUser.Regcouncilid);
                 doctor.AboutMe = modelUser.AboutMe;
@@ -822,6 +829,8 @@ namespace MiraiConsultMVC.Controllers
             modelUser.hdnRegcouncilid=modelUser.Regcouncilid;
             var countryList = poupulateCountry();
             modelUser.Countries = new SelectList(countryList, "countryid", "name");
+            var regconlist = new DoctorsController().PopulateRegCouncilByCountry(Convert.ToInt32(TempData["CountryId"]));
+            modelUser.Councils = new SelectList(regconlist, "regcouncilid", "name");
             DataTable dtSpecialities = DAL.UtilityManager.getInstance().getAllSpecialities();
             List<speciality> specialities = new List<speciality>();
             specialities = dtSpecialities.AsEnumerable().Select(dataRow => new speciality

@@ -44,9 +44,17 @@ namespace MiraiConsultMVC.Models
         
 
         public int UserId { get { return userid; } set { userid = value; } }
+        [Required(ErrorMessage = "Please Enter First Name.")]
         public string FirstName { get { return firstname; } set { firstname = value; } }
+
+        [Required(ErrorMessage = "Please Enter Last Name.")]
         public string LastName { get { return lastname; } set { lastname = value; } }
+
+        [Required(ErrorMessage = "Please Enter Email.")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Please enter valid email address.")]
         public string Email { get { return email; } set { email = value; } }
+
+        [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
         public int Gender { get { return gender; } set { gender = value; } }
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }

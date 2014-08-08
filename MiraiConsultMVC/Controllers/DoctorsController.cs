@@ -27,9 +27,14 @@ namespace MiraiConsultMVC.Controllers
         {
             int userId;
             BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorprofile));
-            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && UserId == null)
             {
-                userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+"))); ;
+                userId = Convert.ToInt32(Session["DoctorId"]);
+            }
+            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+            {
+                userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+")));
+                Session["DoctorId"] = userId;
             }
             else
             {
@@ -365,6 +370,11 @@ namespace MiraiConsultMVC.Controllers
             User doctor = new User();
             if (ModelState.IsValid)
             {
+                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                {
+                    doctor.UserId = Convert.ToInt32(Session["DoctorId"]);
+                }
+                else
                 doctor.UserId = Convert.ToInt32(Session["UserId"]);
                 doctor.Email = profile.Email;
                 if (!TempData["Email"].Equals(profile.Email))
@@ -385,7 +395,12 @@ namespace MiraiConsultMVC.Controllers
                 filename = file != null ? file.FileName : "";
                 if (file != null && !string.IsNullOrEmpty(filename))
                 {
-                    filename = Convert.ToString(Session["UserId"]) + filename;
+                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                    {
+                        filename = Convert.ToInt32(Session["DoctorId"]) + filename;
+                    }
+                    else
+                        filename = Convert.ToString(Session["UserId"]) + filename;
                 }
                 if (file != null && file.FileName != null)
                 {
@@ -410,7 +425,9 @@ namespace MiraiConsultMVC.Controllers
                 doctor.AboutMe = profile.AboutMe;
 
                 var lstSpeciality = collection["lstspecialities"];
-                string[] specilaity = lstSpeciality.Split(',');
+                List<string> specilaity = new List<string>();
+                if (lstSpeciality != null)
+                    specilaity = lstSpeciality.Split(',').ToList();
                 foreach (var specialityId in specilaity)
                 {
                     DoctorSpeciality speciality = new DoctorSpeciality();

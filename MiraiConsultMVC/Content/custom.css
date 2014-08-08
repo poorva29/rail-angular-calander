@@ -3959,3 +3959,9 @@ table.cust-table {
 .contact_margin {
     margin-bottom: 0px !important;
 }
+.success_message_color{
+    color:#468847 !important;
+}
+.error_message_color{
+    color:#b94a48 !important;
+}

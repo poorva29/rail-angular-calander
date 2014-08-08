@@ -30,22 +30,16 @@
                         <div class="span12 btn-padding-left controls-right-padding">
                             @if (ViewBag.Message != null && ViewBag.Message == "Thank you for contacting us.")
                             {
-                                <div class="wrapper-bordered alert alert-success" id="Messagediv" visible="true">
-                                    <label id="lblMessage">@ViewBag.Message</label>
+                                <div class="wrapper-bordered alert alert-success" id="Messagediv">
+                                    <label id="lblMessage" class="success_message_color">@ViewBag.Message</label>
                                 </div>
                             }
                             else if (ViewBag.Message != null && ViewBag.Message == "Failed to send email.")
                             {
-                                <div class="wrapper-bordered alert alert-error" id="Messagediv" visible="true">
-                                    <label id="lblMessage">@ViewBag.Message</label>
+                                <div class="wrapper-bordered alert alert-error" id="Messagediv">
+                                    <label id="lblMessage" class="error_message_color">@ViewBag.Message</label>
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="wrapper-bordered" id="Messagediv" visible="false">
-                                    <label id="lblMessage">@ViewBag.Message</label>
-                                </div>
-                            }
+                            }                          
                         </div>
                     </div>
                     @if (Session["UserId"] == null && Session["UserEmail"] == null)

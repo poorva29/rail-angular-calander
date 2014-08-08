@@ -1,20 +1,10 @@
 ﻿    <input id="txtsearch" type="search" name="txtsearch" class="form-control pull-right form-search search-float input-searchsize search-query " placeholder="Search" onkeypress="return isEnterPress(event, this);" />
-    <script type="text/javascript">
-        var currentLocation = window.location;
-        var strUrl = null;
-        if(currentLocation == '@(ConfigurationManager.AppSettings["defaultUrl"].ToString())')
-        {
-           strUrl = 'Home/AutoComplete';
-        }
-        else{
-            strUrl = '../Home/AutoComplete';
-        }
+    <script type="text/javascript">       
         $("#txtsearch").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     type: 'GET',
-                    url: strUrl,
-                    data: '{"searchstr":"' + $('#txtsearch').val() + '"}',
+                    url: '../Home/AutoComplete?searchTerm=' + $('#txtsearch').val(),
                     dataType: "json",
                     contentType: 'application/json',
                     success: function (data) {

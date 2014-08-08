@@ -148,9 +148,9 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
-        public string AutoComplete(string term)
+        public string AutoComplete(string searchTerm)
         {
-            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(term, Convert.ToInt32(QuestionStatus.Approved));
+            DataSet dsQuestions = QuestionManager.getInstance().searchQuestion(searchTerm, Convert.ToInt32(QuestionStatus.Approved));
             return JsonConvert.SerializeObject(dsQuestions.Tables[0]);
         }
     }

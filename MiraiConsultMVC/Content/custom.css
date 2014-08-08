@@ -462,7 +462,7 @@ table.custom-table th {
 }
 
 .chzn-container-single .chzn-single div b {
-    background: url(../image/drop-arrow.png) !important;
+    background: url(../Content/image/drop-arrow.png) !important;
     background-repeat: no-repeat;
     background-position: center;
     display: block;

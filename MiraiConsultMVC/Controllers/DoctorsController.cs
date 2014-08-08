@@ -113,16 +113,16 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Address = Convert.ToString(doctor.Address);
                 if (doctor.DateOfBirth != null)
                     doctorDetail.DateOfBirth = Convert.ToDateTime(doctor.DateOfBirth);
-                if (doctor.CountryId != null && doctor.CountryId != 0)
+                if (doctor.CountryId >= 0)
                 {
                     var countryList = poupulateCountry();
-                    ViewBag.countries = new SelectList(countryList, "countryid", "name");
+                    doctorDetail.Countries = new SelectList(countryList, "countryid", "name");
                     doctorDetail.CountryId = Convert.ToInt32(doctor.CountryId);
                 }
-                if (doctor.RegistrationCouncil != null)
+                if (doctor.RegistrationCouncil > 0)
                 {
                     TempData["countryId"] = doctor.CountryId;
-                    var regCouncilList = PopulateRegCouncilByCountry(doctor.CountryId);
+                    var regCouncilList = PopulateRegCouncilByCountry(Convert.ToInt32(doctor.CountryId));
                     ViewBag.Registrationcouncils = new SelectList(regCouncilList, "regcouncilid", "name");
                     doctorDetail.RegistrationCouncil = Convert.ToInt32(doctor.RegistrationCouncil);
                 }
@@ -300,7 +300,6 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult Location_Insert(int doctorid, string address, string telephone, string clinicName, string countryId, string stateId, string cityId, string locationId, string docLocationId)
         {
             int docLocID;
-            string msg = "";
             if (!String.IsNullOrEmpty(docLocationId))
             {
                 docLocID = Convert.ToInt32(docLocationId);
@@ -345,7 +344,7 @@ namespace MiraiConsultMVC.Controllers
                 docLocID = Convert.ToInt32(ds.Tables[0].Rows[0]["doclocid"]);
                 if (docLocID != 0)
                 {
-                    msg = docLocationId.Equals("0") ? "New clinic details added successfully." : "Clinic details updated successfully";
+                    TempData["clinicMessage"] = docLocationId.Equals("0") ? "New clinic details added successfully." : "Clinic details updated successfully";
                 }
             }
             return Json(docLocationId, JsonRequestBehavior.AllowGet);
@@ -381,24 +380,25 @@ namespace MiraiConsultMVC.Controllers
                 doctor.RegistrationDate = System.DateTime.Now;
                 doctor.UserName = profile.UserName;
                 doctor.RegistrationNumber = profile.RegistrationNumber;
-
+                string docOldImage = Convert.ToString(TempData["Image"]);
                 string filename = "";
-                filename = file.FileName;
-                if (!string.IsNullOrEmpty(filename))
+                filename = file != null ? file.FileName : "";
+                if (file != null && !string.IsNullOrEmpty(filename))
                 {
                     filename = Convert.ToString(Session["UserId"]) + filename;
                 }
-                if (file.FileName != null)
+                if (file != null && file.FileName != null)
                 {
                     doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
                     doctor.Image = filename;
                 }
                 else
                 {
-                    doctor.PhotoUrl = "";
-                    doctor.Image = "";
+                    doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
+                    doctor.Image = docOldImage;
                 }
-                string docOldImage = Convert.ToString(TempData["Image"]);
+                
+               
                 if (Convert.ToInt32(profile.CountryId) != 0)
                 {
                     doctor.CountryId = Convert.ToInt32(profile.CountryId);

@@ -56,8 +56,9 @@ namespace MiraiConsultMVC.Models
 
         [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
-
         public int Gender { get { return gender; } set { gender = value; } }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
         public string Password { get { return password; } set { password = value; } }

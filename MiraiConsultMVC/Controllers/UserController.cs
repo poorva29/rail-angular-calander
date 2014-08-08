@@ -971,19 +971,22 @@ namespace MiraiConsultMVC.Controllers
             return Json(locationLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult populateRegistrationCouncilbyCountry(int countryId)
+        public JsonResult populateRegistrationCouncilbyCountry(int? countryId)
         {
             IList<RegistrationCouncil> councilLst = new List<RegistrationCouncil>();
-            var councilList = db.registrationcouncils.Where(s => s.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
-            if (councilList != null && councilList.Count() > 0)
+            if (countryId != null)
             {
-                foreach (var council in councilList)
+                var councilList = db.registrationcouncils.Where(s => s.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
+                if (councilList != null && councilList.Count() > 0)
                 {
-                    RegistrationCouncil RegistrationCouncil1 = new RegistrationCouncil();
-                    RegistrationCouncil1.regcouncilid = Convert.ToInt32(council.regcouncilid);
-                    RegistrationCouncil1.countryid = Convert.ToInt32(council.countryid);
-                    RegistrationCouncil1.name = Convert.ToString(council.name);
-                    councilLst.Add(RegistrationCouncil1);
+                    foreach (var council in councilList)
+                    {
+                        RegistrationCouncil RegistrationCouncil1 = new RegistrationCouncil();
+                        RegistrationCouncil1.regcouncilid = Convert.ToInt32(council.regcouncilid);
+                        RegistrationCouncil1.countryid = Convert.ToInt32(council.countryid);
+                        RegistrationCouncil1.name = Convert.ToString(council.name);
+                        councilLst.Add(RegistrationCouncil1);
+                    }
                 }
             }
             return Json(councilLst, JsonRequestBehavior.AllowGet);

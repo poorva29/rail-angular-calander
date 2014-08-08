@@ -61,25 +61,25 @@ namespace MiraiConsultMVC.Controllers
                 int userID = Convert.ToInt32(Session["UserId"]);
                 string dbpasswd = Utilities.Encrypt(passwords.currentPassword);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
-
                 if (userRecord != null)
                 {
-                    userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
-                    db.SubmitChanges();
-                    ViewBag.success = "Password has been changed successfully.";
-                    return View();
+                    if (passwords.currentPassword != passwords.newPassword)
+                    {
+                        userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
+                        db.SubmitChanges();
+                        ViewBag.success = "Password has been changed successfully.";
+                    }
+                    else 
+                    {
+                        ViewBag.errorMsg = "Current Password and New Password shouldn't be same.";
+                    }
                 }
                 else
                 {
                     ViewBag.errorMsg = "Please enter valid current password.";
-                    return View();
                 }
             }
-            else
-            {
-                return View();
-            }
-
+            return View();
         }
 
         [HttpPost]

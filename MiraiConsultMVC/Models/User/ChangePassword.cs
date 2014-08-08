@@ -17,7 +17,8 @@ namespace MiraiConsultMVC.Models.User
         public string newPassword { get; set; }
 
         [Required(ErrorMessage = "Please Enter Confirm Password")]
-        [Compare("newPassword", ErrorMessage = "'Confirm Password' and 'New Password' do not match. ")]
+        [Compare("newPassword", ErrorMessage = "Password and Confirm password should be same.")]
+        
         public string confirmpassword { get; set; }
     }
 }

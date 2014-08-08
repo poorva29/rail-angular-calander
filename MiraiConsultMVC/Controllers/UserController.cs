@@ -109,6 +109,8 @@ namespace MiraiConsultMVC.Controllers
                             Session["UserEmail"] = isLogin.email;
                             Session["UserId"] = isLogin.userid;
                             Session["UserType"] = isLogin.usertype;
+                            Session["locationid"] = isLogin.locationid;
+                            Session["cityid"] = isLogin.cityid;
                             userType = Convert.ToInt32(user.UserType);
                             setUserPrivilegesBasedOnUsertype(userType);
                             RememberMe(log.RememberMe, log.Email, dbpasswd);

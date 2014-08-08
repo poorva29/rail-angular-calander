@@ -34,7 +34,7 @@
                         <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv">
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <label id="lblSuccessMessage" class="success_message_color">@ViewBag.message</label>
+                                    <label id="lblSuccessMessage" class="success_message_color" style="font-size:10pt">@ViewBag.message</label>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 @if (ViewBag.message != null && ViewBag.message == "This email is not available. Please select a different email.")
                                 {
                                     <div class="span12 alert alert-error" id="errorMessageDiv">
-                                        <label id="lblErrorMessage" class="error_message_color">@ViewBag.message</label>
+                                        <label id="lblErrorMessage" class="error_message_color" style="font-size:10pt">@ViewBag.message</label>
                                     </div>
                                 }
                                 <div class="span12 cust-header-name-text">

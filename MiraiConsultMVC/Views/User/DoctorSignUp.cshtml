@@ -34,7 +34,7 @@
                         <div class="wrapper-bordered alert alert-success" id="SuccessMessagediv">
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <label id="lblSuccessMessage">@ViewBag.message</label>
+                                    <label id="lblSuccessMessage" class="success_message_color" style="font-size:10pt">@ViewBag.message</label>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 @if (ViewBag.message != null && ViewBag.message == "This email is not available. Please select a different email.")
                                 {
                                     <div class="span12 alert alert-error" id="errorMessageDiv">
-                                        <label id="lblErrorMessage">@ViewBag.message</label>
+                                        <label id="lblErrorMessage" class="error_message_color" style="font-size:10pt">@ViewBag.message</label>
                                     </div>
                                 }
                                 <div class="span12 cust-header-name-text">
@@ -60,7 +60,7 @@
                                                 <label class="required cust-font-style">First Name:</label>
                                             </div>
                                             <div class="span8  ">
-                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "50", placeholder = "First Name" })<br />
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", maxlength = "50", placeholder = "First Name" })<br />
                                                 @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                                 <label class="required cust-font-style">Last Name:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.TextBoxFor(m => m.LastName, new { @class = "cust-no-border cust-gray input-block-level", maxlength = "50", placeholder = "Last Name" })<br />
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "cust-no-border cust-gray input-block-level contact_margin", maxlength = "50", placeholder = "Last Name" })<br />
                                                 @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                             <div class="span8">
                                                 <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                      data-date-enddate="new Date()" style="width: 100%;">
-                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray", placeholder = "Date Of Birth",@style = " width:85%",@id = "txtDob" })
+                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", placeholder = "Date Of Birth", @style = " width:85%", @id = "txtDob" })
                                                     <span class="add-on add-on-green  icon-with-right-curve"></span>
                                                 </div>
                                             </div>
@@ -111,7 +111,7 @@
                                                 <label class="cust-font-style">Mobile No:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "cust-no-border cust-gray input-block-level", @maxlength = "10", @placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);" })<br />
+                                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "cust-no-border cust-gray input-block-level contact_margin", @maxlength = "10", @placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);" })<br />
                                                 @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                                                 <label class="cust-font-style">Photo:</label>
                                             </div>
                                             <div class="span8">
-                                                <input type="file" name="file" id="Image" value="@Model.Image" maxlength="256" style="width: 100%;">
+                                                <input type="file" name="file" id="Image" value="@Model.Image" maxlength="256" style="width: 100%;" class="contact_margin">
                                                 <span id="ImageValidation" class="field-validation-error validation-summary-errors" data-valmsg-for="Image" data-valmsg-replace="true"></span>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
                                             <label class="cust-font-style">About Me:</label>
                                         </div>
                                         <div class="span10 cust-margin-span10">
-                                            @Html.TextAreaFor(m => m.AboutMe, new { @class = " cust-lightgreen input-block-level", maxlength = "200",@placeholder = "About Me",@rows="1",@cols="5"})
+                                            @Html.TextAreaFor(m => m.AboutMe, new { @class = " cust-lightgreen input-block-level contact_margin", maxlength = "200", @placeholder = "About Me", @rows = "1", @cols = "5" })
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                                 @Html.ListBox(
                                                 "lstSpecialities",
                                                 ViewBag.specialities as MultiSelectList,
-                                                new { @class = "chzn-select regspeciality_width" }
+                                                new { @class = "chzn-select regspeciality_width contact_margin" }
                                                 )
                                             </div>
                                         </div>
@@ -160,7 +160,7 @@
                                                 <label class="cust-font-style">Registration No:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "15", placeholder = "Registration Number" })
+                                                @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", maxlength = "15", placeholder = "Registration Number" })
                                             </div>
                                         </div>
                                     </div>
@@ -175,11 +175,11 @@
                                                 @if (Model.Countries != null)
                                                 {
                                                     ViewBag.countries = Model.Countries;
-                                                    @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "cust-no-border cust-lightgreen input-block-level drop-arrows", id = "ddlCountry", onchange = "getRegistrationCouncilbyCountry(this.value)" })
+                                                    @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "cust-no-border cust-lightgreen input-block-level drop-arrows contact_margin", id = "ddlCountry", onchange = "getRegistrationCouncilbyCountry(this.value)" })
                                                 }
                                                 else
                                                 {
-                                                    @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "cust-no-border cust-lightgreen input-block-level drop-arrows" })
+                                                    @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "cust-no-border cust-lightgreen input-block-level drop-arrows contact_margin" })
                                                 }
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                                 @if (Model.Councils != null)
                                                 {
                                                     ViewBag.councils = Model.Councils;
-                                                    @Html.DropDownListFor(m => Model.Regcouncilid, new SelectList(ViewBag.councils, "Value", "Text", Model.Regcouncilid), "--Registration Council--", new { @class = "cust-no-border cust-gray input-block-level drop-arrows", id = "ddlRegistrationCouncil"})
+                                                    @Html.DropDownListFor(m => Model.Regcouncilid, new SelectList(ViewBag.councils, "Value", "Text", Model.Regcouncilid), "--Registration Council--", new { @class = "cust-no-border cust-gray input-block-level drop-arrows contact_margin", id = "ddlRegistrationCouncil" })
                                                 }
                                                 else
                                                 { 
@@ -213,7 +213,7 @@
                                                 <label class="cust-font-style required ">Email:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.TextBoxFor(m => m.Email, new { @class = "cust-no-border cust-lightgreen input-block-level", maxlength = "50", placeholder = "Email" })<br />
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", maxlength = "50", placeholder = "Email" })<br />
                                                 @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -227,7 +227,7 @@
                                                 <label class="cust-font-style required ">Password:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.PasswordFor(m => m.Password, new { @Class = "cust-no-border cust-gray input-block-level", maxlength = "30", placeholder = "Password" })<br />
+                                                @Html.PasswordFor(m => m.Password, new { @Class = "cust-no-border cust-gray input-block-level contact_margin", maxlength = "30", placeholder = "Password" })<br />
                                                 @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@
                                             </div>
                                             <div class="span8">
                    
-                                                @Html.PasswordFor(m=>m.ConfirmPassword,new{@maxlength="30", @id="ConfirmPassword", @type="password", @class="cust-no-border cust-lightgreen input-block-level", @placeholder="Confirm Password"})
+                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @maxlength = "30", @id = "ConfirmPassword", @type = "password", @class = "cust-no-border cust-lightgreen input-block-level contact_margin", @placeholder = "Confirm Password" })
                                                 @Html.ValidationMessageFor(m => m.ConfirmPassword, string.Empty, new { @class = "validation-summary-errors" })
 
                                             </div>

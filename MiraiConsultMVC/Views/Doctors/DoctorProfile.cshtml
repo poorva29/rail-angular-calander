@@ -40,13 +40,13 @@
                                 @if (TempData["message"] != null && (TempData["message"] == "Details updated successfully. You will receive verification email shortly." || TempData["message"] == "Details updated successfully."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-success margin_left_success">
-                                        <label id="lblMessage">@TempData["message"]</label>
+                                        <label id="lblMessage" class="success_message_color">@TempData["message"]</label>
                                     </div>
                                 }
                                 else if (TempData["message"] != null && (TempData["message"] == "Other User with same email address already exist. Please enter other email."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-error margin_left_success">
-                                        <label id="lblMessage">@TempData["message"]</label>
+                                        <label id="lblMessage" class="error_message_color">@TempData["message"]</label>
                                     </div>
                                 }
                             </div>
@@ -67,7 +67,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">First Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen  ", placeholder = "First Name",id="txtFirstName" })<br />
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "First Name", id = "txtFirstName" })<br />
                                         @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style required ">Last Name:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray", placeholder = "Last Name", id="txtLastName" })<br />
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level max-width min-width cust-no-border cust-gray contact_margin", placeholder = "Last Name", id = "txtLastName" })<br />
                                         @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Mobile No:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray ", placeholder = "Mobile No", maxlength = "15",id="txtMobileNo" })<br />
+                                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level max-width min-width cust-no-border cust-gray contact_margin", placeholder = "Mobile No", maxlength = "15", id = "txtMobileNo" })<br />
                                         @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label required cust-font-style ">Email:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Email", id = "txtEmail" })<br />
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "Email", id = "txtEmail" })<br />
                                         @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", @placeholder = "Date Of Birth", @id = "txtDob", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy") })
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen contact_margin", @style = "margin-top:0px;", @placeholder = "Date Of Birth", @id = "txtDob", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy") })
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             <label id="lblErrorDateOfBirth" style="color:red"></label>
                                         </div>
@@ -150,11 +150,11 @@
                                         @if (Model.Countries != null)
                                         {
                                             ViewBag.countries = Model.Countries;
-                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })
+                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "selectedIndexChanged(this.value)" })
                                         }
                                         else
                                         {
-                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width" })
+                                            @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin" })
                                         }
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Registration Council:</label>
                                     <div class="controls">
-                                        @Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(ViewBag.Registrationcouncils, "Value", "Text", Model.RegistrationCouncil), "--Registration Council--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen", id = "ddRegCouncil"})
+                                        @Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(ViewBag.Registrationcouncils, "Value", "Text", Model.RegistrationCouncil), "--Registration Council--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen contact_margin", id = "ddRegCouncil" })
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Registration No:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen", placeholder = "Registration Number" })
+                                        @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "input-block-level max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "Registration Number" })
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                         @Html.ListBox(
                                         "lstSpecialities",
                                         ViewBag.specialities as MultiSelectList,
-                                        new { @class = "chzn-select  Specialities_Width" }
+                                        new { @class = "chzn-select  Specialities_Width contact_margin" }
                                         )
                                     </div>
                                 </div>
@@ -195,7 +195,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">About Me:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.AboutMe, new { @class = "input-block-level txtareaborder max-width min-width cust-no-border cust-lightgreen", placeholder = "About Me" })
+                                        @Html.TextBoxFor(m => m.AboutMe, new { @class = "input-block-level txtareaborder max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "About Me" })
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style required">Country:</label>
                                         <div class="controls">
-                                            <select id="country_select" data-placeholder="Select Country" class="input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen" onchange="getStatebyCountry(this.value)">
+                                            <select id="country_select" data-placeholder="Select Country" class="input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen contact_margin" onchange="getStatebyCountry(this.value)">
                                                 <option value="0">--Select Country--</option>
                                             </select>
                                         </div>
@@ -313,7 +313,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style required">State:</label>
                                         <div class="controls">
-                                            <select id="state_select" data-placeholder="Select State" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray" onchange="getCitybyState(this.value)">
+                                            <select id="state_select" data-placeholder="Select State" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray contact_margin" onchange="getCitybyState(this.value)">
                                                 <option value="0">--Select State--</option>
                                             </select>
                                         </div>
@@ -325,7 +325,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style required">City:</label>
                                         <div class="controls">
-                                            <select id="city_select" data-placeholder="Select city" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray" onchange="getLocationbyCityId(this.value)">
+                                            <select id="city_select" data-placeholder="Select city" class="input-block-level max-width min-width cust-no-border drop-arrows cust-gray contact_margin" onchange="getLocationbyCityId(this.value)">
                                                 <option value="0">--Select City--</option>
                                             </select>
                                         </div>
@@ -335,7 +335,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style required">Location:</label>
                                         <div class="controls">
-                                            <select id="location_select" data-placeholder="Select Location" class="input-block-level max-width min-width cust-no-border drop-arrows cust-lightgreen" onchange="getLocationId(this.value)">
+                                            <select id="location_select" data-placeholder="Select Location" class="input-block-level max-width min-width cust-no-border drop-arrows cust-lightgreen contact_margin" onchange="getLocationId(this.value)">
                                                 <option value="0">--Select Location--</option>
                                             </select>
                                         </div>
@@ -347,7 +347,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Clinic Name:</label>
                                         <div class="controls">
-                                            <input type="text" id="txtClinicName" class="input-block-level max-width min-width cust-no-border cust-lightgreen" maxlength="100" width="233px">
+                                            <input type="text" id="txtClinicName" class="input-block-level max-width min-width cust-no-border cust-lightgreen contact_margin" maxlength="100" width="233px">
                                         </div>
                                     </div>
                                 </div>
@@ -355,7 +355,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Telephone No:</label>
                                         <div class="controls">
-                                            <input type="text" id="txtTelephoneNo" class="input-block-level max-width min-width cust-no-border cust-gray" maxlength="15" width="233px"><br />
+                                            <input type="text" id="txtTelephoneNo" class="input-block-level max-width min-width cust-no-border cust-gray contact_margin" maxlength="15" width="233px"><br />
                                             <span id="telephoneValidatior" style="color: red; display: inline;"></span>
                                         </div>
                                     </div>
@@ -366,7 +366,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Address:</label>
                                         <div class="controls">
-                                            <textarea id="txtAddress" clientidmode="Static" class="input-block-level max-width min-width txtareaborder cust-no-border cust-gray" runat="server" maxlength="250" rows="2" cols="18"></textarea>
+                                            <textarea id="txtAddress" clientidmode="Static" class="input-block-level max-width min-width txtareaborder cust-no-border cust-gray contact_margin" runat="server" maxlength="250" rows="2" cols="18"></textarea>
                                         </div>
                                     </div>
                                 </div>

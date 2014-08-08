@@ -61,25 +61,25 @@ namespace MiraiConsultMVC.Controllers
                 int userID = Convert.ToInt32(Session["UserId"]);
                 string dbpasswd = Utilities.Encrypt(passwords.currentPassword);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID) && x.password.Equals(dbpasswd));
-
                 if (userRecord != null)
                 {
-                    userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
-                    db.SubmitChanges();
-                    ViewBag.success = "Password has been changed successfully.";
-                    return View();
+                    if (passwords.currentPassword != passwords.newPassword)
+                    {
+                        userRecord.password = Utilities.Encrypt(passwords.newPassword); ;
+                        db.SubmitChanges();
+                        ViewBag.success = "Password has been changed successfully.";
+                    }
+                    else 
+                    {
+                        ViewBag.errorMsg = "Current Password and New Password shouldn't be same.";
+                    }
                 }
                 else
                 {
                     ViewBag.errorMsg = "Please enter valid current password.";
-                    return View();
                 }
             }
-            else
-            {
-                return View();
-            }
-
+            return View();
         }
 
         [HttpPost]
@@ -109,6 +109,8 @@ namespace MiraiConsultMVC.Controllers
                             Session["UserEmail"] = isLogin.email;
                             Session["UserId"] = isLogin.userid;
                             Session["UserType"] = isLogin.usertype;
+                            Session["locationid"] = isLogin.locationid;
+                            Session["cityid"] = isLogin.cityid;
                             userType = Convert.ToInt32(user.UserType);
                             setUserPrivilegesBasedOnUsertype(userType);
                             RememberMe(log.RememberMe, log.Email, dbpasswd);
@@ -178,7 +180,7 @@ namespace MiraiConsultMVC.Controllers
             if (rememberMe == true)
             {
                 Response.Cookies["Consult_UName"].Value = email;
-                Response.Cookies["Consult_PWD"].Value = password;
+                Response.Cookies["Consult_PWD"].Value =Utilities.Decrypt(password);
                 Response.Cookies["Consult_UName"].Expires = DateTime.Now.AddMonths(2);
                 Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(2);
             }

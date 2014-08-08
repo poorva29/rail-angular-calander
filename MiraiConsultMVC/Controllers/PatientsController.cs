@@ -306,6 +306,7 @@ namespace MiraiConsultMVC.Controllers
                     patientDetail.Cities = new SelectList(cityList, "cityId", "name");
                     patientDetail.CityId = Convert.ToInt32(patient.cityid);
                     TempData["cityId"] = patientDetail.CityId;
+                    Session["cityid"] = patientDetail.CityId;
                 }
                 if (patient.locationid != null && patient.locationid != 0)
                 {
@@ -313,6 +314,7 @@ namespace MiraiConsultMVC.Controllers
                     patientDetail.Locations = new SelectList(locationList, "locationId", "name", "cityid");
                     patientDetail.LocationId = Convert.ToInt32(patient.locationid);
                     TempData["locationId"] = patientDetail.LocationId;
+                    Session["locationid"] = patientDetail.LocationId;
                 }
                 if (patient.username != null)
                     patientDetail.UserName = Convert.ToString(patient.username);

@@ -23,7 +23,7 @@
                  <div class="wrapper-bordered alert alert-success"  id="SuccessMessagediv" visible="true">
                     <div class="row-fluid">
                         <div class="span12">
-                            <label id="lblSuccessMessage">@ViewBag.message</label>
+                            <label id="lblSuccessMessage" class="success_message_color">@ViewBag.message</label>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         @if (ViewBag.message != null && ViewBag.message == "This username is not available. Please select a different username.")
                         {
                             <div class="span12 alert alert-error" id="errorMessageDiv" visible="true">
-                                <label id="lblErrorMessage">@ViewBag.message</label>
+                                <label id="lblErrorMessage" class="error_message_color">@ViewBag.message</label>
                             </div>
                         }
                     </div>
@@ -44,7 +44,7 @@
                                     <div class="control-group">
                                         <label class="control-label cust-font-style required ">First Name:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level max-width min-width", placeholder = "First Name" })<br/>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level max-width min-width contact_margin", placeholder = "First Name" })<br/>
                                             @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label required  cust-font-style ">Last Name:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width", placeholder = "Last Name" })<br/>
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width contact_margin", placeholder = "Last Name" })<br/>
                                             @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label required cust-font-style ">Email:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width", placeholder = "Email" })<br/>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width contact_margin", placeholder = "Email" })<br/>
                                             @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Mobile No:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level cust-lightgreen max-width min-width", placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);" })<br/>
+                                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "input-block-level cust-lightgreen max-width min-width contact_margin", placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);" })<br/>
                                             @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                         <div class="controls">
                                             <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                  data-date-enddate="new Date()">
-                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve  date_box_width txtdateOfBirth", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth==null?"":Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
+                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve  date_box_width txtdateOfBirth contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
                                                 <span class="add-on add-on-green  icon-with-right-curve"></span><br/>
                                                 @Html.ValidationMessageFor(m => m.DateOfBirth, string.Empty, new { @class = "validation-summary-errors" })                                                
                                             </div>
@@ -127,11 +127,11 @@
                                             @if (Model.Countries != null)
                                             {
                                                 ViewBag.countries = Model.Countries;
-                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width" })
+                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin" })
                                             }
                                         </div>
                                     </div>
@@ -143,11 +143,11 @@
                                             @if (Model.States != null)
                                             {
                                                 ViewBag.states = Model.States;
-                                                @Html.DropDownListFor(m => Model.StateId, new SelectList(ViewBag.states, "Value", "Text", Model.StateId), "--Select State--", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width", id = "ddlState", onchange = "getCitybyState(this.value)" })
+                                                @Html.DropDownListFor(m => Model.StateId, new SelectList(ViewBag.states, "Value", "Text", Model.StateId), "--Select State--", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
                                             }
                                             else
                                             {
-                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width", id = "ddlState" })
+                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState" })
                                             }
                                         </div>
                                     </div>
@@ -161,11 +161,11 @@
                                             @if (Model.Cities != null)
                                             {
                                                 ViewBag.cities = Model.Cities;
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(ViewBag.cities, "Value", "Text", Model.CityId), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(ViewBag.cities, "Value", "Text", Model.CityId), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width", id = "ddlCity" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity" })
                                             }
                                         </div>
                                     </div>
@@ -177,11 +177,11 @@
                                             @if (Model.Locations != null)
                                             {
                                                 ViewBag.locations = Model.Locations;
-                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(ViewBag.locations, "Value", "Text", Model.LocationId), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlLocation" })
+                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(ViewBag.locations, "Value", "Text", Model.LocationId), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(string.Empty), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width", id = "ddlLocation" })
+                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(string.Empty), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
                                             }
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Address:</label>
                                         <div class="controls">
-                                            @Html.TextAreaFor(m => m.Address, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width", placeholder = "Address", rows = "2", columns = "50" })
+                                            @Html.TextAreaFor(m => m.Address, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width contact_margin", placeholder = "Address", rows = "2", columns = "50" })
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Pin Code:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.Pincode, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width", placeholder = "Pin Code", @Value = (Model.Pincode == 0) ? "" : Model.Pincode.ToString(), @onkeypress = "return isNumber(event,6,this);", id = "txtPinCode" })<br/>
+                                            @Html.TextBoxFor(m => m.Pincode, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width contact_margin", placeholder = "Pin Code", @Value = (Model.Pincode == 0) ? "" : Model.Pincode.ToString(), @onkeypress = "return isNumber(event,6,this);", id = "txtPinCode" })<br/>
                                             @Html.ValidationMessageFor(m => m.Pincode, string.Empty, new { @class = "validation-summary-errors" })                                            
                                         </div>
                                     </div>
@@ -211,7 +211,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Height (in cm):</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.Height, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width", placeholder = "Height in cm", @onkeypress = "return isNumber(event,5,this);", id = "txtHeight" })<br/>
+                                            @Html.TextBoxFor(m => m.Height, new { @class = "input-block-level cust-lightgreen cust-lightgreen max-width min-width contact_margin", placeholder = "Height in cm", @onkeypress = "return isNumber(event,5,this);", id = "txtHeight" })<br/>
                                             @Html.ValidationMessageFor(m => m.Height, string.Empty, new { @class = "validation-summary-errors" })                                            
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Weight (in kg):</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.Weight, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width", placeholder = "Weight in kg", @onkeypress = "return isDecimalNumber(event,3,this);", id = "txtWeight" })<br/>
+                                            @Html.TextBoxFor(m => m.Weight, new { @class = "input-block-level cust-lightgreen cust-gray max-width min-width contact_margin", placeholder = "Weight in kg", @onkeypress = "return isDecimalNumber(event,3,this);", id = "txtWeight" })<br/>
                                             @Html.ValidationMessageFor(m => m.Weight, string.Empty, new { @class = "validation-summary-errors" })                                            
                                         </div>
                                     </div>

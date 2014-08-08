@@ -36,7 +36,7 @@
                     <div class="row-fluid">
                         <div class="span12 div-left-padding controls-right-padding">
                             <label id="msglabel"></label>
-                            @Html.TextAreaFor(m => m.QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
+                            @Html.TextAreaFor(m => m.QuestionText, new { @class = "input-block-level txtareaborder txtAreaQuestion_AQ contact_margin", style = "margin-right:5%", id = "txtAreaQuestion", onkeyup = "Count(this)", rows = "3", cols = "10", maxlength = "200" })
                             <label id="lblValidation" style="color:red" class="validation-summary-errors"></label>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         document.getElementById('msglabel').style.display = 'block';
                         document.getElementById('msglabel').innerHTML = "Your Question has been sent for review and it is added to your activity. You will be notified when it is answered.";
                         document.getElementById('buttonDiv').style.display = 'none';
-                        document.getElementById('msglabel').className = 'alert alert-success';
+                        document.getElementById('msglabel').className = 'alert alert-success success_message_color';
                         document.getElementById('btnAskMirai').style.display = 'none';
                         document.getElementById('txtAreaQuestion').style.display = 'none';
                         document.getElementById('searchResultSpan').innerHTML = '';

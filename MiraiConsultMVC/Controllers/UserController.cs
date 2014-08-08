@@ -178,7 +178,7 @@ namespace MiraiConsultMVC.Controllers
             if (rememberMe == true)
             {
                 Response.Cookies["Consult_UName"].Value = email;
-                Response.Cookies["Consult_PWD"].Value = password;
+                Response.Cookies["Consult_PWD"].Value =Utilities.Decrypt(password);
                 Response.Cookies["Consult_UName"].Expires = DateTime.Now.AddMonths(2);
                 Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(2);
             }

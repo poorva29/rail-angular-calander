@@ -385,6 +385,9 @@ namespace MiraiConsultMVC.Controllers
                 ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
                 ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
 
+                Session["Title"] = QDModel.FirstOrDefault().QuestionText;
+                Session["Url"] = ViewBag.AskmiraiUrl + "Patients/PatientQuestionDetails?questionid=" + QDModel.FirstOrDefault().QuestionId;
+                Session["Description"] = QDModel.FirstOrDefault().AnswerText;
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
 
                 List<tag> tags = new List<tag>();

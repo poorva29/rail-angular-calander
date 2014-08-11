@@ -106,7 +106,7 @@ namespace Services
                 string msgText = "We are pleased to inform you that Dr." + answerreplyedby + " has endorsed your answer";
                 string emailBody = EmailTemplates.GetEmailTemplateOnDoctorEndorsed(msgText, lastname, questiontext, endorsecount);
                 string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                string Logoimage = HttpContext.Current.Server.MapPath("..\\app\\Resources\\image\\LogoForMail.png");
+                string Logoimage = HttpContext.Current.Server.MapPath("..\\Content\\image\\LogoForMail.png");
                 Mail.SendHTMLMailWithImage(fromEmail, Email, "Mirai Consult - Endorsements Notification", emailBody, Logoimage);
             }
             string SmsText = ConfigurationManager.AppSettings["OnDoctorEndoresedSendSMS"].ToString();

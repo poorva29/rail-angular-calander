@@ -848,15 +848,14 @@ namespace MiraiConsultMVC.Controllers
         public IList<Country> poupulateCountry()
         {
             IList<Country> countryLst = new List<Country>();
-            var countrylist = db.countries.ToList().OrderBy(c => c.name);
-            if (countrylist != null && countrylist.Count() > 0)
+            var countrylist = DAL.UtilityManager.getInstance().getAllCountries();
+            if (countrylist != null && countrylist.Rows.Count > 0)
             {
-                foreach (var country in countrylist)
+                foreach (DataRow country in countrylist.Rows)
                 {
                     Country country1 = new Country();
-                    country1.countryid = Convert.ToInt32(country.countryid);
-                    country1.name = Convert.ToString(country.name);
-                    country1.countrycode = Convert.ToString(country.countrycode);
+                    country1.countryid = Convert.ToInt32(country["countryid"]);
+                    country1.name = Convert.ToString(country["name"]);
                     countryLst.Add(country1);
                 }
             }

@@ -75,6 +75,11 @@
                         </div>
                         <br />
                     }
+                    else
+                    {
+                        @Html.HiddenFor(m => m.Email, new { Value = Convert.ToString(Session["UserEmail"]) });
+                        @Html.HiddenFor(m => m.Name, new { Value = Session["UserFullName"] != null ? Convert.ToString(Session["UserFullName"]) : "" });
+                    }
                     <div class='row-fluid'>
                         <div class="span12">
                             <div class="span4 pull-left btn-padding-left">

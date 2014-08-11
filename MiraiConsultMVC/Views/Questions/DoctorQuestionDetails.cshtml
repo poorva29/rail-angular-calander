@@ -169,7 +169,8 @@
                                     <div class="row-fluid">
                                         <label class="pull-left span4  btn-padding-left">Upload Image:</label>
                                         <div class="pull-right span8  main-outter-padding">
-                                            <input type="file" name="AnswerImg" id="fileUploadForImage" value="AnswerImg" maxlength="256" style="width: 100%;" class="fileupload_btn_margin">
+                                            <input type="file" name="AnswerImg" id="Image" value="AnswerImg" maxlength="256" style="width: 100%;" class="fileupload_btn_margin"><br />
+                                            <span id="ImageValidation" style="color: red; display: inline;"></span>
                                         </div>
                                     </div>
                                     <br />
@@ -209,6 +210,21 @@
                     args.IsValid = (((fileType.toLowerCase() == ".jpg") || (fileType.toLowerCase() == ".png") || (fileType.toLowerCase() == ".gif") || (fileType.toLowerCase() == ".jpeg")));
                 }
             }
+
+            $("#Image").change(function () {
+
+                var val = $(this).val();
+                switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+                    case 'gif': case 'jpg': case 'png': case 'jpeg':
+                        $("#ImageValidation").html("");
+                        break;
+                    default:
+                        $(this).val('');
+                        $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
+                        break;
+                }
+            });
+
             function ValidateAllControl() {
                 var errormsg = "";
                 if (document.getElementById("#txtAnswer").value == "") {

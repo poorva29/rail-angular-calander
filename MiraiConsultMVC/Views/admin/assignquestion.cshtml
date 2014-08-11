@@ -139,45 +139,48 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @if (Model != null)
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            @if (Model != null)
+                            {
+                                if (!(Model.Count() > 0 && Convert.ToString(Model.ToList()[0].userid).Equals("0")))
                                 {
-                                for (int i = 0; i < Model.Count(); i++)
-                                {
-                                if (i == 0)
-                                {
-                                    ViewBag.Value = Convert.ToString(Model.ToList()[i].userid);
+                                    
+                                    for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            ViewBag.Value = Convert.ToString(Model.ToList()[i].userid);
+                                        }
+                                        else
+                                        {
+                                            ViewBag.Value = ViewBag.Value + "," + Convert.ToString(Model.ToList()[i].userid);
+                                        }
+                                        <tr>
+                                            <td>
+                                                @Model.ToList()[i].userid
+                                            </td>
+                                            <td>
+                                                @Model.ToList()[i].name
+                                            </td>
+                                            <td style='word-wrap: break-word'>
+                                                @Model.ToList()[i].cities
+                                            </td>
+                                            <td style='word-wrap: break-word'>
+                                                @Model.ToList()[i].locations
+                                            </td>
+                                            <td style='word-wrap: break-word'>
+                                                @Model.ToList()[i].specialities
+                                            </td>
+                                            <td style='word-wrap: break-word' class="last-row">
+                                                <a href="#" onclick="removeAssignDoctor(@Model.ToList()[i].userid , @Model.ToList()[i].Questionid)">
+                                                    <img class="cust-icon" src="../Content/image/revoke.png " id="removebtn">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                      }
                                 }
-                                else
-                                {
-                                    ViewBag.Value = ViewBag.Value + "," + Convert.ToString(Model.ToList()[i].userid);
-                                }
-                                
-                                <tr>
-                                    <td>
-                                        @Model.ToList()[i].userid
-                                    </td>
-                                    <td>
-                                        @Model.ToList()[i].name
-                                    </td>
-                                    <td style='word-wrap: break-word'>
-                                        @Model.ToList()[i].cities
-                                    </td>
-                                    <td style='word-wrap: break-word'>
-                                        @Model.ToList()[i].locations
-                                    </td>
-                                    <td style='word-wrap: break-word'>
-                                        @Model.ToList()[i].specialities
-                                    </td>
-                                    <td style='word-wrap: break-word' class="last-row">
-                                        <a href="#" onclick="removeAssignDoctor(@Model.ToList()[i].userid , @Model.ToList()[i].Questionid)">
-                                            <img class="cust-icon" src="../Content/image/revoke.png " id="removebtn">
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                                }
-                            </tbody>
+                        }
+                        </tbody>
                         </table>
                     </div>
                 </div>
@@ -258,7 +261,8 @@
             contentType: 'application/json',
             url: '/admin/AssignDoctor?QuestionId=' + document.getElementById('hdnQuestionId').value + '&AssignDoctorIds=' + doctorIds.join(","),
             success: function (response) {
-                var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +
+                location.reload(true);
+                /*var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +
                   'id="assign-doctor-list" width="100%">' +
                '<thead>' +
                    '<tr>'+
@@ -299,7 +303,7 @@
                 ListOfDoctors = ListOfDoctors + TextToAppend + '</tbody>' + '</table>'
 
                 $("#divToReplace").empty();
-                $("#divToReplace").append(ListOfDoctors);
+                $("#divToReplace").append(ListOfDoctors);*/
             },
             error: function (data) {
                 alert("Error occured");

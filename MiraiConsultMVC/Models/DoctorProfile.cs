@@ -17,8 +17,8 @@ namespace MiraiConsultMVC.Models
         public string username; 
         private string mobileno;
         private int gender;
-        private DateTime? dateofbirth = null;
-        private int countryid;
+        private DateTime dateofbirth;
+        private int? countryid;
         private DateTime registrationdate;
         private int status;
         private int usertype;
@@ -57,9 +57,11 @@ namespace MiraiConsultMVC.Models
         [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
         public int Gender { get { return gender; } set { gender = value; } }
-        public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
-        public int CountryId { get { return countryid; } set { countryid = value; } }
+        public int? CountryId { get { return countryid; } set { countryid = value; } }
         public DateTime RegistrationDate { get { return registrationdate; } set { registrationdate = value; } }
         public int Status { get { return status; } set { status = value; } }
         public int UserType { get { return usertype; } set { usertype = value; } }

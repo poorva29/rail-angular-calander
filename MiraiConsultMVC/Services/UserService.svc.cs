@@ -83,7 +83,7 @@ namespace Services
             {
                 string emailBody = EmailTemplates.GetEmailTemplateOnPatientThanked(msgText, lastname, questiontext, thanxcount);
                 string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                string Logoimage = HttpContext.Current.Server.MapPath("..\\app\\Resources\\image\\LogoForMail.png");
+                string Logoimage = HttpContext.Current.Server.MapPath("..\\Content\\image\\LogoForMail.png");
                 Mail.SendHTMLMailWithImage(fromEmail, emailid, "Mirai Consult - Patient thanked your answer", emailBody, Logoimage);
             }
             if (!string.IsNullOrEmpty(mobileno))
@@ -289,7 +289,7 @@ namespace Services
                             string msgText = ConfigurationManager.AppSettings["OnDocAnswerAssignQuestionSendEmail"].ToString();
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("app\\Resources\\image\\LogoForMail.png");
+                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("..\\Content\\image\\LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);
                         }
                     }
@@ -336,7 +336,7 @@ namespace Services
                             string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                             string emailBody = EmailTemplates.SendNotificationEmailtoUser(dr["firstname"].ToString(), patientid, emailVerficationURL, "");
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("app\\Resources\\image\\LogoForMail.png");
+                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("..\\Content\\image\\LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, dr["email"].ToString(), "Mirai Consult - Verify your email", emailBody, Logoimage);
 
                             HttpContext.Current.Response.Write("{'Msg':'verification email shortly'}");

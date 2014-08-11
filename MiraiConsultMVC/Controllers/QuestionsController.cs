@@ -128,6 +128,7 @@ namespace MiraiConsultMVC.Controllers
                 int userId = 0;
                 DataSet QuestionDetails;
                 int QuestionId = Convert.ToInt32(TempData["QuestionId"]);
+                TempData["QuestionId"] = QuestionId;
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"].ToString());

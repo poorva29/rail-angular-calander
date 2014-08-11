@@ -211,9 +211,9 @@
             }
             function ValidateAllControl() {
                 var errormsg = "";
-                if (document.getElementById("#txtAnswer").value == "") {
+                if ($("#txtAnswer").val() == "") {
                     errormsg += "Please Enter Answer.";
-                    document.getElementById("lblErrortxtAnswer").innerHTML = "Please Enter Answer.";
+                    $("#lblErrortxtAnswer").html("Please Enter Answer.");
                 }
                 if (errormsg == "") {
                     return true;
@@ -223,7 +223,7 @@
                 }
             }
             $("#txtAnswer").keypress(function () {
-                $("#lblErrortxtAnswer").hide();
+                $("#lblErrortxtAnswer").html('');
             });
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

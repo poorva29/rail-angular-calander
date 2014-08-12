@@ -426,7 +426,6 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult GetSimilarQuestion(string questionText)
         {
-            questionText= HttpUtility.UrlDecode(questionText);   
             IList<AskDoctor> lstQuestions = new List<AskDoctor>();
             var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
@@ -446,7 +445,6 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public JsonResult question_Insert(string questionText)
         {
-            questionText = HttpUtility.UrlDecode(questionText); 
             int userId = 0;
             int result = 0;
             if (Session["UserId"] != null && Session["UserType"] != null)

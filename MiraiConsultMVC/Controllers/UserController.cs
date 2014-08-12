@@ -628,21 +628,23 @@ namespace MiraiConsultMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userID = 0 ;
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-                int userID = Convert.ToInt32(TempData["userid"].ToString());
-
+                if (!string.IsNullOrEmpty(TempData["userid"].ToString()))
+                {
+                    userID = Convert.ToInt32(TempData["userid"].ToString());
+                }
                 string dbpasswd = Utilities.Encrypt(passwords.Password);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
                 if (userRecord != null)
                 {
                     userRecord.password = Utilities.Encrypt(passwords.Password); ;
-
                     db.SubmitChanges();
-                    ViewBag.errorMsg = "Password has been Reset successfully.";
-                   
+                    ViewBag.errorMsg = "Password has been changed successfully.";
+                    TempData["userid"] = userID.ToString();
                 }
             }
-            return View();
+            return View(passwords);
         }
 
         [HttpGet]
@@ -846,15 +848,14 @@ namespace MiraiConsultMVC.Controllers
         public IList<Country> poupulateCountry()
         {
             IList<Country> countryLst = new List<Country>();
-            var countrylist = db.countries.ToList().OrderBy(c => c.name);
-            if (countrylist != null && countrylist.Count() > 0)
+            var countrylist = DAL.UtilityManager.getInstance().getAllCountries();
+            if (countrylist != null && countrylist.Rows.Count > 0)
             {
-                foreach (var country in countrylist)
+                foreach (DataRow country in countrylist.Rows)
                 {
                     Country country1 = new Country();
-                    country1.countryid = Convert.ToInt32(country.countryid);
-                    country1.name = Convert.ToString(country.name);
-                    country1.countrycode = Convert.ToString(country.countrycode);
+                    country1.countryid = Convert.ToInt32(country["countryid"]);
+                    country1.name = Convert.ToString(country["name"]);
                     countryLst.Add(country1);
                 }
             }
@@ -971,19 +972,22 @@ namespace MiraiConsultMVC.Controllers
             return Json(locationLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult populateRegistrationCouncilbyCountry(int countryId)
+        public JsonResult populateRegistrationCouncilbyCountry(int? countryId)
         {
             IList<RegistrationCouncil> councilLst = new List<RegistrationCouncil>();
-            var councilList = db.registrationcouncils.Where(s => s.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
-            if (councilList != null && councilList.Count() > 0)
+            if (countryId != null)
             {
-                foreach (var council in councilList)
+                var councilList = db.registrationcouncils.Where(s => s.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
+                if (councilList != null && councilList.Count() > 0)
                 {
-                    RegistrationCouncil RegistrationCouncil1 = new RegistrationCouncil();
-                    RegistrationCouncil1.regcouncilid = Convert.ToInt32(council.regcouncilid);
-                    RegistrationCouncil1.countryid = Convert.ToInt32(council.countryid);
-                    RegistrationCouncil1.name = Convert.ToString(council.name);
-                    councilLst.Add(RegistrationCouncil1);
+                    foreach (var council in councilList)
+                    {
+                        RegistrationCouncil RegistrationCouncil1 = new RegistrationCouncil();
+                        RegistrationCouncil1.regcouncilid = Convert.ToInt32(council.regcouncilid);
+                        RegistrationCouncil1.countryid = Convert.ToInt32(council.countryid);
+                        RegistrationCouncil1.name = Convert.ToString(council.name);
+                        councilLst.Add(RegistrationCouncil1);
+                    }
                 }
             }
             return Json(councilLst, JsonRequestBehavior.AllowGet);

@@ -22,8 +22,8 @@ namespace MiraiConsultMVC.Models
         private int stateid;
         private int cityid;
         private int locationid;     
-        private int height;       
-        private decimal weight;
+        private int? height;       
+        private decimal? weight;
         private DateTime registrationdate;
         private int status;
         private int usertype;
@@ -56,8 +56,9 @@ namespace MiraiConsultMVC.Models
 
         [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
-
         public int Gender { get { return gender; } set { gender = value; } }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
         public string Password { get { return password; } set { password = value; } }
@@ -67,10 +68,10 @@ namespace MiraiConsultMVC.Models
         public int LocationId { get { return locationid; } set { locationid = value; } }
 
         [RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
-        public int Height { get { return height; } set { height = value; } }
+        public int? Height { get { return height; } set { height = value; } }
 
         [RegularExpression(@"(\+)?[0-9]+(\.[0-9]*)?", ErrorMessage = "Please Enter Weight In Positive Numbers.")]
-        public decimal Weight { get { return weight; } set { weight = value; } }
+        public decimal? Weight { get { return weight; } set { weight = value; } }
         public DateTime RegistrationDate { get { return registrationdate; } set { registrationdate = value; } }
         public int Status { get { return status; } set { status = value; } }
         public int UserType { get { return usertype; } set { usertype = value; } }

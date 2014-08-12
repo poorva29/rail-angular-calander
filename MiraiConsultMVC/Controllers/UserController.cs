@@ -166,7 +166,7 @@ namespace MiraiConsultMVC.Controllers
                     }
                     else
                     {
-                        ViewBag.errorMsg = "Email Id or Password does not match";
+                        ViewBag.errorMsg = "Email Id or Password does not match.";
                         return View();
                     }
                 }

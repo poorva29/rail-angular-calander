@@ -40,13 +40,13 @@
                                 @if (TempData["message"] != null && (TempData["message"] == "Details updated successfully. You will receive verification email shortly." || TempData["message"] == "Details updated successfully."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-success margin_left_success">
-                                        <label id="lblMessage" class="success_message_color">@TempData["message"]</label>
+                                        <label id="lblMessage" class="success_message_color msg_font">@TempData["message"]</label>
                                     </div>
                                 }
                                 else if (TempData["message"] != null && (TempData["message"] == "Other User with same email address already exist. Please enter other email."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-error margin_left_success">
-                                        <label id="lblMessage" class="error_message_color">@TempData["message"]</label>
+                                        <label id="lblMessage" class="error_message_color msg_font">@TempData["message"]</label>
                                     </div>
                                 }
                             </div>
@@ -596,6 +596,7 @@
     function validateTelephone() {
         var filter = /^[0-9., [\](\) -]{8,33}$/;
         var value = $("#txtTelephoneNo").val();
+        tryNumber = 0;
         if (filter.test(value) || value.trim().length <= 0)  {
             $("#telephoneValidatior").html('');
             return true
@@ -609,6 +610,16 @@
         if (cntrl.val().length > 0)
             isValidDateofBirth(cntrl);
     })
+    $("#btnSubmit").click(function () {
+        var val = $("#ImageValidation").text();
+        tryNumber = 0;
+        if (val == "") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
     $("#Image").change(function () {
 
         var val = $(this).val();
@@ -617,7 +628,6 @@
                 $("#ImageValidation").html("");
                 break;
             default:
-                $(this).val('');
                 $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
                 break;
         }

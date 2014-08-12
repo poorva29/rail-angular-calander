@@ -99,7 +99,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'GetSimilarQuestion?questionText=' + questionText,
+                url: 'GetSimilarQuestion?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -145,7 +145,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'question_Insert?questionText=' + questionText,
+                url: 'question_Insert?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {
@@ -153,6 +153,7 @@
                         document.getElementById('dispImage').src = '../Content/image/askDoctors3.png';
                         document.getElementById('msglabel').style.display = 'block';
                         document.getElementById('msglabel').innerHTML = "Your Question has been sent for review and it is added to your activity. You will be notified when it is answered.";
+                        $('msglabel').addClass('msg_font');
                         document.getElementById('buttonDiv').style.display = 'none';
                         document.getElementById('msglabel').className = 'alert alert-success success_message_color';
                         document.getElementById('btnAskMirai').style.display = 'none';

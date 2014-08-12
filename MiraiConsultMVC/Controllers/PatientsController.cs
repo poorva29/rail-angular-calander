@@ -427,7 +427,7 @@ namespace MiraiConsultMVC.Controllers
 
         [HttpGet]
         public ActionResult GetSimilarQuestion(string questionText)
-        {            
+        {
             IList<AskDoctor> lstQuestions = new List<AskDoctor>();
             var questionList = db.get_AllQuestionsByTag(questionText, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)

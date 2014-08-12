@@ -23,7 +23,7 @@
                  <div class="wrapper-bordered alert alert-success"  id="SuccessMessagediv" visible="true">
                     <div class="row-fluid">
                         <div class="span12">
-                            <label id="lblSuccessMessage" class="success_message_color">@ViewBag.message</label>
+                            <label id="lblSuccessMessage" class="success_message_color msg_font">@ViewBag.message</label>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         @if (ViewBag.message != null && ViewBag.message == "This username is not available. Please select a different username.")
                         {
                             <div class="span12 alert alert-error" id="errorMessageDiv" visible="true">
-                                <label id="lblErrorMessage" class="error_message_color">@ViewBag.message</label>
+                                <label id="lblErrorMessage" class="error_message_color msg_font">@ViewBag.message</label>
                             </div>
                         }
                     </div>

@@ -22,7 +22,7 @@
                 @if (Model != null && Model.Count() != 0)
                 {
                     <div class='span12 custom-green-container'>
-                        <div class="question_text">@Model.FirstOrDefault().QuestionText</div>
+                        <div class="question_text">@Html.Raw(Model.FirstOrDefault().QuestionText)</div>
                     </div>
                     if (@Model.FirstOrDefault().AnswerId != 0)
                     {

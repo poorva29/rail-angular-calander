@@ -4,7 +4,7 @@
             source: function (request, response) {
                 $.ajax({
                     type: 'GET',
-                    url: '../Home/AutoComplete?searchTerm=' + $('#txtsearch').val(),
+                    url: '../Home/AutoComplete?searchTerm=' + encodeURIComponent($('#txtsearch').val()),
                     dataType: "json",
                     contentType: 'application/json',
                     success: function (data) {

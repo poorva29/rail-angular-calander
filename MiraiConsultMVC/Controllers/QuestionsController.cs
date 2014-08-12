@@ -61,6 +61,14 @@ namespace MiraiConsultMVC.Controllers
 
                 }
             }
+            else
+            {
+                QModel = new QuestionModel();
+                AModel = new AnswerModel();
+                QModel.QuestionId = 0;
+                QModel.Filter = filter;
+                Questions.Add(QModel);
+            }
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_DoctorQuestionList", Questions);

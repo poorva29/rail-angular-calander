@@ -40,13 +40,13 @@
                                 @if (TempData["message"] != null && (TempData["message"] == "Details updated successfully. You will receive verification email shortly." || TempData["message"] == "Details updated successfully."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-success margin_left_success">
-                                        <label id="lblMessage" class="success_message_color">@TempData["message"]</label>
+                                        <label id="lblMessage" class="success_message_color msg_font">@TempData["message"]</label>
                                     </div>
                                 }
                                 else if (TempData["message"] != null && (TempData["message"] == "Other User with same email address already exist. Please enter other email."))
                                 {
                                     <div id="messageDiv" style="margin-left:0" class="alert alert-error margin_left_success">
-                                        <label id="lblMessage" class="error_message_color">@TempData["message"]</label>
+                                        <label id="lblMessage" class="error_message_color msg_font">@TempData["message"]</label>
                                     </div>
                                 }
                             </div>

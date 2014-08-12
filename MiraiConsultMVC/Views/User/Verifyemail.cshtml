@@ -11,13 +11,13 @@
                 @if (ViewBag.Message != null && ViewBag.Message == "Sorry, this link has already been used.")
                 {
                     <div id="message" class="span12  alert alert-error">
-                        <label id="lblMessage">@ViewBag.Message</label>
+                        <label id="lblMessage" class="msg_font">@ViewBag.Message</label>
                     </div>
                 }
                 else
                 {
                     <div id="message" class="span12 alert alert-success">
-                        <label id="lblMessage">@ViewBag.Message</label>
+                        <label id="lblMessage" class="msg_font">@ViewBag.Message</label>
                     </div>
                 }
             </div>

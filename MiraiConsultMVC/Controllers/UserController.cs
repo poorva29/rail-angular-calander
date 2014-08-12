@@ -128,7 +128,7 @@ namespace MiraiConsultMVC.Controllers
                                     // redirect to patient page
                                 }
                             }
-                            if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor))
+                            else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor))
                             {
                                 if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
                                 {
@@ -141,15 +141,10 @@ namespace MiraiConsultMVC.Controllers
                                     return View();
                                 }
                             }
-                            else
-                            {
-                                ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
-                                return View();
-                            }
                         }
                         else
                         {
-                            ViewBag.errorMsg = "Email Id or Password does not match.";
+                            ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
                             return View();
                         }
                     }

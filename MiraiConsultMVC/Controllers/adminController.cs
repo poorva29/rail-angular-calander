@@ -34,24 +34,24 @@ namespace MiraiConsultMVC.Controllers
             }
             QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
 
-            if (QuestionDetails.Tables[2].Rows.Count != 0)
-            {
+            //if (QuestionDetails.Tables[2].Rows.Count != 0)
+            //{
                 AssignDoctors = QuestionDetails.Tables[2];
-            }
-            else
-            {
-                AssignDoctors = QuestionDetails.Tables[2];
-                DataRow row = AssignDoctors.NewRow();
-                row["id"] = 0;
-                row["name"] = "";
-                row["cities"] = "";
-                row["specialities"] = "";
-                row["userid"] = 0;
-                row["locations"] = "";
+            //}
+            //else
+            //{
+            //    AssignDoctors = QuestionDetails.Tables[2];
+            //    DataRow row = AssignDoctors.NewRow();
+            //    row["id"] = 0;
+            //    row["name"] = "";
+            //    row["cities"] = "";
+            //    row["specialities"] = "";
+            //    row["userid"] = 0;
+            //    row["locations"] = "";
                 
-                AssignDoctors.Rows.Add(row);
+            //    AssignDoctors.Rows.Add(row);
 
-            }
+            //}
 
 
             DataTable dtTags = UtilityManager.getInstance().getAlltags();

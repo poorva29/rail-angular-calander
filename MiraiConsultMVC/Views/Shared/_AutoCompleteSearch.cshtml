@@ -13,7 +13,7 @@
                             temp.innerHTML = item.questiontext;
                             return {
                                 label: temp.firstChild.nodeValue,
-                                value: '../Patients/PatientQuestionDetails?questionid=' + item.questionid
+                                value: '../Patients/PatientQuestionDetails/' + item.questionid
                             }
                         }));
                     },

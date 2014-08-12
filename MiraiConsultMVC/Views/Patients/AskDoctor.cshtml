@@ -107,7 +107,7 @@
                     for (var i = 0; i < response.length; i++) {
 
                         TextToAppend = TextToAppend + '<div class=\'ans_time_detail\'><p>' + response[i].Counts + '</p></div>' +
-                                    '<a href=\'PatientQuestionDetails?questionid=' + response[i].QuestionId + '\'>' +
+                                    '<a href=\'PatientQuestionDetails/' + response[i].QuestionId + '\'>' +
                                         '<p id=\"questionText\">' + response[i].QuestionText + '</p>' +
                                     '</a>' +
                                     '<hr class="hr_margin" style="margin-top:22px" />'

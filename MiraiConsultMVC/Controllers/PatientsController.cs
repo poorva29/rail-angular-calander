@@ -335,14 +335,16 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetails()
+        public ActionResult PatientQuestionDetails(int questionId = 0)
         {
             try
             {
+                //Putted as it is 
                 if (Request.QueryString["questionid"] != null)
                 {
                     questionId = Convert.ToInt32(Request.QueryString["questionid"]);
                 }
+
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);
@@ -385,9 +387,9 @@ namespace MiraiConsultMVC.Controllers
                 ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
                 ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
 
-                Session["Title"] = QDModel.FirstOrDefault().QuestionText;
-                Session["Url"] = ViewBag.AskmiraiUrl + "Patients/PatientQuestionDetails?questionid=" + QDModel.FirstOrDefault().QuestionId;
-                Session["Description"] = QDModel.FirstOrDefault().AnswerText;
+                ViewBag.metatitle = QDModel.FirstOrDefault().QuestionText;
+                ViewBag.metaUrl = ViewBag.AskmiraiUrl + "Patients/PatientQuestionDetails/" + QDModel.FirstOrDefault().QuestionId;
+                ViewBag.metaDescription = QDModel.FirstOrDefault().AnswerText;
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
 
                 List<tag> tags = new List<tag>();
@@ -506,7 +508,7 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
-        public ActionResult similarQuestions(string question)
+        public ActionResult similarQuestions(string question = "")
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();
           ViewBag.Question = question;

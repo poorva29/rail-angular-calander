@@ -2,9 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="Healthcare now more accessible and convenient at MiraiConsult" />
-    <meta property="og:title" content="MiraiConsult" />
-    <meta property="og:image" content="http://demo.vertisinfotech.com:7171/askMirai/app/Resources/image/logo.png" />
+    <meta property="og:description" content="Healthcare now more accessible and convenient at MiraiConsult" />
+    <meta property="og:title" content="MiraiConsult™" />
+    <meta property="og:image" content="@ConfigurationSettings.AppSettings["askMiraiLink"]/Content/image/logoImage.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@ConfigurationSettings.AppSettings["askMiraiLink"]" />
 
     <title>Mirai Consult ™ </title>
     <link rel="stylesheet" href="../Content/bootstrap.min.css" />
@@ -54,7 +56,12 @@
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
                                  || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ForgotPassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword"))
+                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Patient") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Doctor")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PrivacyPolicy")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Contact")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">
@@ -215,7 +222,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="/finddoctor/finddoctors" class="topmenu-links">Our Doctors</a>
+                                    <a href="/finddoctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

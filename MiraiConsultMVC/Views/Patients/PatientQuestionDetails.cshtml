@@ -111,7 +111,7 @@
                                             <a href='#' onclick='shareOnFacebook("@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.QuestionText)))","@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.AnswerText)) )","@item.QuestionId","@ViewBag.AskmiraiUrl","@ViewBag.FacebookAppKey")'>
                                                 <img title='Facebook' class='share_icons_width' src='~/Content/image/fb.png' alt='Facebook'>
                                             </a>
-                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/Patients/PatientQuestionDetails?questionid=@item.QuestionId'><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
+                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/Patients/PatientQuestionDetails/@item.QuestionId'><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
 
                                             <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has been shared an Answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
                                                 <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email'>
@@ -204,6 +204,13 @@
         </div>
     </div>
 </div>
+@section metatags {
+<meta property="og:title" content="@ViewBag.metatitle" />
+<meta property="og:url" content="@ViewBag.metaUrl">
+<meta property="og:image" content="@ConfigurationSettings.AppSettings["askMiraiLink"]/Content/image/logoImage.png" />
+<meta property="og:description" content="@ViewBag.metaDescription" />
+<meta property="og:type" content="website" />
+}
 <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
 <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">

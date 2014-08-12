@@ -7,7 +7,7 @@
         LinkUrl =  url+'Home/Home';
     }
     else {
-        LinkUrl = url + 'Patients/PatientQuestionDetails?questionid=' + id;
+        LinkUrl = url + 'Patients/PatientQuestionDetails/' + id;
     }
     FB.ui(
     {
@@ -94,7 +94,7 @@ function isEnterPress(evt, x) {
         //if (session != null && session == 2)
         //    window.location.href = "../patient/askdoctor.aspx?question=" + x.value;
         //else
-        window.location.href = "../Patients/similarQuestions?question=" + x.value;
+        window.location.href = "/similarQuestions/" + x.value;
         return false;
     }
     return true;

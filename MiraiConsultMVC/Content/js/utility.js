@@ -7,7 +7,7 @@
         LinkUrl =  url+'/Home/Home';
     }
     else {
-        LinkUrl = url + '/Patients/PatientQuestionDetails?questionid=' + id;
+        LinkUrl = url + '/Patients/PatientQuestionDetails/' + id;
     }
     FB.ui(
     {
@@ -92,9 +92,9 @@ function isEnterPress(evt, x) {
 
         var session = '<%=Session["userType"]%>';
         if (session != null && session == 2)
-            window.location.href = "../Patients/similarQuestions?question=" + x.value;
+            window.location.href = "/similarQuestions/" + x.value;
         else
-            window.location.href = "../Patients/similarQuestions?question=" + x.value;
+            window.location.href = "/similarQuestions/" + x.value;
         return false;
     }
     return true;

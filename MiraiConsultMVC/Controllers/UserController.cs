@@ -148,22 +148,27 @@ namespace MiraiConsultMVC.Controllers
                             return View();
                         }
                     }
-                    else if (log.Email == SuperAdminEmailId)
-                    {
-                        Session["UserFirstName"] = "super";
-                        Session["UserLastName"] = "admin";
-                        Session["UserFullName"] = "Super Admin";
-                        Session["UserEmail"] = SuperAdminEmailId;
-                        Session["UserId"] = 9999999;
-                        Session["UserType"] = 0;
-                        setUserPrivilegesBasedOnUsertype(0);
-                        return RedirectToAction("ManageDoctors");
-                    }
                     else
                     {
                         ViewBag.errorMsg = "Email Id or Password does not match.";
                         return View();
                     }
+                }
+                else if (log.Email == SuperAdminEmailId && log.Password == SuperAdminUserPassword)
+                {
+                    Session["UserFirstName"] = "super";
+                    Session["UserLastName"] = "admin";
+                    Session["UserFullName"] = "Super Admin";
+                    Session["UserEmail"] = SuperAdminEmailId;
+                    Session["UserId"] = 9999999;
+                    Session["UserType"] = 0;
+                    setUserPrivilegesBasedOnUsertype(0);
+                    return RedirectToAction("ManageDoctors");
+                }
+                else
+                {
+                    ViewBag.errorMsg = "Email Id or Password does not match.";
+                    return View();
                 }
             }
             return View();

@@ -99,7 +99,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'GetSimilarQuestion?questionText=' + questionText,
+                url: 'GetSimilarQuestion?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -145,7 +145,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'question_Insert?questionText=' + questionText,
+                url: 'question_Insert?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

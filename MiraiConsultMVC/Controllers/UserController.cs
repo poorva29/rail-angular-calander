@@ -630,21 +630,23 @@ namespace MiraiConsultMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userID = 0 ;
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-                int userID = Convert.ToInt32(TempData["userid"].ToString());
-
+                if (!string.IsNullOrEmpty(TempData["userid"].ToString()))
+                {
+                    userID = Convert.ToInt32(TempData["userid"].ToString());
+                }
                 string dbpasswd = Utilities.Encrypt(passwords.Password);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
                 if (userRecord != null)
                 {
                     userRecord.password = Utilities.Encrypt(passwords.Password); ;
-
                     db.SubmitChanges();
-                    ViewBag.errorMsg = "Password has been Reset successfully.";
-                   
+                    ViewBag.errorMsg = "Password has been changed successfully.";
+                    TempData["userid"] = userID.ToString();
                 }
             }
-            return View();
+            return View(passwords);
         }
 
         [HttpGet]
@@ -735,9 +737,9 @@ namespace MiraiConsultMVC.Controllers
                 if (file != null && !string.IsNullOrEmpty(file.FileName))
                     filename = file.FileName;
                 string lstSpeciality = "";
-                if (collection != null && collection["specialities"] != null)
+                if (collection != null && collection["lstSpecialities"] != null)
                 {
-                    lstSpeciality = collection["specialities"];
+                    lstSpeciality = collection["lstSpecialities"];
                     string[] specilaity = lstSpeciality.Split(',');
                     foreach (var specialityId in specilaity)
                     {
@@ -798,14 +800,12 @@ namespace MiraiConsultMVC.Controllers
                                 }
                                 if (!System.IO.File.Exists(strPhysicalFilePath))
                                 {
-                                    var path = Path.Combine(ImageUpoading_path, filename);
-                                    file.SaveAs(path);
+                                    file.SaveAs(strPhysicalFilePath);
                                 }
                                 else
                                 {
                                     System.IO.File.Delete(strPhysicalFilePath);
-                                    var path = Path.Combine(ImageUpoading_path, filename);
-                                    file.SaveAs(path);
+                                    file.SaveAs(strPhysicalFilePath);
                                 }
                             }
                         }

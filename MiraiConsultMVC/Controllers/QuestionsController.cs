@@ -61,6 +61,14 @@ namespace MiraiConsultMVC.Controllers
 
                 }
             }
+            else
+            {
+                QModel = new QuestionModel();
+                AModel = new AnswerModel();
+                QModel.QuestionId = 0;
+                QModel.Filter = filter;
+                Questions.Add(QModel);
+            }
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_DoctorQuestionList", Questions);
@@ -128,6 +136,7 @@ namespace MiraiConsultMVC.Controllers
                 int userId = 0;
                 DataSet QuestionDetails;
                 int QuestionId = Convert.ToInt32(TempData["QuestionId"]);
+                TempData["QuestionId"] = QuestionId; //when user refresh page then action gets QuestionId
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"].ToString());

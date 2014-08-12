@@ -102,44 +102,44 @@ namespace MiraiConsultMVC.Controllers
                         if (Convert.ToBoolean(isLogin.isemailverified))
                         {
                             user = new User();
-                            Session["UserFirstName"] = isLogin.firstname;
-                            Session["UserLastName"] = isLogin.lastname;
-                            Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
-                            Session["UserName"] = isLogin.username;
-                            Session["UserEmail"] = isLogin.email;
-                            Session["UserId"] = isLogin.userid;
-                            Session["UserType"] = isLogin.usertype;
-                            Session["locationid"] = isLogin.locationid;
-                            Session["cityid"] = isLogin.cityid;
                             userType = Convert.ToInt32(user.UserType);
                             setUserPrivilegesBasedOnUsertype(userType);
                             RememberMe(log.RememberMe, log.Email, dbpasswd);
-                            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                            if ((Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved)) || (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient)))
                             {
-                                if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Pending))
+                                Session["UserFirstName"] = isLogin.firstname;
+                                Session["UserLastName"] = isLogin.lastname;
+                                Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
+                                Session["UserName"] = isLogin.username;
+                                Session["UserEmail"] = isLogin.email;
+                                Session["UserId"] = isLogin.userid;
+                                Session["UserType"] = isLogin.usertype;
+                                Session["locationid"] = isLogin.locationid;
+                                Session["cityid"] = isLogin.cityid;
+                                if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved))
+                                {
+                                    Session["UnQuestionCount"] = showUnansweredQuestionCount();
+                                    return RedirectToAction("DoctorQuestionList", "Questions");
+                                    //redirect to doctor page
+                                }
+                                else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient))
+                                {
+                                    return RedirectToAction("feed", "feed");
+                                    // redirect to patient page
+                                }
+                            }
+                            else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor))
+                            {
+                                if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
                                 {
                                     ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
                                     return View();
                                 }
-                                else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
+                                else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Rejected))
                                 {
                                     ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
                                     return View();
                                 }
-
-                                 Session["UnQuestionCount"] = showUnansweredQuestionCount();
-                                 return RedirectToAction("DoctorQuestionList", "Questions");
-                                //redirect to doctor page
-                            }
-                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
-                            {
-                                return RedirectToAction("feed", "feed");
-                                // redirect to patient page
-                            }
-                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Assistent))
-                            {
-                                return RedirectToAction("ManageDoctors");
-                                // redirect to assistent page
                             }
                         }
                         else
@@ -148,39 +148,32 @@ namespace MiraiConsultMVC.Controllers
                             return View();
                         }
                     }
+                    else if (log.Email == SuperAdminEmailId)
+                    {
+                        Session["UserFirstName"] = "super";
+                        Session["UserLastName"] = "admin";
+                        Session["UserFullName"] = "Super Admin";
+                        Session["UserEmail"] = SuperAdminEmailId;
+                        Session["UserId"] = 9999999;
+                        Session["UserType"] = 0;
+                        setUserPrivilegesBasedOnUsertype(0);
+                        return RedirectToAction("ManageDoctors");
+                    }
+                    else
                     {
                         ViewBag.errorMsg = "Email Id or Password does not match.";
                         return View();
                     }
-
-                }
-                else if (log.Email == SuperAdminEmailId)
-                {
-                    Session["UserFirstName"] = "super";
-                    Session["UserLastName"] = "admin";
-                    Session["UserFullName"] = "Super Admin";
-                    Session["UserEmail"] = SuperAdminEmailId;
-                    Session["UserId"] = 9999999;
-                    Session["UserType"] = 0;
-
-                    setUserPrivilegesBasedOnUsertype(0);
-
-                    return RedirectToAction("ManageDoctors");
-                }
-                else
-                {
-                    ViewBag.errorMsg = "Email Id or Password does not match";
-                    return View();
                 }
             }
             return View();
         }
-        protected void RememberMe(bool rememberMe,string email, string password)
+        protected void RememberMe(bool rememberMe, string email, string password)
         {
             if (rememberMe == true)
             {
                 Response.Cookies["Consult_UName"].Value = email;
-                Response.Cookies["Consult_PWD"].Value =Utilities.Decrypt(password);
+                Response.Cookies["Consult_PWD"].Value = Utilities.Decrypt(password);
                 Response.Cookies["Consult_UName"].Expires = DateTime.Now.AddMonths(2);
                 Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(2);
             }
@@ -190,12 +183,12 @@ namespace MiraiConsultMVC.Controllers
                 Response.Cookies["Consult_PWD"].Expires = DateTime.Now.AddMonths(-1);
             }
         }
-        
-        public ActionResult ManageDoctors(string Registered=null,string Approved=null,string Rejected=null )
+
+        public ActionResult ManageDoctors(string Registered = null, string Approved = null, string Rejected = null)
         {
             BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.manageDoctor));
             IList<ModelUser> lstdoctors = getAllDoctorDetails();
-            if(Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
             {
                 Boolean IsRegistered = false;
                 Boolean IsApproved = false;
@@ -257,7 +250,7 @@ namespace MiraiConsultMVC.Controllers
             string subject = "Mirai Consult - Your registration request to Mirai Consult has been approved";
             string body = EmailTemplates.GetTemplateOfApprovalNotificationEmailToDoc(DoctorName);
             int DoctorID = Convert.ToInt32(doctorid);
-            object jsonObj ;
+            object jsonObj;
             int statusApp = (int)UserStatus.Approved;
              _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
             var UserRecord = db.users.FirstOrDefault(x => x.userid.Equals(DoctorID));

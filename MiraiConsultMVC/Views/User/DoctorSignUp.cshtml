@@ -273,7 +273,14 @@
     }
 
     $("#btnCreateDoctorAccount").click(function () {
-        $("#ImageValidation").html("");
+        var val = $("#ImageValidation").text();
+        tryNumber = 0;
+        if (val == "") {
+            return true;
+        }
+        else {
+            return false;
+        }
     });
     $("#Image").change(function () {
 
@@ -283,7 +290,6 @@
                 $("#ImageValidation").html("");
                 break;
             default:
-                $(this).val('');
                 $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
                 break;
         }

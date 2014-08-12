@@ -24,13 +24,13 @@
                     @if (ViewBag.Message != null && ViewBag.Message == "Failed to send email.")
                     {
                         <div class="wrapper-bordered alert alert-error" id="Messagediv">
-                            <label id="lblMessage" class="error_message_color">@ViewBag.Message</label>
+                            <label id="lblMessage" class="error_message_color msg_font">@ViewBag.Message</label>
                         </div>
                     }
                     else if (ViewBag.Message != null && ViewBag.Message == "Your email sent successfully.")   
                     {
                          <div class="wrapper-bordered alert alert-success" id="Messagediv">
-                             <label id="lblMessage" class="success_message_color">@ViewBag.Message</label>
+                             <label id="lblMessage" class="success_message_color msg_font">@ViewBag.Message</label>
                         </div>
                     }
                 </div>

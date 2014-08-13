@@ -348,14 +348,16 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetails()
+        public ActionResult PatientQuestionDetails(int questionId = 0)
         {
             try
             {
+                //Putted as it is 
                 if (Request.QueryString["questionid"] != null)
                 {
                     questionId = Convert.ToInt32(Request.QueryString["questionid"]);
                 }
+
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);
@@ -538,7 +540,7 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
-        public ActionResult similarQuestions(string question)
+        public ActionResult similarQuestions(string question = "")
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();
           ViewBag.Question = question;

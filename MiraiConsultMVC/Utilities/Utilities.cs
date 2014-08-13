@@ -178,7 +178,7 @@ namespace MiraiConsultMVC
         {
             IList<int> privileges = (IList<int>)HttpContext.Current.Session["privileges"];
             bool isAccessible = false;
-            if (privileges.Count > 0)
+            if (privileges!=null && privileges.Count > 0)
             {
                 isAccessible = privileges.Contains(privilege);
             }

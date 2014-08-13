@@ -58,6 +58,11 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult NoPrivilegeError()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Error(string name)
         {

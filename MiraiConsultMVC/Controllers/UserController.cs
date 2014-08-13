@@ -192,59 +192,66 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ManageDoctors(string Registered = null, string Approved = null, string Rejected = null)
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.manageDoctor));
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.manageDoctor));
             IList<ModelUser> lstdoctors = getAllDoctorDetails();
-            if (Request.IsAjaxRequest())
+            if (privilege == 1)
             {
-                Boolean IsRegistered = false;
-                Boolean IsApproved = false;
-                Boolean IsRejected = false;
-                IList<ModelUser> lstFilterDoctors;
-                if (!String.IsNullOrEmpty(Registered))
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
+            {
+                if (Request.IsAjaxRequest())
                 {
-                    IsRegistered = true;
+                    Boolean IsRegistered = false;
+                    Boolean IsApproved = false;
+                    Boolean IsRejected = false;
+                    IList<ModelUser> lstFilterDoctors;
+                    if (!String.IsNullOrEmpty(Registered))
+                    {
+                        IsRegistered = true;
+                    }
+                    if (!String.IsNullOrEmpty(Approved))
+                    {
+                        IsApproved = true;
+                    }
+                    if (!String.IsNullOrEmpty(Rejected))
+                    {
+                        IsRejected = true;
+                    }
+                    if (IsRegistered && IsApproved && IsRejected)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2) || d.Status.Equals(3)).ToList();
+                    }
+                    else if (IsRegistered && IsApproved)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2)).ToList();
+                    }
+                    else if (IsRegistered && IsRejected)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(3)).ToList();
+                    }
+                    else if (IsApproved && IsRejected)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2) || d.Status.Equals(3)).ToList();
+                    }
+                    else if (IsRegistered)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1)).ToList();
+                    }
+                    else if (IsRejected)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(3)).ToList();
+                    }
+                    else if (IsApproved)
+                    {
+                        lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2)).ToList();
+                    }
+                    else
+                    {
+                        lstFilterDoctors = lstdoctors;
+                    }
+                    return PartialView("_DoctorDetails", lstFilterDoctors);
                 }
-                if (!String.IsNullOrEmpty(Approved))
-                {
-                    IsApproved = true;
-                }
-                if (!String.IsNullOrEmpty(Rejected))
-                {
-                    IsRejected = true;
-                }
-                if (IsRegistered && IsApproved && IsRejected)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2) || d.Status.Equals(3)).ToList();
-                }
-                else if (IsRegistered && IsApproved)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(2)).ToList();
-                }
-                else if (IsRegistered && IsRejected)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1) || d.Status.Equals(3)).ToList();
-                }
-                else if (IsApproved && IsRejected)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2) || d.Status.Equals(3)).ToList();
-                }
-                else if (IsRegistered)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(1)).ToList();
-                }
-                else if (IsRejected)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(3)).ToList();
-                }
-                else if (IsApproved)
-                {
-                    lstFilterDoctors = lstdoctors.Where(d => d.Status.Equals(2)).ToList();
-                }
-                else
-                {
-                    lstFilterDoctors = lstdoctors;
-                }
-                return PartialView("_DoctorDetails", lstFilterDoctors);
             }
             return View(lstdoctors);
         }
@@ -1041,6 +1048,7 @@ namespace MiraiConsultMVC.Controllers
                     privileges.Add(Convert.ToInt32(Privileges.questionlist));
                     privileges.Add(Convert.ToInt32(Privileges.Invitefriend));
                     privileges.Add(Convert.ToInt32(Privileges.doctorprofile));
+                    privileges.Add(Convert.ToInt32(Privileges.DoctorFeed));
                     break;
                 case 0: privileges.Add(Convert.ToInt32(Privileges.patientfeed)); // for superadmin
                     privileges.Add(Convert.ToInt32(Privileges.doctorprofile));

@@ -1,0 +1,38 @@
+﻿
+
+@{
+    ViewBag.Title = "NoPrivilegeError";
+    if (Session["UserId"] == null)
+    {
+        Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
+    else
+    { 
+    Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
+}
+<div class="row-fluid">
+    <div class="span12 main-outter-padding">
+        <div class=" ">
+            <div id="controlcontainer" class="wrapper-bordered" visible="true">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <label id="lblMessage" class="span12 alert alert-error error_message_color msg_font">Sorry ! You do not have privileges to access this page.Please contact the administrator if you think this is an error.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-48132984-2', 'askmirai.com');
+    ga('send', 'pageview');
+
+</script>

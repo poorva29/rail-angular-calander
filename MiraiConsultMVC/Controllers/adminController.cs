@@ -26,90 +26,97 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db;
         public ActionResult assignquestion(int? QuestionId)
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
-            ViewBag.questionid = QuestionId;
-            if (Session["UserId"] != null)
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
+            if (privilege == 1)
             {
-                userId = Convert.ToInt32(Session["UserId"].ToString());
-            }
-            QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
-
-            if (QuestionDetails.Tables[2].Rows.Count != 0)
-            {
-                AssignDoctors = QuestionDetails.Tables[2];
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
             else
             {
-                AssignDoctors = QuestionDetails.Tables[2];
-                DataRow row = AssignDoctors.NewRow();
-                row["id"] = 0;
-                row["name"] = "";
-                row["cities"] = "";
-                row["specialities"] = "";
-                row["userid"] = 0;
-                row["locations"] = "";
-                
-                AssignDoctors.Rows.Add(row);
-
-            }
-
-
-            DataTable dtTags = UtilityManager.getInstance().getAlltags();
-
-            List<tag> tags = new List<tag>();
-
-            tags = dtTags.AsEnumerable().Select(dataRow => new tag
+                ViewBag.questionid = QuestionId;
+                if (Session["UserId"] != null)
                 {
-                    tagid = dataRow.Field<int>("tagid"),
-                    tagname = dataRow.Field<string>("tagname"),
-                }).ToList();
+                    userId = Convert.ToInt32(Session["UserId"].ToString());
+                }
+                QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
 
-            if (QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[1].Rows.Count != 0)
-            {
-                List<tag> Selectedtags = new List<tag>();
-                Selectedtags = QuestionDetails.Tables[1].AsEnumerable().Select(dataRow => new tag
+                if (QuestionDetails.Tables[2].Rows.Count != 0)
                 {
-                    tagid = dataRow.Field<int>("tagid")
-
-                }).ToList();
-
-                int[] values = new int[Selectedtags.Count];
-                for (int i = 0; i < Selectedtags.Count; i++)
+                    AssignDoctors = QuestionDetails.Tables[2];
+                }
+                else
                 {
-                    values[i] = Selectedtags.ToList()[i].tagid;
+                    AssignDoctors = QuestionDetails.Tables[2];
+                    DataRow row = AssignDoctors.NewRow();
+                    row["id"] = 0;
+                    row["name"] = "";
+                    row["cities"] = "";
+                    row["specialities"] = "";
+                    row["userid"] = 0;
+                    row["locations"] = "";
+
+                    AssignDoctors.Rows.Add(row);
+
                 }
 
-                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
 
-                ViewBag.tags = makeSelected;
+                DataTable dtTags = UtilityManager.getInstance().getAlltags();
+
+                List<tag> tags = new List<tag>();
+
+                tags = dtTags.AsEnumerable().Select(dataRow => new tag
+                    {
+                        tagid = dataRow.Field<int>("tagid"),
+                        tagname = dataRow.Field<string>("tagname"),
+                    }).ToList();
+
+                if (QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[1].Rows.Count != 0)
+                {
+                    List<tag> Selectedtags = new List<tag>();
+                    Selectedtags = QuestionDetails.Tables[1].AsEnumerable().Select(dataRow => new tag
+                    {
+                        tagid = dataRow.Field<int>("tagid")
+
+                    }).ToList();
+
+                    int[] values = new int[Selectedtags.Count];
+                    for (int i = 0; i < Selectedtags.Count; i++)
+                    {
+                        values[i] = Selectedtags.ToList()[i].tagid;
+                    }
+
+                    MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
+
+                    ViewBag.tags = makeSelected;
+                }
+                else
+                {
+                    tag ObjectTag = new tag();
+                    ObjectTag.tagid = 0;
+                    ObjectTag.tagname = "";
+
+                    tags.Add(ObjectTag);
+                    MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", tags);
+
+                    ViewBag.tags = makeSelected;
+                }
+
+                List<AssignQuestion> viewmodel = new List<AssignQuestion>();
+
+                viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
+                {
+                    id = dataRow.Field<int>("id"),
+                    name = dataRow.Field<string>("name"),
+                    cities = dataRow.Field<string>("cities"),
+                    specialities = dataRow.Field<string>("specialities"),
+                    userid = dataRow.Field<int>("userid"),
+                    locations = dataRow.Field<string>("locations"),
+                    questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
+                    Questionid = Convert.ToInt32(QuestionId)
+                }).ToList();
+
+                return View(viewmodel);
             }
-            else
-            {
-                tag ObjectTag = new tag();
-                ObjectTag.tagid = 0;
-                ObjectTag.tagname = "";
-
-                tags.Add(ObjectTag);
-                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", tags);
-
-                ViewBag.tags = makeSelected;
-            }
-
-            List<AssignQuestion> viewmodel = new List<AssignQuestion>();
-
-            viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
-            {
-                id = dataRow.Field<int>("id"),
-                name = dataRow.Field<string>("name"),
-                cities = dataRow.Field<string>("cities"),
-                specialities = dataRow.Field<string>("specialities"),
-                userid = dataRow.Field<int>("userid"),
-                locations = dataRow.Field<string>("locations"),
-                questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
-                Questionid = Convert.ToInt32(QuestionId)
-            }).ToList();
-
-            return View(viewmodel);
         }
 
         public JsonResult AssignDoctor(int QuestionId, string AssignDoctorIds)
@@ -169,10 +176,17 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult QuestionList(bool filter = true)
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
-            List<QuestionModel> Qmodel = new List<QuestionModel>();
-            Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
-            return View(Qmodel);
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
+            {
+                List<QuestionModel> Qmodel = new List<QuestionModel>();
+                Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
+                return View(Qmodel);
+            }
         }
 
         public JsonResult RejectQuestionByQuestionID(int qusetionID)
@@ -224,92 +238,108 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult Report(string cityid = null, string locationid = null, string specialityOrName = null)
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.reports));
-            DataSet doctorList = null;
-            SqlParameter[] param = new SqlParameter[4];
-            Report reportData;
-            List<Report> ListreportData = new List<Report>();
-            using (conn = SqlHelper.GetSQLConnection())
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.reports));
+            if (privilege == 1)
             {
-                
-                if (!String.IsNullOrEmpty(cityid))
-                {
-                    param[0] = new SqlParameter("@cityid", Convert.ToInt32(cityid));
-                }
-                else
-                {
-                    param[0] = new SqlParameter("@cityid", System.DBNull.Value);
-                }
-                if (!String.IsNullOrEmpty(locationid))
-                {
-                    param[1] = new SqlParameter("@locationid", Convert.ToInt32(locationid));
-                }
-                else
-                {
-                    param[1] = new SqlParameter("@locationid", System.DBNull.Value);
-                }
-                if (!string.IsNullOrEmpty(specialityOrName))
-                {
-                    param[2] = new SqlParameter("@specialityOrName", specialityOrName);
-                }
-                else
-                {
-                    param[2] = new SqlParameter("@specialityOrName", System.DBNull.Value);
-                }
-                param[3] = new SqlParameter("@userStatus", UserStatus.Approved);
-                doctorList = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "getDoctorListByLoactionNameCitySpeciality", param);
-            }
-            if ((doctorList != null) && (doctorList.Tables.Count > 0) && doctorList.Tables[0].Rows.Count > 0)
-            {
-                if (!String.IsNullOrEmpty((Convert.ToString(doctorList.Tables[0].Rows[0]["averageresponsetime"]))))
-                {
-                    string avgtime = Convert.ToString((Convert.ToDouble(doctorList.Tables[0].Rows[0]["averageresponsetime"]) / 60).ToString("0.00"));
-                    ViewBag.avgresponsetime = avgtime;
-                }
-                DataTable dtDoctors = doctorList.Tables[0];
-                if (dtDoctors != null && dtDoctors.Rows.Count != 0)
-                     {
-                                       for (int i = 0; i < dtDoctors.Rows.Count; i++)
-                                       {
-                                        reportData = new Report();
-                                        reportData.userid =Convert.ToInt32(dtDoctors.Rows[i]["userid"]);
-                                        reportData.name = dtDoctors.Rows[i]["name"].ToString();
-                                        reportData.city= dtDoctors.Rows[i]["cities"].ToString();
-                                        reportData.location= dtDoctors.Rows[i]["locations"] .ToString();
-                                        if(!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString())){
-                                             reportData.appointmentbooked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"] );
-                                        }
-                                        else{
-                                            reportData.appointmentbooked = 0;
-                                        }
-                                        if(!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString())){
-                                             reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"] );
-                                        }
-                                        else{
-                                            reportData.appointmentbooked = 0;
-                                        }
-                                        if (dtDoctors.Rows[i]["avgresponsetime"] != null && Convert.ToString(dtDoctors.Rows[i]["avgresponsetime"]) != "")
-                                         reportData.avgresponsetime = Convert.ToString((Convert.ToDouble(dtDoctors.Rows[i]["avgresponsetime"]) / 60).ToString("0.00"));
-
-                                        ListreportData.Add(reportData);
-                                        }
-                           } 
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_Report", ListreportData);
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
             else
             {
-                return View(ListreportData);
+                DataSet doctorList = null;
+                SqlParameter[] param = new SqlParameter[4];
+                Report reportData;
+                List<Report> ListreportData = new List<Report>();
+                using (conn = SqlHelper.GetSQLConnection())
+                {
+
+                    if (!String.IsNullOrEmpty(cityid))
+                    {
+                        param[0] = new SqlParameter("@cityid", Convert.ToInt32(cityid));
+                    }
+                    else
+                    {
+                        param[0] = new SqlParameter("@cityid", System.DBNull.Value);
+                    }
+                    if (!String.IsNullOrEmpty(locationid))
+                    {
+                        param[1] = new SqlParameter("@locationid", Convert.ToInt32(locationid));
+                    }
+                    else
+                    {
+                        param[1] = new SqlParameter("@locationid", System.DBNull.Value);
+                    }
+                    if (!string.IsNullOrEmpty(specialityOrName))
+                    {
+                        param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                    }
+                    else
+                    {
+                        param[2] = new SqlParameter("@specialityOrName", System.DBNull.Value);
+                    }
+                    param[3] = new SqlParameter("@userStatus", UserStatus.Approved);
+                    doctorList = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "getDoctorListByLoactionNameCitySpeciality", param);
+                }
+                if ((doctorList != null) && (doctorList.Tables.Count > 0) && doctorList.Tables[0].Rows.Count > 0)
+                {
+                    if (!String.IsNullOrEmpty((Convert.ToString(doctorList.Tables[0].Rows[0]["averageresponsetime"]))))
+                    {
+                        string avgtime = Convert.ToString((Convert.ToDouble(doctorList.Tables[0].Rows[0]["averageresponsetime"]) / 60).ToString("0.00"));
+                        ViewBag.avgresponsetime = avgtime;
+                    }
+                    DataTable dtDoctors = doctorList.Tables[0];
+                    if (dtDoctors != null && dtDoctors.Rows.Count != 0)
+                    {
+                        for (int i = 0; i < dtDoctors.Rows.Count; i++)
+                        {
+                            reportData = new Report();
+                            reportData.userid = Convert.ToInt32(dtDoctors.Rows[i]["userid"]);
+                            reportData.name = dtDoctors.Rows[i]["name"].ToString();
+                            reportData.city = dtDoctors.Rows[i]["cities"].ToString();
+                            reportData.location = dtDoctors.Rows[i]["locations"].ToString();
+                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString()))
+                            {
+                                reportData.appointmentbooked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"]);
+                            }
+                            else
+                            {
+                                reportData.appointmentbooked = 0;
+                            }
+                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString()))
+                            {
+                                reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"]);
+                            }
+                            else
+                            {
+                                reportData.appointmentbooked = 0;
+                            }
+                            if (dtDoctors.Rows[i]["avgresponsetime"] != null && Convert.ToString(dtDoctors.Rows[i]["avgresponsetime"]) != "")
+                                reportData.avgresponsetime = Convert.ToString((Convert.ToDouble(dtDoctors.Rows[i]["avgresponsetime"]) / 60).ToString("0.00"));
+
+                            ListreportData.Add(reportData);
+                        }
+                    }
+                }
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_Report", ListreportData);
+                }
+                else
+                {
+                    return View(ListreportData);
+                }
             }
         }
 
         public SqlConnection conn { get; set; }
         public ActionResult ManageTag()
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.managetags));
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.managetags));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
             return View();
         }
     }

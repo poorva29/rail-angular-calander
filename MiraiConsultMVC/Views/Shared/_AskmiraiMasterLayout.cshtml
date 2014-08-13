@@ -2,7 +2,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    
     <title>Mirai Consult ™ </title>
     <link rel="stylesheet" href="../Content/bootstrap.min.css" />
     <link rel="stylesheet" href="../Scripts/google-code-prettify/prettify.css" />
@@ -38,7 +37,7 @@
         </asp:ContentPlaceHolder>*@
 </head>
 <body>
-    
+    @RenderSection("metatags", required: false)
     <div id="wrap">
         <div class="navbar custom-navbar">
             <div class="custom-navbar-links">
@@ -51,7 +50,12 @@
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
                                  || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ForgotPassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword"))
+                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Patient") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Doctor")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PrivacyPolicy")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Contact")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">
@@ -160,14 +164,14 @@
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
                                                 <li><a href="@Url.Action("DoctorProfile","Doctors")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/Questions/DoctorQuestionList"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/Questions"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
-                                                <li><a href="@Url.Action("PatientProfile","Patients")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/feed/feed"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/User/ChangePassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="@Url.Action("PatientProfile")"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/Answers"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                                 {
@@ -212,7 +216,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="/Home/finddoctors" class="topmenu-links">Our Doctors</a>
+                                    <a href="/finddoctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

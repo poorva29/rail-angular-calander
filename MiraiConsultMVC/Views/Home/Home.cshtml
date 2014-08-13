@@ -97,9 +97,9 @@
             question = "";
         var session = '@Session["UserType"]';
         if (session != null && session == 2)
-            window.location.href = "../Patients/AskDoctor?question=" + question;
+            window.location.href = "/similarQuestions/" + question;
         else
-            window.location.href = "../Patients/similarQuestions?question=" + question;
+            window.location.href = "/similarQuestions/" + question;
     }
 
     function isEnterPress(evt, x) {

@@ -196,7 +196,6 @@
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
-    <Compile Include="Controllers\FindDoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
@@ -557,7 +556,6 @@
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
-    <Content Include="Views\FindDoctor\FindDoctors.cshtml" />
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\Report.cshtml" />
@@ -574,6 +572,8 @@
     <Content Include="Views\Patients\similarQuestions.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Verifyemail.cshtml" />
+    <Content Include="Views\Home\FindDoctors.cshtml" />
+    <Content Include="Views\Home\NoPrivilegeError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

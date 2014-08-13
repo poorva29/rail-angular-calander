@@ -26,6 +26,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db;
         public ActionResult assignquestion(int? QuestionId)
         {
+
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
             if (privilege == 1)
             {
@@ -54,7 +55,6 @@ namespace MiraiConsultMVC.Controllers
                     row["specialities"] = "";
                     row["userid"] = 0;
                     row["locations"] = "";
-
                     AssignDoctors.Rows.Add(row);
 
                 }

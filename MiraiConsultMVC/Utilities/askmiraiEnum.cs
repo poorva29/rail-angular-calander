@@ -33,6 +33,7 @@
         manageDoctor, //ManageDoctors.aspx
         managetags, //ManageTags
         reports, //reports.aspx
-        assignQuestion//assignquestion.aspx
+        assignQuestion,//assignquestion.aspx
+        DoctorFeed//DoctorFeed
   }
 }

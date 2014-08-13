@@ -14,20 +14,30 @@ namespace MiraiConsultMVC.Controllers
         BasePage BPage = new BasePage();
         public ActionResult Feed(Feed feed)
         {
-            if (Session["UserId"] != null && Session["UserType"] != null)
+            BasePage BPage = new BasePage();
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.patientfeed));
+            if (privilege == 1)
             {
-               feed.HdnUserID  = Convert.ToString(Session["UserId"]);
-               feed.HdnRecordSize= ConfigurationManager.AppSettings["NumberOfRecored"].ToString();
-               feed.HiddenUserType = Convert.ToString(Session["UserType"]);
-               feed.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
-            feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
-            feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
-            return View(feed);
+            else
+            {
+                if (Session["UserId"] != null && Session["UserType"] != null)
+                {
+                    feed.HdnUserID = Convert.ToString(Session["UserId"]);
+                    feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecored"].ToString();
+                    feed.HiddenUserType = Convert.ToString(Session["UserType"]);
+                    feed.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
+                }
+                feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
+                return View(feed);
+            }
         }
 
         public ActionResult DoctorFeed(Feed feed)
          {
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.DoctorFeed));
             if (Session["UserId"] != null && Session["UserType"] != null)
             {
                 feed.HdnUserID = Convert.ToString(Session["UserId"]);

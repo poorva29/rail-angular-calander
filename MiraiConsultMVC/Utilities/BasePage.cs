@@ -21,19 +21,21 @@ namespace MiraiConsultMVC
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        void Page_Error(Object sender, EventArgs args)
-        {
-            Exception error = Server.GetLastError();
-            Session["unHandledErrors"] = error;
-            Response.Redirect("../admin/CustomError.aspx");
-        }
-        public void isAuthorisedandSessionExpired(int privilege)
+        //void Page_Error(Object sender, EventArgs args)
+        //{
+        //    Exception error = Server.GetLastError();
+        //    Session["unHandledErrors"] = error;
+        //    Response.Redirect("../admin/CustomError.aspx");
+        //}
+        public int isAuthorisedandSessionExpired(int privilege)
         {
             Utilities.checkSessionExpired();
             if (!Utilities.isAuthorisedandSessionExpired(privilege))
             {
-                RedirectToAction("NoPrevilage", "Home");//Response.Redirect("/admin/NoPrivilegeError");
+                return 1;
             }
+            else
+            return 0;
         }
     }
 }

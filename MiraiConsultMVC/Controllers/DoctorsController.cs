@@ -26,21 +26,28 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult DoctorProfile(string UserId=null)
         {
             int userId;
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorprofile));
-            if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && UserId == null)
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorprofile));
+            if (privilege == 1)
             {
-                userId = Convert.ToInt32(Session["DoctorId"]);
-            }
-            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
-            {
-                userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+")));
-                Session["DoctorId"] = userId;
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
             else
             {
-                userId = Convert.ToInt32(Session["UserId"]);
+                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && UserId == null)
+                {
+                    userId = Convert.ToInt32(Session["DoctorId"]);
+                }
+                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                {
+                    userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+")));
+                    Session["DoctorId"] = userId;
+                }
+                else
+                {
+                    userId = Convert.ToInt32(Session["UserId"]);
+                }
+                return View(getDoctorDetailsByDoctorId(userId));
             }
-            return View(getDoctorDetailsByDoctorId(userId));
         }
         [HttpGet]
         public IList<Country> poupulateCountry()

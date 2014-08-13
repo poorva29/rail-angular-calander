@@ -371,7 +371,7 @@ namespace MiraiConsultMVC.Controllers
         //[HttpPost]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult DoctorProfile(DoctorProfile profile, FormCollection collection, HttpPostedFileBase file)
-       {
+        {
             DataTable dtDoctor = new DataTable();
             User doctor = new User();
             if (ModelState.IsValid)

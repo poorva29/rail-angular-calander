@@ -103,8 +103,8 @@ namespace MiraiConsultMVC.Controllers
                     {
                         if (Convert.ToBoolean(isLogin.isemailverified))
                         {
-                            user = new User();
-                            userType = Convert.ToInt32(user.UserType);
+                            //user = new User();
+                            userType = Convert.ToInt32(isLogin.usertype);
                             setUserPrivilegesBasedOnUsertype(userType);
                             if ((Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved)) || (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient)))
                             {

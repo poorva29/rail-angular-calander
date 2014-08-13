@@ -93,7 +93,6 @@ namespace MiraiConsultMVC.Controllers
                 string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
                 string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
                 string dbpasswd = Utilities.Encrypt(log.Password);
-                
                 int userType;
                 User user;
                 if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))

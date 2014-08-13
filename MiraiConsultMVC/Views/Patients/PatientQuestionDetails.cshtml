@@ -170,11 +170,14 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label">Assign More Tags:</label>
                                     <div class="controls">
+                                        @if(ViewBag.tags!=null)
+                                        { 
                                         @Html.ListBox(
                                                  "NamelstOfTags",
                                                  ViewBag.tags as MultiSelectList,
                                                              new { @class = "chzn-select max-width", id="lstOfTags", onkeypress = "return CheckKey(event)" }
                                     )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -220,8 +223,6 @@
     });
     $(function () {
         var refUrl = document.referrer;
-       // var seletedTagslist = JSON.parse(@ViewBag.seletedTagslist);
-        //var selectdTags = JSON.parse(@ViewBag.selectdTags);
         if (refUrl.indexOf("feed.aspx") >= 0 || refUrl.indexOf("doctorfeed.aspx") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liAdminFeed').addClass("active");

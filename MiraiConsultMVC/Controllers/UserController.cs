@@ -78,6 +78,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     ViewBag.errorMsg = "Please enter valid current password.";
                 }
+                ModelState.Clear();
             }
             return View();
         }

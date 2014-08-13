@@ -17,9 +17,7 @@
                 <div class="">
                     <div class="row-fluid registerDoctor">
                         <div class="row-fluid filter-div btn-padding-left">
-                            <div class="span1">
-                                <b>Filter:</b>
-                            </div>
+
                             @using (Ajax.BeginForm("ManageDoctors", new AjaxOptions
                                     {
                                         HttpMethod = "get",
@@ -28,6 +26,9 @@
                                         LoadingElementId = "DoctorDetailForm"
                                     }))
                             {
+                                <div class="span1">
+                                    <b>Filter:</b>
+                                </div>
                                 <div class="span3">
                                     <input id="ChkRegisteredhdn" value="1"  name="Registered" type="hidden" />
                                     <input id="ChkRegistered"  type="checkbox"  />

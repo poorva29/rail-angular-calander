@@ -381,20 +381,19 @@ namespace MiraiConsultMVC.Controllers
                     qm.Title = item.title;
                     qm.UserId = Convert.ToInt32(item.userid);
                     QDModel.Add(qm);
-                
-}
+                }
                 ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
                 ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
-                if (ModelQuestion.Count() != 0)
+                if (QDModel.ToList().Count != 0)
                 {
                     ViewBag.metatitle = QDModel.FirstOrDefault().QuestionText;
                     ViewBag.metaUrl = ViewBag.AskmiraiUrl + "Patients/PatientQuestionDetails?questionid=" + QDModel.FirstOrDefault().QuestionId;
                     ViewBag.metaDescription = QDModel.FirstOrDefault().AnswerText;
                 }
                 else
-                { 
+                {
                     ViewBag.metatitle = "MiraiConsult";
-                    ViewBag.metaUrl = ViewBag.AskmiraiUrl ;
+                    ViewBag.metaUrl = ViewBag.AskmiraiUrl;
                     ViewBag.metaDescription = "Healthcare now more accessible and convenient at MiraiConsult";
                 }
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();

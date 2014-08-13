@@ -3,3 +3,8 @@ F:\miraiconsult\Model\bin\Model.pdb
 F:\miraiconsult\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
 F:\miraiconsult\Model\obj\Release\Model.dll
 F:\miraiconsult\Model\obj\Release\Model.pdb
+F:\Projects\consult-mvc\Model\bin\Model.dll.config
+F:\Projects\consult-mvc\Model\bin\Model.pdb
+F:\Projects\consult-mvc\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+F:\Projects\consult-mvc\Model\obj\Release\Model.dll
+F:\Projects\consult-mvc\Model\obj\Release\Model.pdb

@@ -31,32 +31,45 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult PatientProfile()
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.patientprofile));
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.patientprofile));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
             return View(getPatientDetailsByPatientId(Convert.ToInt32(Session["UserId"])));
         }
 
         public ActionResult Myactivity()
         {
-             SqlConnection conn = null;
+            SqlConnection conn = null;
             DataSet dsQuestion = null;
             IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            SqlParameter[] param = new SqlParameter[1];
-            using (conn = SqlHelper.GetSQLConnection())
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.Myactivity));
+            if (privilege == 1)
             {
-                param[0] = new SqlParameter("@Userid", Convert.ToInt32(Session["UserId"]));
-                dsQuestion = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AllQuestionsByUserId", param);
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
-            QuestionModel questions;
-            if (dsQuestion != null && dsQuestion.Tables.Count > 0 && dsQuestion.Tables[0].Rows.Count > 0)
+            else
             {
-                foreach (DataRow dr in dsQuestion.Tables[0].Rows)
+                SqlParameter[] param = new SqlParameter[1];
+                using (conn = SqlHelper.GetSQLConnection())
                 {
-                    questions = new QuestionModel();
-                    questions.QuestionId = Convert.ToInt32(dr["questionid"]);
-                    questions.QuestionText = Convert.ToString(dr["questiontext"]);
-                    questions.Counts = Convert.ToString(dr["counts"]);
-                    questions.CreateDate = Convert.ToDateTime(dr["createdate"]);
-                    lstQuestions.Add(questions);
+                    param[0] = new SqlParameter("@Userid", Convert.ToInt32(Session["UserId"]));
+                    dsQuestion = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_AllQuestionsByUserId", param);
+                }
+                QuestionModel questions;
+                if (dsQuestion != null && dsQuestion.Tables.Count > 0 && dsQuestion.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsQuestion.Tables[0].Rows)
+                    {
+                        questions = new QuestionModel();
+                        questions.QuestionId = Convert.ToInt32(dr["questionid"]);
+                        questions.QuestionText = Convert.ToString(dr["questiontext"]);
+                        questions.Counts = Convert.ToString(dr["counts"]);
+                        questions.CreateDate = Convert.ToDateTime(dr["createdate"]);
+                        lstQuestions.Add(questions);
+                    }
                 }
             }
             return View(lstQuestions);
@@ -419,7 +432,12 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult AskDoctor()
         {
-            BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.askdoctor));
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.askdoctor));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
             return View(new AskDoctor());
         }
 
@@ -461,6 +479,12 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult InviteFriend()
         {
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.Invitefriend));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
             return View();
         }
 

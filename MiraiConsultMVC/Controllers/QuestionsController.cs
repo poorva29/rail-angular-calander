@@ -24,56 +24,65 @@ namespace MiraiConsultMVC.Controllers
         [HttpGet]
         public ActionResult DoctorQuestionList(int userId = 0, bool filter = false)
         {
-            Session["UnQuestionCount"] = showUnansweredQuestionCount();
-            if (Session["userid"] != null)
+            BasePage BPage = new BasePage();
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
+            if (privilege == 1)
             {
-                userId = Convert.ToInt32(Session["userid"].ToString());
-            }
-            IList<QuestionModel> Questions = new List<QuestionModel>();
-
-            db = new _dbAskMiraiDataContext();
-            var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
-            QuestionModel QModel;
-            AnswerModel AModel;
-
-
-            if (QuestionsById != null && QuestionsById.Count > 0)
-            {
-                foreach (var question in QuestionsById)
-                {
-                    QModel = new QuestionModel();
-                    AModel = new AnswerModel();
-                    QModel.QuestionId = Convert.ToInt32(question.questionid);
-                    QModel.QuestionText = Convert.ToString(question.questiontext);
-                    QModel.CreateDate = Convert.ToDateTime(question.createdate);
-                    if (question.answeredby != null)
-                    {
-                        QModel.AnsweredBy = Convert.ToInt32(question.answeredby);
-                    }
-                    if (question.answertext != null)
-                    {
-                        AModel.AnswerText = Convert.ToString(question.answertext);
-                        QModel.answers.Add(AModel);
-                    }
-                    QModel.UserId = userId;
-                    QModel.Filter = filter;
-                    Questions.Add(QModel);
-
-                }
+                return RedirectToAction("NoPrivilegeError", "Home");
             }
             else
             {
-                QModel = new QuestionModel();
-                AModel = new AnswerModel();
-                QModel.QuestionId = 0;
-                QModel.Filter = filter;
-                Questions.Add(QModel);
+                Session["UnQuestionCount"] = showUnansweredQuestionCount();
+                if (Session["userid"] != null)
+                {
+                    userId = Convert.ToInt32(Session["userid"].ToString());
+                }
+                IList<QuestionModel> Questions = new List<QuestionModel>();
+
+                db = new _dbAskMiraiDataContext();
+                var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
+                QuestionModel QModel;
+                AnswerModel AModel;
+
+
+                if (QuestionsById != null && QuestionsById.Count > 0)
+                {
+                    foreach (var question in QuestionsById)
+                    {
+                        QModel = new QuestionModel();
+                        AModel = new AnswerModel();
+                        QModel.QuestionId = Convert.ToInt32(question.questionid);
+                        QModel.QuestionText = Convert.ToString(question.questiontext);
+                        QModel.CreateDate = Convert.ToDateTime(question.createdate);
+                        if (question.answeredby != null)
+                        {
+                            QModel.AnsweredBy = Convert.ToInt32(question.answeredby);
+                        }
+                        if (question.answertext != null)
+                        {
+                            AModel.AnswerText = Convert.ToString(question.answertext);
+                            QModel.answers.Add(AModel);
+                        }
+                        QModel.UserId = userId;
+                        QModel.Filter = filter;
+                        Questions.Add(QModel);
+
+                    }
+                }
+                else
+                {
+                    QModel = new QuestionModel();
+                    AModel = new AnswerModel();
+                    QModel.QuestionId = 0;
+                    QModel.Filter = filter;
+                    Questions.Add(QModel);
+                }
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("_DoctorQuestionList", Questions);
+                }
+                return View(Questions);
             }
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_DoctorQuestionList", Questions);
-            }
-            return View(Questions);
         }
         [HttpGet]
         public ActionResult DoctorQuestionDetails(int QuestionId = 0)
@@ -82,45 +91,52 @@ namespace MiraiConsultMVC.Controllers
             {
                 Session["UnQuestionCount"] = showUnansweredQuestionCount();
                 TempData["QuestionId"] = QuestionId;
-                BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
-                int userId = Convert.ToInt32(Session["UserId"]);
-                IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
-                QuestionDtlModel qm;
-                db = new _dbAskMiraiDataContext();
-                System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(QuestionId, userId, 0, 1);
-                foreach (var item in ModelQuestion)
-                {
-                    qm = new QuestionDtlModel();
-                    qm.AnswerDate = Convert.ToDateTime(item.answerdate);
-                    qm.AnswerId = Convert.ToInt32(item.answerid);
-                    qm.AnswerImg = item.answerimg;
-                    qm.AnswerText = item.answertext;
-                    qm.CreateDate = Convert.ToDateTime(item.createdate);
-                    qm.DocconnectDoctorId = item.docconnectdoctorid;
-                    qm.DocId = Convert.ToInt32(item.Docid);
-                    qm.Doctor = item.doctor;
-                    qm.DoctorImg = item.doctorimg;
-                    qm.Email = item.Email;
-                    qm.EndorseCount = Convert.ToInt32(item.endorsecount);
-                    qm.Gender = Convert.ToInt32(item.gender);
-                    qm.Id = item.id;
-                    qm.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
-                    qm.IsEndorse = Convert.ToBoolean(item.isendorse);
-                    qm.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
-                    qm.LastName = item.lastname;
-                    qm.MobileNo = item.mobileno;
-                    qm.PatientEmail = item.patientemail;
-                    qm.PatientLastName = item.patientlastname;
-                    qm.QuestionId = Convert.ToInt32(item.questionid);
-                    qm.QuestionText = item.questiontext;
-                    qm.status = Convert.ToInt32(item.status);
-                    qm.ThanxCount = Convert.ToInt32(item.thanxcount);
-                    qm.Title = item.title;
-                    qm.UserId = Convert.ToInt32(item.userid);
-                    QDModel.Add(qm);
+                int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));
+                //if (privilege == 1)
+                //{
+                //    return RedirectToAction("NoPrivilegeError", "Home");
+                //}
+                //else
+                //{
+                    int userId = Convert.ToInt32(Session["UserId"]);
+                    IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
+                    QuestionDtlModel qm;
+                    db = new _dbAskMiraiDataContext();
+                    System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(QuestionId, userId, 0, 1);
+                    foreach (var item in ModelQuestion)
+                    {
+                        qm = new QuestionDtlModel();
+                        qm.AnswerDate = Convert.ToDateTime(item.answerdate);
+                        qm.AnswerId = Convert.ToInt32(item.answerid);
+                        qm.AnswerImg = item.answerimg;
+                        qm.AnswerText = item.answertext;
+                        qm.CreateDate = Convert.ToDateTime(item.createdate);
+                        qm.DocconnectDoctorId = item.docconnectdoctorid;
+                        qm.DocId = Convert.ToInt32(item.Docid);
+                        qm.Doctor = item.doctor;
+                        qm.DoctorImg = item.doctorimg;
+                        qm.Email = item.Email;
+                        qm.EndorseCount = Convert.ToInt32(item.endorsecount);
+                        qm.Gender = Convert.ToInt32(item.gender);
+                        qm.Id = item.id;
+                        qm.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
+                        qm.IsEndorse = Convert.ToBoolean(item.isendorse);
+                        qm.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
+                        qm.LastName = item.lastname;
+                        qm.MobileNo = item.mobileno;
+                        qm.PatientEmail = item.patientemail;
+                        qm.PatientLastName = item.patientlastname;
+                        qm.QuestionId = Convert.ToInt32(item.questionid);
+                        qm.QuestionText = item.questiontext;
+                        qm.status = Convert.ToInt32(item.status);
+                        qm.ThanxCount = Convert.ToInt32(item.thanxcount);
+                        qm.Title = item.title;
+                        qm.UserId = Convert.ToInt32(item.userid);
+                        QDModel.Add(qm);
+                    }
+                    return View(QDModel);
                 }
-                return View(QDModel);
-            }
+            //}
             catch
             {
                 return View();

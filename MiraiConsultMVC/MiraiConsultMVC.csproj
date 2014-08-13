@@ -572,6 +572,7 @@
     <Content Include="Views\Patients\similarQuestions.cshtml" />
     <Content Include="Views\User\DoctorSignUp.cshtml" />
     <Content Include="Views\User\Verifyemail.cshtml" />
+    <Content Include="Views\Home\NoPrivilegeError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

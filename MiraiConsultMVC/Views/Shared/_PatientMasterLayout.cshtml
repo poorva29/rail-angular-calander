@@ -16,8 +16,8 @@
     @*<%--Meta tag to avoid auto zoom in and out on gaining and loosing focus on textbox on phones.--%>*@
     @RenderSection("metatags", required: false)
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
-    <link href='http://www.berriart.com/sidr/javascripts/sidr/stylesheets/jquery.sidr.light.css'
-          rel='stylesheet' type='text/css' />
+    @*<link href='http://www.berriart.com/sidr/javascripts/sidr/stylesheets/jquery.sidr.light.css'
+          rel='stylesheet' type='text/css' />*@
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/google-code-prettify/prettify.js"></script>
@@ -149,7 +149,7 @@
                                                     </a>
                                                 </li>
                                             }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                            else if (Convert.ToString(Session["UserId"]) == "9999999" && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                             {
                                                 <li id="liAdminQuestions">
                                                     <a href="/admin/QuestionList">
@@ -177,12 +177,15 @@
                                                     </a>
                                                 </li>
                                             }
-                                            <li id="liinvitefriends">
-                                                <a href="@Url.Action("InviteFriend","Patients")">
-                                                    <span class="Icon Icon--invite-friends Icon--large"></span>
-                                                    <span class="text"><br />Invite Friends</span>
-                                                </a>
-                                            </li>
+                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor) || (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && Convert.ToString(Session["UserId"]) == "9999999"))
+                                            { 
+                                                <li id="liinvitefriends">
+                                                    <a href="@Url.Action("InviteFriend","Patients")">
+                                                        <span class="Icon Icon--invite-friends Icon--large"></span>
+                                                        <span class="text"><br />Invite Friends</span>
+                                                    </a>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                     <div class="span4 pull-right btn-margin-bottom search-width center_align topnavbar-btn-margin reg-search-margin regsearch-position register-search-margin searchmargin-top" align="center" style="width:100%;">

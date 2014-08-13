@@ -93,7 +93,7 @@ namespace MiraiConsultMVC.Controllers
                 string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
                 string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
                 string dbpasswd = Utilities.Encrypt(log.Password);
-                RememberMe(log.RememberMe, log.Email, dbpasswd);
+                
                 int userType;
                 User user;
                 if (log.Email != SuperAdminEmailId && !String.IsNullOrEmpty(log.Email))
@@ -117,6 +117,7 @@ namespace MiraiConsultMVC.Controllers
                                 Session["UserType"] = isLogin.usertype;
                                 Session["locationid"] = isLogin.locationid;
                                 Session["cityid"] = isLogin.cityid;
+                                RememberMe(log.RememberMe, log.Email, dbpasswd);
                                 if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved))
                                 {
                                     Session["UnQuestionCount"] = showUnansweredQuestionCount();
@@ -164,6 +165,7 @@ namespace MiraiConsultMVC.Controllers
                     Session["UserId"] = 9999999;
                     Session["UserType"] = 0;
                     setUserPrivilegesBasedOnUsertype(0);
+                    RememberMe(log.RememberMe, log.Email, dbpasswd);
                     return RedirectToAction("ManageDoctors");
                 }
                 else

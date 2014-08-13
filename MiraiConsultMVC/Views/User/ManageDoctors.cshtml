@@ -160,6 +160,7 @@
                         if (response == "Doctor has been Approved successfully.") {
                             $('form').submit();
                             alert(response);
+                            window.location.reload(true);
                             document.body.style.cursor = 'default';
                         }
                         else if (response == "Unable to change the status.") {
@@ -184,6 +185,7 @@
                     if (response == "Doctor has been Rejected successfully.") {
                         $('form').submit();
                         alert(response);
+                        window.location.reload(true);
                         document.body.style.cursor = 'default';
                     }
                     else if (response == "Unable to change the status.") {

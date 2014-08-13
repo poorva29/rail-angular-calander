@@ -36,7 +36,6 @@
         </asp:ContentPlaceHolder>*@
 </head>
 <body class ="form-horizontal">
-    
     <div id="wrap">
         @*<form id="form1" runat="server" autocomplete="off" class="form-horizontal" onsubmit="fun()">*@
             <div class="navbar custom-navbar">
@@ -151,7 +150,7 @@
                                                     </a>
                                                 </li>
                                             }
-                                            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                                            else if (Convert.ToString(Session["UserId"]) == "9999999" && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                             {
                                                 <li id="liAdminQuestions">
                                                     <a href="/admin">
@@ -179,12 +178,15 @@
                                                     </a>
                                                 </li>
                                             }
-                                            <li id="liinvitefriends">
-                                                <a href="@Url.Action("InviteFriend","Patients")">
-                                                    <span class="Icon Icon--invite-friends Icon--large"></span>
-                                                    <span class="text"><br />Invite Friends</span>
-                                                </a>
-                                            </li>
+                                            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor) || (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && Convert.ToString(Session["UserId"]) == "9999999"))
+                                            { 
+                                                <li id="liinvitefriends">
+                                                    <a href="@Url.Action("InviteFriend","Patients")">
+                                                        <span class="Icon Icon--invite-friends Icon--large"></span>
+                                                        <span class="text"><br />Invite Friends</span>
+                                                    </a>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                     <div class="span4 pull-right btn-margin-bottom search-width center_align topnavbar-btn-margin reg-search-margin regsearch-position register-search-margin searchmargin-top" align="center" style="width:100%;">

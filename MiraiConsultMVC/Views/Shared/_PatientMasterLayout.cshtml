@@ -14,11 +14,7 @@
     <link rel="stylesheet" href="../Content/datepicker.css" />
     <link rel="stylesheet" href="../Content/jquery-ui.css" />
     @*<%--Meta tag to avoid auto zoom in and out on gaining and loosing focus on textbox on phones.--%>*@
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:title" content="@Session["Title"]" />
-    <meta property="og:url" content="@Session["Url"]">
-    <meta property="og:image" content="@ConfigurationSettings.AppSettings["askMiraiLink"]/Content/image/logo.png" />
-    <meta property="og:description" content="@Session["Description"]" />
+    @RenderSection("metatags", required: false)
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
     <link href='http://www.berriart.com/sidr/javascripts/sidr/stylesheets/jquery.sidr.light.css'
           rel='stylesheet' type='text/css' />

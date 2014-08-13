@@ -204,6 +204,13 @@
         </div>
     </div>
 </div>
+@section metatags {
+    <meta property="og:title" content="@ViewBag.metatitle" />
+    <meta property="og:url" content="@ViewBag.metaUrl">
+    <meta property="og:image" content="@ConfigurationSettings.AppSettings["askMiraiLink"]/Content/image/logoImage.png" />
+    <meta property="og:description" content="@ViewBag.metaDescription" />
+    <meta property="og:type" content="website" />
+}
 <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
 <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">

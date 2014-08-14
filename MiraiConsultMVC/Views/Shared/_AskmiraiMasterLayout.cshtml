@@ -163,13 +163,13 @@
                                             <ul class="dropdown-menu pull-right">
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
-                                                <li><a href="@Url.Action("DoctorProfile","Doctors")"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/DoctorProfile"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/Questions"><i class="icon-list-alt"></i>My Account</a></li>
                                                 <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
-                                                <li><a href="@Url.Action("PatientProfile")"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/PatientProfile"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/Answers"><i class="icon-list-alt"></i>My Account</a></li>
                                                 <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }

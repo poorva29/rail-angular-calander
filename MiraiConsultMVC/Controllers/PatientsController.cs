@@ -104,7 +104,7 @@ namespace MiraiConsultMVC.Controllers
                              string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                              string emailBody = EmailTemplates.SendNotificationEmailtoUser(profile.FirstName, patientid, emailVerficationURL, "Patient");
                              string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                             string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                             string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
                              Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                              Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;                            
                              ViewBag.message = "Account has been Updated successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";

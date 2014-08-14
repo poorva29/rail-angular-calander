@@ -17,6 +17,12 @@ namespace MiraiConsultMVC
             routes.IgnoreRoute("Content/image/DoctorPhotos/{*pathInfo}");
 
             routes.MapRoute(
+               name: "topics",
+               url: "topics",
+               defaults: new { controller = "Home", action = "topics" }
+               );
+
+            routes.MapRoute(
                 name: "PatientProfile",
                 url: "PatientProfile",
                 defaults: new { controller = "Patients", action = "PatientProfile" }
@@ -182,6 +188,12 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "similarQuestions",
+               url: "similarQuestions",
+               defaults: new { controller = "Patients", action = "similarQuestions" }
+           );
+
+            routes.MapRoute(
+               name: "similarQuestions1",
                url: "similarQuestions/{question}",
                defaults: new { controller = "Patients", action = "similarQuestions" },
                constraints: new { question = @"([a-z]+-?)+" }
@@ -200,6 +212,13 @@ namespace MiraiConsultMVC
                defaults: new { controller = "admin", action = "RemoveAssignDoctorToQuetion" }
 
            );
+
+            routes.MapRoute(
+               name: "topics1",
+               url: "topics/{question}",
+               defaults: new { controller = "Patients", action = "similarQuestions" },
+               constraints: new { question = @"([a-z]+-?)+" }
+               );
 
             routes.MapRoute(
                name: "Default",

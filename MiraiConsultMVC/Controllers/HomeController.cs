@@ -180,8 +180,13 @@ namespace MiraiConsultMVC.Controllers
             return View(findDoctorModel);
         }
 
-        public ActionResult topics()
+        public ActionResult topics(string topicname)
         {
+            if(topicname != null && topicname != string.Empty)
+            {
+
+            }
+            tag tags = new tag();
             return View();
         }
 

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>Mirai Consult ™ </title>
+    @*<title>Mirai Consult ™ </title>*@
     <link rel="stylesheet" href="../Content/bootstrap.min.css" />
     <link rel="stylesheet" href="../Scripts/google-code-prettify/prettify.css" />
     <link rel="stylesheet" href="../Content/font-awesome.min.css" />
@@ -11,7 +11,7 @@
     <link rel="Stylesheet" href="../Content/chosen/chosen.css" />
     <link rel="stylesheet" href="../Content/custom.css" />
     <link rel="stylesheet" href="../Content/datepicker.css" />
-
+    
     @*<%--
         <link rel="stylesheet" href="app/Resources/css/jquery-ui.css" />--%>*@
     <link href="../Content/jquery-ui.css" rel="stylesheet" />
@@ -55,7 +55,7 @@
                                         || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PrivacyPolicy")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Contact")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword"))
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("topics"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">

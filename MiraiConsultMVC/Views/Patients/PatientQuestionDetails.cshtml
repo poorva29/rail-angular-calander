@@ -280,7 +280,7 @@
                 contentType: 'application/json',
                 url: "../../Services/UserService.svc/UpdateQuestionTags",
                 success: function (response) {
-                    alert("Successfully Tags assigned to question.")
+                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

@@ -174,5 +174,11 @@ namespace MiraiConsultMVC.Controllers
             findDoctorModel.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
             return View(findDoctorModel);
         }
+
+        public ActionResult topics()
+        {
+            return View();
+        }
+
     }
 }

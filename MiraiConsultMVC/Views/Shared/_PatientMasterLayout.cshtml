@@ -242,7 +242,10 @@
                                     <li>    
                                         <a href="/Questions/QuestionList" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
-                                            <span id="Span1" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
+                                            @if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
+                                            {
+                                                <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
+                                            }
                                             <span class="rightpaddingdiv text font-bold menutext-margin-top">Questions</span>
                                         </a>
                                     </li>

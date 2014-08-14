@@ -180,13 +180,27 @@ namespace MiraiConsultMVC.Controllers
             return View(findDoctorModel);
         }
 
-        public ActionResult topics(string topicname)
+        public ActionResult topics()
         {
-            if(topicname != null && topicname != string.Empty)
-            {
+            return View();
+        }
 
+        public ActionResult topicdetails(string tag)
+        {
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            var questionList = db.get_AllQuestionsByTag(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            if (questionList != null && questionList.Count() > 0)
+            {
+                foreach (var item in questionList)
+                {
+                    QuestionModel qModel = new QuestionModel();
+                    qModel.QuestionId = Convert.ToInt32(item.questionid);
+                    qModel.QuestionText = item.questiontext;
+                    qModel.Counts = item.counts;
+                    lstQuestions.Add(qModel);
+                }
             }
-            tag tags = new tag();
+            return Json(lstQuestions, JsonRequestBehavior.AllowGet);
             return View();
         }
 

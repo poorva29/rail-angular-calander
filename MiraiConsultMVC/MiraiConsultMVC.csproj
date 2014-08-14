@@ -574,6 +574,7 @@
     <Content Include="Views\Home\topics.cshtml" />
     <Content Include="Views\Home\FindDoctors.cshtml" />
     <Content Include="Views\Home\NoPrivilegeError.cshtml" />
+    <Content Include="Views\Home\topicdetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

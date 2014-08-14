@@ -215,9 +215,9 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "topics1",
-               url: "topics/{question}",
-               defaults: new { controller = "Patients", action = "similarQuestions" },
-               constraints: new { question = @"([a-z]+-?)+" }
+               url: "topics/{tag}",
+               defaults: new { controller = "home", action = "topicdetails" },
+               constraints: new { tag = @"([a-z]+-?)+" }
                );
 
             routes.MapRoute(

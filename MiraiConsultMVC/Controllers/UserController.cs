@@ -301,7 +301,7 @@ namespace MiraiConsultMVC.Controllers
             {
                     UserRecord.status = statusRejected; 
                     db.SubmitChanges();
-                    string Logoimage = Server.MapPath("..\\Resources\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
                     SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
                     jsonObj = "Doctor has been Rejected successfully.";

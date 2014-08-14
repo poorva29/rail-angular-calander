@@ -90,7 +90,7 @@
         });
     });
     $("#btnNext").click(function () {
-        var questionText = document.getElementById('txtAreaQuestion').value;
+        var questionText = document.getElementById('txtAreaQuestion').value.trim();
         if (questionText.trim() == null || questionText.trim() == "") {
             document.getElementById('lblValidation').style.display = 'block';
             document.getElementById('lblValidation').innerHTML = "Please Enter Question";
@@ -99,7 +99,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'GetSimilarQuestion?questionText=' + encodeURIComponent(questionText),
+                url: '../Patients/GetSimilarQuestion?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -107,8 +107,8 @@
                     for (var i = 0; i < response.length; i++) {
 
                         TextToAppend = TextToAppend + '<div class=\'ans_time_detail\'><p>' + response[i].Counts + '</p></div>' +
-                                    '<a href=\'PatientQuestionDetails/' + response[i].QuestionId + '\'>' +
-                                        '<p id=\"questionText\">' + response[i].QuestionText + '</p>' +
+                                    '<a href=\'Answers/' + response[i].QuestionId + '\'>' +
+                                        '<p id=\"questionText\" style="word-wrap: break-word;">' + response[i].QuestionText + '</p>' +
                                     '</a>' +
                                     '<hr class="hr_margin" style="margin-top:22px" />'
                     };
@@ -136,6 +136,8 @@
     });
 
     $("#btnAskMirai").click(function () {
+
+        var questionText = document.getElementById('txtAreaQuestion').value.trim();
         var questionText = document.getElementById('txtAreaQuestion').value;
         if (questionText == null || questionText.trim() == "") {
             document.getElementById('lblValidation').style.display = 'block';
@@ -145,7 +147,7 @@
         else {
             $.ajax({
                 type: "GET",
-                url: 'question_Insert?questionText=' + encodeURIComponent(questionText),
+                url: '../Patients/question_Insert?questionText=' + encodeURIComponent(questionText),
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

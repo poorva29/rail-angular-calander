@@ -1023,7 +1023,7 @@
                         if (confirm("Are you sure you want to delete this qualification details?") == true) {
                             $.ajax({
                                 type: "GET",
-                                url: 'DeleteDegreeByDoctor?doctorId=' + aData[0] + '&LastSelectedDegreeID=' + aData[1] + '&university=' + university,
+                                url: '../Doctors/DeleteDegreeByDoctor?doctorId=' + aData[0] + '&LastSelectedDegreeID=' + aData[1] + '&university=' + university,
                                 datatype: "JSON",
                                 contentType: "application/json; charset=utf-8",
                                 success: function (returndata) {
@@ -1044,7 +1044,7 @@
                     if (confirm("Are you sure you want to delete this qualification details?") == true) {
                         $.ajax({
                             type: "GET",
-                            url: 'DeleteDegreeByDoctor?doctorId=' + aData[0] + '&LastSelectedDegreeID=' + aData[1] + '&university=' + aData[3],
+                            url: '../Doctors/DeleteDegreeByDoctor?doctorId=' + aData[0] + '&LastSelectedDegreeID=' + aData[1] + '&university=' + aData[3],
                             datatype: "JSON",
                             contentType: "application/json; charset=utf-8",
                             success: function (returndata) {
@@ -1065,7 +1065,7 @@
         function savedegree(doctorId, lastselecteddegreeId, selecteddegreeid, university) {
             $.ajax({
                 type: "GET",
-                url: 'UpdateDegreeByDoctor?doctorId=' + doctorId + '&LastSelectedDegreeID=' + lastselecteddegreeId + '&SelectedDegreeId=' + selecteddegreeid + '&university=' + university,
+                url: '../Doctors/UpdateDegreeByDoctor?doctorId=' + doctorId + '&LastSelectedDegreeID=' + lastselecteddegreeId + '&SelectedDegreeId=' + selecteddegreeid + '&university=' + university,
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {
@@ -1077,7 +1077,6 @@
                     else if (returndata == 1) {
                         alert('Degree already exist.');
                     }
-                    location.reload(true);
                 }
             });
         }
@@ -1154,7 +1153,7 @@
                     if (confirm("Are you sure you want to delete this details?") == true) {
                         $.ajax({
                             type: "GET",
-                            url: 'DeleteDoctorDetailsByDoctorDetailsId?doctordetailsid=' + aData[1],
+                            url: '../Doctors/DeleteDoctorDetailsByDoctorDetailsId?doctordetailsid=' + aData[1],
                             datatype: "JSON",
                             contentType: "application/json; charset=utf-8",
                             success: function (returndata) {
@@ -1234,7 +1233,7 @@
                 if (($.trim(certification) != "" && $.trim(society) != "") || ($.trim(certification) != "" && $.trim(society) == "")) {
                     $.ajax({
                         type: "GET",
-                        url: 'UpdateDoctorDetailsByDoctorDetailsId?doctorId=' + docId + '&doctordetailsid=' + aData[1] + '&SelectedTypeId=' + certification + '&Details=' + society,
+                        url: '../Doctors/UpdateDoctorDetailsByDoctorDetailsId?doctorId=' + docId + '&doctordetailsid=' + aData[1] + '&SelectedTypeId=' + certification + '&Details=' + society,
                         datatype: "JSON",
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
@@ -1321,7 +1320,7 @@
                     //PageMethods.DeleteDoctorLocattonByDoctorLocationId(aData[0], onSuccess, onFailure);
                     $.ajax({
                         type: "GET",
-                        url: 'DeleteDoctorLocationByDoctorLocationId?docLocationId=' + aData[0],
+                        url: '../Doctors/DeleteDoctorLocationByDoctorLocationId?docLocationId=' + aData[0],
                         datatype: "JSON",
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
@@ -1421,7 +1420,7 @@
         if (validateclinicdata() && validateTelephone()) {
             $.ajax({
                 type: "GET",
-                url: 'Location_Insert?doctorid=' + doctorId + '&address=' + address + '&telephone=' + telephone + '&clinicName=' + clinicName + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,
+                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + address + '&telephone=' + telephone + '&clinicName=' + clinicName + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

@@ -177,7 +177,18 @@
                     }
                 });
             }
-
+            function isEnterPress(evt, x) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode == 13) {
+                    var session = '@Session["UserType"]';
+                    if (session != null && session == 2)
+                        window.location.href = "../Patients/AskDoctor?question=" + x.value;
+                    else
+                        window.location.href = "../Patients/similarQuestions?question=" + x.value;
+                    return false;
+                }
+                return true;
+            }
             //function maxLengthPaste(field, maxChars) {
             //    event.returnValue = false;
             //    if ((field.value.length + window.clipboardData.getData("Text").length) >= maxChars) {

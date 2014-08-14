@@ -30,7 +30,7 @@ namespace MiraiConsultMVC.Models
         private string image;
         private bool isemailverified;
         private string address;        
-        private int pincode;
+        private int? pincode;
         private string registrationnumber;
         private int registrationcouncil;
         private string aboutme;
@@ -80,7 +80,7 @@ namespace MiraiConsultMVC.Models
         public string Address { get { return address; } set { address = value; } }
 
         [RegularExpression(@"^(\d|,)*\d*$", ErrorMessage = "Please Enter Pin Code In Positive Integer Numbers.")]
-        public int Pincode { get { return pincode; } set { pincode = value; } }
+        public int? Pincode { get { return pincode; } set { pincode = value; } }
         public string RegistrationNumber { get { return registrationnumber; } set { registrationnumber = value; } }
         public int RegistrationCouncil { get { return registrationcouncil; } set { registrationcouncil = value; } }
         public string AboutMe { get { return aboutme; } set { aboutme = value; } }

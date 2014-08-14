@@ -223,23 +223,27 @@
     });
     $(function () {
         var refUrl = document.referrer;
-        if (refUrl.indexOf("feed.aspx") >= 0 || refUrl.indexOf("doctorfeed.aspx") >= 0) {
+        if (refUrl.indexOf("Answers") >= 0 || refUrl.indexOf("Doctor-Answers") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liAdminFeed').addClass("active");
             $('#liFeed').addClass("active"); liDocFeed
             $('#liDocFeed').addClass("active");
         }
-        else if (refUrl.indexOf("similarquestions.aspx") >= 0) {
+        else if (refUrl.indexOf("similarQuestions") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liSimilarQuestions').addClass("active");
         }
-        else if (refUrl.indexOf("myactivity.aspx") >= 0) {
+        else if (refUrl.indexOf("Myactivity") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liMyActivity').addClass("active");
         }
-        else if (refUrl.indexOf("questiondetails.aspx") >= 0) {
+        else if (refUrl.indexOf("PatientQuestionDetails") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liAdminFeed').addClass("active");
+        }
+        else if (refUrl.indexOf("AskDoctor") >= 0) {
+            $(".navigation li.active").removeClass("active");
+            $('#liaskdoc').addClass("active");
         }
     });
     $(".chzn-select").chosen
@@ -256,16 +260,22 @@
             Updatedslectedtag = $("select").val();
             var newtags = [];
             var deletedtags = [];
-            for (var i = 0; i < Updatedslectedtag.length; i++) {
-                var index = $.inArray(Updatedslectedtag[i], slectedtag)
-                if (index == -1) {
-                    newtags.push(Updatedslectedtag[i])
+            if(!jQuery.isEmptyObject(Updatedslectedtag))
+            {
+                for (var i = 0; i < Updatedslectedtag.length; i++) {
+                    var index = $.inArray(Updatedslectedtag[i], slectedtag)
+                    if (index == -1) {
+                        newtags.push(Updatedslectedtag[i])
+                    }
                 }
             }
-            for (var i = 0; i < slectedtag.length; i++) {
-                var index = $.inArray(slectedtag[i], Updatedslectedtag)
-                if (index == -1) {
-                    deletedtags.push(slectedtag[i])
+            if(!jQuery.isEmptyObject(slectedtag))
+            {
+                for (var i = 0; i < slectedtag.length; i++) {
+                    var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                    if (index == -1) {
+                        deletedtags.push(slectedtag[i])
+                    }
                 }
             }
             $.ajax({
@@ -274,7 +284,7 @@
                 contentType: 'application/json',
                 url: "../../Services/UserService.svc/UpdateQuestionTags",
                 success: function (response) {
-                    alert("Successfully Tags assigned to question.")
+                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

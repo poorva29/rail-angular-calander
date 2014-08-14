@@ -7,7 +7,7 @@
         LinkUrl =  url+'/Home/Home';
     }
     else {
-        LinkUrl = url + '/Patients/PatientQuestionDetails?questionid=' + id;
+        LinkUrl = url + '/Patients/PatientQuestionDetails/' + id;
     }
     FB.ui(
     {
@@ -85,19 +85,6 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
         }
     });
     return false;
-}
-function isEnterPress(evt, x) {
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode == 13) {
-
-        var session = '<%=Session["userType"]%>';
-        if (session != null && session == 2)
-            window.location.href = "../Patients/similarQuestions?question=" + x.value;
-        else
-            window.location.href = "../Patients/similarQuestions?question=" + x.value;
-        return false;
-    }
-    return true;
 }
 
 function MinLength(sender, args) {

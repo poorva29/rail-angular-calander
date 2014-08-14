@@ -123,7 +123,7 @@
                 filter = false;
             }
             
-            window.location.href = "QuestionList?filter=" + filter;
+            window.location.href = "../admin/" + filter;
         });
 
     });
@@ -152,9 +152,9 @@
                     var title;
                     title = "";
                     if (indexcnt % 2 != 0)
-                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='/admin/assignquestion?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='/AssignQuestion/" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
                     else
-                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='/admin/assignquestion?questionid=" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='/AssignQuestion/" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
 
                     $("#question").append(template);
                     Question++;

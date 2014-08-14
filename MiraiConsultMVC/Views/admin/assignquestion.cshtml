@@ -224,7 +224,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '/admin/RemoveAssignDoctorToQuetion?userid=' + userid + '&questionId=' + questionid,
+                url: '/RemoveAssignDoctorToQuetion/' + userid + '/' + questionid,
                 success: function (response) {
                     
                     if (response == "Assign doctor has been removed successfully.") {
@@ -259,7 +259,7 @@
             dataType: 'json',
             //data: '"' + $('#city-select').val() + '"',
             contentType: 'application/json',
-            url: '/admin/AssignDoctor?QuestionId=' + document.getElementById('hdnQuestionId').value + '&AssignDoctorIds=' + doctorIds.join(","),
+            url: '/AssignDoctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
             success: function (response) {
                 location.reload(true);
               /*  var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +
@@ -328,19 +328,19 @@
         }
     }
 
-    function validatedata() {
-        var errormsg = "";
-        if ($("#lstOfTags :selected").length == 0) {
-            errormsg = "Please select at least one tag.";
-        }
-        if (errormsg == "") {
-            return true;
-        }
-        else {
-            alert(errormsg);
-            return false;
-        }
-    }
+    //function validatedata() {
+    //    var errormsg = "";
+    //    if ($("#lstOfTags :selected").length == 0) {
+    //        errormsg = "Please select at least one tag.";
+    //    }
+    //    if (errormsg == "") {
+    //        return true;
+    //    }
+    //    else {
+    //        alert(errormsg);
+    //        return false;
+    //    }
+    //}
     function initDoctorListDataTable() {
         $('#doctor-list').dataTable({
             "aaSorting": [[1, "asc"]],
@@ -528,16 +528,20 @@
             Updatedslectedtag = $("select").val();
             var newtags = [];
             var deletedtags = [];
+
             for (var i = 0; i < Updatedslectedtag.length; i++) {
                 var index = $.inArray(Updatedslectedtag[i], slectedtag)
                 if (index == -1) {
                     newtags.push(Updatedslectedtag[i])
                 }
             }
-            for (var i = 0; i < slectedtag.length; i++) {
-                var index = $.inArray(slectedtag[i], Updatedslectedtag)
-                if (index == -1) {
-                    deletedtags.push(slectedtag[i])
+            if(slectedtag != null)
+                {
+                for (var i = 0; i < slectedtag.length; i++) {
+                    var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                    if (index == -1) {
+                        deletedtags.push(slectedtag[i])
+                    }
                 }
             }
             $.ajax({
@@ -564,46 +568,49 @@
         slectedtag = $("select").val();
     });
 
-    function validatedata() {
-        var errormsg = "";
-        if ($("#lstOfTags :selected").length == 0) {
-            errormsg = "Please select at least one tag.";
-        }
-        if (errormsg == "") {
-            Updatedslectedtag = $("select").val();
-            var newtags = [];
-            var deletedtags = [];
-            for (var i = 0; i < Updatedslectedtag.length; i++) {
-                var index = $.inArray(Updatedslectedtag[i], slectedtag)
-                if (index == -1) {
-                    newtags.push(Updatedslectedtag[i])
-                }
-            }
-            for (var i = 0; i < slectedtag.length; i++) {
-                var index = $.inArray(slectedtag[i], Updatedslectedtag)
-                if (index == -1) {
-                    deletedtags.push(slectedtag[i])
-                }
-            }
-            $.ajax({
-                type: 'POST',
-                data: '{ "Addedtags":"' + newtags.toString() + '" , "DeletedTags":"' + deletedtags.toString() + '", "QuestionID":"' + $("#hdnQuestionid").val() + '"}',
-                contentType: 'application/json',
-                url: "../../Services/UserService.svc/UpdateQuestionTags",
-                success: function (response) {
-                    alert("Tag's assigned to questions")
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-            return true;
-        }
-        else {
-            alert(errormsg);
-            return false;
-        }
-    }
+    //function validatedata() {
+    //    var errormsg = "";
+    //    if ($("#lstOfTags :selected").length == 0) {
+    //        errormsg = "Please select at least one tag.";
+    //    }
+    //    if (errormsg == "") {
+    //        Updatedslectedtag = $("select").val();
+    //        var newtags = [];
+    //        var deletedtags = [];
+    //        if(Updatedslectedtag.length != null)
+    //        {
+    //            for (var i = 0; i < Updatedslectedtag.length; i++) {
+    //                var index = $.inArray(Updatedslectedtag[i], slectedtag)
+    //                if (index == -1) {
+    //                    newtags.push(Updatedslectedtag[i])
+    //                }
+    //            }
+    //            for (var i = 0; i < slectedtag.length; i++) {
+    //                var index = $.inArray(slectedtag[i], Updatedslectedtag)
+    //                if (index == -1) {
+    //                    deletedtags.push(slectedtag[i])
+    //                }
+    //            }
+    //        }
+    //        $.ajax({
+    //            type: 'POST',
+    //            data: '{ "Addedtags":"' + newtags.toString() + '" , "DeletedTags":"' + deletedtags.toString() + '", "QuestionID":"' + $("#hdnQuestionid").val() + '"}',
+    //            contentType: 'application/json',
+    //            url: "../../Services/UserService.svc/UpdateQuestionTags",
+    //            success: function (response) {
+    //                alert("Tag's assigned to questions")
+    //            },
+    //            error: function (e) {
+    //                console.log(e);
+    //            }
+    //        });
+    //        return true;
+    //    }
+    //    else {
+    //        alert(errormsg);
+    //        return false;
+    //    }
+    //}
 
 
     (function (i, s, o, g, r, a, m) {

@@ -612,11 +612,11 @@
     })
     $("#btnSubmit").click(function () {
         var val = $("#ImageValidation").text();
-        tryNumber = 0;
         if (val == "") {
             return true;
         }
         else {
+            tryNumber = -1;
             return false;
         }
     });

@@ -37,7 +37,7 @@
                         </div>
                         <div class='custom-middle middle-size-padding question-padding' style='width:80%'>
                             @*<a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>*@
-                            <a class='question_text' href='DoctorQuestionDetails?QuestionId=@(question.QuestionId)'>
+                            <a class='question_text' href='../Questions/@(question.QuestionId)'>
                                 @question.QuestionText
                             </a>
                         </div>

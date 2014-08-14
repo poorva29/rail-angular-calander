@@ -193,11 +193,14 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Specialities:</label>
                                     <div class="controls">
-                                        @Html.ListBox(
-                                        "lstSpecialities",
-                                        ViewBag.specialities as MultiSelectList,
-                                        new { @class = "chzn-select  Specialities_Width contact_margin" }
-                                        )
+                                        @if (ViewBag.specialities!=null)
+                                        { 
+                                            @Html.ListBox(
+                                            "lstSpecialities",
+                                            ViewBag.specialities as MultiSelectList,
+                                            new { @class = "chzn-select  Specialities_Width contact_margin" }
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>

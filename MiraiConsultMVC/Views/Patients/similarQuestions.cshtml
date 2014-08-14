@@ -145,6 +145,15 @@
                     }
                 });
             });
+            function isEnterPress(evt, x) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode == 13) {
+                    var session = '@Session["UserType"]';
+                        window.location.href = "/similarQuestions/" + x.value;
+                    return false;
+                }
+                return true;
+            }
             $(function () {
                 $(".navigation li.active").removeClass("active");
                 $('#liSimilarQuestions').addClass("active");

@@ -256,16 +256,22 @@
             Updatedslectedtag = $("select").val();
             var newtags = [];
             var deletedtags = [];
-            for (var i = 0; i < Updatedslectedtag.length; i++) {
-                var index = $.inArray(Updatedslectedtag[i], slectedtag)
-                if (index == -1) {
-                    newtags.push(Updatedslectedtag[i])
+            if(!jQuery.isEmptyObject(Updatedslectedtag))
+            {
+                for (var i = 0; i < Updatedslectedtag.length; i++) {
+                    var index = $.inArray(Updatedslectedtag[i], slectedtag)
+                    if (index == -1) {
+                        newtags.push(Updatedslectedtag[i])
+                    }
                 }
             }
-            for (var i = 0; i < slectedtag.length; i++) {
-                var index = $.inArray(slectedtag[i], Updatedslectedtag)
-                if (index == -1) {
-                    deletedtags.push(slectedtag[i])
+            if(!jQuery.isEmptyObject(slectedtag))
+            {
+                for (var i = 0; i < slectedtag.length; i++) {
+                    var index = $.inArray(slectedtag[i], Updatedslectedtag)
+                    if (index == -1) {
+                        deletedtags.push(slectedtag[i])
+                    }
                 }
             }
             $.ajax({

@@ -525,7 +525,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     from_address = Convert.ToString(Session["UserEmail"]);
                 }
-                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                 sent_mail = Mail.SendHTMLMailWithImage(from_address, emailsIds.Split(','), subject, msgBody, Logoimage);
                 if (!sent_mail)
                 {

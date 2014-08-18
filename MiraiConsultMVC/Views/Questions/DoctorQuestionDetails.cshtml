@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 
-<script src="~/Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 @using (Html.BeginForm(Html.BeginForm("DoctorQuestionDetails", "Questions", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off" })))
 {
     @Html.AntiForgeryToken()

@@ -611,7 +611,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
                     string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname + " " + UserRecord.lastname, emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath("\\Content\\image\\LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
                     ViewBag.success = "true";
                     ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
@@ -650,6 +650,7 @@ namespace MiraiConsultMVC.Controllers
                     userRecord.password = Utilities.Encrypt(passwords.Password); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been changed successfully.";
+
                     TempData["userid"] = userID.ToString();
                 }
             }

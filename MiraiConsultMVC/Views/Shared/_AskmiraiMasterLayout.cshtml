@@ -11,7 +11,7 @@
     <link rel="Stylesheet" href="../Content/chosen/chosen.css" />
     <link rel="stylesheet" href="../Content/custom.css" />
     <link rel="stylesheet" href="../Content/datepicker.css" />
-
+    @RenderSection("metatags", required: false)
     @*<%--
         <link rel="stylesheet" href="app/Resources/css/jquery-ui.css" />--%>*@
     <link href="../Content/jquery-ui.css" rel="stylesheet" />
@@ -37,7 +37,6 @@
         </asp:ContentPlaceHolder>*@
 </head>
 <body>
-    @RenderSection("metatags", required: false)
     <div id="wrap">
         <div class="navbar custom-navbar">
             <div class="custom-navbar-links">

@@ -92,7 +92,7 @@ namespace MiraiConsultMVC.Controllers
                     profile.IsEmailVerified = true;
                 }
                 profile.DateOfBirth = DateTime.Parse(Convert.ToString(profile.DateOfBirth));
-                var result = (db.askmirai_patient_Insert_Update(profile.FirstName, profile.FirstName, profile.Email, profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified)).ToList();
+                var result = (db.askmirai_patient_Insert_Update(profile.FirstName, profile.LastName, profile.Email, profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified)).ToList();
                 if (result != null && result.Count() > 0)
                 {
                     var res = result.FirstOrDefault();
@@ -116,8 +116,12 @@ namespace MiraiConsultMVC.Controllers
                          }
                          Session["locationid"] = profile.LocationId;
                          Session["cityid"] = profile.CityId;
+                         TempData["Email"] = profile.Email;
+                         TempData["CountryId"] = profile.CountryId;
+                         TempData["stateId"] = profile.StateId;
+                         TempData["cityId"] = profile.CityId;
+                         TempData["locationId"] = profile.LocationId;
                      }
-
                     else if (!Convert.ToBoolean(res.EmailAvailable))
                     {
                         ViewBag.message = "This username is not available. Please select a different username.";
@@ -525,7 +529,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     from_address = Convert.ToString(Session["UserEmail"]);
                 }
-                string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                 sent_mail = Mail.SendHTMLMailWithImage(from_address, emailsIds.Split(','), subject, msgBody, Logoimage);
                 if (!sent_mail)
                 {

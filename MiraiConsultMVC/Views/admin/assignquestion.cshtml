@@ -202,14 +202,16 @@
     $(function () {
         slectedtag = $("select").val();
     });
+
+
     function removeAssigntags() {
         $('option').prop('selected', false);
         $('select').trigger('liszt:updated');
         for (var i = 0; i < slectedtag.length; i++) {
             $("#lstOfTags option[value='" + slectedtag[i] + "']").prop("selected", true);
         }
+        window.location.reload(true);
         $('select').trigger('liszt:updated');
-
     }
     function removeAssignDoctor(userid, questionid) {
         if (confirm("Are you sure you want to remove this user from assigned doctors?") == true) {

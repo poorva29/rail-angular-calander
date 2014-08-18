@@ -151,7 +151,7 @@
                 if ($('#hdncityval')[0].value != '')
                     $('#city-select').val($('#hdncityval')[0].value);
                 $(".chzn-select").trigger("liszt:updated");
-                if ($('#city-select').val() != '')
+                if ($('#city-select').val() != "")
                     getLocationsbyCity();
             },
             error: function (data) {
@@ -162,9 +162,15 @@
         });
     });
 
-    $('#div-city-select').on('change', '#city-select', function () {
-        if ($('#city-select').val()) {
+    $('#div-city-select').on('change', '#city-select', function () {       
+        if ($('#city-select').val() != "") {
             getLocationsbyCity();
+        }
+        else
+        {
+            $('#locality-select').empty();
+            $('#locality-select').append('<option></option>');
+            $(".chzn-select").trigger("liszt:updated");
         }
     });
 

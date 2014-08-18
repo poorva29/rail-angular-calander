@@ -47,19 +47,21 @@
             url: '../../Services/UserService.svc/getAllTags',
             success: function (response) {
                 response = JSON.parse(response);
+                tags = '<div class="row-fluid"><div class="span12">';
                 for (cnt = 0; cnt < response.length; cnt+=3) {
-                    tags = tags + '<div class="row-fluid"><div class="span12"><div class="span6"><div class="tags_basic_prop span6"><a href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + '</a></div>';
-                    if (response.length > cnt + 1) {
-                        tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 1]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 1]["tagname"] + '</a></div></div>';
-                    }
-                    if (response.length > cnt + 2) {
-                        tags = tags + '<div class="span6"><div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 2]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 2]["tagname"] + '</a></div>';
-                    }
-                    if (response.length > cnt + 3) {
-                        tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 3]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 3]["tagname"] + '</a></div></div></div>';
-                    }
-                    tags = tags + '</div>';
+                    tags = tags + '<a class="tag-style" href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + ', </a> ';
+                    //if (response.length > cnt + 1) {
+                    //    tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 1]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 1]["tagname"] + '</a></div></div>';
+                    //}
+                    //if (response.length > cnt + 2) {
+                    //    tags = tags + '<div class="span6"><div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 2]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 2]["tagname"] + '</a></div>';
+                    //}
+                    //if (response.length > cnt + 3) {
+                    //    tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 3]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 3]["tagname"] + '</a></div></div></div>';
+                    //}
+                  
                 }
+                tags = tags + '</div></div>';
                 $("#divTags").append(tags);
             },
             error: function (data) {

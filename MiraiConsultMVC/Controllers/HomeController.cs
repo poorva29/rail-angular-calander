@@ -188,7 +188,7 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult topicdetails(string tag)
         {
             IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            var questionList = db.get_AllQuestionsByTag(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
             {
                 foreach (var item in questionList)
@@ -196,7 +196,8 @@ namespace MiraiConsultMVC.Controllers
                     QuestionModel qModel = new QuestionModel();
                     qModel.QuestionId = Convert.ToInt32(item.questionid);
                     qModel.QuestionText = item.questiontext;
-                    
+                    qModel.answerreplyedby = item.doctorname;
+                    qModel.DocImg = item.docimage;
                     qModel.Counts = item.counts;
                     lstQuestions.Add(qModel);
                 }

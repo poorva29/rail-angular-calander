@@ -404,7 +404,7 @@ a {
 }
 
 .div-title-firsts {
-    padding: 5px 20px 15px 20px;
+    padding: 5px 20px 2px 20px;
     margin-bottom: 0px;
     font-size: 20px;
     color: #a5ae45;
@@ -2053,6 +2053,20 @@ table.cust-table {
 }
 .cust-lightgray {
     background-color: #F3F5F4 !important;
+}
+
+.tag-style{
+   padding: 1px !important;
+}
+.askQustion-css{
+    padding: 0px 10px 0px 20px;
+    font-size: 13px;
+    color: #A6AC3D !important;
+    font-weight: bold;
+}
+.a-askQuestion-color {
+    color: #A6AC3D !important;
+    text-decoration: underline !important;
 }
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 1025px) {

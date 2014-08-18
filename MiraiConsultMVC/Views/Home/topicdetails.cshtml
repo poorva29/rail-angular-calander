@@ -25,7 +25,7 @@
                             {
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
-                                        <a style="display:table-row" href='PatientQuestionDetails/+ @Model.ToList()[i].QuestionId +'>
+                                        <a style="display:table-row" href='/Answers/@Model.ToList()[i].QuestionId'>
                                             <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                         </a>
                                     </div>
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class='span6 middle-size-padding'>
-                                        <div class='ans_time_detail'>Dr. @Model.ToList()[i].answerreplyedby </div>
+                                        <div class='ans_time_detail'>@Model.ToList()[i].answerreplyedby </div>
                                         <div class='title_text'>
                                             @Model.ToList()[i].Title
                                         </div>

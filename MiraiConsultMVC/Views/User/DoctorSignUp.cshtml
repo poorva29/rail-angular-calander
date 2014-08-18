@@ -84,7 +84,7 @@
                                             <div class="span8">
                                                 <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                      data-date-enddate="new Date()" style="width: 100%;">
-                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", placeholder = "Date Of Birth", @style = " width:85%", @id = "txtDob" })
+                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @style = " width:85%", @id = "txtDob" })
                                                     <span class="add-on add-on-green  icon-with-right-curve"></span>
                                                 </div>
                                             </div>

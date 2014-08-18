@@ -9,12 +9,12 @@
                        @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "true")
                     {
                         <div id="message" class="alert alert-success">
-                            <label id="lblError">@ViewBag.Msg</label>
+                            <label id="lblError" class="success_message_color msg_font">@ViewBag.Msg</label>
                         </div>
                     }
                     @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "false") {
                         <div id="message" class="alert alert-error">
-                              <label id="lblError">@ViewBag.Msg</label>
+                            <label id="lblError" class="error_message_color msg_font">@ViewBag.Msg</label>
                                </div>
                     }
                     </div>

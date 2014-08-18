@@ -187,12 +187,6 @@ namespace MiraiConsultMVC
                 );
 
             routes.MapRoute(
-               name: "similarQuestions",
-               url: "similarQuestions",
-               defaults: new { controller = "Patients", action = "similarQuestions" }
-           );
-
-            routes.MapRoute(
                name: "similarQuestions1",
                url: "similarQuestions/{question}",
                defaults: new { controller = "Patients", action = "similarQuestions" }

@@ -540,11 +540,11 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
-        public ActionResult similarQuestions(string question = "")
+        public ActionResult similarQuestions(string question)
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();
           ViewBag.Question = question;
-          if (question.Length != 0)
+          if (question!= null && question.Length != 0)
           {
               ViewBag.Count = Convert.ToString(question.Length) + "/200";
           }

@@ -116,8 +116,12 @@ namespace MiraiConsultMVC.Controllers
                          }
                          Session["locationid"] = profile.LocationId;
                          Session["cityid"] = profile.CityId;
+                         TempData["Email"] = profile.Email;
+                         TempData["CountryId"] = profile.CountryId;
+                         TempData["stateId"] = profile.StateId;
+                         TempData["cityId"] = profile.CityId;
+                         TempData["locationId"] = profile.LocationId;
                      }
-
                     else if (!Convert.ToBoolean(res.EmailAvailable))
                     {
                         ViewBag.message = "This username is not available. Please select a different username.";

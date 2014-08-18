@@ -1,4 +1,11 @@
-﻿legend {
+﻿.tags_basic_prop
+{
+    position:relative;
+    float:left;
+    width:25%;
+    text-align:center;
+}
+legend {
     border-bottom: none !important;
 }
 .hand-cursor {
@@ -3970,11 +3977,4 @@ table.cust-table {
 }
 .msg_font{
     font-size:10pt !important;
-}
-.tags_basic_prop
-{
-    position:relative;
-    float:left;
-    width:25%;
-    text-align:center;
 }

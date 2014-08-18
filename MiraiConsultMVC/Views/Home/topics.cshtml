@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "similarQuestions";
+    if (Session["UserId"] != null)
+    {
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
+}
+
+<link href="../Content/tokenfield-typeahead.css" rel="stylesheet" />
+<link href="../Content/bootstrap-tokenfield.css" rel="stylesheet" />
+<link href="../Content/less/tokenfield-typeahead.less"></link>
+<link href="../Content/less/bootstrap-tokenfield.less"></link>
+<link href="../Content/custom.css" rel="stylesheet" />
+<script type="text/javascript" src="../Scripts/bootstrap-tokenfield.js"></script>
+<div class="row-fluid">
+    <div class="span12 main-outter-padding">
+        <div class="row-fluid">
+            <div class="span12 finddoc-title">
+                topics
+            </div>
+        </div>
+        <div class="content_border find-Doc-gbColor divmargin_bottom" style="padding-left:20px;">
+            <div class="row-fluid">
+                    <div class="span12">
+                        <div class="control-group" id="divTags"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var tags = '';
+    $(function () {
+        $(".navigation li.active").removeClass("active");
+        $('#liManageTags').addClass("active");
+        getAllTags();
+    });
+
+    function getAllTags() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '../../Services/UserService.svc/getAllTags',
+            success: function (response) {
+                response = JSON.parse(response);
+                for (cnt = 0; cnt < response.length; cnt+=3) {
+                    tags = tags + '<div class="row-fluid"><div class="span12"><div class="span6"><div class="tags_basic_prop span6"><a href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + '</a></div>';
+                    if (response.length > cnt + 1) {
+                        tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 1]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 1]["tagname"] + '</a></div></div>';
+                    }
+                    if (response.length > cnt + 2) {
+                        tags = tags + '<div class="span6"><div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 2]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 2]["tagname"] + '</a></div>';
+                    }
+                    if (response.length > cnt + 3) {
+                        tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 3]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 3]["tagname"] + '</a></div></div></div>';
+                    }
+                    tags = tags + '</div>';
+                }
+                $("#divTags").append(tags);
+            },
+            error: function (data) {
+                if (data.responseText.indexOf('Authentication failed') > -1) {
+                    location.reload();
+                }
+            }
+        });
+    }
+
+    $('#tokenfield-typeahead').on('removeToken', function (e) {
+        if (confirm("Are you sure you want to remove this tag?") == true) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '../../Services/UserService.svc/removeTags?tag=' + e.token.value,
+                success: function (response) {
+                    tags = tags.replace(e.token.value, '');
+                    alert("Tag removed successfully");
+                    IEReload();
+
+                },
+                error: function (data) {
+                    if (data.responseText.indexOf('Authentication failed') > -1) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+        else {
+            $('#tokenfield-typeahead').tokenfield('createToken', e.token.value);
+        }
+    })
+    function removeFilter() {
+        var agent = navigator.userAgent;
+        var reg1 = /MSIE\s?(\d+)(?:\.(\d+))?/i;
+        var reg2 = /Trident\/7\./;
+        if (agent.match(reg1) || agent.match(reg2)) {
+            $("#txtSearchTag").value = "";
+            getAllTags();
+        }
+        else {
+            $('#tokenfield-typeahead').tokenfield('setTokens', tags);
+
+        }
+    }
+
+    function IEReload() {
+        var agent = navigator.userAgent;
+        var reg1 = /MSIE\s?(\d+)(?:\.(\d+))?/i;
+        var reg2 = /Trident\/7\./;
+        if (agent.match(reg1) || agent.match(reg2)) {
+            location.reload();
+        }
+    }
+
+    $('#txtAddNewTag').on("keypress", function (e) {
+        if (e.keyCode == 13 && $('#txtAddNewTag').val().trim().length != 0) {
+            if ($('#txtAddNewTag').val().indexOf(',') == -1) {
+                var newTag = $('#txtAddNewTag').val();
+                var tagsArray = tags.split(',');
+                for (var i = 0; i < tagsArray.length; i++) {
+                    if (tagsArray[i].toLowerCase() == newTag.toLowerCase()) {
+                        alert("Tag already exist");
+                        return;
+                    }
+                }
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '../../Services/UserService.svc/addNewTags?newTag=' + newTag + '&questionid=0',
+                    success: function (response) {
+                        $('#tokenfield-typeahead').tokenfield('createToken', newTag);
+                        $('#txtAddNewTag').val('');
+                        tags = tags + newTag + ',';
+                        IEReload();
+                    },
+                    error: function (data) {
+                        if (data.responseText.indexOf('Authentication failed') > -1) {
+                            location.reload();
+                        }
+                    }
+                });
+                return false;
+            }
+            else {
+                alert("You can't enter comma ")
+            }
+        }
+    });
+    $('#txtSearchTag').on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            var filterTags = '';
+            var searchText = $('#txtSearchTag').val();
+            var tagsArray = tags.split(',');
+            for (var i = 0; i < tagsArray.length; i++) {
+                if (tagsArray[i].toLowerCase().indexOf(searchText.toLowerCase()) != -1) {
+                    filterTags = filterTags + tagsArray[i] + ',';
+                }
+            }
+            $('#tokenfield-typeahead').tokenfield('setTokens', filterTags);
+        }
+    });
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-48132984-2', 'askmirai.com');
+    ga('send', 'pageview');
+</script>

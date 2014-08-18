@@ -196,12 +196,13 @@ namespace MiraiConsultMVC.Controllers
                     QuestionModel qModel = new QuestionModel();
                     qModel.QuestionId = Convert.ToInt32(item.questionid);
                     qModel.QuestionText = item.questiontext;
+                    
                     qModel.Counts = item.counts;
                     lstQuestions.Add(qModel);
                 }
             }
-            return Json(lstQuestions, JsonRequestBehavior.AllowGet);
-            return View();
+            //return Json(lstQuestions, JsonRequestBehavior.AllowGet);
+            return View(lstQuestions);
         }
 
     }

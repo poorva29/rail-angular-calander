@@ -107,7 +107,7 @@ namespace MiraiConsultMVC.Controllers
                              string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                              string emailBody = EmailTemplates.SendNotificationEmailtoUser(profile.FirstName, patientid, emailVerficationURL, "Patient");
                              string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                             string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                             string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                              Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                              Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;                            
                              ViewBag.message = "Account has been Updated successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
@@ -119,17 +119,17 @@ namespace MiraiConsultMVC.Controllers
                          }
                          Session["locationid"] = profile.LocationId;
                          Session["cityid"] = profile.CityId;
-                         TempData["Email"] = profile.Email;
-                         TempData["CountryId"] = profile.CountryId;
-                         TempData["stateId"] = profile.StateId;
-                         TempData["cityId"] = profile.CityId;
-                         TempData["locationId"] = profile.LocationId;
                      }
                     else if (!Convert.ToBoolean(res.EmailAvailable))
                     {
                         ViewBag.message = "This username is not available. Please select a different username.";
                     }
                 }
+                TempData["Email"] = profile.Email;
+                TempData["CountryId"] = profile.CountryId;
+                TempData["stateId"] = profile.StateId;
+                TempData["cityId"] = profile.CityId;
+                TempData["locationId"] = profile.LocationId;
             }
             var countryList = poupulateCountry();
             profile.Countries = new SelectList(countryList, "countryid", "name");
@@ -237,7 +237,8 @@ namespace MiraiConsultMVC.Controllers
                     stateLst.Add(state1);
                 }
             }
-            return Json(stateLst,JsonRequestBehavior.AllowGet);
+            stateLst.Insert(0, new State { countryid = 0, name = "--Select State--", stateid = 0 });
+            return Json(stateLst, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -256,6 +257,7 @@ namespace MiraiConsultMVC.Controllers
                     cityLst.Add(city1);
                 }
             }
+            cityLst.Insert(0, new City { cityid = 0, name = "--Select City-", stateid = 0 });
             return Json(cityLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -275,6 +277,7 @@ namespace MiraiConsultMVC.Controllers
                     locationLst.Add(location1);
                 }
             }
+            locationLst.Insert(0, new Location { locationid = 0, name = "--Select Location--", cityid = 0 });
             return Json(locationLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -307,9 +310,15 @@ namespace MiraiConsultMVC.Controllers
                     patientDetail.DateOfBirth = Convert.ToDateTime(patient.dateofbirth);
                 if (patient.countryid != null && patient.countryid != 0)
                 {
-                    var countryList = poupulateCountry();    
+                    var countryList = poupulateCountry();
                     patientDetail.Countries = new SelectList(countryList, "countryid", "name");
                     patientDetail.CountryId = Convert.ToInt32(patient.countryid);
+                    TempData["CountryId"] = patient.countryid;
+                }
+                else
+                {
+                    var countryList = poupulateCountry();
+                    patientDetail.Countries = new SelectList(countryList, "countryid", "name");
                     TempData["CountryId"] = patient.countryid;
                 }
                 if (patient.stateid != null && patient.stateid != 0)

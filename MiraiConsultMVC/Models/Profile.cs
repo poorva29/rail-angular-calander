@@ -18,10 +18,10 @@ namespace MiraiConsultMVC.Models
         private DateTime? dateofbirth = null;
         private string username;
         private string password;
-        private int countryid;
-        private int stateid;
-        private int cityid;
-        private int locationid;     
+        private int? countryid;
+        private int? stateid;
+        private int? cityid;
+        private int? locationid;     
         private int? height;       
         private decimal? weight;
         private DateTime registrationdate;
@@ -62,10 +62,10 @@ namespace MiraiConsultMVC.Models
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
         public string Password { get { return password; } set { password = value; } }
-        public int CountryId { get { return countryid; } set { countryid = value; } }
-        public int StateId { get { return stateid; } set { stateid = value; } }
-        public int CityId { get { return cityid; } set { cityid = value; } }
-        public int LocationId { get { return locationid; } set { locationid = value; } }
+        public int? CountryId { get { return countryid; } set { countryid = value; } }
+        public int? StateId { get { return stateid; } set { stateid = value; } }
+        public int? CityId { get { return cityid; } set { cityid = value; } }
+        public int? LocationId { get { return locationid; } set { locationid = value; } }
 
         [RegularExpression(@"^[0-9]{1,6}$", ErrorMessage = "Please Enter Numbers Only.")]
         public int? Height { get { return height; } set { height = value; } }

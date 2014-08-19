@@ -821,7 +821,7 @@ namespace MiraiConsultMVC.Controllers
                         string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                         string emailBody = EmailTemplates.SendNotificationEmailtoUser(doctor.FirstName, doctorid, emailVerficationURL, "Doctor");
                         string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                        string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                        string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                         Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                     }

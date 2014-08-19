@@ -249,7 +249,12 @@
                     return false;
                 }
             }
-            $("#txtAnswer").keypress(function () {
+            $("#txtAnswer").keypress(function (e) {
+                var lengthF = $(this).val();
+
+                if (lengthF.length > 499){
+                    e.preventDefault();
+                }
                 $("#lblErrortxtAnswer").html('');
             });
             (function (i, s, o, g, r, a, m) {

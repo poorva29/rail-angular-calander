@@ -552,7 +552,7 @@
                 contentType: 'application/json',
                 url: "../../Services/UserService.svc/UpdateQuestionTags",
                 success: function (response) {
-                    alert("Tag's assigned to questions")
+                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

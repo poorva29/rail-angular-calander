@@ -310,15 +310,18 @@
         $('#dob').datepicker();
     });
     function getStatebyCountry(countryId) {
+        if (countryId.length == 0)
+            countryId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateStateByCountry' + '?countryId=' + countryId,
+            url: '../User/poupulateStateByCountry' + '?countryId=' + countryId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 $("#ddlState").empty();
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getCitybyState(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlState").append($('<option>').text(returndata[i].name).attr('value', returndata[i].stateid));
                 };
@@ -326,14 +329,17 @@
         });
     }
     function getCitybyState(stateId) {
+        if (stateId.length == 0)
+            stateId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateCityByState' + '?stateId=' + stateId,
+            url: '../User/poupulateCityByState' + '?stateId=' + stateId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getLocationbyCity(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlCity").append($('<option>').text(returndata[i].name).attr('value', returndata[i].cityid));
                 };
@@ -341,9 +347,11 @@
         });
     }
     function getLocationbyCity(cityId) {
+        if (cityId.length == 0)
+            cityId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateLocationByCity' + '?cityId=' + cityId,
+            url: '../User/poupulateLocationByCity' + '?cityId=' + cityId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {

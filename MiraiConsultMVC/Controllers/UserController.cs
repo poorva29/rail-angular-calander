@@ -940,6 +940,7 @@ namespace MiraiConsultMVC.Controllers
                     stateLst.Add(state1);
                 }
             }
+            stateLst.Insert(0, new State { countryid = 0, name = "--Select State--", stateid = 0 });
             return Json(stateLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -959,6 +960,7 @@ namespace MiraiConsultMVC.Controllers
                     cityLst.Add(city1);
                 }
             }
+            cityLst.Insert(0, new City { cityid = 0, name = "--Select City-", stateid = 0 });
             return Json(cityLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -978,6 +980,7 @@ namespace MiraiConsultMVC.Controllers
                     locationLst.Add(location1);
                 }
             }
+            locationLst.Insert(0, new Location { locationid = 0, name = "--Select Location--", cityid = 0 });
             return Json(locationLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
@@ -999,6 +1002,7 @@ namespace MiraiConsultMVC.Controllers
                     }
                 }
             }
+            councilLst.Insert(0, new RegistrationCouncil { countryid = 0, name = "--- Registration Council ---", regcouncilid = 0 });
             return Json(councilLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]

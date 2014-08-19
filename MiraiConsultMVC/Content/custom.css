@@ -579,6 +579,7 @@ table.custom-table th {
     min-width: 60px;
     border: 1px solid #cccccc;
     margin-right:10px;
+    margin-bottom: 10px;
 }
 #city_select_chzn,
 #locality_select_chzn{

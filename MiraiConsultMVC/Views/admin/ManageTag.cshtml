@@ -50,6 +50,7 @@
 </div>
 <script type="text/javascript">
     var tags = '';
+    var UpdateTags = false;
     $(function () {
         $(".navigation li.active").removeClass("active");
         $('#liManageTags').addClass("active");
@@ -114,8 +115,10 @@
             getAllTags();
         }
         else {
-            $('#tokenfield-typeahead').tokenfield('setTokens', tags);
-
+            if (UpdateTags) {
+                $('#tokenfield-typeahead').tokenfield('setTokens', tags);
+                UpdateTags = false;
+            }
         }
     }
 
@@ -166,6 +169,12 @@
         if (e.keyCode == 13) {
             var filterTags = '';
             var searchText = $('#txtSearchTag').val();
+            if (searchText != "") {
+                UpdateTags = true;
+            }
+            else {
+                UpdateTags = false;
+            }
             var tagsArray = tags.split(',');
             for (var i = 0; i < tagsArray.length; i++) {
                 if (tagsArray[i].toLowerCase().indexOf(searchText.toLowerCase()) != -1) {

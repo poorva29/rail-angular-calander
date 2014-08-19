@@ -20,6 +20,7 @@ namespace MiraiConsultMVC.Controllers
         BasePage BPage = new BasePage();
         public ActionResult Home()
         {
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
             if(Request.IsAjaxRequest())
             {
               return  PartialView("_AutoCompleteSearch");

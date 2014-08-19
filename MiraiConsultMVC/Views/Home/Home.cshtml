@@ -9,14 +9,15 @@
             <div class="innerdivborders span12">
                 <div class="ask-question-div-title">
                     <p class="div-title-firstp">
-                        Do you have any health related questions?
-                    </p>
+                        Do you have any health related questions?</p>
                     <p class="div-title-firsts div-padding">Ask a Doctor</p>
                     <p class="askQustion-css">
                         or see <a href="/topics" class="a-askQuestion-color">answer by topic</a>
-</div>
-                <textarea class="input-block-level Questiontextarea div-askdoctor-padding" id="txtAreaQuestion"  onkeyup="Count(this)"
-                          placeholder="Type your question here" rows="6" cols="15" maxlength="200" width="100%" onkeypress="return isEnterPress(event, this);"></textarea>
+
+                </div>
+                <textarea class="input-block-level Questiontextarea div-askdoctor-padding" id="txtAreaQuestion" onkeyup="Count(this)"
+                          placeholder="Type your question here" rows="6" cols="15" maxlength="200" onkeypress="return isEnterPress(event, this);" style="width:100%"></textarea>
+
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -64,20 +65,28 @@
         </div>
     </div>
 </div>
-<script src="../Scripts/jquery-1.9.1.min.js"></script>
-<script src="../Scripts/bootstrap-transition.js"></script>
-<script src="../Scripts/bootstrap-alert.js"></script>
-<script src="../Scripts/bootstrap-modal.js"></script>
-<script src="../Scripts/bootstrap-dropdown.js"></script>
-<script src="../Scripts/bootstrap-scrollspy.js"></script>
-<script src="../Scripts/bootstrap-tab.js"></script>
-<script src="../Scripts/bootstrap-collapse.js"></script>
-<script src="../Scripts/jquery.placeholder.js"></script>
-<script src="../Scripts/autocomplete.js"></script>
+@section metatags {
+    <meta property="og:title" content="MiraiConsult" />
+    <meta property="og:url" content="@ViewBag.AskmiraiUrl/Home/Home">
+    <meta property="og:image" content="@ViewBag.AskmiraiUrl/Content/image/logoImage.png" />
+    <meta property="og:description" content="Healthcare now more accessible and convenient at MiraiConsult" />
+    <meta property="og:type" content="website" />
+}
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/bootstrap-transition.js"></script>
+<script src="~/Content/js/bootstrap-alert.js"></script>
+<script src="~/Content/js/bootstrap-modal.js"></script>
+<script src="~/Content/js/bootstrap-dropdown.js"></script>
+<script src="~/Content/js/bootstrap-scrollspy.js"></script>
+<script src="~/Content/js/bootstrap-tab.js"></script>
+<script src="~/Content/js/bootstrap-collapse.js"></script>  
+<script src="~/Content/js/jquery.placeholder.js"></script>
+<script src="~/Content/js/autocomplete.js"></script>
 <script language="javascript">
     $(function () {
         $('input[type=text], textarea').placeholder();
     });
+    $('#txtAreaQuestion').attr('style', 'margin-bottom: 0px !important');
     $(document).ready(function () {
         var MaxLength = 200;
         $('#txtAreaQuestion').keyup(function (e) {

@@ -12,12 +12,12 @@
 <script src="~/Scripts/bootstrap-pagination.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 <script src="~/Scripts/dateofbirthvalidation.js"></script>
-<script src="~/Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("DoctorProfile", "Doctors", FormMethod.Post, new { @encType = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false)
+    @Html.ValidationSummary(true)
     {
         <div class="row-fluid">
             <div class="span12 main-outter-padding">
@@ -110,7 +110,7 @@
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { id = "txtDob", @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", @placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy")})
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve  date_box_width txtdateOfBirth contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             <label id="lblErrorDateOfBirth" style="color:red"></label>
                                         </div>

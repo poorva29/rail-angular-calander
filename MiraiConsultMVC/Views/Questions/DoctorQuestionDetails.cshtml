@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 
-<script src="~/Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 @using (Html.BeginForm(Html.BeginForm("DoctorQuestionDetails", "Questions", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off" })))
 {
     @Html.AntiForgeryToken()
@@ -129,7 +129,7 @@
                         <div class="wrapper-bordered" id="SuccessMessagediv">
                             <div class="row-fluid">
                                 <div class="span12 alert alert-success">
-                                    <label>@ViewBag.lblSuccessMessage</label>
+                                    <label class="msg_font success_message_color">@ViewBag.lblSuccessMessage</label>
                                 </div>
                             </div>
                         </div>
@@ -224,6 +224,7 @@
 
             $("#Image").change(function () {
                 var val = $(this).val();
+                if(val.trim()!= ""){
                 switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
                     case 'gif': case 'jpg': case 'png': case 'jpeg':
                         $("#ImageValidation").html("");
@@ -231,6 +232,7 @@
                     default:
                         $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
                         break;
+                }
                 }
             });
 

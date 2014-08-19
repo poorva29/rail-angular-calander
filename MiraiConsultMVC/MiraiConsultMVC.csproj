@@ -205,6 +205,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CustomDateModelBinder.cs" />
     <Compile Include="Models\Patients\InviteFriend.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\Home\Contact.cs" />

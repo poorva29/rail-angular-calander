@@ -390,7 +390,7 @@ namespace MiraiConsultMVC.Controllers
                 doctor.Gender = profile.Gender;
                 doctor.FirstName = profile.FirstName;
                 doctor.LastName = profile.LastName;
-                doctor.MobileNo = profile.MobileNo;
+                doctor.MobileNo = profile.MobileNo == null ? "" : profile.MobileNo;
                 if (profile.DateOfBirth != null)
                     doctor.DateOfBirth = Convert.ToDateTime(profile.DateOfBirth);
                 doctor.RegistrationDate = System.DateTime.Now;

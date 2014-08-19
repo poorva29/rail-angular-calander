@@ -637,11 +637,11 @@
     });
     $(document).ready(function () {
         var refUrl = document.referrer;
-        if (refUrl.indexOf("ManageDoctors.aspx") >= 0) {
+        if (refUrl.indexOf("Doctors") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
-        else if (refUrl.indexOf("doctorprofile.aspx") >= 0) {
+        else if (refUrl.indexOf("DoctorProfile") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }

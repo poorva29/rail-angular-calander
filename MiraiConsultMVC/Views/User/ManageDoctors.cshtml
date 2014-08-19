@@ -29,7 +29,7 @@
                                     <b>Filter:</b>
                                 </div>
                                 <div class="span3">
-                                    <input id="ChkRegisteredhdn" value="1"  name="Registered" type="hidden" />
+                                    <input id="ChkRegisteredhdn" name="Registered" type="hidden" />
                                     <input id="ChkRegistered"  type="checkbox"  />
                                     <label class="checkbox chk_box_inline">Registered Doctors</label>
                                 </div>
@@ -222,6 +222,9 @@
         });
     }
     $(document).ready(function () {
+        $('#ChkApproved').prop('checked', false);
+        $('#ChkRejected').prop('checked', false);
+        $('#ChkRegistered').prop('checked', false);
         $(".navigation li.active").removeClass("active");
         $('#liManageDoctor').addClass("active");
         initDataTable();

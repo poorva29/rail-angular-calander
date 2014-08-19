@@ -437,6 +437,8 @@
       <LastGenOutput>_dbAskMirai.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="App_Browsers\IosChrome.browser" />
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToDemo.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToStaging.pubxml" />

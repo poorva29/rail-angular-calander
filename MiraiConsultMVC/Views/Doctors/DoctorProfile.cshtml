@@ -390,7 +390,7 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 btn-margin-top btn-margin-bottom profile-button docprofile-btn-padding" style="text-align: center">
-                            <input type="submit" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" onclick="return validateClinic()" />
+                            <input type="button" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" onclick="validateClinic()" />
                             <input type="button" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" onclick="closeDiv(); return false;" value="Close" />
                         </div>
                     </div>
@@ -1071,12 +1071,13 @@
                 success: function (returndata) {
                     if (returndata == 0) {
                         alert('Qualification details has been saved successfully.');
-                        saveRow(oTable, nEditing);
-                        nEditing = null;
+                        //saveRow(oTable, nEditing);
+                        //nEditing = null;
                     }
                     else if (returndata == 1) {
                         alert('Degree already exist.');
                     }
+                    window.location.reload(true);
                 }
             });
         }
@@ -1109,7 +1110,6 @@
                 savedegree(docId, aData[1], selecteddegreeid, university);
                 saveRow(oTable, nEditing);
                 nEditing = null;
-                location.reload(true);
             }
             else {
                 /* No row currently being edited */
@@ -1238,16 +1238,16 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
                             if (returndata == 0) {
-                                alert('Details have been saved successfully.');
+                                alert('Details have been saved successfully.');                               
                             }
                             else if (returndata == 1) {
                                 alert('Details are not saved.')
                             }
+                            window.location.reload(true);
                         }
                     });
                     saveDocDetailsRow(ODTable, DocDetailEditing);
-                    DocDetailEditing = null;
-                    location.reload(true);
+                    DocDetailEditing = null;                  
                 }
             }
             else {
@@ -1424,14 +1424,15 @@
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {
-                    if (returndata != 0) {
-                        if (validateclinicdata() && validateTelephone())
-                            alert('Clinic details updated successfully.');
-                    }
-                    else if (returndata == 0) {
-                        if (validateclinicdata() && validateTelephone())
-                            alert('New clinic details added successfully.');
-                    }
+                    //if (returndata != 0) {
+                    //    if (validateclinicdata() && validateTelephone())
+                    //        //alert('Clinic details updated successfully.');
+                    //}
+                    //else if (returndata == 0) {
+                    //    if (validateclinicdata() && validateTelephone())
+                    //        //alert('New clinic details added successfully.');
+                    //}
+                    window.location.reload(true);
                 },
                 error: function (data) {
                     if (data.responseText.indexOf('Authentication failed') > -1) {

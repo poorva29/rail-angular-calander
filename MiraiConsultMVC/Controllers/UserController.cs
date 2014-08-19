@@ -615,6 +615,7 @@ namespace MiraiConsultMVC.Controllers
                     Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
                     ViewBag.success = "true";
                     ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
+                    ModelState.Clear();
             }
             else
             {

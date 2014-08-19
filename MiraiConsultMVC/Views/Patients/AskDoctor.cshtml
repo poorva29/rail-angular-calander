@@ -68,6 +68,7 @@
 <script type="text/javascript">
     function Count(x) {
         document.getElementById('count').innerHTML = x.value.length + "/200";
+        document.getElementById('lblValidation').style.display = 'none';
     }
     $("#txtAreaQuestion").keypress(function () {
         $("#rqfvQuestion").hide();

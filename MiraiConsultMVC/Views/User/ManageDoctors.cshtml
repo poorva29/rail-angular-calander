@@ -29,7 +29,7 @@
                                     <b>Filter:</b>
                                 </div>
                                 <div class="span3">
-                                    <input id="ChkRegisteredhdn" value="1"  name="Registered" type="hidden" />
+                                    <input id="ChkRegisteredhdn" name="Registered" type="hidden" />
                                     <input id="ChkRegistered"  type="checkbox"  />
                                     <label class="checkbox chk_box_inline">Registered Doctors</label>
                                 </div>
@@ -52,25 +52,25 @@
                                            id="Doctorlist">
                                         <thead>
                                             <tr>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Name</b>
                                                 </th>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Registration Date</b>
                                                 </th>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Email ID</b>
                                                 </th>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Specialities</b>
                                                 </th>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Mobile No.</b>
                                                 </th>
-                                                <th>
+                                                <th class="table-heading-color">
                                                     <b>Status</b>
                                                 </th>
-                                                <th class="edit_th_min_width">
+                                                <th class="edit_th_min_width table-heading-color">
                                                     <b>Edit </b>
                                                 </th>
                                             </tr>
@@ -222,6 +222,9 @@
         });
     }
     $(document).ready(function () {
+        $('#ChkApproved').prop('checked', false);
+        $('#ChkRejected').prop('checked', false);
+        $('#ChkRegistered').prop('checked', false);
         $(".navigation li.active").removeClass("active");
         $('#liManageDoctor').addClass("active");
         initDataTable();

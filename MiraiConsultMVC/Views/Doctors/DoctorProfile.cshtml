@@ -12,7 +12,7 @@
 <script src="~/Scripts/bootstrap-pagination.js"></script>
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 <script src="~/Scripts/dateofbirthvalidation.js"></script>
-<script src="~/Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("DoctorProfile", "Doctors", FormMethod.Post, new { @encType = "multipart/form-data" }))
 {
@@ -110,7 +110,7 @@
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { id = "txtDob", @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen", @style = "margin-top:0px;", @placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy")})
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve  date_box_width txtdateOfBirth contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             <label id="lblErrorDateOfBirth" style="color:red"></label>
                                         </div>
@@ -390,7 +390,7 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 btn-margin-top btn-margin-bottom profile-button docprofile-btn-padding" style="text-align: center">
-                            <input type="submit" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" onclick="return validateClinic()" />
+                            <input type="button" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" onclick="validateClinic()" />
                             <input type="button" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" onclick="closeDiv(); return false;" value="Close" />
                         </div>
                     </div>
@@ -637,11 +637,11 @@
     });
     $(document).ready(function () {
         var refUrl = document.referrer;
-        if (refUrl.indexOf("ManageDoctors.aspx") >= 0) {
+        if (refUrl.indexOf("Doctors") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
-        else if (refUrl.indexOf("doctorprofile.aspx") >= 0) {
+        else if (refUrl.indexOf("DoctorProfile") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
@@ -1071,12 +1071,13 @@
                 success: function (returndata) {
                     if (returndata == 0) {
                         alert('Qualification details has been saved successfully.');
-                        saveRow(oTable, nEditing);
-                        nEditing = null;
+                        //saveRow(oTable, nEditing);
+                        //nEditing = null;
                     }
                     else if (returndata == 1) {
                         alert('Degree already exist.');
                     }
+                    window.location.reload(true);
                 }
             });
         }
@@ -1109,7 +1110,6 @@
                 savedegree(docId, aData[1], selecteddegreeid, university);
                 saveRow(oTable, nEditing);
                 nEditing = null;
-                location.reload(true);
             }
             else {
                 /* No row currently being edited */
@@ -1238,16 +1238,16 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (returndata) {
                             if (returndata == 0) {
-                                alert('Details have been saved successfully.');
+                                alert('Details have been saved successfully.');                               
                             }
                             else if (returndata == 1) {
                                 alert('Details are not saved.')
                             }
+                            window.location.reload(true);
                         }
                     });
                     saveDocDetailsRow(ODTable, DocDetailEditing);
-                    DocDetailEditing = null;
-                    location.reload(true);
+                    DocDetailEditing = null;                  
                 }
             }
             else {
@@ -1424,14 +1424,15 @@
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {
-                    if (returndata != 0) {
-                        if (validateclinicdata() && validateTelephone())
-                            alert('Clinic details updated successfully.');
-                    }
-                    else if (returndata == 0) {
-                        if (validateclinicdata() && validateTelephone())
-                            alert('New clinic details added successfully.');
-                    }
+                    //if (returndata != 0) {
+                    //    if (validateclinicdata() && validateTelephone())
+                    //        //alert('Clinic details updated successfully.');
+                    //}
+                    //else if (returndata == 0) {
+                    //    if (validateclinicdata() && validateTelephone())
+                    //        //alert('New clinic details added successfully.');
+                    //}
+                    window.location.reload(true);
                 },
                 error: function (data) {
                     if (data.responseText.indexOf('Authentication failed') > -1) {

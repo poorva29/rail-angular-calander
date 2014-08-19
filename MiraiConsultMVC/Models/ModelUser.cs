@@ -73,6 +73,8 @@ namespace MiraiConsultMVC.Models
         //[RegularExpression(@"^\d{1,4}(\.\d{1,2})?$", ErrorMessage = "Please enter valid Height.")]
         public int? Height { get { return height; } set { height = value; } }
         public int? Gender { get { return gender; } set { gender = value; } }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateOfBirth { get { return dateofbirth; } set { this.dateofbirth = value; } }
         public string UserName { get { return username; } set { username = value; } }
 

@@ -272,7 +272,7 @@ namespace MiraiConsultMVC.Controllers
             {
                     UserRecord.status = statusApp; 
                     db.SubmitChanges();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
                     SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
                     jsonObj = "Doctor has been Approved successfully.";
@@ -301,7 +301,7 @@ namespace MiraiConsultMVC.Controllers
             {
                     UserRecord.status = statusRejected; 
                     db.SubmitChanges();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
                     SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
                     jsonObj = "Doctor has been Rejected successfully.";
@@ -611,10 +611,11 @@ namespace MiraiConsultMVC.Controllers
                     string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
                     string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname + " " + UserRecord.lastname, emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
                     ViewBag.success = "true";
                     ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
+                    ModelState.Clear();
             }
             else
             {
@@ -687,7 +688,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailBody = EmailTemplates.SendNotificationEmailtoUser(values.FirstName, patientid, emailVerficationURL, "Patient");
 
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";   
                 }
@@ -821,7 +822,7 @@ namespace MiraiConsultMVC.Controllers
                         string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                         string emailBody = EmailTemplates.SendNotificationEmailtoUser(doctor.FirstName, doctorid, emailVerficationURL, "Doctor");
                         string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                        string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                        string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                         Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                     }
@@ -939,6 +940,7 @@ namespace MiraiConsultMVC.Controllers
                     stateLst.Add(state1);
                 }
             }
+            stateLst.Insert(0, new State { countryid = 0, name = "--Select State--", stateid = 0 });
             return Json(stateLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -958,6 +960,7 @@ namespace MiraiConsultMVC.Controllers
                     cityLst.Add(city1);
                 }
             }
+            cityLst.Insert(0, new City { cityid = 0, name = "--Select City-", stateid = 0 });
             return Json(cityLst, JsonRequestBehavior.AllowGet);
         }
 
@@ -977,6 +980,7 @@ namespace MiraiConsultMVC.Controllers
                     locationLst.Add(location1);
                 }
             }
+            locationLst.Insert(0, new Location { locationid = 0, name = "--Select Location--", cityid = 0 });
             return Json(locationLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
@@ -998,6 +1002,7 @@ namespace MiraiConsultMVC.Controllers
                     }
                 }
             }
+            councilLst.Insert(0, new RegistrationCouncil { countryid = 0, name = "--- Registration Council ---", regcouncilid = 0 });
             return Json(councilLst, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]

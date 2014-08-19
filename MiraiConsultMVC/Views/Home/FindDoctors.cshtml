@@ -212,6 +212,8 @@
                                 .html(response[cnt]["name"]));
                         var Location = document.getElementById("hdnLoactionId").value;
                         if (Location) {
+                            $('#locality-select').empty();
+                            $('#locality-select').append('<option></option>');
                             $('#locality-select option[value=' + Location + ']').attr("selected", true);
                             btnSearchDoctor_Click();
                             document.getElementById("hdnLoactionId").value = null;

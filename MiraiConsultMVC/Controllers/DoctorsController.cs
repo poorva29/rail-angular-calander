@@ -390,7 +390,7 @@ namespace MiraiConsultMVC.Controllers
                 doctor.Gender = profile.Gender;
                 doctor.FirstName = profile.FirstName;
                 doctor.LastName = profile.LastName;
-                doctor.MobileNo = profile.MobileNo;
+                doctor.MobileNo = profile.MobileNo == null ? "" : profile.MobileNo;
                 if (profile.DateOfBirth != null)
                     doctor.DateOfBirth = Convert.ToDateTime(profile.DateOfBirth);
                 doctor.RegistrationDate = System.DateTime.Now;
@@ -455,7 +455,7 @@ namespace MiraiConsultMVC.Controllers
                             string emailid = doctor.Email;
                             string emailBody = EmailTemplates.SendEmailVerifcationtoUser(profile.LastName, doctorid, emailVerficationURL, Usertype, emailid, isemailverfiy);
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                            string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                             TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
                             TempData["Email"] = doctor.Email;

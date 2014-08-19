@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 
-<script src="~/Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 @using (Html.BeginForm(Html.BeginForm("DoctorQuestionDetails", "Questions", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off" })))
 {
     @Html.AntiForgeryToken()
@@ -249,7 +249,12 @@
                     return false;
                 }
             }
-            $("#txtAnswer").keypress(function () {
+            $("#txtAnswer").keypress(function (e) {
+                var lengthF = $(this).val();
+
+                if (lengthF.length > 499){
+                    e.preventDefault();
+                }
                 $("#lblErrortxtAnswer").html('');
             });
             (function (i, s, o, g, r, a, m) {

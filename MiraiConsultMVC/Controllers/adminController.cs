@@ -147,7 +147,7 @@ namespace MiraiConsultMVC.Controllers
                         {
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAssign(msgText, Convert.ToString(AssignDoctors.Rows[i]["lastname"]), QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString());
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                            string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, Convert.ToString(AssignDoctors.Rows[i]["email"]), "Mirai Consult - Assigned one question to you", emailBody, Logoimage);
                             string SmsText = ConfigurationManager.AppSettings["OnDocAssignQuestionSendSMS"].ToString();
                             SMS.SendSMS(Convert.ToString(AssignDoctors.Rows[i]["mobileno"]), SmsText);
@@ -248,7 +248,7 @@ namespace MiraiConsultMVC.Controllers
                 DataSet doctorList = null;
                 SqlParameter[] param = new SqlParameter[4];
                 Report reportData;
-                List<Report> ListreportData = new List<Report>();
+                List<Report> ListreportData = new List<Report>();             
                 using (conn = SqlHelper.GetSQLConnection())
                 {
 
@@ -270,7 +270,14 @@ namespace MiraiConsultMVC.Controllers
                     }
                     if (!string.IsNullOrEmpty(specialityOrName))
                     {
-                        param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                        if (specialityOrName.Contains(' '))
+                        {
+                            param[2] = new SqlParameter("@specialityOrName", specialityOrName.Replace(' ', '%'));
+                        }
+                        else
+                        {
+                            param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                        }
                     }
                     else
                     {

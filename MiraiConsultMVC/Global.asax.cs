@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiraiConsultMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,7 @@ namespace MiraiConsultMVC
     {
         protected void Application_Start()
         {
+            ModelBinders.Binders.Add(typeof(DateTime?), new CustomDateModelBinder());
             ModelValidatorProviders.Providers.Clear();
             ModelValidatorProviders.Providers.Add(new DataAnnotationsModelValidatorProvider());
             DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;

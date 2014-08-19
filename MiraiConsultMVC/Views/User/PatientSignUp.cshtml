@@ -5,7 +5,7 @@
 
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
 <script src="~/Scripts/dateofbirthvalidation.js"></script>
-<script type="text/javascript" src="../Scripts/utility.js"></script>
+<script type="text/javascript" src="~/Content/js/utility.js"></script>
 
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm(new { autocomplete = "off" }))
@@ -82,7 +82,7 @@
                                         <div class="span8">
                                             <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                  data-date-enddate="new Date()" style="width: 100%">
-                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", @style = "margin-top:0px;width: 85%;", @placeholder = "Date Of Birth", @id = "txtDob" })
+                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", @style = "margin-top:0px;width: 85%;", @placeholder = "Date Of Birth",@Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
                                                 <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             </div>
                                         </div>
@@ -310,15 +310,18 @@
         $('#dob').datepicker();
     });
     function getStatebyCountry(countryId) {
+        if (countryId.length == 0)
+            countryId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateStateByCountry' + '?countryId=' + countryId,
+            url: '../User/poupulateStateByCountry' + '?countryId=' + countryId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 $("#ddlState").empty();
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getCitybyState(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlState").append($('<option>').text(returndata[i].name).attr('value', returndata[i].stateid));
                 };
@@ -326,14 +329,17 @@
         });
     }
     function getCitybyState(stateId) {
+        if (stateId.length == 0)
+            stateId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateCityByState' + '?stateId=' + stateId,
+            url: '../User/poupulateCityByState' + '?stateId=' + stateId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getLocationbyCity(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlCity").append($('<option>').text(returndata[i].name).attr('value', returndata[i].cityid));
                 };
@@ -341,9 +347,11 @@
         });
     }
     function getLocationbyCity(cityId) {
+        if (cityId.length == 0)
+            cityId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateLocationByCity' + '?cityId=' + cityId,
+            url: '../User/poupulateLocationByCity' + '?cityId=' + cityId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {

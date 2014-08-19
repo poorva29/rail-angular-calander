@@ -131,7 +131,7 @@
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin" })
+                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty),"--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                             }
                                             else
                                             {
-                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState" })
+                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), "--Select State--", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -256,15 +256,18 @@
             isValidDateofBirth(cntrl);
     })
     function getStatebyCountry(countryId) {
+        if (countryId.length == 0)
+            countryId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateStateByCountry' + '?countryId=' + countryId,
+            url: '../Patients/poupulateStateByCountry' + '?countryId=' + countryId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {               
                 $("#ddlState").empty();
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getCitybyState(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlState").append($('<option>').text(returndata[i].name).attr('value', returndata[i].stateid));
                 };
@@ -273,14 +276,17 @@
     }
     
     function getCitybyState(stateId) {
+        if (stateId.length == 0)
+            stateId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateCityByState' + '?stateId=' + stateId,
+            url: '../Patients/poupulateCityByState' + '?stateId=' + stateId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
                 $("#ddlCity").empty();
                 $("#ddlLocation").empty();
+                getLocationbyCity(0);
                 for (var i = 0; i < returndata.length; i++) {
                     $("#ddlCity").append($('<option>').text(returndata[i].name).attr('value', returndata[i].cityid));
                 };
@@ -289,9 +295,11 @@
     }
 
     function getLocationbyCity(cityId) {
+        if (cityId.length == 0)
+            cityId = 0;
         $.ajax({
             type: "GET",
-            url: 'poupulateLocationByCity' + '?cityId=' + cityId,
+            url: '../Patients/poupulateLocationByCity' + '?cityId=' + cityId,
             datatype: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {

@@ -248,7 +248,7 @@ namespace MiraiConsultMVC.Controllers
                 DataSet doctorList = null;
                 SqlParameter[] param = new SqlParameter[4];
                 Report reportData;
-                List<Report> ListreportData = new List<Report>();
+                List<Report> ListreportData = new List<Report>();             
                 using (conn = SqlHelper.GetSQLConnection())
                 {
 
@@ -270,7 +270,14 @@ namespace MiraiConsultMVC.Controllers
                     }
                     if (!string.IsNullOrEmpty(specialityOrName))
                     {
-                        param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                        if (specialityOrName.Contains(' '))
+                        {
+                            param[2] = new SqlParameter("@specialityOrName", specialityOrName.Replace(' ', '%'));
+                        }
+                        else
+                        {
+                            param[2] = new SqlParameter("@specialityOrName", specialityOrName);
+                        }
                     }
                     else
                     {

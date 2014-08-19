@@ -119,22 +119,22 @@
                                id="assign-doctor-list" width="100%">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th class="table-heading-color menu_margin">
                                         <b>Userid</b>
                                     </th>
-                                    <th>
+                                    <th class="table-heading-color menu_margin">
                                         <b>Name</b>
                                     </th>
-                                    <th>
+                                    <th class="table-heading-color menu_margin">
                                         <b>City</b>
                                     </th>
-                                    <th>
+                                    <th class="table-heading-color menu_margin">
                                         <b>Location</b>
                                     </th>
-                                    <th>
+                                    <th class="table-heading-color menu_margin">
                                         <b>Specialities</b>
                                     </th>
-                                    <th class="minwidth-remove">
+                                    <th class="minwidth-remove table-heading-color menu_margin">
                                         <b>Action</b>
                                     </th>
                                 </tr>
@@ -454,7 +454,7 @@
                 $("#searchResult").empty();
                 $("#searchspan").empty();
                 var table_template = "<div class='table-responsive'><table cellpadding='0' cellspacing='0' border='0' class='custom-table zebra-striped'id='doctor-list'>" +
-                "<thead><tr><th ><b> Select  </th> <th ><b> Name</b> </th> <th ><b> City</b></th> <th ><b>location</b> </th> <th > <b>Specialities</b> </th> </tr></thead><tbody>";
+                "<thead><tr><th class='table-heading-color'><b> Select  </th> <th class='table-heading-color'><b> Name</b> </th> <th class='table-heading-color'><b> City</b></th> <th class='table-heading-color'><b>location</b> </th> <th class='table-heading-color'> <b>Specialities</b> </th> </tr></thead><tbody>";
 
                 for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
                     var table_body_template = ''
@@ -552,7 +552,7 @@
                 contentType: 'application/json',
                 url: "../../Services/UserService.svc/UpdateQuestionTags",
                 success: function (response) {
-                    alert("Tag's assigned to questions")
+                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

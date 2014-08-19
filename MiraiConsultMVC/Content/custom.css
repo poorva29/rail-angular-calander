@@ -1168,8 +1168,8 @@ table .custom-table .headerSortDown:after, table .headerSortDown:hover:after {
 }
 
     .custom-table th.header {
-        text-align: center !important;
-        color: #EB665F !important;
+        text-align: center;
+        color: #EB665F;
     }
 
 .fileupload_btn_margin {
@@ -3993,3 +3993,7 @@ table.cust-table {
 .msg_font{
     font-size:10pt !important;
 }
+.table-heading-color {
+        text-align: center !important;
+        color: #EB665F !important;
+    }

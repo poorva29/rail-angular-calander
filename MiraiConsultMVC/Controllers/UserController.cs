@@ -272,7 +272,7 @@ namespace MiraiConsultMVC.Controllers
             {
                     UserRecord.status = statusApp; 
                     db.SubmitChanges();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
                     SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
                     jsonObj = "Doctor has been Approved successfully.";
@@ -301,7 +301,7 @@ namespace MiraiConsultMVC.Controllers
             {
                     UserRecord.status = statusRejected; 
                     db.SubmitChanges();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, DoctorEmail, subject, body, Logoimage);
                     SMS.SendSMS(Convert.ToString(DoctorMobile), smsText);
                     jsonObj = "Doctor has been Rejected successfully.";
@@ -611,7 +611,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
                     string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname + " " + UserRecord.lastname, emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
                     ViewBag.success = "true";
                     ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
@@ -687,7 +687,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailBody = EmailTemplates.SendNotificationEmailtoUser(values.FirstName, patientid, emailVerficationURL, "Patient");
 
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";   
                 }

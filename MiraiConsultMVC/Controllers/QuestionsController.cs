@@ -253,7 +253,7 @@ namespace MiraiConsultMVC.Controllers
                             string msgText = ConfigurationManager.AppSettings["OnDocAnswerAssignQuestionSendEmail"].ToString();
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = Server.MapPath("..\\Content\\image\\LogoForMail.png");
+                            string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);
                             string BookAppointmentUrl = ConfigurationManager.AppSettings["BookAppointmentLink"].ToString();
                             string Patientemailbody = EmailTemplates.GetEmailTemplateOnQuestionAnswerToPatient(QuestionDetails.Tables[0].Rows[i]["patientlastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), BookAppointmentUrl, QuestionDetails.Tables[0].Rows[i]["DocId"].ToString());

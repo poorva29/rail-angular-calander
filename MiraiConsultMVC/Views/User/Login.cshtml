@@ -41,7 +41,7 @@
                             <label class="control-label required form-horizontal control-label">Email ID:</label>
                             </div>
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border txt-position contact_margin", maxlength = "40", textmode = "text", placeholder = "Email", display = "dynamic" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border txt-position contact_margin input-block-display", maxlength = "40", textmode = "text", placeholder = "Email", display = "dynamic" })
                                 @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <label class="control-label required form-horizontal control-label">Password:</label>
                                 </div>
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position contact_margin", maxlength = "30", type = "Password", placeholder = "Password" })
+                                @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position contact_margin input-block-display", maxlength = "30", type = "Password", placeholder = "Password" })
                                 @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>
@@ -103,7 +103,7 @@
         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     $(".input-block-level").keyup(function () {
-        Page_ClientValidate();
+        //Page_ClientValidate();
     });
     ga('create', 'UA-48132984-2', 'askmirai.com');
     ga('send', 'pageview');

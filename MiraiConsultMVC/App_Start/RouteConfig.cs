@@ -36,13 +36,13 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Signup-Patient",
-                url: "signup-patient",
+                url: "patient-signup",
                 defaults: new { controller = "User", action = "PatientSignUp" }
             );
 
             routes.MapRoute(
                 name: "Signup-Doctor",
-                url: "signup-doctor",
+                url: "doctor-signup",
                 defaults: new { controller = "User", action = "DoctorSignUp" }
             );
 

@@ -24,7 +24,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "PatientProfile",
-                url: "PatientProfile",
+                url: "patientprofile",
                 defaults: new { controller = "Patients", action = "PatientProfile" }
                 );
 
@@ -36,19 +36,19 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "Howweworks",
-               url: "HowWeWorks",
+               url: "howweworks",
                defaults: new { controller = "Home", action = "HowWeWorks" }
            );
 
             routes.MapRoute(
                 name: "Signup-Patient",
-                url: "Signup-Patient",
+                url: "signup-patient",
                 defaults: new { controller = "User", action = "PatientSignUp" }
             );
 
             routes.MapRoute(
                 name: "Signup-Doctor",
-                url: "Signup-Doctor",
+                url: "signup-doctor",
                 defaults: new { controller = "User", action = "DoctorSignUp" }
             );
 
@@ -60,13 +60,13 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "PrivacyPolicy",
-               url: "PrivacyPolicy",
+               url: "privacypolicy",
                defaults: new { controller = "Home", action = "PrivacyPolicy" }
            );
 
             routes.MapRoute(
                name: "Contact",
-               url: "Contact",
+               url: "contact",
                defaults: new { controller = "Home", action = "Contact" }
            );
 
@@ -84,19 +84,19 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "AdminManageTags",
-                url: "Tags",
+                url: "tags",
                 defaults: new { controller = "admin", action = "managetag" }
             );
 
             routes.MapRoute(
                 name: "AdminReport",
-                url: "Report",
+                url: "report",
                 defaults: new { controller = "admin", action = "Report" }
             );
 
             routes.MapRoute(
                 name: "AdminRegistrationRequests",
-                url: "Doctors",
+                url: "doctors",
                 defaults: new { controller = "User", action = "ManageDoctors" }
             );
             
@@ -104,50 +104,50 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Changepassword",
-                url: "Changepassword",
+                url: "changepassword",
                 defaults: new { controller = "User", action = "Changepassword" }
             );
 
             routes.MapRoute(
                 name: "InviteFriend",
-                url: "InviteFriend",
+                url: "invitefriend",
                 defaults: new { controller = "Patients", action = "InviteFriend" }
             );
 
             routes.MapRoute(
                name: "AskDoctor",
-               url: "AskDoctor",
+               url: "askdoctor",
                defaults: new { controller = "Patients", action = "AskDoctor" }
            );
 
             routes.MapRoute(
                name: "Myactivity",
-               url: "Myactivity",
+               url: "myactivity",
                defaults: new { controller = "Patients", action = "Myactivity" }
            );
 
             routes.MapRoute(
                name: "FindDoctors",
-               url: "FindDoctors",
+               url: "finddoctors",
                defaults: new { controller = "Home", action = "FindDoctors" }
            );
 
             routes.MapRoute(
                 name: "Questions2",
-                url: "Questions/{QuestionId}",
+                url: "questions/{QuestionId}",
                 defaults: new { controller = "Questions", action = "DoctorQuestionDetails" },
                 constraints: new { QuestionId = @"\d+" }
             );
 
             routes.MapRoute(
                 name: "Questions1",
-                url: "Questions/{filter}",
+                url: "questions/{filter}",
                 defaults: new { controller = "Questions", action = "DoctorQuestionList", filter = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "assignquestion",
-                url: "AssignQuestion/{questionid}",
+                url: "assignquestion/{questionid}",
                 defaults: new {controller="admin",action="assignquestion" },
                 constraints: new { QuestionId = @"\d+" }
                 );
@@ -155,40 +155,40 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Answers1",
-                url: "Answers",
+                url: "answers",
                 defaults: new { controller = "feed", action = "feed" }
             );
 
             routes.MapRoute(
                 name: "Answers2",
-                url: "Doctor-Answers",
+                url: "doctor-answers",
                 defaults: new { controller = "feed", action = "doctorfeed" }
             );
 
             routes.MapRoute(
                 name: "DoctorProfile",
-                url: "DoctorProfile",
+                url: "doctorprofile",
                 defaults: new { controller = "Doctors", action = "DoctorProfile" }
                 
             );
 
             routes.MapRoute(
                name: "DoctorProfile1",
-               url: "DoctorProfile/{UserId}",
+               url: "doctorprofile/{UserId}",
                defaults: new { controller = "Doctors", action = "DoctorProfile" }
                
            );
 
             routes.MapRoute(
                 name: "Answers3",
-                url: "Answers/{QuestionId}",
+                url: "answers/{QuestionId}",
                 defaults: new { controller = "Patients", action = "PatientQuestionDetails" },
                 constraints: new { QuestionId = @"\d+" }
             );
 
             routes.MapRoute(
                 name: "similarQuestions",
-                url: "similarQuestions",
+                url: "similarquestions",
                 defaults: new { controller = "Patients", action = "similarQuestions" }
                 );
 
@@ -196,20 +196,20 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "similarQuestions1",
-               url: "similarQuestions/{question}",
+               url: "similarquestions/{question}",
                defaults: new { controller = "Patients", action = "similarQuestions" }
            );
 
             routes.MapRoute(
                name: "AssignDoctor",
-               url: "AssignDoctor/{QuestionId}/{AssignDoctorIds}",
+               url: "assigndoctor/{QuestionId}/{AssignDoctorIds}",
                defaults: new { controller = "admin", action = "AssignDoctor" }
 
            );
 
             routes.MapRoute(
                name: "RemoveAssignDoctorToQuetion",
-               url: "RemoveAssignDoctorToQuetion/{userid}/{questionId}",
+               url: "removeassigndoctortoquetion/{userid}/{questionId}",
                defaults: new { controller = "admin", action = "RemoveAssignDoctorToQuetion" }
 
            );

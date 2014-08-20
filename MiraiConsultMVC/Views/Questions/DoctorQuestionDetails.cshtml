@@ -238,7 +238,8 @@
 
             function ValidateAllControl() {
                 var errormsg = "";
-                if ($("#txtAnswer").val() == "") {
+                var answerText = document.getElementById('txtAnswer').value.trim();
+                if (answerText.trim() == null || answerText.trim() == "") {
                     errormsg += "Please Enter Answer.";
                     $("#lblErrortxtAnswer").html("Please Enter Answer.");
                 }

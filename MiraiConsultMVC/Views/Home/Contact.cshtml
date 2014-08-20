@@ -50,7 +50,7 @@
                                     <label class="required">Your Name:</label>
                                 </div>
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "input-block-level gray-border contact_margin", placeholder = "Enter your name." })
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your name." })
                                     @Html.ValidationMessageFor(m => m.Name, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <label class="required">Your Email:</label>
                                 </div>
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border contact_margin", placeholder = "Enter your email address." })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your email address." })
                                     @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                 <label class="required">Your Message:</label>
                             </div>
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                @Html.TextAreaFor(m => m.message, new { @class = "input-block-level gray-border contact_margin", rows = "4" })
+                                @Html.TextAreaFor(m => m.message, new { @class = "input-block-level gray-border contact_margin input-block-display", rows = "4" })
                                 @Html.ValidationMessageFor(m => m.message, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>

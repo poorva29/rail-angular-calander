@@ -3975,3 +3975,7 @@ table.cust-table {
         text-align: center !important;
         color: #EB665F !important;
     }
+
+.input-block-display {
+    display:block !important
+}

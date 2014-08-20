@@ -85,11 +85,12 @@
 
                 $.ajax({
                     type: 'GET',
+                    url: '/RejectQuestionByQuestionID/' +  questionId,
                     dataType: 'json',
-                    url: "/admin/RejectQuestionByQuestionID?qusetionID=" + questionId,
+                    contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         alert(response);
-                        window.location.href = "QuestionList?filter=" + true;
+                        window.location.href = "admin";
                     },
                     error: function () {
                         alert("Error");

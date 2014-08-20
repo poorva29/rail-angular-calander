@@ -189,11 +189,12 @@ namespace MiraiConsultMVC.Controllers
             }
         }
 
-        public JsonResult RejectQuestionByQuestionID(int qusetionID)
+        [HttpGet]
+        public JsonResult RejectQuestionByQuestionID(string qusetionID)
         {
             SqlConnection conn = null;
             string jsonObj;
-            int QusetionID = qusetionID;
+            int QusetionID = Convert.ToInt32(qusetionID);
             int statusRejected = (int)QuestionStatus.Rejected;
             DataTable dtUserDetails = null;
             dtUserDetails = QuestionManager.getInstance().RejectQuestionFromQuestionList(QusetionID, statusRejected);

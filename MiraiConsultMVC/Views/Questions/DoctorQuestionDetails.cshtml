@@ -191,7 +191,7 @@
         <script type="text/javascript">
             $(function () {
                 var refUrl = document.referrer;
-                if (refUrl.indexOf("questionlist.aspx") >= 0) {
+                if (refUrl.indexOf("Questions") >= 0) {
                     $(".navigation li.active").removeClass("active");
                     $('#liDocQuestions').addClass("active");
                 }
@@ -238,7 +238,8 @@
 
             function ValidateAllControl() {
                 var errormsg = "";
-                if ($("#txtAnswer").val() == "") {
+                var answerText = document.getElementById('txtAnswer').value.trim();
+                if (answerText.trim() == null || answerText.trim() == "") {
                     errormsg += "Please Enter Answer.";
                     $("#lblErrortxtAnswer").html("Please Enter Answer.");
                 }

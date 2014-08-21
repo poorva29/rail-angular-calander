@@ -168,7 +168,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "DoctorProfile1",
-               url: "doctorprofile/{UserId}",
+               url: "doctorprofile/{*UserId}",
                defaults: new { controller = "Doctors", action = "DoctorProfile" }
                
            );
@@ -204,6 +204,12 @@ namespace MiraiConsultMVC
                url: "removeassigndoctortoquetion/{userid}/{questionId}",
                defaults: new { controller = "admin", action = "RemoveAssignDoctorToQuetion" }
 
+           );
+
+            routes.MapRoute(
+                name: "RejectQuestionByQuestionID",
+                url: "RejectQuestionByQuestionID/{qusetionID}",
+                defaults: new { controller = "admin", action = "RejectQuestionByQuestionID" }
            );
 
             routes.MapRoute(

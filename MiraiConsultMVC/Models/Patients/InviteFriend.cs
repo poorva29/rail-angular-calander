@@ -13,6 +13,7 @@ namespace MiraiConsultMVC.Models.Patients
         public string email { get; set; }
 
         [Required(ErrorMessage = "Please enter email body")]
+        [RegularExpression("^[^<>,<|>]+$", ErrorMessage = "Html tags are not allowed.")]
         public string message { get; set; }
     }
 }

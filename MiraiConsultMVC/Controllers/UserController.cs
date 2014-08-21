@@ -738,10 +738,10 @@ namespace MiraiConsultMVC.Controllers
         [HttpPost]
         public ActionResult DoctorSignUp(ModelUser modelUser, HttpPostedFileBase file, FormCollection collection)
         {
-            DataTable dtDoctor = null;           
+            DataTable dtDoctor = null;   
+            User doctor = new User();
             if (ModelState.IsValid)
-            {
-                User doctor = new User();
+            {                
                 string filename = "";
                 if (file != null && !string.IsNullOrEmpty(file.FileName))
                     filename = file.FileName;
@@ -754,7 +754,7 @@ namespace MiraiConsultMVC.Controllers
                     {
                         DoctorSpeciality speciality = new DoctorSpeciality();
                         speciality.SpecialityId = Convert.ToInt32(specialityId);
-                        doctor.specialities.Add(speciality);
+                        doctor.AddSpeciality(speciality);//.specialities.Add(speciality);
                         //doctor.AddSpeciality(speciality);
                     }
                 }
@@ -849,7 +849,15 @@ namespace MiraiConsultMVC.Controllers
                 specialityid = dataRow.Field<int>("specialityid"),
                 name = dataRow.Field<string>("name"),
             }).ToList();
-            MultiSelectList makeSelected = new MultiSelectList(specialities, "specialityid", "name", specialities);
+            IList<DoctorSpeciality> SelectedSpecialities = new List<DoctorSpeciality>();
+            SelectedSpecialities = doctor.specialities;
+
+            int[] values = new int[SelectedSpecialities.Count];
+            for (int i = 0; i < SelectedSpecialities.Count; i++)
+            {
+                values[i] = SelectedSpecialities.ToList()[i].SpecialityId;
+            }
+            MultiSelectList makeSelected = new MultiSelectList(specialities, "specialityid", "name", values);
             ViewBag.specialities = makeSelected;
             return View(modelUser);
         }

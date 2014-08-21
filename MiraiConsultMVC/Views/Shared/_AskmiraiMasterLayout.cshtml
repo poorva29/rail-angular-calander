@@ -48,10 +48,10 @@
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctor-signup")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctors")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers"))
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Reset-Password")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("find-doctors")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similar-Questions")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers"))
                                         {
                                             <div class="pull-right">
                                                 <ul class="nav">
@@ -61,8 +61,8 @@
                                         }
                                     else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
                                     || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("contact") 
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") ||  HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacypolicy")
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("howweworks") )
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("terms-of-use") ||  HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacy-policy")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("how-we-works") )
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -162,21 +162,21 @@
                                             <ul class="dropdown-menu pull-right">
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
-                                                <li><a href="/DoctorProfile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/Doctor-Profile"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/Questions"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/Change-password"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
-                                                <li><a href="/patientprofile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/patient-profile"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/answers"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/Change-password"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                                 {
                                                 @*<%--
                                                 <li><a href="../../app/admin/ManageSiteContent.aspx"><i class="icon-edit"></i>Manage Site Content</a></li>--%>*@
-                                                <li><a href="/User/Managedoctors"><i class="icon-edit"></i>My Account</a></li>
+                                                <li><a href="/User/Manage-doctors"><i class="icon-edit"></i>My Account</a></li>
                                                 }
                                                 <li>
                                                     <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"><i class="icon-off"></i>Logout</a>
@@ -215,7 +215,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="/finddoctors" class="topmenu-links">Our Doctors</a>
+                                    <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

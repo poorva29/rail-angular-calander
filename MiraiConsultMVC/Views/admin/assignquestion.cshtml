@@ -261,7 +261,7 @@
             dataType: 'json',
             //data: '"' + $('#city-select').val() + '"',
             contentType: 'application/json',
-            url: '/AssignDoctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
+            url: '/Assign-Doctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
             success: function (response) {
                 location.reload(true);
               /*  var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +

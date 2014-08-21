@@ -75,7 +75,7 @@
 <script src="~/Content/js/bootstrap-tab.js"></script>
 <script src="~/Content/js/bootstrap-collapse.js"></script>  
 <script src="~/Content/js/jquery.placeholder.js"></script>
-<script src="~/Content/js/autocomplete.js"></script>
+@*<script src="~/Content/js/autocomplete.js"></script>*@
 <script language="javascript">
     $(function () {
         $('input[type=text], textarea').placeholder();
@@ -84,15 +84,28 @@
     $(document).ready(function () {
         var MaxLength = 200;
         $('#txtAreaQuestion').keyup(function (e) {
-            if ($(this).val().length >= MaxLength) {
-                e.preventDefault();
+            var text = $(this).val();
+            if ($(this).val().length > MaxLength) {
+                $(this).val(text.substr(0, (MaxLength)));
             }
         });
         $('#txtQuestion').keyup(function (e) {
-            if ($(this).val().length >= MaxLength) {
-                e.preventDefault();
+            var text = $(this).val();
+            if ($(this).val().length > MaxLength) {
+                $(this).val(text.substr(0, (MaxLength)));
             }
         });
+    });
+   
+    $('#txtAreaQuestion').bind('input propertychange', function () {
+        if ($(this).val().length <= 200) {
+            document.getElementById('count').innerHTML = $(this).val().length + "/200";
+        }
+    });
+    $('#txtQuestion').bind('input propertychange', function () {
+        if ($(this).val().length <= 200) {
+            document.getElementById('countchar').innerHTML = $(this).val().length + "/200";
+        }
     });
     function sendQuestion() {
         var question;
@@ -122,10 +135,12 @@
         return true;
     }
     function Count(x) {
-        if (x.id == 'txtAreaQuestion')
-            document.getElementById('count').innerHTML = x.value.length + "/200";
-        else if (x.id == 'txtQuestion')
-            document.getElementById('countchar').innerHTML = x.value.length + "/200";
+        if (x.value.length <= 200) {
+            if (x.id == 'txtAreaQuestion')
+                document.getElementById('count').innerHTML = x.value.length + "/200";
+            else if (x.id == 'txtQuestion')
+                document.getElementById('countchar').innerHTML = x.value.length + "/200";
+        }
     }
 
 

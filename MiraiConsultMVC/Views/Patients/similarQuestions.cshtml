@@ -137,13 +137,19 @@
         <script type="text/javascript" src="../Content/js/utility.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#txtQuestion").attr('maxlength', '200');
+                $("#QuestionText").attr('maxlength', '200');
                 var MaxLength = 200;
-                $('#txtQuestion').keypress(function (e) {
-                    if ($(this).val().length >= MaxLength) {
-                        e.preventDefault();
+                $('#QuestionText').keypress(function (e) {
+                    var text = $(this).val();
+                    if ($(this).val().length > MaxLength) {
+                        $(this).val(text.substr(0, (MaxLength)));
                     }
                 });
+            });
+            $('#QuestionText').bind('input propertychange', function () {
+                if ($(this).val().length <= 200) {
+                    document.getElementById('count').innerHTML = $(this).val().length + "/200";
+                }
             });
             function isEnterPress(evt, x) {
                 var charCode = (evt.which) ? evt.which : event.keyCode
@@ -159,7 +165,9 @@
                 $('#liSimilarQuestions').addClass("active");
             });
             function Count(x) {
-                document.getElementById('count').innerHTML = x.value.length + "/200";
+                if (x.value.length <= 200) {
+                    document.getElementById('count').innerHTML = x.value.length + "/200";
+                }
             }
             function bookaptclicked(docid) {
                 $.ajax({

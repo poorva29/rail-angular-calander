@@ -47,24 +47,22 @@
                             @{
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
-                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientsignup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctorsignup") 
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") 
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctor-signup")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacypolicy")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("contact")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("howweworks") 
+                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctor-signup")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctors")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers"))
-                                    {
-                                        <div class="pull-right">
-                                            <ul class="nav">
-                                                <li><a href="@Url.Action("login", "User")">Already have an account? <b><u>Login</u></b></a></li>
-                                            </ul>
-                                        </div>
-                                    }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()) || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
+                                        {
+                                            <div class="pull-right">
+                                                <ul class="nav">
+                                                    <li><a href="@Url.Action("login", "User")">Already have an account? <b><u>Login</u></b></a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("contact") 
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") ||  HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacypolicy")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("howweworks") )
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -171,7 +169,7 @@
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                 <li><a href="/patientprofile"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/Answers"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/answers"><i class="icon-list-alt"></i>My Account</a></li>
                                                 <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))

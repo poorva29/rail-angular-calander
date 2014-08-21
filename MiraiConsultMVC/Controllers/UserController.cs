@@ -604,12 +604,14 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult ForgotPassword(Login log )
         {
             string name = log.Email;
+            int userId = 0;
+            string firstname = "";
             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-            var UserRecord = db.users.FirstOrDefault(x => x.email.Equals(name));
-            if (UserRecord != null)
+            userId = UserManager.getInstance().getUserIdAndTypeByEmail(name, out firstname);
+            if (userId != 0)
             {
                     string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
-                    string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(UserRecord.userid.ToString(), UserRecord.firstname + " " + UserRecord.lastname, emailVerficationURL);
+                    string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(userId.ToString(), firstname,emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);

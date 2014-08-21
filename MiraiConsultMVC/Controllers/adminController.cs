@@ -312,9 +312,9 @@ namespace MiraiConsultMVC.Controllers
                             {
                                 reportData.appointmentbooked = 0;
                             }
-                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString()))
+                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentbuttonhits"].ToString()))
                             {
-                                reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"]);
+                                reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentbuttonhits"]);
                             }
                             else
                             {

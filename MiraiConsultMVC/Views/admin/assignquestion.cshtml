@@ -149,11 +149,11 @@
                                     {
                                         if (i == 0)
                                         {
-                                            ViewBag.Value = Convert.ToString(Model.ToList()[i].userid);
+                                            ViewBag.hdndoctorIds = Convert.ToString(Model.ToList()[i].userid);
                                         }
                                         else
                                         {
-                                            ViewBag.Value = ViewBag.Value + "," + Convert.ToString(Model.ToList()[i].userid);
+                                            ViewBag.hdndoctorIds = ViewBag.hdndoctorIds + "," + Convert.ToString(Model.ToList()[i].userid);
                                         }
                                         <tr>
                                             <td>
@@ -187,7 +187,7 @@
             </div>
         </div>
         <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
-        <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" />
+        <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" value="@ViewBag.hdndoctorIds" />
         <input type="hidden" id="hdnQuestionId" name="hdnQuestionId" value="@Model.ToList()[0].Questionid" />
         <div class="row-fluid">
             <div class="span12">

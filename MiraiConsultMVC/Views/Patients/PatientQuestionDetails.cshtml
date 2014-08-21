@@ -13,8 +13,8 @@
     }
 }
 
-<link rel="stylesheet" href="../Content/chosen/chosen.css" />
-<script type="text/javascript" src="../Content/chosen/chosen.jquery.js"></script>
+<link rel="stylesheet" href="~/Content/chosen/chosen.css" />
+<script type="text/javascript" src="~/Content/chosen/chosen.jquery.js"></script>
 
 <div class="custom-central-div">
     <div class="row-fluid">
@@ -39,7 +39,7 @@
                                         }
                                         else
                                         {
-                                            <img src='../Content/image/img-na.png' />
+                                            <img src='~/Content/image/img-na.png' />
                                         }
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     }
                                     else
                                     {
-                                        <img src='../Content/image/img-na.png' />
+                                        <img src='~/Content/image/img-na.png' />
                                     }
                                 </div>
                                 <div class='span8 middle-size-padding'>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class='span3'>
                                         <div class='feedAnsImage img'>
-                                            <img src="../feed/answerPhotos/@item.AnswerImg">
+                                            <img src="~/feed/answerPhotos/@item.AnswerImg">
                                         </div>
                                     </div>
                                 }
@@ -126,7 +126,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a class='custom-green-text'><img src='../Content/image/thanks.png' />Thanks its useful</a>
+                                                        <a class='custom-green-text'><img src='~/Content/image/thanks.png' />Thanks its useful</a>
                                                     }
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
@@ -141,7 +141,7 @@
                                                         }
                                                         else
                                                         {
-                                                            <a class='custom-green-text'><img src='../Content/image/thanks.png' /> Endorsed</a>
+                                                            <a class='custom-green-text'><img src='~/Content/image/thanks.png' /> Endorsed</a>
                                                         }
                                                     }
                                                 }

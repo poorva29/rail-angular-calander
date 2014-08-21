@@ -174,16 +174,16 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "DoctorProfile1",
-               url: "doctorprofile/{UserId}",
+               url: "doctorprofile/{*UserId}",
                defaults: new { controller = "Doctors", action = "DoctorProfile" }
                
            );
 
             routes.MapRoute(
                 name: "Answers3",
-                url: "answers/{QuestionId}/{questiontext}",
+                url: "answers/{QuestionId}/{*questiontext}",
                 defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional },
-                constraints: new { QuestionId = @"\d+", questiontext = @"([a-z]+-?)+" }
+                constraints: new { QuestionId = @"\d+" }
             );
 
             //routes.MapRoute(

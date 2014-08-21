@@ -25,12 +25,15 @@
                             {
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
-                                        <a style="display:table-row" href='/Answers/@Model.ToList()[i].QuestionId'>
+                                        <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId/@(System.Text.RegularExpressions.Regex.Replace(Model.ToList()[i].QuestionText.Replace(' ','-'),"[^a-zA-Z0-9_-]+", " ").Replace(" ",""))'>
                                             <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                         </a>
                                     </div>
                                 </div>
-                                <div class='row-fluid'>
+                            <div class='row-fluid'>
+                            @if(!String.IsNullOrEmpty(Model.ToList()[i].DocImg) || !String.IsNullOrEmpty(Model.ToList()[i].answerreplyedby))
+                            {
+                                
                                     <div id="feedDocImage_SQ" class='span1'>
                                         <div class='feedDocImage img'>
                                             @if ((Model.ToList()[i].DocImg) != "" && (Model.ToList()[i].DocImg) != null)
@@ -39,7 +42,7 @@
                                             }
                                             else
                                             {
-                                                <img src='../Content/image/img-na.png' />
+                                                <img src='~/Content/image/img-na.png' />
                                             }
                                         </div>
                                     </div>
@@ -49,7 +52,12 @@
                                             @Model.ToList()[i].Title
                                         </div>
                                     </div>
-
+                                } else
+                                {
+                                        <div class='span11'>
+                                            <p class='ans_text'>No answers received </p>
+                                        </div>
+                                }
                                     @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
@@ -59,25 +67,28 @@
                                         </div>
                                     }
 
-                                    @*<div class='span11 middle-size-padding'>
-                                        @if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
-                                        {
-                                            <div class='span5 '>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
-                                            </div>
-                                            <div class='span3 offset1' id="feedAnsImage_SQ">
-                                                <div class='feedAnsImage img'>
-                                                    <img src="../feed/answerPhotos/@Model.ToList()[i].answers[0].AnswerImage">
+                                    <div class='span11 middle-size-padding'>
+                                        @if (Model.ToList()[i].answers != null && Model.ToList()[i].answers.Count>0)
+                                        { 
+                                            if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
+                                            {
+                                                <div class='span5 '>
+                                                    <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
                                                 </div>
-                                            </div>
+                                                <div class='span3 offset1' id="feedAnsImage_SQ">
+                                                    <div class='feedAnsImage img'>
+                                                        <img src="../feed/answerPhotos/@Model.ToList()[i].answers[0].AnswerImage">
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class='span11'>
+                                                    <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
+                                                </div>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <div class='span11'>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
-                                            </div>
-                                        }
-                                    </div>*@
+                                    </div>
                                 </div>
                                 if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                 {
@@ -97,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="../Content/js/utility.js"></script>
+        <script type="text/javascript" src="~/Content/js/utility.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#txtQuestion").attr('maxlength', '200');
@@ -145,7 +156,7 @@
                 if (charCode == 13) {
                     var session = '@Session["UserType"]';
                     if (session != null && session == 2)
-                        window.location.href = "../Patients/AskDoctor?question=" + x.value;
+                        window.location.href = "../Patients/Askdoctorname?question=" + x.value;
                     else
                         window.location.href = "../Patients/similarQuestions?question=" + x.value;
                     return false;

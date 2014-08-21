@@ -1573,7 +1573,9 @@
       <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
       <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="docimage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="docImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ansImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="docImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

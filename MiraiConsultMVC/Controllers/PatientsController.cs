@@ -364,7 +364,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetails(int questionId = 0, string questiontext ="")
+        public ActionResult PatientQuestionDetails(int questionId = 0)
         {
             try
             {

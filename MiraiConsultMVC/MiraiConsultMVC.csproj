@@ -212,6 +212,10 @@
     <Compile Include="Models\RegistrationCouncil.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Specialities.cs" />
+    <Compile Include="Models\TagCloud\Tag.cs" />
+    <Compile Include="Models\TagCloud\TagCloud.cs" />
+    <Compile Include="Models\TagCloud\TagCloudGenerationRules.cs" />
+    <Compile Include="Models\TagCloud\Utils.cs" />
     <Compile Include="Models\Utilities\UtilityManager.cs" />
     <Compile Include="Models\admin\AssignQuestion.cs" />
     <Compile Include="Models\AskDoctor.cs" />
@@ -366,6 +370,7 @@
     <Content Include="Content\js\jquery.placeholder.js" />
     <Content Include="Content\js\utility.js" />
     <Content Include="Content\navigation.css" />
+    <Content Include="Content\TagClasses.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

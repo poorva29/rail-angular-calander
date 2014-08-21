@@ -57,16 +57,16 @@
                                         <ul class="dropdown-menu pull-right">
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                             {
-                                                <li><a href ="../PatientProfile"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="../patientprofile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                             {
                                                 <li><a href="@Url.Action("DoctorProfile","Doctors")"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/changepassword"><i class="icon-key"></i>Change Password</a></li>
                                             }
                                             <li>
-                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/Logout"><i class="icon-off"></i>Logout</a>
+                                                <a id="linkLogout" onclick="return confirm('Are you sure you want to logout?');" href="/User/logout"><i class="icon-off"></i>Logout</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -80,10 +80,10 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;? Signup here<b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
+                                            <li><a href="@Url.Action("patientsignup", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
                                             <li class="divider"></li>
                                             <li>
-                                                <a href="@Url.Action("DoctorSignUp","User")">
+                                                <a href="@Url.Action("doctorsignup","User")">
                                                     <i class="icon-user-md"></i>Signup as Doctor
                                                 </a>
                                             </li>
@@ -100,7 +100,7 @@
                 <div class="custom-navbar-inner tomenu-right-padding">
                     <div class="custom-margin-box" style="border:none">
                         <div class="imgwidth">
-                            <a class="brand" href="@Url.Action("Home","Home")">
+                            <a class="brand" href="@Url.Action("home","home")">
                                 <img src="../Content/image/logo.png" class="col-md-4 logoimage-width" />
                             </a>
                         </div>
@@ -117,17 +117,17 @@
                                                     </a>
                                                 </li>
                                                 <li id="liMyActivity" class="my-activity">
-                                                    <a href="/Myactivity">
+                                                    <a href="/myactivity">
                                                         <span class="Icon Icon--my-activity Icon--large" id="MyActivitySpan" style="margin-top: 11px;"></span><span class="text"><br />My Activity</span>
                                                     </a>
                                                 </li>
                                                 <li id="liFeed" class="feed">
-                                                    <a href="@Url.Action("Feed", "Feed")">
+                                                    <a href="@Url.Action("feed", "feed")">
                                                         <span class="Icon Icon--answers Icon--large" id="PatAnswerSpan" style="margin-top: 11px;"></span><span class="text"><br />Answers</span>
                                                     </a>
                                                 </li>
                                                 <li id="liFindDoc" class="find-doctors">
-                                                    <a href="@Url.Action("FindDoctors", "Home")">
+                                                    <a href="@Url.Action("finddoctors", "Home")">
                                                         <span class="Icon Icon--find-doctor Icon--large"></span><span class="text"><br />Find a Doctor</span>
                                                     </a>
                                                 </li>
@@ -135,7 +135,7 @@
                                             else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                             {
                                                 <li id="liDocFeed">
-                                                    <a href="/Doctor-Answers">
+                                                    <a href="/doctor-answers">
                                                         <span class="Icon Icon--answers Icon--large" id="answerSpan"></span><span class="text"><br />Answers</span>
                                                     </a>
                                                 </li>
@@ -163,17 +163,17 @@
                                                     </a>
                                                 </li>
                                                 <li id="liManageTags">
-                                                    <a href="/Tags">
+                                                    <a href="/tags">
                                                         <span class="Icon Icon--tags Icon--large" id="tags" style="margin-top: 11px;"></span><span class="text"><br />Tags</span>
                                                     </a>
                                                 </li>
                                                 <li id="liReports">
-                                                    <a href="/Report">
+                                                    <a href="/report">
                                                         <span class="Icon Icon--reports Icon--large" id="reports" style="margin-top: 11px;"></span><span class="text"><br />Reports</span>
                                                     </a>
                                                 </li>
                                                 <li id="liManageDoctor">
-                                                    <a href="/Doctors">
+                                                    <a href="/doctors">
                                                         <span class="Icon Icon--signup-requests Icon--large"></span><span class="text"><br />Signup Requests</span>
                                                     </a>
                                                 </li>
@@ -181,7 +181,7 @@
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor) || (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && Convert.ToString(Session["UserId"]) == "9999999"))
                                             { 
                                                 <li id="liinvitefriends">
-                                                    <a href="@Url.Action("InviteFriend","Patients")">
+                                                    <a href="@Url.Action("invitefriend","Patients")">
                                                         <span class="Icon Icon--invite-friends Icon--large"></span>
                                                         <span class="text"><br />Invite Friends</span>
                                                     </a>
@@ -200,7 +200,7 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li class="ask-doctor">
-                                        <a href="/AskDoctor" class="menu-padding reg-menu-padding">
+                                        <a href="/askdoctor" class="menu-padding reg-menu-padding">
                                             <span class="Icon Icon--ask-doctor Icon--large"></span> <span class="text font-bold menutext-margin-top">Ask Doctors</span>
                                         </a>
                                     </li>
@@ -208,7 +208,7 @@
                                 <ul class="nav pull-right">
                                     <li class="my-activity">
 
-                                        <a href="/Myactivity" class="menu-padding  reg-menu-padding">
+                                        <a href="/myactivity" class="menu-padding  reg-menu-padding">
 
                                             <span class="Icon Icon--my-activity Icon--large"></span> <span class="text font-bold menutext-margin-top">My Activity</span>
                                         </a>
@@ -233,14 +233,14 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/feed/Doctorfeed" class="menu-padding  reg-menu-padding">
+                                        <a href="/feed/doctorfeed" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>    
-                                        <a href="/Questions/QuestionList" class="menu-padding  reg-menu-padding">
+                                        <a href="/questions/questionlist" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
                                             @if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
                                             {
@@ -255,7 +255,7 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/admin/QuestionList" class="menu-padding  reg-menu-padding">
+                                        <a href="/admin/questionlist" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span><span class="text font-bold menutext-margin-top"> Questions</span>
                                         </a>
                                     </li>
@@ -276,14 +276,14 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/Admin/Report" class="menu-padding  reg-menu-padding">
+                                        <a href="/admin/report" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--reports Icon--large"></span> <span class="text font-bold menutext-margin-top"> Reports</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/User/ManageDoctors" class="menu-padding  reg-menu-padding">
+                                        <a href="/user/managedoctors" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--signup-requests Icon--large"></span> <span class="text font-bold menutext-margin-top"> Signup Requests</span>
                                         </a>
                                     </li>

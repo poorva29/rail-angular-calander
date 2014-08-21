@@ -321,14 +321,14 @@ namespace MiraiConsultMVC.Controllers
                     patientDetail.Countries = new SelectList(countryList, "countryid", "name");
                     TempData["CountryId"] = patient.countryid;
                 }
-                if (patient.stateid != null && patient.stateid != 0)
+                if ((patient.countryid != null && patient.countryid != 0) || (patient.stateid != null && patient.stateid != 0))
                 {
                     var stateList = poupulateState(Convert.ToInt32(patient.countryid));
                     patientDetail.States = new SelectList(stateList, "stateId", "name");
                     patientDetail.StateId = Convert.ToInt32(patient.stateid);
                     TempData["stateId"] = patientDetail.StateId;
                 }
-                if (patient.cityid != null && patient.cityid != 0)
+                if ((patient.stateid != null && patient.stateid != 0) || (patient.cityid != null && patient.cityid != 0))
                 {
                     var cityList = poupulateCity(Convert.ToInt32(patient.stateid));
                     patientDetail.Cities = new SelectList(cityList, "cityId", "name");
@@ -336,7 +336,7 @@ namespace MiraiConsultMVC.Controllers
                     TempData["cityId"] = patientDetail.CityId;
                     Session["cityid"] = patientDetail.CityId;
                 }
-                if (patient.locationid != null && patient.locationid != 0)
+                if ((patient.cityid != null && patient.cityid != 0) || (patient.locationid != null && patient.locationid != 0))
                 {
                     var locationList = poupulateLocation(Convert.ToInt32(patient.cityid));
                     patientDetail.Locations = new SelectList(locationList, "locationId", "name", "cityid");

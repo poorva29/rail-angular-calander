@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<TagCloud.Tag>
+@{
     ViewBag.Title = "similarQuestions";
     if (Session["UserId"] != null)
     {
@@ -26,7 +27,24 @@
         <div class="content_border find-Doc-gbColor divmargin_bottom" style="padding-left:20px;">
             <div class="row-fluid">
                     <div class="span12">
-                        <div class="control-group" id="divTags"></div>
+                        <div class="control-group" id="divTags">
+                            @{
+                                new TagCloud.TagCloud(new Dictionary<string, int>
+                                {
+                                    {"C#", 58},
+                                    {"asp.net", 45},
+                                    {"vb.net", 36},
+                                    {"ajax", 24},
+                                    {"linq", 13},
+                                },
+                                new TagCloud.TagCloudGenerationRules
+                                {
+                                    Order = TagCloud.TagCloudOrder.WeightDescending,
+                                    TagToolTipFormatString = "Questions asked {0}",
+                                    TagUrlFormatString = "/topics/"
+                                });
+                            }
+                        </div>
                     </div>
             </div>
         </div>
@@ -44,12 +62,17 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '../../Services/UserService.svc/getAllTags',
+            url: '../../Services/UserService.svc/get_allTagsWithCountOfAnsweredQuestions',
             success: function (response) {
                 response = JSON.parse(response);
-                tags = '<div class="row-fluid"><div class="span12">';
-                for (cnt = 0; cnt < response.length; cnt+=3) {
-                    tags = tags + '<a class="tag-style" href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + ', </a> ';
+                
+                
+
+                for (cnt = 0; cnt < response.length; cnt++) {
+                    if (response[cnt]["counts"] != 0)
+                        tags = tags + '<a class="tag-style" href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + '(' + response[cnt]["counts"] + ')' + ', </a> ';
+                    else
+                        tags = tags + '<a class="tag-style" href="/topics/' + response[cnt]["tagname"].replace(/\ /g, '-') + '">' + response[cnt]["tagname"] + ', </a> ';
                     //if (response.length > cnt + 1) {
                     //    tags = tags + '<div class="tags_basic_prop span6"><a href="/topics/' + response[cnt + 1]["tagname"].replace(/\ /g, '-') + '">' + response[cnt + 1]["tagname"] + '</a></div></div>';
                     //}

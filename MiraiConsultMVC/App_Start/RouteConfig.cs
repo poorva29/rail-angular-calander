@@ -181,10 +181,17 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Answers3",
-                url: "answers/{QuestionId}",
-                defaults: new { controller = "Patients", action = "PatientQuestionDetails" },
-                constraints: new { QuestionId = @"\d+" }
+                url: "answers/{QuestionId}/{questiontext}",
+                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional },
+                constraints: new { QuestionId = @"\d+", questiontext = @"([a-z]+-?)+" }
             );
+
+            //routes.MapRoute(
+            //  name: "seo-question",
+            //  url: "answers/{QuestionId}/{questiontext}",
+            //  defaults: new { controller = "Patients", action = "PatientQuestionDetails" }
+            //  );
+
 
             routes.MapRoute(
                 name: "similarQuestions",
@@ -221,6 +228,7 @@ namespace MiraiConsultMVC
                constraints: new { tag = @"([a-z]+-?)+" }
                );
 
+            
             routes.MapRoute(
                name: "Default",
                url: "{controller}/{action}/{id}",

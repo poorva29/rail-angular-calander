@@ -12,6 +12,9 @@ using System.Data;
 using DAL;
 using System.Text.RegularExpressions;
 using log4net;
+using TagCloud;
+using Services;
+
 namespace MiraiConsultMVC.Controllers
 {
     public class HomeController : Controller
@@ -183,7 +186,21 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult topics()
         {
-            return View();
+            UserService US = new UserService();
+            Tag t = new Tag();
+
+            List<Tag> ListTags = new List<Tag>();
+
+            ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
+            {
+                Text = dataRow.Field<string>("tagname"),
+                NavigateUrl = "/topics/" + dataRow.Field<string>("tagname"),
+                TagWeight = 56,
+                ToolTip = dataRow.Field<string>("tagname")
+                
+            }).ToList();
+
+            return View(ListTags);
         }
 
         public ActionResult topicdetails(string tag)

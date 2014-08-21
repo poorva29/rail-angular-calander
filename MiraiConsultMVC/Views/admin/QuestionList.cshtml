@@ -86,7 +86,7 @@
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
-                    url: "/admin/RejectQuestionByQuestionID?qusetionID=" + questionId,
+                    url: "../admin/RejectQuestionByQuestionID?qusetionID=" + questionId,
                     success: function (response) {
                         alert(response);
                         window.location.href = "QuestionList?filter=" + true;

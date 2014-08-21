@@ -48,7 +48,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Login",
-                url: "Login",
+                url: "login",
                 defaults: new { controller = "User", action = "Login" }
             );
 

@@ -17,6 +17,12 @@ namespace MiraiConsultMVC
             routes.IgnoreRoute("Content/image/DoctorPhotos/{*pathInfo}");
 
             routes.MapRoute(
+               name: "topics",
+               url: "topics",
+               defaults: new { controller = "Home", action = "topics" }
+               );
+
+            routes.MapRoute(
                 name: "PatientProfile",
                 url: "patient-profile",
                 defaults: new { controller = "Patients", action = "PatientProfile" }
@@ -175,16 +181,25 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Answers3",
-                url: "answers/{QuestionId}",
-                defaults: new { controller = "Patients", action = "PatientQuestionDetails" },
+                url: "answers/{QuestionId}/{*questiontext}",
+                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional },
                 constraints: new { QuestionId = @"\d+" }
             );
+
+            //routes.MapRoute(
+            //  name: "seo-question",
+            //  url: "answers/{QuestionId}/{questiontext}",
+            //  defaults: new { controller = "Patients", action = "PatientQuestionDetails" }
+            //  );
+
 
             routes.MapRoute(
                 name: "similarQuestions",
                 url: "similar-questions",
                 defaults: new { controller = "Patients", action = "similarQuestions" }
                 );
+
+            
 
             routes.MapRoute(
                name: "similarQuestions1",
@@ -205,6 +220,13 @@ namespace MiraiConsultMVC
                defaults: new { controller = "admin", action = "RemoveAssignDoctorToQuetion" }
 
            );
+
+            routes.MapRoute(
+               name: "topics1",
+               url: "topics/{tag}",
+               defaults: new { controller = "home", action = "topicdetails" },
+               constraints: new { tag = @"([a-z]+-?)+" }
+               );
 
             routes.MapRoute(
                 name: "RejectQuestionByQuestionID",

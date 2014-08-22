@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
 @{
-    ViewBag.Title = "similarQuestions";
+    ViewBag.Title = "TopicDetails";
     if (Session["UserId"] != null)
     {
         Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
@@ -16,43 +16,8 @@
     @Html.ValidationSummary(true)
     {
         <div class="custom-central-div">
-            <div class="row-fluid" style="margin-top:3%">
+            <div class="row-fluid">
                 <div style="margin-top:5%">
-                    <div class='row-fluid span7'>
-                        <textarea cols="50" id="QuestionText" name="QuestionText" rows="2" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container">@ViewBag.Question</textarea>
-                    </div>
-                    <div class="row-fluid">
-                        <div class="span3">
-                            @if (ViewBag.Count != null)
-                            {
-                                <label id="count" class="control-label count_align" style="text-align:left">@ViewBag.Count</label>
-                            }
-                            else
-                            {
-                                <label id="count" class="control-label count_align" style="text-align:left">0/200</label>
-                            }
-                        </div>
-                    </div>
-                    <div class='row-fluid similarquestions_title_margin'>
-
-                        @if (Session["UserId"] == null && Model != null && Model.ToList().Count != 0)
-                        {
-                            <div class="span10 similarquestions_loginlink">
-                                <a href="../User/Login" class="divredirectlogin">Not Satisfied with below Answers? <strong>Send your Question to the Mirai Consult&#8482; panel of doctors</strong> </a>
-                            </div>
-                        }
-                        else if (Session["UserId"] == null && (Model == null || Model.ToList().Count == 0))
-                        {
-                            <div class="span10 similarquestions_loginlink">
-                                <a href="../User/Login" class="divredirectlogin">Send your Question to the Mirai Consult&#8482; panel of doctors</a>
-                            </div>
-                        }
-                    </div>
-                    <div class='row-fluid'>
-                        <div class="span12">
-                            <label class="finddoc-title">Relevant answers</label>
-                        </div>
-                    </div>
                     <div class="margin_bottom">
                         @if (Model != null && (Model.ToList().Count != 0))
                         {
@@ -60,12 +25,15 @@
                             {
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
-                                        <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId'>
+                                        <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId/@(System.Text.RegularExpressions.Regex.Replace(Model.ToList()[i].QuestionText.Replace(' ','-'),"[^a-zA-Z0-9_-]+", " ").Replace(" ",""))'>
                                             <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                         </a>
                                     </div>
                                 </div>
-                                <div class='row-fluid'>
+                            <div class='row-fluid'>
+                            @if(!String.IsNullOrEmpty(Model.ToList()[i].DocImg) || !String.IsNullOrEmpty(Model.ToList()[i].answerreplyedby))
+                            {
+                                
                                     <div id="feedDocImage_SQ" class='span1'>
                                         <div class='feedDocImage img'>
                                             @if ((Model.ToList()[i].DocImg) != "" && (Model.ToList()[i].DocImg) != null)
@@ -74,17 +42,22 @@
                                             }
                                             else
                                             {
-                                                <img src='../Content/image/img-na.png' />
+                                                <img src='~/Content/image/img-na.png' />
                                             }
                                         </div>
                                     </div>
                                     <div class='span6 middle-size-padding'>
-                                        <div class='ans_time_detail'>Dr. @Model.ToList()[i].answerreplyedby </div>
+                                        <div class='ans_time_detail'>@Model.ToList()[i].answerreplyedby </div>
                                         <div class='title_text'>
                                             @Model.ToList()[i].Title
                                         </div>
                                     </div>
-
+                                } else
+                                {
+                                        <div class='span11'>
+                                            <p class='ans_text'>No answers received </p>
+                                        </div>
+                                }
                                     @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
@@ -95,22 +68,25 @@
                                     }
 
                                     <div class='span11 middle-size-padding'>
-                                        @if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
-                                        {
-                                            <div class='span5 '>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
-                                            </div>
-                                            <div class='span3 offset1' id="feedAnsImage_SQ">
-                                                <div class='feedAnsImage img'>
-                                                    <img src="../feed/answerPhotos/@Model.ToList()[i].answers[0].AnswerImage">
+                                        @if (Model.ToList()[i].answers != null && Model.ToList()[i].answers.Count>0)
+                                        { 
+                                            if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
+                                            {
+                                                <div class='span5 '>
+                                                    <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
                                                 </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class='span11'>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
-                                            </div>
+                                                <div class='span3 offset1' id="feedAnsImage_SQ">
+                                                    <div class='feedAnsImage img'>
+                                                        <img src="../feed/answerPhotos/@Model.ToList()[i].answers[0].AnswerImage">
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class='span11'>
+                                                    <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
+                                                </div>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -132,28 +108,22 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="../Content/js/utility.js"></script>
+        <script type="text/javascript" src="~/Content/js/utility.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#QuestionText").attr('maxlength', '200');
+                $("#txtQuestion").attr('maxlength', '200');
                 var MaxLength = 200;
-                $('#QuestionText').keypress(function (e) {
-                    var text = $(this).val();
-                    if ($(this).val().length > MaxLength) {
-                        $(this).val(text.substr(0, (MaxLength)));
+                $('#txtQuestion').keypress(function (e) {
+                    if ($(this).val().length >= MaxLength) {
+                        e.preventDefault();
                     }
                 });
-            });
-            $('#QuestionText').bind('input propertychange', function () {
-                if ($(this).val().length <= 200) {
-                    document.getElementById('count').innerHTML = $(this).val().length + "/200";
-                }
             });
             function isEnterPress(evt, x) {
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if (charCode == 13) {
                     var session = '@Session["UserType"]';
-                        window.location.href = "/similar-Questions/" + x.value;
+                    window.location.href = "/similarQuestions/" + x.value;
                     return false;
                 }
                 return true;
@@ -163,9 +133,7 @@
                 $('#liSimilarQuestions').addClass("active");
             });
             function Count(x) {
-                if (x.value.length <= 200) {
-                    document.getElementById('count').innerHTML = x.value.length + "/200";
-                }
+                document.getElementById('count').innerHTML = x.value.length + "/200";
             }
             function bookaptclicked(docid) {
                 $.ajax({

@@ -128,6 +128,20 @@ namespace DAL
                 dtTags = dsTags.Tables[0];
             return dtTags;
         }
+
+        public DataSet get_allTagsWithCountOfAnsweredQuestions()
+        {
+            DataSet dsData = null;
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                dsData = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "get_allTagsWithCountOfAnsweredQuestions");
+            }
+            if ((dsData != null) && (dsData.Tables.Count > 0))
+            {
+                return dsData;
+            }
+            return null;
+        }
         public DataTable getAllSpecialities()
         {
             DataTable dtSpecialities = null;

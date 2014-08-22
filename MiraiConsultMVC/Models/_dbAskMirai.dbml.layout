@@ -212,5 +212,35 @@
         <classShapeMoniker Id="aedeba7c-634f-4406-bb77-03f64456ae9a" />
       </nodes>
     </associationConnector>
+    <classShape Id="9952c4bd-0eb2-484e-93ca-2226284a3a0e" absoluteBounds="0.5, 0.5, 2, 4.8477197265625">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/admin_hospital_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="058a855d-9e10-44bf-beb4-ebf74f865125" absoluteBounds="0.515, 0.96, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e7b963b1-a2f9-432a-a5b9-4c3350d9a00f" absoluteBounds="0.5, 0.5, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/hospital_location_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="809cb415-2368-4fca-bdc0-537ab0f13e16" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="89d5530e-ba0c-48aa-a427-aa4cc03e0309" absoluteBounds="0.5, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/doctor_location" />
+      <nestedChildShapes>
+        <elementListCompartment Id="de621ee2-4e19-4bae-947c-4404ec54990c" absoluteBounds="0.515, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1c7c8101-4967-4554-b987-887adcf72e27" absoluteBounds="0.5, 0.5, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/hospital_admin_location_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0015567b-18dd-41bd-a4d0-2c9837c82b64" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="120f8f9e-9d12-4e0b-b097-9b8d6cb8dc83" absoluteBounds="0.5, 0.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/hospital_admins_view" />
+      <nestedChildShapes>
+        <elementListCompartment Id="45a59dfe-1f59-402b-9539-4f61b0497bb2" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

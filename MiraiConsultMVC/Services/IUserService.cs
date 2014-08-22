@@ -32,6 +32,10 @@ namespace Services
         String getAllTags();
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/get_allTagsWithCountOfAnsweredQuestions", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        String get_allTagsWithCountOfAnsweredQuestions();
+
+        [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/addNewTags?newTag={newTag}&questionid={questionid}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         String addNewTags(string newTag, string questionid);
 

@@ -117,9 +117,9 @@
             question = "";
         var session = '@Session["UserType"]';
         if (session != null && session == 2)
-            window.location.href = "/similar-Questions/" + question;
+            window.location.href = "/similar-questions/" + question;
         else
-            window.location.href = "/similar-Questions/" + question;
+            window.location.href = "/similar-questions/" + question;
     }
 
     function isEnterPress(evt, x) {
@@ -129,7 +129,7 @@
             if (session != null && session == 2)
                 window.location.href = "../Patients/AskDoctor?question=" + x.value;
             else
-                window.location.href = "/similar-Questions/" + x.value;
+                window.location.href = "/similar-questions/" + x.value;
             return false;
         }
         return true;

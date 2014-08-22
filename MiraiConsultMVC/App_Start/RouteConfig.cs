@@ -66,7 +66,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "Contact",
-               url: "contact",
+               url: "contact-us",
                defaults: new { controller = "Home", action = "Contact" }
            );
 
@@ -90,7 +90,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "AdminReport",
-                url: "report",
+                url: "reports",
                 defaults: new { controller = "admin", action = "Report" }
             );
 
@@ -110,7 +110,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "InviteFriend",
-                url: "invite-friend",
+                url: "invite-friends",
                 defaults: new { controller = "Patients", action = "InviteFriend" }
             );
 

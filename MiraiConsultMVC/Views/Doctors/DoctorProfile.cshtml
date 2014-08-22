@@ -641,7 +641,7 @@
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
-        else if (refUrl.indexOf("DoctorProfile") >= 0) {
+        else if (refUrl.indexOf("") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liManageDoctor').addClass("active");
         }
@@ -1070,7 +1070,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {
                     if (returndata == 0) {
-                        alert('Qualification details has been saved successfully.');
+                        //alert('Qualification details has been saved successfully.');
                         //saveRow(oTable, nEditing);
                         //nEditing = null;
                     }

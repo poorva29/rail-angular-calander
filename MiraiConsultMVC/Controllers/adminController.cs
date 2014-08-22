@@ -189,11 +189,12 @@ namespace MiraiConsultMVC.Controllers
             }
         }
 
-        public JsonResult RejectQuestionByQuestionID(int qusetionID)
+        [HttpGet]
+        public JsonResult RejectQuestionByQuestionID(string qusetionID)
         {
             SqlConnection conn = null;
             string jsonObj;
-            int QusetionID = qusetionID;
+            int QusetionID = Convert.ToInt32(qusetionID);
             int statusRejected = (int)QuestionStatus.Rejected;
             DataTable dtUserDetails = null;
             dtUserDetails = QuestionManager.getInstance().RejectQuestionFromQuestionList(QusetionID, statusRejected);
@@ -311,9 +312,9 @@ namespace MiraiConsultMVC.Controllers
                             {
                                 reportData.appointmentbooked = 0;
                             }
-                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentcount"].ToString()))
+                            if (!String.IsNullOrEmpty(dtDoctors.Rows[i]["appointmentbuttonhits"].ToString()))
                             {
-                                reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentcount"]);
+                                reportData.appointmentclicked = Convert.ToInt32(dtDoctors.Rows[i]["appointmentbuttonhits"]);
                             }
                             else
                             {

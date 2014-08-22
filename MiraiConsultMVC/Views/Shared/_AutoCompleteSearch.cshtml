@@ -13,7 +13,7 @@
                             temp.innerHTML = item.questiontext;
                             return {
                                 label: temp.firstChild.nodeValue,
-                                value: '../Answers/' + item.questionid
+                                value: '../answers/' + item.questionid
                             }
                         }));
                     },
@@ -39,6 +39,19 @@
                 return false;
             }
         });
+
+        function isEnterPress(evt, x) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode == 13) {
+                var session = '@Session["UserType"]';
+                if (session != null && session == 2)
+                    window.location.href = "../Patients/AskDoctor?question=" + x.value;
+                else
+                    window.location.href = "/similar-Questions/" + x.value;
+                return false;
+            }
+            return true;
+        }
    </script>         
 
 

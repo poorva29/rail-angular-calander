@@ -7,7 +7,7 @@
         LinkUrl =  url+'/Home/Home';
     }
     else {
-        LinkUrl = url + 'Answers/' + id;
+        LinkUrl = url + 'answers/' + id;
     }
     FB.ui(
     {

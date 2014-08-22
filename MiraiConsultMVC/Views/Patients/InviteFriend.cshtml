@@ -42,7 +42,7 @@
                         <label class="required">Email Id:</label>
                     </div>
                     <div class="span8 pull-right btn-padding-left controls-right-padding">
-                        @Html.TextBoxFor(m => m.email, new { @Class = "input-block-level gray-border contact_margin", Id = "txtEmail", placeholder = "Enter comma separated email addresses list..." })
+                        @Html.TextBoxFor(m => m.email, new { @Class = "input-block-level gray-border contact_margin input-block-display", Id = "txtEmail", placeholder = "Enter comma separated email addresses list..." })
                         @Html.ValidationMessageFor(m=>m.email,string.Empty, new { @class = "validation-summary-errors" })                       
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <label class="required">Your Message:</label>
                     </div>
                     <div class="span8 pull-right btn-padding-left controls-right-padding">
-                        @Html.TextAreaFor(m => m.message, new { @class = "input-block-level gray-border contact_margin", rows = "4" })
+                        @Html.TextAreaFor(m => m.message, new { @class = "input-block-level gray-border contact_margin input-block-display", rows = "4" })
                         @Html.ValidationMessageFor(m => m.message, string.Empty, new { @class = "validation-summary-errors" })
                     </div>
                 </div>

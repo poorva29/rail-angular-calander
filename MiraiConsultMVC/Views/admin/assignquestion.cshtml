@@ -149,11 +149,11 @@
                                     {
                                         if (i == 0)
                                         {
-                                            ViewBag.Value = Convert.ToString(Model.ToList()[i].userid);
+                                            ViewBag.hdndoctorIds = Convert.ToString(Model.ToList()[i].userid);
                                         }
                                         else
                                         {
-                                            ViewBag.Value = ViewBag.Value + "," + Convert.ToString(Model.ToList()[i].userid);
+                                            ViewBag.hdndoctorIds = ViewBag.hdndoctorIds + "," + Convert.ToString(Model.ToList()[i].userid);
                                         }
                                         <tr>
                                             <td>
@@ -187,7 +187,7 @@
             </div>
         </div>
         <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
-        <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" />
+        <input type="hidden" id="hdndoctorIds" name="hdndoctorIds" value="@ViewBag.hdndoctorIds" />
         <input type="hidden" id="hdnQuestionId" name="hdnQuestionId" value="@Model.ToList()[0].Questionid" />
         <div class="row-fluid">
             <div class="span12">
@@ -261,7 +261,7 @@
             dataType: 'json',
             //data: '"' + $('#city-select').val() + '"',
             contentType: 'application/json',
-            url: '/AssignDoctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
+            url: '/Assign-Doctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
             success: function (response) {
                 location.reload(true);
               /*  var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +

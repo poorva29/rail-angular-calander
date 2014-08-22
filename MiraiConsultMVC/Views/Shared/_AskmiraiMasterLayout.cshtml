@@ -49,24 +49,22 @@
                             @{
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
-                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("DoctorSignUp") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetpassword")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PatientQuestionDetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("finddoctor") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ForgotPassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similarQuestions")
-                                 || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("ResetPassword")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Patient") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Signup-Doctor")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("PrivacyPolicy")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("termsofuse") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Contact")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("HowWeWorks")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgotpassword") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("topics")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers"))
-
-                                    {
-                                        <div class="pull-right">
-                                            <ul class="nav">
-                                                <li><a href="@Url.Action("Login", "User")">Already have an account? <b><u>Login</u></b></a></li>
-                                            </ul>
-                                        </div>
-                                    }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()) || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
+                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctor-signup")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Reset-Password")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("find-doctors")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similar-Questions")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers"))
+                                        {
+                                            <div class="pull-right">
+                                                <ul class="nav">
+                                                    <li><a href="@Url.Action("login", "User")">Already have an account? <b><u>Login</u></b></a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("contact") 
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("terms-of-use") ||  HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacy-policy")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("how-we-works") )
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -80,7 +78,7 @@
                                                 <div class="row-fluid hidden-phone dropdown-div-margin">
                                                     <div class="span11 margin-top-athome-nav dropdown-link-margin-left pull-right">
                                                         <ul class="nav pull-right inline">
-                                                            <li><a href="@Url.Action("Login", "User")">Existing user <b><u>Login</u></b> here </a></li>
+                                                            <li><a href="@Url.Action("login", "User")">Existing user <b><u>Login</u></b> here </a></li>
                                                             <li><a href="#">|</a></li>
                                                             <li class="dropdown">
                                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;?  <b><u>Signup</u></b> here <b class="caret"></b></a>
@@ -121,7 +119,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li class="inline">
-                                                                <a href="@Url.Action("Login", "User")"><b><u>Login</u></b></a>
+                                                                <a href="@Url.Action("login", "User")"><b><u>Login</u></b></a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -130,7 +128,7 @@
                                         </div>
 
                                     }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("Login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("login") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Home/Contact"))
                                     {
                                         <div class="pull-right">
                                             <ul class="nav">
@@ -166,15 +164,15 @@
                                             <ul class="dropdown-menu pull-right">
                                                  @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
                                                 {
-                                                <li><a href="/DoctorProfile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/Doctor-Profile"><i class="icon-user"></i>My Profile</a></li>
                                                 <li><a href="/Questions"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/Change-password"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
-                                                <li><a href="/PatientProfile"><i class="icon-user"></i>My Profile</a></li>
-                                                <li><a href="/Answers"><i class="icon-list-alt"></i>My Account</a></li>
-                                                <li><a href="/Changepassword"><i class="icon-key"></i>Change Password</a></li>
+                                                <li><a href="/patient-profile"><i class="icon-user"></i>My Profile</a></li>
+                                                <li><a href="/answers"><i class="icon-list-alt"></i>My Account</a></li>
+                                                <li><a href="/Change-password"><i class="icon-key"></i>Change Password</a></li>
                                                 }
                                                 else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                                 {
@@ -213,13 +211,13 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="@Url.Action("HowWeWorks","Home")" class="topmenu-links">How we work</a>
+                                    <a href="@Url.Action("howweworks","Home")" class="topmenu-links">How we work</a>
                                 </div>
                                 <div class="divHover">
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="/finddoctors" class="topmenu-links">Our Doctors</a>
+                                    <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
                             <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">

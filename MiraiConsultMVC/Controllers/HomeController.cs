@@ -87,7 +87,6 @@ namespace MiraiConsultMVC.Controllers
                                         "<br><b>Stack Trace:</b><br/>" + ex.StackTrace.ToString() + "<br/>";
                 TempData["ExceptionDetails"] = strError;
                 ViewBag.success = "false";
-                return View();
             }
             if (ex != null)
             {

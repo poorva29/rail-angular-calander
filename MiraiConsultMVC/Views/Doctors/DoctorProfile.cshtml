@@ -1027,9 +1027,10 @@
                                 datatype: "JSON",
                                 contentType: "application/json; charset=utf-8",
                                 success: function (returndata) {
-                                    if (returndata == 1) {
+                                    if (returndata >= 1) {
                                         alert('Qualification has been deleted.');
-                                        oTable.fnDeleteRow(nRow);
+                                        for (var i = 0; i < returndata; i++)
+                                            oTable.fnDeleteRow(nRow);
                                     }
                                     else {
                                         alert('Qualification is not deleted.');
@@ -1048,9 +1049,10 @@
                             datatype: "JSON",
                             contentType: "application/json; charset=utf-8",
                             success: function (returndata) {
-                                if (returndata == 1) {
+                                if (returndata >= 1) {
                                     alert('Qualification has been deleted.');
-                                    oTable.fnDeleteRow(nRow);
+                                    for (var i = 0; i < returndata; i++)
+                                        oTable.fnDeleteRow(nRow);
                                 }
                                 else {
                                     alert('Qualification is not deleted.');

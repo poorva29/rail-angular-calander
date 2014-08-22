@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MiraiConsultMVC.Models.QuestionModel>
 @{
-    ViewBag.Title = "similarQuestions";
+    ViewBag.Title = "TopicDetails";
     if (Session["UserId"] != null)
     {
         Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
@@ -156,7 +156,7 @@
                 if (charCode == 13) {
                     var session = '@Session["UserType"]';
                     if (session != null && session == 2)
-                        window.location.href = "../Patients/Askdoctorname?question=" + x.value;
+                        window.location.href = "../Patients/AskDoctor?question=" + x.value;
                     else
                         window.location.href = "../Patients/similarQuestions?question=" + x.value;
                     return false;

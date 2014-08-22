@@ -12,6 +12,9 @@ using System.Data;
 using DAL;
 using System.Text.RegularExpressions;
 using log4net;
+using TagCloud;
+using Services;
+
 namespace MiraiConsultMVC.Controllers
 {
     public class HomeController : Controller
@@ -179,5 +182,114 @@ namespace MiraiConsultMVC.Controllers
             findDoctorModel.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
             return View(findDoctorModel);
         }
+
+        public ActionResult topics()
+        {
+            UserService US = new UserService();
+            Tag t = new Tag();
+            decimal tagPercent = 0;
+            List<Tag> ListTags = new List<Tag>();
+
+            ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
+            {
+                Text = dataRow.Field<string>("tagname"),
+                NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ','-'),
+                TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
+                ToolTip = dataRow.Field<string>("tagname")
+
+            }).OrderBy(x => x.Text).ToList();
+            decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
+            foreach (Tag tg in ListTags)
+            {
+                switch (tg.TagWeight)
+                {
+                    case 10:
+                    case 9:
+                    case 8:
+                    case 7:
+                    case 6:
+                    case 5:
+                        tg.CssClass = "tag5";
+                        break;
+                    case 4:
+                        tg.CssClass = "tag4";
+                        break;
+                    case 3:
+                        tg.CssClass = "tag3";
+                        break;
+                    case 2:
+                        tg.CssClass = "tag2";
+                        break;
+                    case 1:
+                        tg.CssClass = "tag1";
+                        break;
+                    default:
+                        tg.CssClass = "tag0";
+                        break;
+                }
+                //tagPercent = (Convert.ToDecimal(tg.TagWeight) * 100 / totalTagWeight);
+                //if (tgtagPercent >= 90)
+                //{
+                //    tg.CssClass = "tag5";
+                //}
+                //else if (tagPercent >= 70)
+                //{
+                //    tg.CssClass = "tag4";
+                //}
+                //else if (tagPercent >= 40)
+                //{
+                //    tg.CssClass = "tag3";
+                //}
+                //else if (tagPercent >= 20)
+                //{
+                //    tg.CssClass = "tag2";
+                //}
+                //else if (tagPercent >= 3)
+                //{
+                //    tg.CssClass = "tag1";
+                //}
+                //else if (tagPercent >= 2)
+                //{
+                //    tg.CssClass = "tag1";
+                //}
+                //else if (tagPercent >= 1)
+                //{
+                //    tg.CssClass = "tag1";
+                //}
+                //else
+                //{
+                //    tg.CssClass = "tag0";
+                //}
+            }
+            return View(ListTags);
+        }
+
+        public ActionResult topicdetails(string tag)
+        {
+            AnswerModel ansModel;
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            if (questionList != null && questionList.Count() > 0)
+            {
+                foreach (var item in questionList)
+                {
+                    ansModel = new AnswerModel();
+                    QuestionModel qModel = new QuestionModel();
+                    qModel.answers = new List<AnswerModel>();
+                    qModel.QuestionId = Convert.ToInt32(item.questionid);
+                    qModel.QuestionText = item.questiontext;
+                    qModel.answerreplyedby = item.doctorname;
+                    qModel.DocImg = item.docImageUrl + item.docImage;
+                    qModel.Counts = item.counts;
+                    ansModel.AnswerText = item.answertext;
+                    ansModel.AnswerImage = item.ansImage;
+                    qModel.answers.Add(ansModel);
+                    lstQuestions.Add(qModel);
+                }
+            }
+            //return Json(lstQuestions, JsonRequestBehavior.AllowGet);
+            return View(lstQuestions);
+        }
+
     }
 }

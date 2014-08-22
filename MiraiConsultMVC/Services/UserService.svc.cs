@@ -129,6 +129,13 @@ namespace Services
 
             return JsonConvert.SerializeObject(dtTags);
         }
+        public String get_allTagsWithCountOfAnsweredQuestions()
+        {
+            DataTable dtTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0];
+
+            return JsonConvert.SerializeObject(dtTags);
+        }
+        
         public String addNewTags(string tag, string questionid)
         {
             int result = QuestionManager.getInstance().addNewTags(tag, Convert.ToInt32(questionid));

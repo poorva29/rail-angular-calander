@@ -1,11 +1,4 @@
-﻿.tags_basic_prop
-{
-    position:relative;
-    float:left;
-    width:25%;
-    text-align:center;
-}
-legend {
+﻿legend {
     border-bottom: none !important;
 }
 .hand-cursor {

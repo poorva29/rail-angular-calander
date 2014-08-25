@@ -284,7 +284,7 @@
                                                 <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
                                             </td>
                                             <td class="last-row">
-                                                <a class="delete hand-cursor" id="Cancel" href="doctorprofile.aspx"><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
+                                                <a class="delete hand-cursor" id="Cancel" href="doctor-profile"><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
                                             </td>
                                         </tr>
                                     }
@@ -1027,9 +1027,10 @@
                                 datatype: "JSON",
                                 contentType: "application/json; charset=utf-8",
                                 success: function (returndata) {
-                                    if (returndata == 1) {
+                                    if (returndata >= 1) {
                                         alert('Qualification has been deleted.');
-                                        oTable.fnDeleteRow(nRow);
+                                        for (var i = 0; i < returndata; i++)
+                                            oTable.fnDeleteRow(nRow);
                                     }
                                     else {
                                         alert('Qualification is not deleted.');
@@ -1048,9 +1049,10 @@
                             datatype: "JSON",
                             contentType: "application/json; charset=utf-8",
                             success: function (returndata) {
-                                if (returndata == 1) {
+                                if (returndata >= 1) {
                                     alert('Qualification has been deleted.');
-                                    oTable.fnDeleteRow(nRow);
+                                    for (var i = 0; i < returndata; i++)
+                                        oTable.fnDeleteRow(nRow);
                                 }
                                 else {
                                     alert('Qualification is not deleted.');
@@ -1289,9 +1291,9 @@
         });
         $('#addlocation').click(function (e) {
             document.getElementById("country_select").selectedIndex = 0;
-            document.getElementById("state_select").value = "";
-            document.getElementById("city_select").value = "";
-            document.getElementById("location_select").value = "";
+            $("#state_select").empty();
+            $("#city_select").empty();
+            $("#location_select").empty();
             document.getElementById("locationDiv").style.display = "block";
             document.getElementById("txtClinicName").value = "";
             document.getElementById("txtTelephoneNo").value = "";

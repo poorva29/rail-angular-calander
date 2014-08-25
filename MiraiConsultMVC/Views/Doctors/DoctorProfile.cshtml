@@ -1289,9 +1289,9 @@
         });
         $('#addlocation').click(function (e) {
             document.getElementById("country_select").selectedIndex = 0;
-            document.getElementById("state_select").value = "";
-            document.getElementById("city_select").value = "";
-            document.getElementById("location_select").value = "";
+            $("#state_select").empty();
+            $("#city_select").empty();
+            $("#location_select").empty();
             document.getElementById("locationDiv").style.display = "block";
             document.getElementById("txtClinicName").value = "";
             document.getElementById("txtTelephoneNo").value = "";

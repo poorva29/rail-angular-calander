@@ -207,18 +207,16 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li class="my-activity">
-
                                         <a href="/my-activity" class="menu-padding  reg-menu-padding">
-
                                             <span class="Icon Icon--my-activity Icon--large"></span> <span class="text font-bold menutext-margin-top">My Activity</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li class="feed">
-                                            <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
-                                                <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
-                                            </a>
+                                        <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
+                                        </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
@@ -233,14 +231,14 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/feed/doctorfeed" class="menu-padding  reg-menu-padding">
+                                        <a href="/doctor-answers" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>    
-                                        <a href="/questions/questionlist" class="menu-padding  reg-menu-padding">
+                                        <a href="/questions" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
                                             @if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
                                             {
@@ -255,7 +253,7 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/admin/questionlist" class="menu-padding  reg-menu-padding">
+                                        <a href="/admin" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span><span class="text font-bold menutext-margin-top"> Questions</span>
                                         </a>
                                     </li>
@@ -269,21 +267,21 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/admin/managetag" class="menu-padding  reg-menu-padding">
+                                        <a href="/tags" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--tags Icon--large"></span> <span class="text font-bold menutext-margin-top"> Tags</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/admin/report" class="menu-padding  reg-menu-padding">
+                                        <a href="/reports" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--reports Icon--large"></span> <span class="text font-bold menutext-margin-top"> Reports</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/user/managedoctors" class="menu-padding  reg-menu-padding">
+                                        <a href="/doctors" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--signup-requests Icon--large"></span> <span class="text font-bold menutext-margin-top"> Signup Requests</span>
                                         </a>
                                     </li>
@@ -291,7 +289,7 @@
                             }
                             <ul class="nav pull-right">
                                 <li>
-                                    <a href="/patients/invitefriend" class="menu-padding  reg-menu-padding">
+                                    <a href="@Url.Action("invitefriend","Patients")" class="menu-padding  reg-menu-padding">
                                         <span class="Icon Icon--invite-friends Icon--large"></span>
                                         <span class="text font-bold menutext-margin-top"> Invite Friends</span>
                                     </a>

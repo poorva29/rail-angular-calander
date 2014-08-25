@@ -127,11 +127,11 @@
                                             @if (Model.Countries != null)
                                             {
                                                 ViewBag.countries = Model.Countries;
-                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(ViewBag.countries, "Value", "Text", Model.CountryId), "--- Select Country---", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty),"--Select Country--", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CountryId, new SelectList(string.Empty),"--- Select Country---", new { @class = "input-block-level cust-lightgreen cust-gray drop-arrows max-width min-width contact_margin", id = "ddlCountry", onchange = "getStatebyCountry(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -143,11 +143,11 @@
                                             @if (Model.States != null)
                                             {
                                                 ViewBag.states = Model.States;
-                                                @Html.DropDownListFor(m => Model.StateId, new SelectList(ViewBag.states, "Value", "Text", Model.StateId), "--Select State--", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
+                                                @Html.DropDownListFor(m => Model.StateId, new SelectList(ViewBag.states, "Value", "Text", Model.StateId), "--- Select State---", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
                                             }
                                             else
                                             {
-                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), "--Select State--", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
+                                               @Html.DropDownListFor(m => Model.StateId, new SelectList(string.Empty), "--- Select State---", new { @class = "input-block-level  cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlState", onchange = "getCitybyState(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -161,11 +161,11 @@
                                             @if (Model.Cities != null)
                                             {
                                                 ViewBag.cities = Model.Cities;
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(ViewBag.cities, "Value", "Text", Model.CityId), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(ViewBag.cities, "Value", "Text", Model.CityId), "--- Select City---", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--Select City--", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
+                                                @Html.DropDownListFor(m => Model.CityId, new SelectList(string.Empty), "--- Select City---", new { @class = "input-block-level cust-lightgreen drop-arrows max-width min-width contact_margin", id = "ddlCity", onchange = "getLocationbyCity(this.value)" })
                                             }
                                         </div>
                                     </div>
@@ -177,11 +177,11 @@
                                             @if (Model.Locations != null)
                                             {
                                                 ViewBag.locations = Model.Locations;
-                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(ViewBag.locations, "Value", "Text", Model.LocationId), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
+                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(ViewBag.locations, "Value", "Text", Model.LocationId), "--- Select Location---", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
                                             }
                                             else
                                             {
-                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(string.Empty), "--Select Location--", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
+                                                @Html.DropDownListFor(m => Model.LocationId, new SelectList(string.Empty), "--- Select Location---", new { @class = "input-block-level cust-gray drop-arrows cust-lightgreen max-width min-width contact_margin", id = "ddlLocation" })
                                             }
                                         </div>
                                     </div>

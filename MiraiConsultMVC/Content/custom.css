@@ -3152,6 +3152,12 @@ table.cust-table {
     .profile-button{
         margin-top:1%;
     }
+    .date-box-margin {
+        margin-top: -8px;
+    }
+    .area-box-margin{
+        margin-left: -18px;
+    }
 }
 
 @media only screen and (max-width: 761px) {
@@ -3247,7 +3253,9 @@ table.cust-table {
     .unreg_patientmenubar {
         padding: 25% 4% 0% 0%;
     }
-
+     .area-box-margin{
+        margin-left: 0px;
+    }
     .custom-central-div {
         padding: 0 10px;
     }
@@ -3958,6 +3966,14 @@ table.cust-table {
     }
     .cust-margin-span10 {
         margin-left: 0px !important;
+    }
+    .button-float{
+        float:left;
+    }
+    .form-horizontal .control-label{
+        float:none;
+        padding-top:0;
+        text-align:left;
     }
 }
   .menu-margin-top{

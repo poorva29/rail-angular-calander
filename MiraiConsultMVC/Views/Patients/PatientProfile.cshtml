@@ -84,11 +84,11 @@
                                     <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style">Date of Birth:</label>
                                         <div class="controls">
-                                            <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
-                                                 data-date-enddate="new Date()">
-                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve  date_box_width txtdateOfBirth contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
-                                                <span class="add-on add-on-green  icon-with-right-curve"></span><br/>
-                                                @Html.ValidationMessageFor(m => m.DateOfBirth, string.Empty, new { @class = "validation-summary-errors" })                                                
+                                                <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
+                                                     data-date-enddate="new Date()">
+                                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "cust-lightgreen input-without-right-curve padding-left-to-date date_box_width txtdateOfBirth contact_margin date_box_width_patient", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
+                                                    <span class="add-on add-on-green  icon-with-right-curve"></span><br />
+                                                    @Html.ValidationMessageFor(m => m.DateOfBirth, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
                                     </div>
@@ -98,8 +98,8 @@
                                         <label class="control-label cust-font-style">Gender:</label>
                                         <div class="controls">
                                             @if (Model.Gender != null)
-                                            { 
-                                                <label class="radio inline cust-font-style">                                              
+                                            {
+                                                <label class="radio inline gendermargin cust-font-style">
                                                     @Html.RadioButton("Gender", "0", Model.Gender == 0, new { @class = "cust-font-style" }) Male
                                                 </label>
                                                 <label class="radio inline gendermargin cust-font-style">

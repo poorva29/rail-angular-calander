@@ -30,7 +30,86 @@ namespace MiraiConsultMVC.Controllers
             }
             else
             {
-                return View();
+                UserService US = new UserService();
+                Tag t = new Tag();
+                decimal tagPercent = 0;
+                List<Tag> ListTags = new List<Tag>();
+
+                ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
+                {
+                    Text = dataRow.Field<string>("tagname"),
+                    NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ', '-'),
+                    TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
+                    ToolTip = dataRow.Field<string>("tagname")
+
+                }).ToList();
+                ListTags = ListTags.Take(20).OrderBy(x => x.Text).ToList();
+                decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
+                foreach (Tag tg in ListTags)
+                {
+                    switch (tg.TagWeight)
+                    {
+                        case 10:
+                        case 9:
+                        case 8:
+                        case 7:
+                        case 6:
+                        case 5:
+                            tg.CssClass = "tag5";
+                            break;
+                        case 4:
+                            tg.CssClass = "tag4";
+                            break;
+                        case 3:
+                            tg.CssClass = "tag3";
+                            break;
+                        case 2:
+                            tg.CssClass = "tag2";
+                            break;
+                        case 1:
+                            tg.CssClass = "tag1";
+                            break;
+                        default:
+                            tg.CssClass = "tag0";
+                            break;
+                    }
+                    #region Commented Code
+                    //tagPercent = (Convert.ToDecimal(tg.TagWeight) * 100 / totalTagWeight);
+                    //if (tgtagPercent >= 90)
+                    //{
+                    //    tg.CssClass = "tag5";
+                    //}
+                    //else if (tagPercent >= 70)
+                    //{
+                    //    tg.CssClass = "tag4";
+                    //}
+                    //else if (tagPercent >= 40)
+                    //{
+                    //    tg.CssClass = "tag3";
+                    //}
+                    //else if (tagPercent >= 20)
+                    //{
+                    //    tg.CssClass = "tag2";
+                    //}
+                    //else if (tagPercent >= 3)
+                    //{
+                    //    tg.CssClass = "tag1";
+                    //}
+                    //else if (tagPercent >= 2)
+                    //{
+                    //    tg.CssClass = "tag1";
+                    //}
+                    //else if (tagPercent >= 1)
+                    //{
+                    //    tg.CssClass = "tag1";
+                    //}
+                    //else
+                    //{
+                    //    tg.CssClass = "tag0";
+                    //}
+                    #endregion
+                }
+                return View(ListTags);
             }
         }
 

@@ -154,7 +154,7 @@
                                             else if (Convert.ToString(Session["UserId"]) == "9999999" && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                                             {
                                                 <li id="liAdminQuestions">
-                                                    <a href="/admin">
+                                                    <a href="/admin-questions">
                                                         <span class="Icon Icon--questions Icon--large" id="adminQuestion"></span><br /><span class="text">Questions</span>
                                                     </a>
                                                 </li>
@@ -241,10 +241,10 @@
                                     <li>    
                                         <a href="/questions" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
-                                            @if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
+                                            @*@if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
                                             {
-                                                <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
-                                            }
+                                                <span id="unansweredQuestionCount"  title="" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
+                                            }*@
                                             <span class="rightpaddingdiv text font-bold menutext-margin-top">Questions</span>
                                         </a>
                                     </li>
@@ -254,7 +254,7 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/admin" class="menu-padding  reg-menu-padding">
+                                        <a href="/admin-questions" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span><span class="text font-bold menutext-margin-top"> Questions</span>
                                         </a>
                                     </li>

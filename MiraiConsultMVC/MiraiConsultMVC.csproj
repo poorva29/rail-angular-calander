@@ -302,6 +302,7 @@
     <Content Include="Content\image\g-icon.png" />
     <Content Include="Content\image\green_calendar.png" />
     <Content Include="Content\image\home.png" />
+    <Content Include="Content\image\Home_endorse.png" />
     <Content Include="Content\image\HWW_step1.png" />
     <Content Include="Content\image\HWW_step2.png" />
     <Content Include="Content\image\HWW_step3.png" />
@@ -559,7 +560,6 @@
     <Content Include="Views\User\ManageDoctors.cshtml" />
     <Content Include="Views\Shared\_AutoCompleteSearch.cshtml" />
     <Content Include="Views\Patients\PatientQuestionDetails.cshtml" />
-    <Content Include="Views\FindDoctor\FindDoctors.cshtml" />
     <Content Include="Views\Patients\AskDoctor.cshtml" />
     <Content Include="Views\admin\assignquestion.cshtml" />
     <Content Include="Views\admin\Report.cshtml" />

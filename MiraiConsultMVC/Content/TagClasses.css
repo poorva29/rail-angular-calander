@@ -5,46 +5,64 @@
     text-align: left;
 }
 
+.inner-endorse-home {
+    background-image: url('../Content/image/Home_endorse.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    color: #FFFFFF;
+    min-height: 30px;
+    min-width: 35px;
+    text-align: center;
+    padding-top: 3px;
+    margin-left:0px;
+}
 .tagcloud a
 {
     padding: 0px 10px 0px 0px;
     text-decoration:none;
     padding:3px 4px;
-    white-space:nowrap  
+    white-space:nowrap;
+    color:#DA5D53;
 }
 
-.tagcloud a:hover
-{
-    background-color:#fff;
-    color:#012840;
+.tagDiv {
+     border-bottom: 1px solid #DEE1BA;
+     border-top: 1px solid #DEE1BA;
+     background-color: #FFFFE5;
 }
 
 .tagcloud .tag5
 {
     font-size: 2.8em;
+    font-weight:bold;
 }
 
 .tagcloud .tag4
 {
     font-size: 2.5em;
+    font-weight:bold;
 }
 
 .tagcloud .tag3
 {
     font-size: 2.1em;
+    font-weight:bold;
 }
 
 .tagcloud .tag2
 {
     font-size: 1.8em;
+    font-weight:bold;
 }
 
 .tagcloud .tag1
 {
     font-size: 1.5em;
+    font-weight:bold;
 }
 
 .tagcloud .tag0
 {
+    font-weight:bold;
     font-size: 1em;
 }

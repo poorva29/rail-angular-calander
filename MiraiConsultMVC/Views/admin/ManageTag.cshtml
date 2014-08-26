@@ -93,7 +93,6 @@
                     tags = tags.replace(e.token.value, '');
                     alert("Tag removed successfully");
                     IEReload();
-
                 },
                 error: function (data) {
                     if (data.responseText.indexOf('Authentication failed') > -1) {

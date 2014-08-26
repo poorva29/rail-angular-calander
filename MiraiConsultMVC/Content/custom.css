@@ -399,9 +399,9 @@ a {
 .div-title-firsts {
     padding: 5px 20px 2px 20px;
     margin-bottom: 0px;
-    font-size: 25px;
+    font-size: 20px;
     color: #a5ae45;
-    /*font-weight: bold;*/
+    font-weight: bold;
 }
 
 .find-Doc-gbColor {
@@ -822,7 +822,8 @@ input#txtsearch {
 
 .ui-menu .ui-menu-item a {
     border-radius: 0px;
-    border-bottom: 1px solid #C0BCBC;
+    
+    : 1px solid #C0BCBC;
 }
 
 .input-searchsize {

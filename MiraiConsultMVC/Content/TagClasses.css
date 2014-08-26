@@ -5,6 +5,17 @@
     text-align: left;
 }
 
+.inner-endorse-home {
+    background-image: url('../Content/image/Home_endorse.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    color: #FFFFFF;
+    min-height: 30px;
+    min-width: 35px;
+    text-align: center;
+    padding-top: 3px;
+    margin-left:0px;
+}
 .tagcloud a
 {
     padding: 0px 10px 0px 0px;

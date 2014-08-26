@@ -302,6 +302,7 @@
     <Content Include="Content\image\g-icon.png" />
     <Content Include="Content\image\green_calendar.png" />
     <Content Include="Content\image\home.png" />
+    <Content Include="Content\image\Home_endorse.png" />
     <Content Include="Content\image\HWW_step1.png" />
     <Content Include="Content\image\HWW_step2.png" />
     <Content Include="Content\image\HWW_step3.png" />

@@ -399,9 +399,9 @@ a {
 .div-title-firsts {
     padding: 5px 20px 2px 20px;
     margin-bottom: 0px;
-    font-size: 20px;
+    font-size: 25px;
     color: #a5ae45;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .find-Doc-gbColor {

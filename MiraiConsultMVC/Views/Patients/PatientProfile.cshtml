@@ -327,6 +327,9 @@
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         var len = $(txt).val().length;
+        if (charCode == 8 || charCode == 39 || charCode == 37 || charCode == 46) {
+            return true;
+        }
         if ((charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) || len >= num) {
             return false;
         }
@@ -337,6 +340,9 @@
         evt = (evt) ? evt : window.event;
         var len = $(txt).val().length;
         var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode == 8 || charCode == 39 || charCode == 37 || charCode == 46) {
+            return true;
+        }
         if ((charCode > 31 && (charCode < 48 || charCode > 57)) || len >= num) {
             return false;
         }

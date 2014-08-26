@@ -85,7 +85,7 @@
                                                 <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                      data-date-enddate="new Date()" style="width: 100%;">
                                                     @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @style = " width:85%", @id = "txtDob" })
-                                                    <span class="add-on add-on-green  icon-with-right-curve"></span>
+                                                    <span class="add-on add-on-green  icon-with-right-curve date-box-margin"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
                                             <label class="cust-font-style">About Me:</label>
                                         </div>
                                         <div class="span10 cust-margin-span10">
-                                            @Html.TextAreaFor(m => m.AboutMe, new { @class = " cust-lightgreen input-block-level contact_margin", maxlength = "200", @placeholder = "About Me", @rows = "1", @cols = "5" })
+                                            @Html.TextAreaFor(m => m.AboutMe, new { @class = " cust-lightgreen input-block-level contact_margin area-box-margin", maxlength = "200", @placeholder = "About Me", @rows = "1", @cols = "5" })
                                         </div>
                                     </div>
                                 </div>

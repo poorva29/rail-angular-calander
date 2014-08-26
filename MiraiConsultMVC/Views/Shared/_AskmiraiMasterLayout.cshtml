@@ -49,12 +49,12 @@
                             @{
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
-                                    if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("doctor-signup")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Reset-Password")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("find-doctors")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("similar-questions")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("answers")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("resetPassword"))
+                                    if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctor-signup")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("error")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("find-doctors")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password"))
                                         {
                                             <div class="pull-right">
                                                 <ul class="nav">
@@ -62,10 +62,10 @@
                                                 </ul>
                                             </div>
                                         }
-                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.Contains("contact-us") 
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("terms-of-use") ||  HttpContext.Current.Request.Url.AbsoluteUri.Contains("privacy-policy")
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.Contains("how-we-works") )
+                                    else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("terms-of-use") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("privacy-policy")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("how-we-works"))
                                     {
                                         <div class="row-fluid">
                                             <div style="float:left">
@@ -226,7 +226,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span8  collapse nav-collapse mobile-menu visible-phone visible-tablet reg-menu-padding" style="width:100%">
+                    <div class="span8 collapse nav-collapse mobile-menu visible-phone visible-tablet reg-menu-padding" style="width:100%">
                         <ul class="pull-right menu-top-margin" style="float:left;">
                             <li class="menu-style"> <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links"> Who we are</a></li>
                             <li class="menu-style"><a href="@Url.Action("HowWeWorks","Home")" class="topmenu-links menu-padding-top" style="width:100%"> How we work</a></li>

@@ -23,6 +23,12 @@ namespace MiraiConsultMVC
                );
 
             routes.MapRoute(
+               name: "reset-password",
+               url: "reset-password",
+               defaults: new { controller = "user", action = "resetpassword" }
+               );
+
+            routes.MapRoute(
                 name: "PatientProfile",
                 url: "patient-profile",
                 defaults: new { controller = "Patients", action = "PatientProfile" }

@@ -15,9 +15,9 @@
                          <label class="span1 hidden-phone " style="padding-top:5px; text-align:right">Filter:</label>
                          <div class="pull-right span11">
                             <label class="radio inline">
-                                <input type="radio" clientidmode="Static" id="rdbFilterAllFeed" onchange="onFilterChange(this);" name="Filter" checked />All Feed</label>
+                                <input type="radio" id="rdbFilterAllFeed" onchange="onFilterChange(this);" name="Filter" value="All Feed" checked />All Feed</label>
                            <label class="radio inline margin_my_feed_redio div-margin-left" style="margin-left:50px;">
-                                <input type="radio" clientidmode="Static" id="radFilterMyFeed" onchange="onFilterChange(this);" name="Filter" />My Feed</label>
+                               <input type="radio" id="radFilterMyFeed" onchange="onFilterChange(this);" name="Filter" value="My Feed" />My Feed</label>
                          </div>
                     </div>
                     <div class="row-fluid">
@@ -62,13 +62,10 @@
         });
         function onFilterChange(selectedBtn) {
             indexoF = 0;
+            var value = $("input[name='Filter']:checked").val()
             $("#feed").empty();
             populateFeedData(indexoF);
-            if (selectedBtn.value == 'rdbFilterAllFeed')
-                $('.unique_class').html("All Feed");
-            else
-                $('.unique_class').html("My Feed");
-
+            $('.unique_class').html(value)
         }
         function populateFeedData(index) {
             var RecordSize = document.getElementById("HdnRecordSize").value;

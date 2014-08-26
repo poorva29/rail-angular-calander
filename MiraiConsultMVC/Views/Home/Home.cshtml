@@ -55,7 +55,7 @@
     <div class="row-fluid">
         <div class="span12">
             <div style="margin-top:1%;margin-bottom:1%">
-                <img alt="img" src="~/Content/image/Home_endorse.png" height="30px" width="35px"><span style="font-size:15px;font-weight:bold;margin-right:20px;margin-left:8px">Topics</span>|<span style="margin-left: 24px; font-size:10px; font-weight: bold">Select the topic you wish to know more</span>
+                <img alt="img" src="~/Content/image/Home_endorse.png" height="30px" width="35px"><span style="font-size:15px;font-weight:bold;margin-right:20px;margin-left:8px">Topics</span>|<span style="margin-left: 24px; font-size:12px; font-weight: normal">Select the topic you wish to know more</span>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                         {
                             <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " "+t.TagWeight)'>@t.Text</a>
                         }
-                        <a href="~/topics" style="font-weight:bold"><u>View More Topics</u></a>
+                        <a href="~/topics" style="font-weight: normal;font-size:15px">view more...</a>
                     </p>
                 </div>
             </div>
@@ -91,11 +91,11 @@
             <meta property="og:description" content="Healthcare now more accessible and convenient at MiraiConsult" />
             <meta property="og:type" content="website" />
         }
-        @*<script src="~/Content/js/jquery-1.9.1.min.js"></script>*@
+        @*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
         <script src="~/Content/js/bootstrap-transition.js"></script>
         <script src="~/Content/js/bootstrap-alert.js"></script>
         <script src="~/Content/js/bootstrap-modal.js"></script>
-        @*<script src="~/Content/js/bootstrap-dropdown.js"></script>*@
+        <script src="~/Scripts/bootstrap-dropdown.js"></script>
         <script src="~/Content/js/bootstrap-scrollspy.js"></script>
         <script src="~/Content/js/bootstrap-tab.js"></script>
         <script src="~/Content/js/bootstrap-collapse.js"></script>

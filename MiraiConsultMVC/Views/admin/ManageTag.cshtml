@@ -85,6 +85,7 @@
 
     $('#tokenfield-typeahead').on('removeToken', function (e) {
         if (confirm("Are you sure you want to remove this tag?") == true) {
+            var searchVal = $("#txtSearchTag").val();
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -93,6 +94,9 @@
                     tags = tags.replace(e.token.value, '');
                     alert("Tag removed successfully");
                     IEReload();
+                    if (searchVal.length > 0) {
+                        window.location.reload();
+                    }
                 },
                 error: function (data) {
                     if (data.responseText.indexOf('Authentication failed') > -1) {

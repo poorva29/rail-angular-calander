@@ -70,6 +70,12 @@
         document.getElementById('count').innerHTML = x.value.length + "/200";
         document.getElementById('lblValidation').style.display = 'none';
     }
+    $('#txtAreaQuestion').bind('input propertychange', function () {
+        if ($(this).val().length <= 200) {
+            document.getElementById('count').innerHTML = $(this).val().length + "/200";
+            document.getElementById('lblValidation').style.display = 'none';
+        }
+    });
     $("#txtAreaQuestion").keypress(function () {
         $("#rqfvQuestion").hide();
     });

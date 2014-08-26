@@ -113,22 +113,22 @@
                                             {
                                                 <li id="liaskdoc" class="ask-doctor">
                                                     <a href="@Url.Action("AskDoctor", "Patients")">
-                                                        <span class="Icon Icon--ask-doctor Icon--large"></span><span class="text"><br />Ask Doctors</span>
+                                                        <span class="Icon Icon--ask-doctor Icon--large"></span><br /><span class="text">Ask Doctors</span>
                                                     </a>
                                                 </li>
                                                 <li id="liMyActivity" class="my-activity">
                                                     <a href="/my-activity">
-                                                        <span class="Icon Icon--my-activity Icon--large" id="MyActivitySpan" style="margin-top: 11px;"></span><span class="text"><br />My Activity</span>
+                                                        <span class="Icon Icon--my-activity Icon--large" id="MyActivitySpan"></span><br /><span class="text">My Activity</span>
                                                     </a>
                                                 </li>
                                                 <li id="liFeed" class="feed">
                                                     <a href="@Url.Action("feed", "feed")">
-                                                        <span class="Icon Icon--answers Icon--large" id="PatAnswerSpan" style="margin-top: 11px;"></span><span class="text"><br />Answers</span>
+                                                        <span class="Icon Icon--answers Icon--large" id="PatAnswerSpan"></span><br /><span class="text">Answers</span>
                                                     </a>
                                                 </li>
                                                 <li id="liFindDoc" class="find-doctors">
                                                     <a href="@Url.Action("finddoctors", "Home")">
-                                                        <span class="Icon Icon--find-doctor Icon--large"></span><span class="text"><br />Find a Doctor</span>
+                                                        <span class="Icon Icon--find-doctor Icon--large"></span><br /><span class="text">Find a Doctor</span>
                                                     </a>
                                                 </li>
                                             }
@@ -136,7 +136,7 @@
                                             {
                                                 <li id="liDocFeed">
                                                     <a href="/doctor-answers">
-                                                        <span class="Icon Icon--answers Icon--large" id="answerSpan"></span><span class="text"><br />Answers</span>
+                                                        <span class="Icon Icon--answers Icon--large" id="answerSpan"></span><br /><span class="text">Answers</span>
                                                     </a>
                                                 </li>
                                                 <li id="liDocQuestions">
@@ -146,7 +146,8 @@
                                                         {
                                                             <span id="unansweredQuestionCount" title="" class="unansweredQuestionCount">@Session["UnQuestionCount"]</span>
                                                         }
-                                                        <span class="rightpaddingdiv text"><br />Questions</span>
+                                                        <br />
+                                                        <span class="rightpaddingdiv text">Questions</span>
                                                     </a>
                                                 </li>
                                             }
@@ -154,27 +155,27 @@
                                             {
                                                 <li id="liAdminQuestions">
                                                     <a href="/admin">
-                                                        <span class="Icon Icon--questions Icon--large" id="adminQuestion" style="margin-top: 11px;"></span><span class="text"><br />Questions</span>
+                                                        <span class="Icon Icon--questions Icon--large" id="adminQuestion"></span><br /><span class="text">Questions</span>
                                                     </a>
                                                 </li>
                                                 <li id="liAdminFeed">
                                                     <a href="@Url.Action("Feed", "Feed")">
-                                                        <span class="Icon Icon--answers Icon--large" id="adminAnswer" style="margin-top: 11px;"></span><span class="text"><br />Answers</span>
+                                                        <span class="Icon Icon--answers Icon--large" id="adminAnswer"></span><br /><span class="text">Answers</span>
                                                     </a>
                                                 </li>
                                                 <li id="liManageTags">
                                                     <a href="/tags">
-                                                        <span class="Icon Icon--tags Icon--large" id="tags" style="margin-top: 11px;"></span><span class="text"><br />Tags</span>
+                                                        <span class="Icon Icon--tags Icon--large" id="tags"></span><br /><span class="text">Tags</span>
                                                     </a>
                                                 </li>
                                                 <li id="liReports">
                                                     <a href="/reports">
-                                                        <span class="Icon Icon--reports Icon--large" id="reports" style="margin-top: 11px;"></span><span class="text"><br />Reports</span>
+                                                        <span class="Icon Icon--reports Icon--large" id="reports"></span><br /><span class="text">Reports</span>
                                                     </a>
                                                 </li>
                                                 <li id="liManageDoctor">
                                                     <a href="/doctors">
-                                                        <span class="Icon Icon--signup-requests Icon--large"></span><span class="text"><br />Signup Requests</span>
+                                                        <span class="Icon Icon--signup-requests Icon--large"></span><br /><span class="text">Signup Requests</span>
                                                     </a>
                                                 </li>
                                             }
@@ -182,8 +183,8 @@
                                             { 
                                                 <li id="liinvitefriends">
                                                     <a href="@Url.Action("invitefriend","Patients")">
-                                                        <span class="Icon Icon--invite-friends Icon--large"></span>
-                                                        <span class="text"><br />Invite Friends</span>
+                                                        <span class="Icon Icon--invite-friends Icon--large"></span><br />
+                                                        <span class="text">Invite Friends</span>
                                                     </a>
                                                 </li>
                                             }
@@ -207,18 +208,16 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li class="my-activity">
-
                                         <a href="/my-activity" class="menu-padding  reg-menu-padding">
-
                                             <span class="Icon Icon--my-activity Icon--large"></span> <span class="text font-bold menutext-margin-top">My Activity</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li class="feed">
-                                            <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
-                                                <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
-                                            </a>
+                                        <a href="@Url.Action("Feed", "Feed")" class="menu-padding  reg-menu-padding">
+                                            <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
+                                        </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
@@ -233,14 +232,14 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/feed/doctorfeed" class="menu-padding  reg-menu-padding">
+                                        <a href="/doctor-answers" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--answers Icon--large"></span> <span class="text font-bold menutext-margin-top">Answers</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>    
-                                        <a href="/questions/questionlist" class="menu-padding  reg-menu-padding">
+                                        <a href="/questions" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span>
                                             @if (Convert.ToInt32(@Session["UnQuestionCount"]) != 0)
                                             {
@@ -255,7 +254,7 @@
                             {
                                 <ul class="nav pull-right reguser-menu-top-margin">
                                     <li>
-                                        <a href="/admin/questionlist" class="menu-padding  reg-menu-padding">
+                                        <a href="/admin" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--questions Icon--large"></span><span class="text font-bold menutext-margin-top"> Questions</span>
                                         </a>
                                     </li>
@@ -269,21 +268,21 @@
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/admin/managetag" class="menu-padding  reg-menu-padding">
+                                        <a href="/tags" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--tags Icon--large"></span> <span class="text font-bold menutext-margin-top"> Tags</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/admin/report" class="menu-padding  reg-menu-padding">
+                                        <a href="/reports" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--reports Icon--large"></span> <span class="text font-bold menutext-margin-top"> Reports</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="nav pull-right">
                                     <li>
-                                        <a href="/user/managedoctors" class="menu-padding  reg-menu-padding">
+                                        <a href="/doctors" class="menu-padding  reg-menu-padding">
                                             <span class="Icon Icon--signup-requests Icon--large"></span> <span class="text font-bold menutext-margin-top"> Signup Requests</span>
                                         </a>
                                     </li>
@@ -291,7 +290,7 @@
                             }
                             <ul class="nav pull-right">
                                 <li>
-                                    <a href="/patients/invitefriend" class="menu-padding  reg-menu-padding">
+                                    <a href="@Url.Action("invitefriend","Patients")" class="menu-padding  reg-menu-padding">
                                         <span class="Icon Icon--invite-friends Icon--large"></span>
                                         <span class="text font-bold menutext-margin-top"> Invite Friends</span>
                                     </a>
@@ -396,31 +395,6 @@
             }
             window.onorientationchange = reorient;
             window.setTimeout(reorient, 0);
-
-            navigator.sayswho = (function () {
-                var ua = navigator.userAgent, tem,
-                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-                if (/trident/i.test(M[1])) {
-                    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-                    return 'IE ' + (tem[1] || '');
-                }
-                if (M[1] === 'Chrome') {
-                    //$('#QuestionSpan').removeClass('menu_margin');
-                }
-                else if (M[1] === 'Firefox') {
-                    $('#reports').addClass('menu_margin');
-                    $('#tags').addClass('menu_margin');
-                    $('#adminAnswer').addClass('menu_margin');
-                    $('#adminQuestion').addClass('menu_margin');
-                    $('#MyActivitySpan').addClass('menu_margin');
-                    $('#PatAnswerSpan').addClass('menu_margin');
-                    $('#answerSpan').addClass('menu_margin');
-                    $('#questionSpan').addClass('menu_margin');
-                }
-                else if (M[1] === 'Trident') {
-                    $('#questionSpan').addClass('menu_margin');
-                }
-            })();
         });
         var tryNumber = 0;
         jQuery('input[type=submit]').click(function (event) {

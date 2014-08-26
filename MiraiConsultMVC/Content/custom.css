@@ -3959,6 +3959,9 @@ table.cust-table {
     .cust-margin-span10 {
         margin-left: 0px !important;
     }
+    .menu-padding-bottom{
+    padding-bottom:2%;
+}
 }
   .menu-margin-top{
         margin-top:-32% ;
@@ -3973,6 +3976,9 @@ table.cust-table {
 }
 .contact_margin {
     margin-bottom: 0px !important;
+}
+.contact_bottom_margin {
+    margin-bottom: 15px !important;
 }
 .success_message_color{
     color:#468847 !important;
@@ -3994,6 +4000,4 @@ table.cust-table {
 .input-block-display {
     display:block !important
 }
-.menu-padding-bottom{
-    padding-bottom:2%;
-}
+

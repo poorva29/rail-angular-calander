@@ -822,8 +822,7 @@ input#txtsearch {
 
 .ui-menu .ui-menu-item a {
     border-radius: 0px;
-    
-    : 1px solid #C0BCBC;
+    border-bottom: 1px solid #C0BCBC;
 }
 
 .input-searchsize {

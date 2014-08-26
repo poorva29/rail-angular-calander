@@ -220,7 +220,7 @@ namespace MiraiConsultMVC.Controllers
                     from_address = contact.Email;
                     name = contact.Name;
                 }
-                msgBody = "<b>Sender Name:</b> " + name + "<br> <b>Sender Email:</b> " + from_address + "<br><b> Message: </b>" + msgBody;
+                msgBody = "<b>Sender Name:</b> " + Server.HtmlEncode(name) + "<br> <b>Sender Email:</b> " + from_address + "<br><b> Message: </b>" + Server.HtmlEncode(msgBody);
                 sent_mail = Mail.SendHTMLMail(from_address, emailId, subject, msgBody, null);
                 if (!sent_mail)
                 {

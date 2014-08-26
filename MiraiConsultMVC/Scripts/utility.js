@@ -4,7 +4,7 @@
     });
     var logourl = url + '/Content/image/logoImage.png';
     if (id == 0) {
-        LinkUrl =  url+'Home/Home';
+        LinkUrl =  url;
     }
     else {
         LinkUrl = url + 'Patients/PatientQuestionDetails/' + id;

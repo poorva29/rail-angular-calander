@@ -3152,6 +3152,11 @@ table.cust-table {
     .profile-button{
         margin-top:1%;
     }
+    .count_align {
+        width: 240px;
+        float: left;
+    }
+
 }
 
 @media only screen and (max-width: 761px) {
@@ -3516,10 +3521,16 @@ table.cust-table {
         float: left;
         padding-top: 0px;
     }
+    .padding-left-to-date{
+        padding-left: 70px !important;
+    }
+    .date_box_width_patient{
+        width: 58% !important;
+    }
 
     .gendermargin {
         margin-left: 0% !important;
-        margin-top: 1%;
+        margin-top: -2%;
     }
 
     .question_list_que {

@@ -128,12 +128,6 @@
         <elementListCompartment Id="95b72161-b56d-44a1-9007-d6939a381fc6" absoluteBounds="15.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1cdd8289-c128-466f-a577-4fe2285bc059" absoluteBounds="15.75, 3.75, 2, 1.7708968098958327">
-      <DataClassMoniker Name="/_dbAskMiraiDataContext/question" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0847db30-2e92-4076-b4b1-f24ab6abb6cd" absoluteBounds="15.765, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="f41cfd41-9665-44ad-885a-ace1a5fb0e27" absoluteBounds="15.75, 6.75, 2, 1.3862939453124996">
       <DataClassMoniker Name="/_dbAskMiraiDataContext/questiontag" />
       <nestedChildShapes>
@@ -170,7 +164,7 @@
         <elementListCompartment Id="15080412-ba94-4feb-85e5-168443c70126" absoluteBounds="12.765, 16.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/city/city_hospital" />
       <nodes>
         <classShapeMoniker Id="9aefaa40-cd1e-4d2e-be22-b56125edbc3f" />
@@ -240,6 +234,12 @@
       <DataClassMoniker Name="/_dbAskMiraiDataContext/hospital_admins_view" />
       <nestedChildShapes>
         <elementListCompartment Id="45a59dfe-1f59-402b-9539-4f61b0497bb2" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="59378dd2-4070-447d-b720-6e6f32e9ba15" absoluteBounds="15.75, 3.25, 2, 1.9631982421875">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="93781522-ff3c-46d0-82bf-7dc5215e7e95" absoluteBounds="15.765, 3.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

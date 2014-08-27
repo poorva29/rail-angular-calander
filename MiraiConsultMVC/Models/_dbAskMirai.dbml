@@ -272,15 +272,6 @@
       <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.questions" Member="questions">
-    <Type Name="question">
-      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.questiontags" Member="questiontags">
     <Type Name="questiontag">
       <Column Name="questiontagid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -412,6 +403,16 @@
       <Column Name="hospital_admin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="reference_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="location_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.questions" Member="questions">
+    <Type Name="question">
+      <Column Name="questionid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="question_seo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.answer_Insert" Method="answer_Insert">

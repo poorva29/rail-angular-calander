@@ -54,13 +54,16 @@
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("find-doctors")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password"))
-                                        {
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password")
+                                        || Session["seoQuestionText"]!=null)
+                                    {
+                                        Session["seoQuestionText"] = null;
                                             <div class="pull-right">
                                                 <ul class="nav">
                                                     <li><a href="@Url.Action("login", "User")">Already have an account? <b><u>Login</u></b></a></li>
                                                 </ul>
                                             </div>
+                                           
                                         }
                                     else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")

@@ -2090,7 +2090,7 @@ table.cust-table {
         padding-left:10px;
     }
      .intermediate-size-padding{
-        padding-left:10px;
+        padding-left:3px;
     }
 
     .txtAreaQuestion_div {
@@ -2302,7 +2302,7 @@ table.cust-table {
     }
 
     .radio.inline + .radio.inline, .checkbox.inline + .checkbox.inline {
-        margin-left: 0px;
+        margin-left: 2%;
     }
 
     div.dataTables_info {

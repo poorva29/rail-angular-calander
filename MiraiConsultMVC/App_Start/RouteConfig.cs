@@ -230,8 +230,8 @@ namespace MiraiConsultMVC
             routes.MapRoute(
                name: "topics1",
                url: "topics/{tag}",
-               defaults: new { controller = "home", action = "topicdetails" },
-               constraints: new { tag = @"([a-z]+-?)+" }
+               defaults: new { controller = "home", action = "topicdetails" }
+              
                );
 
             routes.MapRoute(

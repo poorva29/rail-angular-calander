@@ -102,45 +102,45 @@
         <script src="~/Content/js/jquery.placeholder.js"></script>
         @*<script src="~/Content/js/autocomplete.js"></script>*@
         <script language="javascript">
-    $(function () {
-        $('input[type=text], textarea').placeholder();
-    });
-    $('#txtAreaQuestion').attr('style', 'margin-bottom: 0px !important');
-    $(document).ready(function () {
-        var MaxLength = 200;
-        $('#txtAreaQuestion').keyup(function (e) {
-            var text = $(this).val();
-            if ($(this).val().length > MaxLength) {
-                $(this).val(text.substr(0, (MaxLength)));
-            }
-        });
-        $('#txtQuestion').keyup(function (e) {
-            var text = $(this).val();
-            if ($(this).val().length > MaxLength) {
-                $(this).val(text.substr(0, (MaxLength)));
-            }
-        });
-    });
+            $(function () {
+                $('input[type=text], textarea').placeholder();
+            });
+            $('#txtAreaQuestion').attr('style', 'margin-bottom: 0px !important');
+            $(document).ready(function () {
+                var MaxLength = 200;
+                $('#txtAreaQuestion').keyup(function (e) {
+                    var text = $(this).val();
+                    if ($(this).val().length > MaxLength) {
+                        $(this).val(text.substr(0, (MaxLength)));
+                    }
+                });
+                $('#txtQuestion').keyup(function (e) {
+                    var text = $(this).val();
+                    if ($(this).val().length > MaxLength) {
+                        $(this).val(text.substr(0, (MaxLength)));
+                    }
+                });
+            });
 
-    $('#txtAreaQuestion').bind('input propertychange', function () {
-        if ($(this).val().length <= 200) {
-            document.getElementById('count').innerHTML = $(this).val().length + "/200";
-        }
-    });
-    $('#txtQuestion').bind('input propertychange', function () {
-        if ($(this).val().length <= 200) {
-            document.getElementById('countchar').innerHTML = $(this).val().length + "/200";
-        }
-    });
-    function sendQuestion() {
-        var question;
-        if (document.getElementById("txtAreaQuestion").value != "" && document.getElementById("txtAreaQuestion").value != "Type your question here")
-            question = document.getElementById("txtAreaQuestion").value;
-        else if (document.getElementById("txtQuestion").value != "" && document.getElementById("txtQuestion").value != "Type your question here")
-            question = document.getElementById("txtQuestion").value;
-        else
-            question = "";
-        var session = '@Session["UserType"]';
+            $('#txtAreaQuestion').bind('input propertychange', function () {
+                if ($(this).val().length <= 200) {
+                    document.getElementById('count').innerHTML = $(this).val().length + "/200";
+                }
+            });
+            $('#txtQuestion').bind('input propertychange', function () {
+                if ($(this).val().length <= 200) {
+                    document.getElementById('countchar').innerHTML = $(this).val().length + "/200";
+                }
+            });
+            function sendQuestion() {
+                var question;
+                if (document.getElementById("txtAreaQuestion").value != "" && document.getElementById("txtAreaQuestion").value != "Type your question here")
+                    question = document.getElementById("txtAreaQuestion").value;
+                else if (document.getElementById("txtQuestion").value != "" && document.getElementById("txtQuestion").value != "Type your question here")
+                    question = document.getElementById("txtQuestion").value;
+                else
+                    question = "";
+                var session = '@Session["UserType"]';
                 if (session != null && session == 2)
                     window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(question);
                 else
@@ -150,7 +150,9 @@
             function isEnterPress(evt, x) {
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if (charCode == 13) {
-                     window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
+                    var session = '@Session["UserType"]';
+                    if (session != null && session == 2)
+                        window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
                     return false;
                 }
                 return true;

@@ -52,7 +52,7 @@
                                 <label class="control-label required form-horizontal control-label">Password:</label>
                             </div>
                             <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position contact_margin input-block-display", maxlength = "30", type = "Password", placeholder = "Password" })
+                                @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level gray-border txt-position contact_margin input-block-display", maxlength = "30", @type = "password", placeholder = "Password" })
                                 @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                             </div>
                         </div>

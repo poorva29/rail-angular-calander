@@ -1029,8 +1029,9 @@
                                 success: function (returndata) {
                                     if (returndata >= 1) {
                                         alert('Qualification has been deleted.');
-                                        for (var i = 0; i < returndata; i++)
-                                            oTable.fnDeleteRow(nRow);
+                                        if (returndata > 1)
+                                            window.location.reload(true);
+                                        oTable.fnDeleteRow(nRow);
                                     }
                                     else {
                                         alert('Qualification is not deleted.');
@@ -1051,8 +1052,9 @@
                             success: function (returndata) {
                                 if (returndata >= 1) {
                                     alert('Qualification has been deleted.');
-                                    for (var i = 0; i < returndata; i++)
-                                        oTable.fnDeleteRow(nRow);
+                                    if (returndata > 1)
+                                        window.location.reload(true);
+                                    oTable.fnDeleteRow(nRow);
                                 }
                                 else {
                                     alert('Qualification is not deleted.');

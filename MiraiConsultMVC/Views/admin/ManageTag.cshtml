@@ -95,6 +95,7 @@
                     alert("Tag removed successfully");
                     IEReload();
                     if (searchVal.length > 0) {
+                        $("#txtSearchTag").val('');
                         window.location.reload();
                     }
                 },

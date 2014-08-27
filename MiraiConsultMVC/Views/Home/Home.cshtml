@@ -142,19 +142,21 @@
                     question = "";
                 var session = '@Session["UserType"]';
                 if (session != null && session == 2)
-                    window.location.href = "/similar-questions/" + question;
+                    window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(question);
                 else
-                    window.location.href = "/similar-questions/" + question;
+                    window.location.href = "/similar-questions?question=" + encodeURIComponent(question);
             }
 
             function isEnterPress(evt, x) {
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if (charCode == 13) {
                     var session = '@Session["UserType"]';
-                    if (session != null && session == 2)
-                        window.location.href = "../Patients/AskDoctor?question=" + x.value;
-                    else
-                        window.location.href = "/similar-questions/" + x.value;
+                    if (session != null && session == 2) {
+                        window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(x.value);
+                    }
+                    else {
+                        window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
+                    }
                     return false;
                 }
                 return true;

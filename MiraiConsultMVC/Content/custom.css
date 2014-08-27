@@ -216,7 +216,7 @@ a {
 
 .custom-border-around {
     border-left: 1px solid #DBDBDB;
-    border-right: 1px solid #DBDBDB;
+    border-right: none;
 }
 
 .menu-links {
@@ -357,9 +357,9 @@ a {
     color: #555555;
 }
 .ask-question-div{
-    margin-left: 72%;
+    margin-left: 66%;
     margin-top:-46% !important;
-    width: 21% !important;
+    width: 28% !important;
     position:relative;
 }
 
@@ -370,7 +370,7 @@ a {
 }
 
 .home-send-btn {
-    width: 35%;
+    width: 30% !important;
     margin: 3% -23% 0% 0%;
 }
 
@@ -513,6 +513,10 @@ table.custom-table th {
     font-size: 20px;
     margin-bottom: 15px;
     margin-top: 2%;
+}
+
+.padding-askdoctor{
+    padding-top:5%;
 }
 
 .title_invitefrnd {
@@ -1787,9 +1791,9 @@ dropdown-link-margin-left{
 }
 
 .ask-question-div {
-    margin-left: 72%;
+    margin-left: 66%;
     margin-top: -43% !important;
-    width: 21% !important;
+    width: 28% !important;
     position: relative;
 }
 .logoimage-width{
@@ -2362,9 +2366,9 @@ table.cust-table {
        margin-top:-2%;
    }
    .ask-question-div{
-       margin-left: 72%;
+       margin-left: 66%;
        margin-top: -45% !important;
-       width: 23% !important;
+       width: 30% !important;
        position: relative;
    }
    .home-lblcnt{
@@ -4025,5 +4029,10 @@ table.cust-table {
 
 .input-block-display {
     display:block !important
+}
+.topics-bg-color{
+    background-color:#FFFFE5;
+    border-bottom:1px solid #DEE1BA;
+    border-top:1px solid #DEE1BA;
 }
 

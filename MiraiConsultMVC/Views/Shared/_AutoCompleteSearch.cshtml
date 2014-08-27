@@ -1,4 +1,4 @@
-﻿    <input id="txtsearch" type="search" name="txtsearch" class="form-control pull-right form-search search-float input-searchsize search-query " placeholder="Search" onkeypress="return isEnterPress(event, this);" />
+﻿    <input id="txtsearch" type="search" name="txtsearch" class="form-control pull-right form-search search-float input-searchsize search-query " placeholder="Search" onkeypress="return isEnterPressOnGlobalSearch(event, this);" />
     <script type="text/javascript">       
         $("#txtsearch").autocomplete({
             source: function (request, response) {
@@ -40,12 +40,12 @@
             }
         });
 
-        function isEnterPress(evt, x) {
+        function isEnterPressOnGlobalSearch(evt, x) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode == 13) {
                 var session = '@Session["UserType"]';
                 if (session != null && session == 2)
-                    window.location.href = "../Patients/AskDoctor?question=" + x.value;
+                    window.location.href = "/similar-questions/" + x.value;
                 else
                     window.location.href = "/similar-questions/" + x.value;
                 return false;

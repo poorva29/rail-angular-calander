@@ -79,10 +79,10 @@
                                                 <div class="row-fluid hidden-phone dropdown-div-margin">
                                                     <div class="span11 margin-top-athome-nav dropdown-link-margin-left pull-right">
                                                         <ul class="nav pull-right inline">
-                                                            <li><a href="@Url.Action("login", "User")">Existing user <b><u>Login</u></b> here </a></li>
+                                                            <li><a href="@Url.Action("login", "User")"><b>Login</b></a></li>
                                                             <li><a href="#">|</a></li>
                                                             <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">New to Mirai Consult&#8482;?  <b><u>Signup</u></b> here <b class="caret"></b></a>
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Signup</b><b class="caret"></b></a>
                                                                 <ul class="dropdown-menu" style="margin-right:5%">
                                                                     <li><a href="@Url.Action("PatientSignUp", "User")"><i class="icon-user"></i>Signup as Patient</a></li>
                                                                     <li class="divider"></li>
@@ -202,9 +202,9 @@
                             <img src="~/Content/image/logo.png" class="col-md-4 logoimage-width" />
                         </a>
                     </div>
-                    <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top unreg-menu-search">
+                    <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top hidden-phone hidden-tablet">
                         <div class=" row-fluid row-margin-left">
-                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab hidden-phone hidden-tablet btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
+                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
                                 <div class="divHover" style="margin-left: 2px;">
                                     <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
                                 </div>
@@ -221,9 +221,9 @@
                                     <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
                                 </div>
                             </div>
-                            <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
-                                @Html.Partial("_AutoCompleteSearch","")
-                            </div>
+                            @*<div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
+                    @Html.Partial("_AutoCompleteSearch","")
+                </div>*@
                         </div>
                     </div>
                     <div class="span8 collapse nav-collapse mobile-menu visible-phone visible-tablet reg-menu-padding" style="width:100%">

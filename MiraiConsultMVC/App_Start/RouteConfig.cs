@@ -192,11 +192,7 @@ namespace MiraiConsultMVC
                 constraints: new { QuestionId = @"\d+" }
             );
 
-            routes.MapRoute(
-              name: "seo-question",
-              url: "{seoQuestionText}",
-              defaults: new { controller = "Patients", action = "seoQuestionDetails" }
-              );
+            
 
 
             routes.MapRoute(
@@ -239,6 +235,12 @@ namespace MiraiConsultMVC
                 url: "RejectQuestionByQuestionID/{qusetionID}",
                 defaults: new { controller = "admin", action = "RejectQuestionByQuestionID" }
            );
+
+            routes.MapRoute(
+              name: "seo-question",
+              url: "{seoQuestionText}",
+              defaults: new { controller = "Patients", action = "seoQuestionDetails" }
+              );
 
             routes.MapRoute(
                name: "Default",

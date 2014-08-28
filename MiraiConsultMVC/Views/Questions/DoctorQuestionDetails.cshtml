@@ -189,6 +189,27 @@
             </div>
         </div>
         <script type="text/javascript">
+            $('#txtAnswer').bind('input propertychange', function () {
+                if ($(this).val().length <= 500) {
+                    document.getElementById('count').innerHTML = $(this).val().length + "/500";
+                }
+                var MaxLength = 500;
+                var text = $(this).val();
+                if ($(this).val().length > MaxLength) {
+                    $(this).val(text.substr(0, (MaxLength)));
+                }
+                $("#lblErrortxtAnswer").html('');
+            });
+            $(document).ready(function () {
+                var MaxLength = 500;
+                $('#txtAnswer').keyup(function (e) {
+                    var text = $(this).val();
+                    if ($(this).val().length > MaxLength) {
+                        $(this).val(text.substr(0, (MaxLength)));
+                    }
+                    $("#lblErrortxtAnswer").html('');
+                });
+            });
             $(function () {
                 var refUrl = document.referrer;
                 if (refUrl.indexOf("questions") >= 0) {
@@ -197,10 +218,12 @@
                 }
             });
             function Count(x) {
-                if (x.id == 'txtAnswer')
-                    document.getElementById('count').innerHTML = x.value.length + "/500";
+                if (x.id == 'txtAnswer'){
+                    if (x.value.length <= 500) {
+                        document.getElementById('count').innerHTML = x.value.length + "/500";
+                    }
+                }
             }
-
             function validatePhoto(sender, args) {
                 var file = document.getElementById('<%=fileUploadForImage.ClientID%>');
                 var fileName = file.value;
@@ -252,14 +275,6 @@
                     return false;
                 }
             }
-            $("#txtAnswer").keypress(function (e) {
-                var lengthF = $(this).val();
-
-                if (lengthF.length > 499){
-                    e.preventDefault();
-                }
-                $("#lblErrortxtAnswer").html('');
-            });
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                     (i[r].q = i[r].q || []).push(arguments)

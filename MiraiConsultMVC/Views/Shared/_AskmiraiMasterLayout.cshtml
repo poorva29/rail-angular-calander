@@ -205,9 +205,12 @@
                             <img src="~/Content/image/logo.png" class="col-md-4 logoimage-width" />
                         </a>
                     </div>
+
                     <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top hidden-phone hidden-tablet">
                         <div class=" row-fluid row-margin-left">
-                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
+                            @if (!HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()))
+                            {
+                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top custom-patient-around" style="margin-top: -15px; margin-bottom: 10px;">
                                 <div class="divHover" style="margin-left: 2px;">
                                     <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
                                 </div>
@@ -215,7 +218,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="@Url.Action("howweworks","Home")" class="topmenu-links">How we work</a>
+                                    <a href="@Url.Action(" howweworks","home")" class="topmenu-links">How we work</a>
                                 </div>
                                 <div class="divHover">
                                     <a href="#" class="topmenu-links">|</a>
@@ -223,10 +226,31 @@
                                 <div class="divHover">
                                     <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
                                 </div>
+                            </div>                          
+                            <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
+                                @Html.Partial("_AutoCompleteSearch","")
                             </div>
-                            @*<div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
-                    @Html.Partial("_AutoCompleteSearch","")
-                </div>*@
+                            }
+                            else
+                            {
+                                <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
+                                <div class="divHover" style="margin-left: 2px;">
+                                    <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="#" class="topmenu-links">|</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="@Url.Action(" howweworks","home")" class="topmenu-links">How we work</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="#" class="topmenu-links">|</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
+                                </div>
+                            </div>                          
+                            }
                         </div>
                     </div>
                     <div class="span8 collapse nav-collapse mobile-menu visible-phone visible-tablet reg-menu-padding" style="width:100%">

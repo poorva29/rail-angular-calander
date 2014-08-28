@@ -63,12 +63,12 @@
         <div class="main-outter-padding">
             <div class="row-fluid tagDiv">
                 <div class="span12">
-                    <p class="tagcloud" style="margin-top:2%">
+                    <p class="tagcloud" style="margin-top:4%;margin-bottom:4%;margin-left:2%;margin-right:2%">
                         @foreach (var t in Model)
                         {
-                            <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " "+t.TagWeight)'>@t.Text</a>
+                            <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>
                         }
-                        <a href="~/topics" style="font-weight: normal;font-size:13px;float:right;margin-right:2%">view more...</a>
+                        <a href="~/topics" style="font-weight: normal; font-size: 13px; float: right; margin-right: 2%; color: #302F2F;margin-top:3%">view more...</a>
                     </p>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <div class="main-outter-padding">
             <div class="row-fluid">
                 <div class="span12">
-                    <p class="home_First_p textareadiv-margin" style="margin-left:0% !important; margin-bottom:4% !important;margin-top:4%">
+                    <p class="home_First_p textareadiv-margin" style="margin-left: 0% !important; margin-bottom: 5% !important; margin-top: 5%; color: #757575;line-height:18px;font-size:11px">
                         Mirai Consult<sup>TM</sup> aims to support your health related decisions. Responses provided on Mirai Consult<sup>TM</sup>
                         do not substitute a physical consultation with your physician.  Mirai Consult<sup>TM</sup> is not to be used for medical emergencies.
                     </p>

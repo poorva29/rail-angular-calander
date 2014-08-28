@@ -218,6 +218,10 @@ a {
     border-left: 1px solid #DBDBDB;
     border-right: none;
 }
+.custom-patient-around{
+    border-left: 1px solid #DBDBDB;
+    border-right: 1px solid #DBDBDB;
+}
 
 .menu-links {
     padding:0 6%;

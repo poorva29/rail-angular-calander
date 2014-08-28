@@ -107,7 +107,7 @@
                         <div class="container topnavbar-position topnavbar-position-bottom-margin reg-menu-search container-margin">
                             <div class="row-fluid">
                                 <div class="span12 center_align">
-                                    <div class="span8 text-center custom-border-around hidden-phone hidden-tablet reg-menu" style="margin-left:0px;margin-bottom:.5%">
+                                    <div class="span8 text-center custom-border-around hidden-phone hidden-tablet reg-menu custom-patient-around" style="margin-left:0px;margin-bottom:.5%">
                                         <ul class="nav" id="global-actions">
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                             {
@@ -180,7 +180,7 @@
                                                 </li>
                                             }
                                             @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) || Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor) || (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && Convert.ToString(Session["UserId"]) == "9999999"))
-                                            { 
+                                            {
                                                 <li id="liinvitefriends">
                                                     <a href="@Url.Action("invitefriend","Patients")">
                                                         <span class="Icon Icon--invite-friends Icon--large"></span><br />

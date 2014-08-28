@@ -63,7 +63,7 @@
         <div class="main-outter-padding">
             <div class="row-fluid tagDiv">
                 <div class="span12">
-                    <p class="tagcloud" style="">
+                    <p class="tagcloud">
                         @foreach (var t in Model)
                         {
                             <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>

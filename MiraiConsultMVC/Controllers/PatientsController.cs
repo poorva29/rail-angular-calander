@@ -425,7 +425,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     ViewBag.metatitle = "MiraiConsult";
                     ViewBag.metaUrl = ViewBag.AskmiraiUrl;
-                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at MiraiConsult";
+                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at Mirai Consult";
                 }
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
 

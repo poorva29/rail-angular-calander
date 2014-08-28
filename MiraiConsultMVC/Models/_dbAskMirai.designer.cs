@@ -90,9 +90,6 @@ namespace MiraiConsultMVC.Models
     partial void Insertpatientthank(patientthank instance);
     partial void Updatepatientthank(patientthank instance);
     partial void Deletepatientthank(patientthank instance);
-    partial void Insertquestion(question instance);
-    partial void Updatequestion(question instance);
-    partial void Deletequestion(question instance);
     partial void Insertquestiontag(questiontag instance);
     partial void Updatequestiontag(questiontag instance);
     partial void Deletequestiontag(questiontag instance);
@@ -111,6 +108,9 @@ namespace MiraiConsultMVC.Models
     partial void Insertunregpatient(unregpatient instance);
     partial void Updateunregpatient(unregpatient instance);
     partial void Deleteunregpatient(unregpatient instance);
+    partial void Insertquestion(question instance);
+    partial void Updatequestion(question instance);
+    partial void Deletequestion(question instance);
     #endregion
 		
 		public _dbAskMiraiDataContext() : 
@@ -311,14 +311,6 @@ namespace MiraiConsultMVC.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<question> questions
-		{
-			get
-			{
-				return this.GetTable<question>();
-			}
-		}
-		
 		public System.Data.Linq.Table<questiontag> questiontags
 		{
 			get
@@ -404,6 +396,14 @@ namespace MiraiConsultMVC.Models
 			get
 			{
 				return this.GetTable<hospital_admins_view>();
+			}
+		}
+		
+		public System.Data.Linq.Table<question> questions
+		{
+			get
+			{
+				return this.GetTable<question>();
 			}
 		}
 		
@@ -6454,164 +6454,6 @@ namespace MiraiConsultMVC.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.questions")]
-	public partial class question : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _questionid;
-		
-		private System.Nullable<int> _userid;
-		
-		private int _status;
-		
-		private System.DateTime _createdate;
-		
-		private string _questiontext;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnquestionidChanging(int value);
-    partial void OnquestionidChanged();
-    partial void OnuseridChanging(System.Nullable<int> value);
-    partial void OnuseridChanged();
-    partial void OnstatusChanging(int value);
-    partial void OnstatusChanged();
-    partial void OncreatedateChanging(System.DateTime value);
-    partial void OncreatedateChanged();
-    partial void OnquestiontextChanging(string value);
-    partial void OnquestiontextChanged();
-    #endregion
-		
-		public question()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int questionid
-		{
-			get
-			{
-				return this._questionid;
-			}
-			set
-			{
-				if ((this._questionid != value))
-				{
-					this.OnquestionidChanging(value);
-					this.SendPropertyChanging();
-					this._questionid = value;
-					this.SendPropertyChanged("questionid");
-					this.OnquestionidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="Int")]
-		public System.Nullable<int> userid
-		{
-			get
-			{
-				return this._userid;
-			}
-			set
-			{
-				if ((this._userid != value))
-				{
-					this.OnuseridChanging(value);
-					this.SendPropertyChanging();
-					this._userid = value;
-					this.SendPropertyChanged("userid");
-					this.OnuseridChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
-		public int status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdate", DbType="DateTime NOT NULL")]
-		public System.DateTime createdate
-		{
-			get
-			{
-				return this._createdate;
-			}
-			set
-			{
-				if ((this._createdate != value))
-				{
-					this.OncreatedateChanging(value);
-					this.SendPropertyChanging();
-					this._createdate = value;
-					this.SendPropertyChanged("createdate");
-					this.OncreatedateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
-		public string questiontext
-		{
-			get
-			{
-				return this._questiontext;
-			}
-			set
-			{
-				if ((this._questiontext != value))
-				{
-					this.OnquestiontextChanging(value);
-					this.SendPropertyChanging();
-					this._questiontext = value;
-					this.SendPropertyChanged("questiontext");
-					this.OnquestiontextChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.questiontags")]
 	public partial class questiontag : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -8595,6 +8437,188 @@ namespace MiraiConsultMVC.Models
 				{
 					this._location_name = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.questions")]
+	public partial class question : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _questionid;
+		
+		private System.Nullable<int> _userid;
+		
+		private int _status;
+		
+		private System.DateTime _createdate;
+		
+		private string _questiontext;
+		
+		private string _question_seo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnquestionidChanging(int value);
+    partial void OnquestionidChanged();
+    partial void OnuseridChanging(System.Nullable<int> value);
+    partial void OnuseridChanged();
+    partial void OnstatusChanging(int value);
+    partial void OnstatusChanged();
+    partial void OncreatedateChanging(System.DateTime value);
+    partial void OncreatedateChanged();
+    partial void OnquestiontextChanging(string value);
+    partial void OnquestiontextChanged();
+    partial void Onquestion_seoChanging(string value);
+    partial void Onquestion_seoChanged();
+    #endregion
+		
+		public question()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int questionid
+		{
+			get
+			{
+				return this._questionid;
+			}
+			set
+			{
+				if ((this._questionid != value))
+				{
+					this.OnquestionidChanging(value);
+					this.SendPropertyChanging();
+					this._questionid = value;
+					this.SendPropertyChanged("questionid");
+					this.OnquestionidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="Int")]
+		public System.Nullable<int> userid
+		{
+			get
+			{
+				return this._userid;
+			}
+			set
+			{
+				if ((this._userid != value))
+				{
+					this.OnuseridChanging(value);
+					this.SendPropertyChanging();
+					this._userid = value;
+					this.SendPropertyChanged("userid");
+					this.OnuseridChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
+		public int status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdate", DbType="DateTime NOT NULL")]
+		public System.DateTime createdate
+		{
+			get
+			{
+				return this._createdate;
+			}
+			set
+			{
+				if ((this._createdate != value))
+				{
+					this.OncreatedateChanging(value);
+					this.SendPropertyChanging();
+					this._createdate = value;
+					this.SendPropertyChanged("createdate");
+					this.OncreatedateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
+		public string questiontext
+		{
+			get
+			{
+				return this._questiontext;
+			}
+			set
+			{
+				if ((this._questiontext != value))
+				{
+					this.OnquestiontextChanging(value);
+					this.SendPropertyChanging();
+					this._questiontext = value;
+					this.SendPropertyChanged("questiontext");
+					this.OnquestiontextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_question_seo", DbType="VarChar(200)")]
+		public string question_seo
+		{
+			get
+			{
+				return this._question_seo;
+			}
+			set
+			{
+				if ((this._question_seo != value))
+				{
+					this.Onquestion_seoChanging(value);
+					this.SendPropertyChanging();
+					this._question_seo = value;
+					this.SendPropertyChanged("question_seo");
+					this.Onquestion_seoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

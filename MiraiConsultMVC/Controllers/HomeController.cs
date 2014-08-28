@@ -281,7 +281,8 @@ namespace MiraiConsultMVC.Controllers
                 NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ','-'),
                 TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
                 ToolTip = dataRow.Field<string>("tagname")
-
+                
+               
             }).OrderBy(x => x.Text).ToList();
             decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
             foreach (Tag tg in ListTags)
@@ -353,6 +354,7 @@ namespace MiraiConsultMVC.Controllers
         {
             AnswerModel ansModel;
             IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            ViewBag.tag = tag;
             var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
             {

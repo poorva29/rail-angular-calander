@@ -3,6 +3,10 @@
 .tagcloud
 {
     text-align: left;
+    margin-top:4%;
+    margin-bottom:4%;
+    margin-left:2%;
+    margin-right:2%
 }
 
 .inner-endorse-home {
@@ -95,4 +99,22 @@
 {
     font-weight:bold;
     font-size: 12px;
+}
+
+.tagAcnhor {
+    font-weight: normal;
+    font-size: 13px;
+    float: right;
+    margin-right: 2%;
+    color: #302F2F;
+    margin-top:3%
+}
+
+.tagPara {
+    margin-left: 0% !important;
+    margin-bottom: 5% !important;
+    margin-top: 5%;
+    color: #757575;
+    line-height:18px;
+    font-size:11px
 }

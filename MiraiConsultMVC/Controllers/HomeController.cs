@@ -42,51 +42,9 @@ namespace MiraiConsultMVC.Controllers
                     ToolTip = dataRow.Field<string>("tagname")
 
                 }).OrderByDescending(x => x.TagWeight).ToList();
-                int takeVal = Convert.ToInt32(ConfigurationSettings.AppSettings["NumberOfTags"]);
-                ListTags = ListTags.Take(takeVal).OrderBy(x => x.Text).ToList();
+                int intTagCount = Convert.ToInt32(ConfigurationSettings.AppSettings["NumberOfTags"]);
+                ListTags = assignCssToTags(ListTags.Take(intTagCount).OrderBy(x => x.Text).ToList());
 
-                decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
-                int percentileWeight = ListTags.Max(x => x.TagWeight)==0?1:ListTags.Max(x => x.TagWeight);
-                foreach (Tag tg in ListTags)
-                {
-                   int wt = (10 * tg.TagWeight) / percentileWeight;
-                   switch (wt)
-                   {
-                       case 10:
-                           tg.CssClass = "tag10";
-                           break;
-                       case 9:
-                           tg.CssClass = "tag9";
-                           break;
-                       case 8:
-                           tg.CssClass = "tag8";
-                           break;
-                       case 7:
-                           tg.CssClass = "tag7";
-                           break;
-                       case 6:
-                           tg.CssClass = "tag6";
-                           break;
-                       case 5:
-                           tg.CssClass = "tag5";
-                           break;
-                       case 4:
-                           tg.CssClass = "tag4";
-                           break;
-                       case 3:
-                           tg.CssClass = "tag3";
-                           break;
-                       case 2:
-                           tg.CssClass = "tag2";
-                           break;
-                       case 1:
-                           tg.CssClass = "tag1";
-                           break;
-                       default:
-                           tg.CssClass = "tag0";
-                           break;
-                   }
-                }
                 return View(ListTags);
             }
         }
@@ -253,20 +211,53 @@ namespace MiraiConsultMVC.Controllers
             decimal tagPercent = 0;
             List<Tag> ListTags = new List<Tag>();
 
-            ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
+            ListTags = assignCssToTags(UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
             {
                 Text = dataRow.Field<string>("tagname"),
                 NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ','-'),
                 TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
                 ToolTip = dataRow.Field<string>("tagname")
-            }).OrderBy(x => x.Text).ToList();
+            }).OrderBy(x => x.Text).ToList());
 
+            return View(ListTags);
+        }
+
+        public ActionResult topicdetails(string tag)
+        {
+            AnswerModel ansModel;
+            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
+            ViewBag.tag = tag;
+            var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            if (questionList != null && questionList.Count() > 0)
+            {
+                foreach (var item in questionList)
+                {
+                    ansModel = new AnswerModel();
+                    QuestionModel qModel = new QuestionModel();
+                    qModel.answers = new List<AnswerModel>();
+                    qModel.QuestionId = Convert.ToInt32(item.questionid);
+                    qModel.QuestionText = item.questiontext;
+                    qModel.answerreplyedby = item.doctorname;
+                    qModel.DocImg = item.docImageUrl + item.docImage;
+                    qModel.Counts = item.counts;
+                    ansModel.AnswerText = item.answertext;
+                    ansModel.AnswerImage = item.ansImage;
+                    qModel.answers.Add(ansModel);
+                    lstQuestions.Add(qModel);
+                }
+            }
+            //return Json(lstQuestions, JsonRequestBehavior.AllowGet);
+            return View(lstQuestions);
+        }
+
+        protected List<Tag> assignCssToTags(List<Tag> ListTags)
+        {
             decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
             int percentileWeight = ListTags.Max(x => x.TagWeight) == 0 ? 1 : ListTags.Max(x => x.TagWeight);
             foreach (Tag tg in ListTags)
             {
-                int wt = (10 * tg.TagWeight) / percentileWeight;
-                switch (wt)
+                int percentileTagWeight = (10 * tg.TagWeight) / percentileWeight;
+                switch (percentileTagWeight)
                 {
                     case 10:
                         tg.CssClass = "tag10";
@@ -303,35 +294,7 @@ namespace MiraiConsultMVC.Controllers
                         break;
                 }
             }
-            return View(ListTags);
-        }
-
-        public ActionResult topicdetails(string tag)
-        {
-            AnswerModel ansModel;
-            IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            ViewBag.tag = tag;
-            var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
-            if (questionList != null && questionList.Count() > 0)
-            {
-                foreach (var item in questionList)
-                {
-                    ansModel = new AnswerModel();
-                    QuestionModel qModel = new QuestionModel();
-                    qModel.answers = new List<AnswerModel>();
-                    qModel.QuestionId = Convert.ToInt32(item.questionid);
-                    qModel.QuestionText = item.questiontext;
-                    qModel.answerreplyedby = item.doctorname;
-                    qModel.DocImg = item.docImageUrl + item.docImage;
-                    qModel.Counts = item.counts;
-                    ansModel.AnswerText = item.answertext;
-                    ansModel.AnswerImage = item.ansImage;
-                    qModel.answers.Add(ansModel);
-                    lstQuestions.Add(qModel);
-                }
-            }
-            //return Json(lstQuestions, JsonRequestBehavior.AllowGet);
-            return View(lstQuestions);
+            return ListTags;
         }
 
     }

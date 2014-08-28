@@ -22,7 +22,7 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userId = 0, bool filter = false)
+        public ActionResult DoctorQuestionList(int userId = 0, bool filter = true)
         {
             BasePage BPage = new BasePage();
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
@@ -159,6 +159,7 @@ namespace MiraiConsultMVC.Controllers
                 }
                 file = Request.Files["AnswerImg"];
                 string filename = file.FileName;
+                filename = filename.Substring(filename.LastIndexOf('\\') + 1);
                 if (!string.IsNullOrEmpty(filename))
                 {
                     filename = Convert.ToString(QuestionId) + Convert.ToString(userId) + filename;

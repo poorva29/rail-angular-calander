@@ -6,17 +6,24 @@
             <div id="controlcontainer" class="wrapper-bordered">
                 <div class="row-fluid">
                     <div class="span12">
-                       @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "true")
-                    {
-                        <div id="message" class="alert alert-success">
-                            <label id="lblSuccess" class="success_message_color msg_font">@ViewBag.Msg</label>
-                        </div>
-                    }
-                    @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "false") {
-                        <div id="message" class="alert alert-error">
-                            <label id="lblError" class="error_message_color msg_font" >@ViewBag.Msg</label>
-                               </div>
-                    }
+                        @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "true")
+                        {
+                            <div id="message" class="alert alert-success">
+                                <label id="lblSuccess" class="success_message_color msg_font">@ViewBag.Msg</label>
+                            </div>
+                        }
+                        @if (!String.IsNullOrEmpty(ViewBag.Msg) && ViewBag.success == "false")
+                        {
+                            <div id="message" class="alert alert-error">
+                                <label id="lblError" class="error_message_color msg_font">@ViewBag.Msg</label>
+                            </div>
+                        }
+                        @if (String.IsNullOrEmpty(ViewBag.Msg))
+                        {
+                            <div id="validationMessage" class="alert alert-error">
+                                <label id="lblValidationError" class="error_message_color msg_font"></label>
+                            </div>
+                        }
                     </div>
                 </div>
 @using (Html.BeginForm("Error", "Home", FormMethod.Post, null))
@@ -38,7 +45,7 @@
                                     This report will be sent to the Mirai Consult&#8482; team which will help them to troubleshoot
                                     and resolve this issue.
                                 </p>
-                                @Html.TextArea("name", "", new { @class = "custom_textarea", rows = "2", cols = "20", id = "ErrorDes" })
+                                @Html.TextArea("name", "", new { @class = "custom_textarea", rows = "2", cols = "20", @id = "ErrorDes" })
                         </div>
                     </div>
                 </div>
@@ -55,11 +62,27 @@
 </div>
 <input type="hidden" id="hdnErrorText" value="@ViewBag.Msg" />
 <script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('#validationMessage').hide();
+        $('#lblValidationError').hide();
+    });
+    $('#ErrorDes').keyup(function () {
+        if ($('#ErrorDes').val().trim() == "") {
+            $('#validationMessage').show();
+            $('#lblValidationError').show();
+            $('#lblValidationError').text('Please enter description')
+        }
+        else {
+            $('#validationMessage').hide();
+            $('#lblValidationError').hide();
+        }
+    });
     function validateData() {
         var value = $('#ErrorDes').val();
         if ($('#ErrorDes').val().trim() == "") {
-            $('#lblErrorValidation').show();
-            $('#lblError').text('Please enter description')
+            $('#validationMessage').show();
+            $('#lblValidationError').show();
+            $('#lblValidationError').text('Please enter description')
             return false;
         }
         else {
@@ -71,13 +94,17 @@
         if (errorText == "Error details has been sent successfully.") {
             $('#btnSend').hide();
             $('#ErrorDes').hide();
+            $('#validationMessage').hide();
+            $('#lblValidationError').hide();
             $('#appExceptionMsg').hide();
             $("#btnCancel").html('Continue');
         }
+        if (errorText = 'Unable to send error details, Please try again.') {
+            $('#validationMessage').hide();
+            $('#lblValidationError').hide();
+            $('#ErrorDes').val('');
+        }
     });
-    function hide()
-    {       
-    }
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)

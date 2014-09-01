@@ -252,46 +252,14 @@ namespace MiraiConsultMVC.Controllers
 
         protected List<Tag> assignCssToTags(List<Tag> ListTags)
         {
-            decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
-            int percentileWeight = ListTags.Max(x => x.TagWeight) == 0 ? 1 : ListTags.Max(x => x.TagWeight);
-            foreach (Tag tg in ListTags)
+            if (ListTags != null || ListTags.Count > 0)
             {
-                int percentileTagWeight = (10 * tg.TagWeight) / percentileWeight;
-                switch (percentileTagWeight)
+                decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
+                int percentileWeight = ListTags.Max(x => x.TagWeight) == 0 ? 1 : ListTags.Max(x => x.TagWeight);
+                foreach (Tag tag in ListTags)
                 {
-                    case 10:
-                        tg.CssClass = "tag10";
-                        break;
-                    case 9:
-                        tg.CssClass = "tag9";
-                        break;
-                    case 8:
-                        tg.CssClass = "tag8";
-                        break;
-                    case 7:
-                        tg.CssClass = "tag7";
-                        break;
-                    case 6:
-                        tg.CssClass = "tag6";
-                        break;
-                    case 5:
-                        tg.CssClass = "tag5";
-                        break;
-                    case 4:
-                        tg.CssClass = "tag4";
-                        break;
-                    case 3:
-                        tg.CssClass = "tag3";
-                        break;
-                    case 2:
-                        tg.CssClass = "tag2";
-                        break;
-                    case 1:
-                        tg.CssClass = "tag1";
-                        break;
-                    default:
-                        tg.CssClass = "tag0";
-                        break;
+                    int percentileTagWeight = (10 * tag.TagWeight) / percentileWeight;
+                    tag.CssClass = "tag" + percentileTagWeight;
                 }
             }
             return ListTags;

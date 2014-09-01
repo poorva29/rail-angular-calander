@@ -4023,10 +4023,12 @@ table.cust-table {
         text-align:left;
     }
 }
-  .menu-margin-top{
-        margin-top:-55% ;
-    }
-
+.menu-margin-top {
+    padding-left:2px;
+    padding-right:2px;
+    position:absolute;
+    margin-left:-24%;
+}
 .validation-summary-errors
 {
     color: Red;

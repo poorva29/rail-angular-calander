@@ -20,7 +20,7 @@
                 <div style="margin-top:8%">
                     <div class='row-fluid'>
                         <div class="span12">
-                            <label class="finddoc-title">Relevant Questions : @ViewBag.tag</label>
+                            <label class="finddoc-title">Relevant Questions About @ViewBag.tag</label>
                         </div>
                     </div>
                     <div class="margin_bottom">
@@ -30,7 +30,7 @@
                             {
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
-                                        <a style="display:table-row" href='/@(System.Text.RegularExpressions.Regex.Replace(Model.ToList()[i].QuestionText.Replace(' ','-'),"[^a-zA-Z0-9_-]+", " ").Replace(" ",""))'>
+                                        <a style="display:table-row" href='/@(System.Text.RegularExpressions.Regex.Replace(Model.ToList()[i].QuestionText.Replace(' ','-'),"[^a-zA-Z0-9_-]+", " ").Replace(" ","").ToLower())'>
                                             <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                         </a>
                                     </div>

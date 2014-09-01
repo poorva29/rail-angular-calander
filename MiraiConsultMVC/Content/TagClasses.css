@@ -3,6 +3,10 @@
 .tagcloud
 {
     text-align: left;
+    margin-top:4%;
+    margin-bottom:4%;
+    margin-left:2%;
+    margin-right:2%
 }
 
 .inner-endorse-home {
@@ -31,38 +35,86 @@
      background-color: #FFFFE5;
 }
 
+.tagcloud .tag10
+{
+    font-size: 32px;
+    font-weight:bold;
+}
+
+.tagcloud .tag9
+{
+    font-size: 30px;
+    font-weight:bold;
+}
+
+.tagcloud .tag8
+{
+    font-size: 28px;
+    font-weight:bold;
+}
+
+.tagcloud .tag7
+{
+    font-size: 26px;
+    font-weight:bold;
+}
+
+.tagcloud .tag6
+{
+    font-weight:bold;
+    font-size: 24px;
+}
+
 .tagcloud .tag5
 {
-    font-size: 2.8em;
+    font-size: 22px;
     font-weight:bold;
 }
 
 .tagcloud .tag4
 {
-    font-size: 2.5em;
+    font-size: 20px;
     font-weight:bold;
 }
 
 .tagcloud .tag3
 {
-    font-size: 2.1em;
+    font-size: 18px;
     font-weight:bold;
 }
 
 .tagcloud .tag2
 {
-    font-size: 1.8em;
+    font-size: 16px;
     font-weight:bold;
 }
 
 .tagcloud .tag1
 {
-    font-size: 1.5em;
+    font-size: 14px;
     font-weight:bold;
 }
 
 .tagcloud .tag0
 {
     font-weight:bold;
-    font-size: 1em;
+    font-size: 12px;
+}
+
+.tagAcnhor {
+    font-weight: normal;
+    font-size: 13px;
+    float: right;
+    margin-right: 2%;
+    color: #302F2F;
+    margin-top:3%
+}
+
+.tagPara {
+    margin-left: 0% !important;
+    margin-bottom: 5% !important;
+    margin-top: 5%;
+    color: #757575;
+    line-height:18px;
+    font-size:11px
 }

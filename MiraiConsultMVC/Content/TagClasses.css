@@ -3,10 +3,10 @@
 .tagcloud
 {
     text-align: left;
-    margin-top:4%;
+    margin-top:3%;
     margin-bottom:4%;
-    margin-left:2%;
-    margin-right:2%
+    margin-left:3%;
+    margin-right:0%
 }
 
 .inner-endorse-home {
@@ -24,7 +24,7 @@
 {
     padding: 0px 10px 0px 0px;
     text-decoration:none;
-    padding:3px 4px;
+    padding:9px 4px;
     white-space:nowrap;
     color:#DA5D53;
 }
@@ -74,7 +74,7 @@
 .tagcloud .tag4
 {
     font-size: 20px;
-    font-weight:bold;
+    font-weight:normal;
 }
 
 .tagcloud .tag3
@@ -117,4 +117,31 @@
     color: #757575;
     line-height:18px;
     font-size:11px
+}
+@media only screen and (max-width: 480px) {
+    .tagcloud {
+        text-align: left;
+        margin-top: 7%;
+        margin-bottom: 4%;
+        margin-left: 3%;
+        margin-right: 0%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1025px) {
+     .tagcloud {
+        text-align: left;
+        margin-top: 7%;
+        margin-bottom: 4%;
+        margin-left: 3%;
+        margin-right: 0%;
+    }
+}
+@media(max-width:764px) {
+     .tagcloud {
+        text-align: left;
+        margin-top: 6%;
+        margin-bottom: 4%;
+        margin-left: 3%;
+        margin-right: 0%;
+    }
 }

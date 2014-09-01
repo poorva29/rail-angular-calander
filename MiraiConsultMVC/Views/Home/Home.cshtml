@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
 }
 
-<div class="image-padding-left">
+<div class="image-padding-left" style="vertical-align:central">
     <img src="../Content/image/home.png" />
     <div class="container">
         <div class="ask-question-div row-fluid hidden-phone">
@@ -38,7 +38,7 @@
                     <p class="div-title-firsts div-details-margin-left">Ask Doctors</p>
                 </div>
                 <textarea class="input-block-level Questiontextarea questextarea div-askdoctor-padding textareadiv-margin" id="txtQuestion" onkeyup="Count(this)"
-                          placeholder="Type your question here" rows="3" cols="10" maxlength="200" width="100%" onkeypress="return isEnterPress(event, this);" onpaste='return maxLengthPaste(this,"200");'></textarea>
+                          placeholder="Type your question here" rows="3" cols="10" maxlength="200" width="100%" onkeypress="return isEnterPress(event, this);" onpaste='return maxLengthPaste(this,"200");' style="font-size:14px"></textarea>
             </div>
             <div class="row-fluid">
                 <div class="span12 ">
@@ -55,7 +55,7 @@
     <div class="row-fluid">
         <div class="span12">
             <div style="margin-top:1%;margin-bottom:1%">
-                <img alt="img" src="~/Content/image/Home_endorse.png" height="30px" width="35px"><span style="font-size:15px;font-weight:bold;margin-right:20px;margin-left:8px">Topics</span>|<span style="margin-left: 24px; font-size:12px; font-weight: normal">Select the topic you wish to know more</span>
+                <img alt="img" src="~/Content/image/Home_endorse.png" height="30px" width="35px"><span style="font-size: 15px; font-weight: bold; margin-right: 20px; margin-left: 8px; color: #222324">Topics</span>|<span style="margin-left: 24px; font-size: 12px; font-weight: normal; color: #696A6B">Select the topic you wish to know more. These are the current trending topics.</span>
             </div>
         </div>
     </div>
@@ -63,12 +63,12 @@
         <div class="main-outter-padding">
             <div class="row-fluid tagDiv">
                 <div class="span12">
-                    <p class="tagcloud">
+                    <p class="tagcloud tagcloud-margin" style="line-height: 23px;">
                         @foreach (var t in Model)
                         {
                             <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>
                         }
-                        <a href="~/topics" class="tagAcnhor">view more...</a>
+                        <a href="~/topics" class="tagAcnhor" style="color: #222324;font-size:14px">view more...</a>
                     </p>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <div class="main-outter-padding">
             <div class="row-fluid">
                 <div class="span12">
-                    <p class="home_First_p textareadiv-margin tagPara">
+                    <p class="home_First_p textareadiv-margin tagPara" style="color: #3C3C3C">
                         Mirai Consult<sup>TM</sup> aims to support your health related decisions. Responses provided on Mirai Consult<sup>TM</sup>
                         do not substitute a physical consultation with your physician.  Mirai Consult<sup>TM</sup> is not to be used for medical emergencies.
                     </p>

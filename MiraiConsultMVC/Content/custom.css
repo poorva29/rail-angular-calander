@@ -581,9 +581,6 @@ table.custom-table th {
      .btn-padding-left{
       padding-left:2% !important;
     }
-      .submit-padding-left{
-        padding-left:2% !important;
-    }
 
 .feedDocImage {
     float: left;
@@ -2336,9 +2333,6 @@ table.cust-table {
     .btn-padding-left{
       padding-left:2% !important;
    }
-     .submit-padding-left{
-        padding-left:2% !important;
-    }
     .link-width{
         width:45% !important;
     }
@@ -2369,9 +2363,6 @@ table.cust-table {
     }
     .btn-padding-left{
        padding-left:2% !important;
-    }
-     .submit-padding-left{
-        padding-left:2% !important;
     }
      .controls-right-padding{
        padding-right:3%;
@@ -2991,9 +2982,6 @@ table.cust-table {
     }
      .btn-padding-left{
       padding-left:2% !important;
-    }
-    .submit-padding-left{
-     padding-left:2% !important;
     }
     .controls-right-padding{
        padding-right:5%;
@@ -3752,9 +3740,6 @@ table.cust-table {
    .btn-padding-left{
       padding-left:5% !important;
    }
-    .submit-padding-left{
-        padding-left:2% !important;
-    }
    .search-margin-left{
        margin-left:-24%;
    }
@@ -3813,9 +3798,6 @@ table.cust-table {
 
     .btn-padding-left {
         padding-left: 5% !important;
-    }
-    .submit-padding-left{
-        padding-left:2% !important;
     }
     .search-margin-left {
         margin-left: -24%;
@@ -4081,5 +4063,8 @@ table.cust-table {
     background-color:#FFFFE5;
     border-bottom:1px solid #DEE1BA;
     border-top:1px solid #DEE1BA;
+}
+.submit-padding-left{
+    padding-left:2% !important;
 }
 

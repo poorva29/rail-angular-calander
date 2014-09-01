@@ -755,7 +755,10 @@ namespace MiraiConsultMVC.Controllers
             {                
                 string filename = "";
                 if (file != null && !string.IsNullOrEmpty(file.FileName))
+                {
                     filename = file.FileName;
+                    filename = filename.Substring(filename.LastIndexOf('\\') + 1);
+                }
                 string lstSpeciality = "";
                 if (collection != null && collection["lstSpecialities"] != null)
                 {

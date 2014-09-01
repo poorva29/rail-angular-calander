@@ -166,3 +166,19 @@ function bookaptclicked(docid) {
         }
     });
 }
+function isValidFileType(fileType) {
+    if (fileType.trim() != "") {
+        switch (fileType.substring(fileType.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'gif': case 'jpg': case 'png': case 'jpeg':
+                $("#ImageValidation").html("");
+                break;
+            default:
+                $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
+                break;
+        }
+    }
+    else {
+        $("#ImageValidation").html("");
+    }
+    return true;
+}

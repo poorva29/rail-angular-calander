@@ -4,7 +4,9 @@
 .hand-cursor {
    cursor:pointer;
 }
-
+input[type="file"] {
+  line-height: 20px;
+}
 .max-width {
     max-width: 236px;
 }
@@ -16,6 +18,15 @@
 .minwidth-remove {
     width: 82px !important;
 }
+.answer-title {
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+    font-size: 20px;
+    color: #a7af38;
+    font-weight: 600;
+    margin-left: 12px;
+}
+
 
 .required:after {
     color: #e32;

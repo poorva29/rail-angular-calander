@@ -166,7 +166,7 @@ function bookaptclicked(docid) {
         }
     });
 }
-function isValidFileType(fileType) {
+function FileUploadValidation(fileType) {
     if (fileType.trim() != "") {
         switch (fileType.substring(fileType.lastIndexOf('.') + 1).toLowerCase()) {
             case 'gif': case 'jpg': case 'png': case 'jpeg':
@@ -180,5 +180,4 @@ function isValidFileType(fileType) {
     else {
         $("#ImageValidation").html("");
     }
-    return true;
 }

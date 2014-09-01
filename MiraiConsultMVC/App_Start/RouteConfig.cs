@@ -192,11 +192,7 @@ namespace MiraiConsultMVC
                 constraints: new { QuestionId = @"\d+" }
             );
 
-            //routes.MapRoute(
-            //  name: "seo-question",
-            //  url: "answers/{QuestionId}/{questiontext}",
-            //  defaults: new { controller = "Patients", action = "PatientQuestionDetails" }
-            //  );
+            
 
 
             routes.MapRoute(
@@ -230,8 +226,8 @@ namespace MiraiConsultMVC
             routes.MapRoute(
                name: "topics1",
                url: "topics/{tag}",
-               defaults: new { controller = "home", action = "topicdetails" },
-               constraints: new { tag = @"([a-z]+-?)+" }
+               defaults: new { controller = "home", action = "topicdetails" }
+              
                );
 
             routes.MapRoute(
@@ -239,6 +235,12 @@ namespace MiraiConsultMVC
                 url: "RejectQuestionByQuestionID/{qusetionID}",
                 defaults: new { controller = "admin", action = "RejectQuestionByQuestionID" }
            );
+
+            routes.MapRoute(
+              name: "seo-question",
+              url: "{seoQuestionText}",
+              defaults: new { controller = "Patients", action = "seoQuestionDetails" }
+              );
 
             routes.MapRoute(
                name: "Default",

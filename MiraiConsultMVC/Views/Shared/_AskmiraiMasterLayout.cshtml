@@ -54,13 +54,16 @@
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("find-doctors")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password"))
-                                        {
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password")
+                                        || Session["seoQuestionText"]!=null)
+                                    {
+                                        Session["seoQuestionText"] = null;
                                             <div class="pull-right">
                                                 <ul class="nav">
                                                     <li><a href="@Url.Action("login", "User")">Already have an account? <b><u>Login</u></b></a></li>
                                                 </ul>
                                             </div>
+                                           
                                         }
                                     else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")
@@ -202,9 +205,12 @@
                             <img src="~/Content/image/logo.png" class="col-md-4 logoimage-width" />
                         </a>
                     </div>
+
                     <div class="container topnavbar-position topnavbar-position-bottom-margin unregtopnavbar-left-margin container-padding-top hidden-phone hidden-tablet">
                         <div class=" row-fluid row-margin-left">
-                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
+                            @if (!HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString()))
+                            {
+                            <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top custom-patient-around" style="margin-top: -15px; margin-bottom: 10px;">
                                 <div class="divHover" style="margin-left: 2px;">
                                     <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
                                 </div>
@@ -212,7 +218,7 @@
                                     <a href="#" class="topmenu-links">|</a>
                                 </div>
                                 <div class="divHover">
-                                    <a href="@Url.Action("howweworks","Home")" class="topmenu-links">How we work</a>
+                                    <a href="@Url.Action("howweworks","home")" class="topmenu-links">How we work</a>
                                 </div>
                                 <div class="divHover">
                                     <a href="#" class="topmenu-links">|</a>
@@ -220,10 +226,31 @@
                                 <div class="divHover">
                                     <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
                                 </div>
+                            </div>                          
+                            <div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
+                                @Html.Partial("_AutoCompleteSearch","")
                             </div>
-                            @*<div class="span4 margin-top-to-tab btn-margin-bottom search-div-margin search-width center_align unreg-search topnavbar-btn-margin unreg-margin-left topnavbar-search-margin unregsearch-left-margin" align="center">
-                    @Html.Partial("_AutoCompleteSearch","")
-                </div>*@
+                            }
+                            else
+                            {
+                                <div class="span8 custom-border-around custom-occupy margin-top-to-tab btn-margin-top unreg-menu menu-div-margin-top" style="margin-top: -15px; margin-bottom: 10px;">
+                                <div class="divHover" style="margin-left: 2px;">
+                                    <a href="http://www.miraihealth.com" target="_blank" class="topmenu-links">Who we are</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="#" class="topmenu-links">|</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="@Url.Action("howweworks","home")" class="topmenu-links">How we work</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="#" class="topmenu-links">|</a>
+                                </div>
+                                <div class="divHover">
+                                    <a href="/find-doctors" class="topmenu-links">Our Doctors</a>
+                                </div>
+                            </div>                          
+                            }
                         </div>
                     </div>
                     <div class="span8 collapse nav-collapse mobile-menu visible-phone visible-tablet reg-menu-padding" style="width:100%">
@@ -255,10 +282,10 @@
                 </div>
                 <div class="hidden-phone">
                     <div class=" center_align" style="float:left">
-                        <a href="https://twitter.com/" target="_blank">
+                        <a href="https://twitter.com/MiraiHealth1" target="_blank">
                             <img src="~/Content/image/btwitter.png" class="cust-footer-icon" />
                         </a>&nbsp;
-                        <a href="https://www.facebook.com/" target="_blank">
+                        <a href="https://www.facebook.com/pages/Mirai-Health/661285780576488" target="_blank">
                             <img src="~/Content/image/bfb.png" class="cust-footer-icon" />
                         </a>&nbsp;
                         <a href="http://www.linkedin.com/company/a-square-healthcare-ventures" target="_blank">
@@ -271,10 +298,10 @@
                 </div>
                 <div class="visible-phone center_align" style="width:200px;margin:auto">
                     <div class=" center_align" style="float:left">
-                        <a href="https://twitter.com/" target="_blank">
+                        <a href="https://twitter.com/MiraiHealth1" target="_blank">
                             <img src="~/Content/image/btwitter.png" class="cust-footer-icon" />
                         </a>&nbsp;
-                        <a href="https://www.facebook.com/" target="_blank">
+                        <a href="https://www.facebook.com/pages/Mirai-Health/661285780576488" target="_blank">
                             <img src="~/Content/image/bfb.png" class="cust-footer-icon" />
                         </a>&nbsp;
                         <a href="http://www.linkedin.com/company/a-square-healthcare-ventures" target="_blank">

@@ -32,7 +32,7 @@
                         <p class="tagcloud">
                             @foreach (var t in Model)
                             {
-                                <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " "+t.TagWeight)'>@t.Text</a>
+                                <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " "+t.TagWeight+" Answers")'>@t.Text</a>
                             }
                         </p>
                     </div>

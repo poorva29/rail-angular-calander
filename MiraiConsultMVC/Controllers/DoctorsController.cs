@@ -399,6 +399,7 @@ namespace MiraiConsultMVC.Controllers
                 string docOldImage = Convert.ToString(TempData["Image"]);
                 string filename = "";
                 filename = file != null ? file.FileName : "";
+                filename = filename.Substring(filename.LastIndexOf('\\') + 1);
                 if (file != null && !string.IsNullOrEmpty(filename))
                 {
                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))

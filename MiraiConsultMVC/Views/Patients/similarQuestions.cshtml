@@ -25,11 +25,11 @@
                         <div class="span3">
                             @if (ViewBag.Count != null)
                             {
-                                <label id="count" class="control-label count_align" style="text-align:left">@ViewBag.Count</label>
+                                <label id="count" class="control-label count_align" style="text-align: left; float: left; padding-top: 13px;">@ViewBag.Count</label>
                             }
                             else
                             {
-                                <label id="count" class="control-label count_align" style="text-align:left">0/200</label>
+                                <label id="count" class="control-label count_align" style="text-align: left; float: left; padding-top: 13px;">0/200</label>
                             }
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                     @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
-                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
+                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>

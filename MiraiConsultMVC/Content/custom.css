@@ -4,7 +4,9 @@
 .hand-cursor {
    cursor:pointer;
 }
-
+input[type="file"] {
+  line-height: 20px;
+}
 .max-width {
     max-width: 236px;
 }
@@ -15,6 +17,14 @@
 
 .minwidth-remove {
     width: 82px !important;
+}
+.answer-title {
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+    font-size: 20px;
+    color: #a7af38;
+    font-weight: 600;
+    margin-left: 12px;
 }
 
 .required:after {
@@ -217,6 +227,10 @@ a {
 .custom-border-around {
     border-left: 1px solid #DBDBDB;
     border-right: none;
+}
+.custom-patient-around{
+    border-left: 1px solid #DBDBDB;
+    border-right: 1px solid #DBDBDB;
 }
 
 .menu-links {
@@ -1483,7 +1497,7 @@ input[readonly] {
 
 .cust-inner-footer {
     position: absolute;
-    top: 26px;
+    top: 35px;
 }
 
 .cust-footer-text,
@@ -2090,7 +2104,7 @@ table.cust-table {
         padding-left:10px;
     }
      .intermediate-size-padding{
-        padding-left:10px;
+        padding-left:3px;
     }
 
     .txtAreaQuestion_div {
@@ -2302,7 +2316,7 @@ table.cust-table {
     }
 
     .radio.inline + .radio.inline, .checkbox.inline + .checkbox.inline {
-        margin-left: 0px;
+        margin-left: 2%;
     }
 
     div.dataTables_info {
@@ -2640,6 +2654,14 @@ table.cust-table {
         border-top-right-radius: 0px;
         border: none !important;
     }
+    .answer-title {
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+        font-size: 20px;
+        color: #a7af38;
+        font-weight: 600;
+        margin-left: 38px;
+     }
     .margin-bottom-tolabel-large{
         margin-bottom:0%;
     }
@@ -3258,6 +3280,14 @@ table.cust-table {
 
     /* Landscape phones and down */
 @media only screen and (max-width: 480px) {
+    .answer-title {
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+        font-size: 20px;
+        color: #a7af38;
+        font-weight: 600;
+        margin-left: 12px;
+     }
     .unreg_patientmenubar {
         padding: 25% 4% 0% 0%;
     }
@@ -3993,10 +4023,12 @@ table.cust-table {
         text-align:left;
     }
 }
-  .menu-margin-top{
-        margin-top:-32% ;
-    }
-
+.menu-margin-top {
+    padding-left:2px;
+    padding-right:2px;
+    position:absolute;
+    margin-left:-24%;
+}
 .validation-summary-errors
 {
     color: Red;

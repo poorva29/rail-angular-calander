@@ -617,7 +617,7 @@ namespace MiraiConsultMVC.Controllers
                 string emailsIds = inviteFriend.email;
                 string msgBody = inviteFriend.message;
                 msgBody = "<html><body> <form name=frmMessage method=post>" +
-                            msgBody + "<br><br>" +
+                            Server.HtmlEncode(msgBody) + "<br><br>" +
                             "<font size=2 face=verdana> Best wishes,</font>" +
                             "<br>" +
                             "<font size=2 face=verdana>Mirai Health Team</font>" +

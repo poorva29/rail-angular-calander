@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MiraiConsultMVC.Models.Patients
 {
@@ -12,8 +13,8 @@ namespace MiraiConsultMVC.Models.Patients
         [RegularExpression("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*([,]\\s*\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)*", ErrorMessage = "Please enter valid email address or comma separated multiple email addresses.")]
         public string email { get; set; }
 
+        [AllowHtml]
         [Required(ErrorMessage = "Please enter email body")]
-        [RegularExpression("^[^<>,<|>]+$", ErrorMessage = "Html tags are not allowed.")]
         public string message { get; set; }
     }
 }

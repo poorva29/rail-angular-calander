@@ -640,6 +640,10 @@
             $("#ImageValidation").html("");
         }
     });
+    $("#Image").click(function () {
+        $(this).val('');
+        $("#ImageValidation").html("");
+    });
     $(document).ready(function () {
         var refUrl = document.referrer;
         if (refUrl.indexOf("Doctors") >= 0) {

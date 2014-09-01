@@ -286,7 +286,6 @@
         }
     });
     $("#Image").change(function () {
-
         var val = $(this).val();
         if (val.trim() != "") {
             switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
@@ -302,8 +301,10 @@
             $("#ImageValidation").html("");
         }
     });
-
-
+    $("#Image").click(function () {
+        $(this).val('');
+        $("#ImageValidation").html("");
+    });
     $("#txtDob").focusout(function () {
         var cntrl = $(this);
         if (cntrl.val().length > 0)

@@ -260,7 +260,10 @@
                 else{ 
                     $("#ImageValidation").html("");}
             });
-
+            $("#Image").click(function () {
+                $(this).val('');
+                $("#ImageValidation").html("");
+            });
             function ValidateAllControl() {
                 var errormsg = "";
                 var answerText = document.getElementById('txtAnswer').value.trim();

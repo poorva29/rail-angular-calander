@@ -4,9 +4,7 @@
 .hand-cursor {
    cursor:pointer;
 }
-input[type="file"] {
-  line-height: 20px;
-}
+
 .max-width {
     max-width: 236px;
 }
@@ -17,14 +15,6 @@ input[type="file"] {
 
 .minwidth-remove {
     width: 82px !important;
-}
-.answer-title {
-    padding-bottom: 5px;
-    margin-bottom: 6px;
-    font-size: 20px;
-    color: #a7af38;
-    font-weight: 600;
-    margin-left: 12px;
 }
 
 .required:after {
@@ -580,6 +570,9 @@ table.custom-table th {
     }
      .btn-padding-left{
       padding-left:2% !important;
+    }
+      .submit-padding-left{
+        padding-left:2% !important;
     }
 
 .feedDocImage {
@@ -1497,7 +1490,7 @@ input[readonly] {
 
 .cust-inner-footer {
     position: absolute;
-    top: 35px;
+    top: 26px;
 }
 
 .cust-footer-text,
@@ -2333,6 +2326,9 @@ table.cust-table {
     .btn-padding-left{
       padding-left:2% !important;
    }
+     .submit-padding-left{
+        padding-left:2% !important;
+    }
     .link-width{
         width:45% !important;
     }
@@ -2363,6 +2359,9 @@ table.cust-table {
     }
     .btn-padding-left{
        padding-left:2% !important;
+    }
+     .submit-padding-left{
+        padding-left:2% !important;
     }
      .controls-right-padding{
        padding-right:3%;
@@ -2654,14 +2653,6 @@ table.cust-table {
         border-top-right-radius: 0px;
         border: none !important;
     }
-    .answer-title {
-        padding-bottom: 5px;
-        margin-bottom: 6px;
-        font-size: 20px;
-        color: #a7af38;
-        font-weight: 600;
-        margin-left: 38px;
-     }
     .margin-bottom-tolabel-large{
         margin-bottom:0%;
     }
@@ -2983,6 +2974,9 @@ table.cust-table {
      .btn-padding-left{
       padding-left:2% !important;
     }
+    .submit-padding-left{
+     padding-left:2% !important;
+    }
     .controls-right-padding{
        padding-right:5%;
      }
@@ -3280,14 +3274,6 @@ table.cust-table {
 
     /* Landscape phones and down */
 @media only screen and (max-width: 480px) {
-    .answer-title {
-        padding-bottom: 5px;
-        margin-bottom: 6px;
-        font-size: 20px;
-        color: #a7af38;
-        font-weight: 600;
-        margin-left: 12px;
-     }
     .unreg_patientmenubar {
         padding: 25% 4% 0% 0%;
     }
@@ -3738,8 +3724,11 @@ table.cust-table {
        margin-left:3%;
    }
    .btn-padding-left{
-      padding-left:2% !important;
+      padding-left:5% !important;
    }
+    .submit-padding-left{
+        padding-left:2% !important;
+    }
    .search-margin-left{
        margin-left:-24%;
    }
@@ -3797,9 +3786,11 @@ table.cust-table {
     }
 
     .btn-padding-left {
-        padding-left: 2% !important;
+        padding-left: 5% !important;
     }
-
+    .submit-padding-left{
+        padding-left:2% !important;
+    }
     .search-margin-left {
         margin-left: -24%;
     }
@@ -4024,7 +4015,7 @@ table.cust-table {
     }
 }
   .menu-margin-top{
-        margin-top:-55% ;
+        margin-top:-32% ;
     }
 
 .validation-summary-errors

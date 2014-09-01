@@ -3799,7 +3799,6 @@ table.cust-table {
     .btn-padding-left {
         padding-left: 5% !important;
     }
-
     .search-margin-left {
         margin-left: -24%;
     }
@@ -4066,5 +4065,8 @@ table.cust-table {
     background-color:#FFFFE5;
     border-bottom:1px solid #DEE1BA;
     border-top:1px solid #DEE1BA;
+}
+.submit-padding-left{
+    padding-left:2% !important;
 }
 

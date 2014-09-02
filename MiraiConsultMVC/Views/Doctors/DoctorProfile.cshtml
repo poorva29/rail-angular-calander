@@ -624,16 +624,12 @@
         }
     });
     $("#Image").change(function () {
-
-        var val = $(this).val();
-        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
-            case 'gif': case 'jpg': case 'png': case 'jpeg':
-                $("#ImageValidation").html("");
-                break;
-            default:
-                $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
-                break;
-        }
+        var fileType = $(this).val();
+        FileUploadValidation(fileType);
+    });
+    $("#Image").click(function () {
+        $(this).val('');
+        $("#ImageValidation").html("");
     });
     $(document).ready(function () {
         var refUrl = document.referrer;

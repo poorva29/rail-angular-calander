@@ -111,17 +111,17 @@
     $(function () {
         $(":radio").change(function () {
 
-            var $textValue = $(this).val();
-            if (($textValue == 'All'))
+            var $radioBtnValue = $(this).val();
+            if (($radioBtnValue == 'All'))
             {
                 document.getElementById("HdnFlag").value = 1;
             }
-            else if (!($textValue == 'All'))
+            else if (!($radioBtnValue == 'All'))
             {
                 document.getElementById("HdnFlag").value = 0;
             }
             
-            window.location.href = "../admin-questions/" + $textValue;
+            window.location.href = "../admin-questions/" + $radioBtnValue;
         });
 
     });

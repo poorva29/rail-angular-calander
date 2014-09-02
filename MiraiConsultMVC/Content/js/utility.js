@@ -169,7 +169,10 @@ function bookaptclicked(docid) {
 function FileUploadValidation(fileType) {
     if (fileType.trim() != "") {
         switch (fileType.substring(fileType.lastIndexOf('.') + 1).toLowerCase()) {
-            case 'gif': case 'jpg': case 'png': case 'jpeg':
+            case 'gif':
+            case 'jpg':
+            case 'png':
+            case 'jpeg':
                 $("#ImageValidation").html("");
                 break;
             default:

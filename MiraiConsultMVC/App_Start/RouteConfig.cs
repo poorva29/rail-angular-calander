@@ -96,7 +96,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "AdminReport",
-                url: "reports",
+                url: "report",
                 defaults: new { controller = "admin", action = "Report" }
             );
 

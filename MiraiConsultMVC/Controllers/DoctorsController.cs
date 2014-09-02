@@ -462,15 +462,13 @@ namespace MiraiConsultMVC.Controllers
                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                             TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
                             TempData["Email"] = doctor.Email;
-                            TempData["Image"] = doctor.Image;
-                            TempData["PhotoUrl"]=doctor.PhotoUrl;
                         }
                         else
                         {
                             TempData["message"] = "Details updated successfully.";
-                            TempData["Image"] = doctor.Image;
-                            TempData["PhotoUrl"] = doctor.PhotoUrl;
                         }
+                        TempData["Image"] = doctor.Image;
+                        TempData["PhotoUrl"] = doctor.PhotoUrl;
                         if (filename != "")
                         {
                             string strPhysicalFilePath = "";

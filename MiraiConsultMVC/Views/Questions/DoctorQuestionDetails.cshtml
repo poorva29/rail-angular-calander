@@ -175,7 +175,7 @@
                                     </div>
                                     <br />
                                     <div class="row-fluid">
-                                        <div class="span6 offset4 btn-padding-left">
+                                        <div class="span6 offset4 btn-padding-left submit-padding-left">
                                             <input type="submit" class="btn thanx" value="Submit" onclick="if (!ValidateAllControl()) return false;">
                                             <input type="reset" class="btn" onclick="window.location.href = window.location.href" value="Clear">
                                         </div>
@@ -246,21 +246,13 @@
             });
 
             $("#Image").change(function () {
-                var val = $(this).val();
-                if(val.trim()!= ""){
-                    switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
-                        case 'gif': case 'jpg': case 'png': case 'jpeg':
-                            $("#ImageValidation").html("");
-                            break;
-                        default:
-                            $("#ImageValidation").html("Supports only .jpg,.png,.gif,.jpeg formats. Please upload a file with either of these extensions.");
-                            break;
-                    }
-                }
-                else{ 
-                    $("#ImageValidation").html("");}
+                var fileType = $(this).val();
+                FileUploadValidation(fileType);
             });
-
+            $("#Image").click(function () {
+                $(this).val('');
+                $("#ImageValidation").html("");
+            });
             function ValidateAllControl() {
                 var errormsg = "";
                 var answerText = document.getElementById('txtAnswer').value.trim();

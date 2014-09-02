@@ -50,7 +50,7 @@
                                 if (Session["UserId"] == null || Convert.ToString(Session["UserId"]) == "")
                                 {
                                     if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patient-signup") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctor-signup")
-                                        || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("error")
+                                        || HttpContext.Current.Request.Url.AbsoluteUri.Contains("Verifyemail") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("error")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("patientquestiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("find-doctors")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")

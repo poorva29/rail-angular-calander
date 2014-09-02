@@ -84,8 +84,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "AdminQuestionList",
-                url: "admin-questions/{filter}",
-                defaults: new { controller = "admin", action = "QuestionList", filter = UrlParameter.Optional }
+                url: "admin-questions/{questionsType}",
+                defaults: new { controller = "admin", action = "QuestionList", questionsType = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -147,8 +147,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Questions1",
-                url: "questions/{filter}",
-                defaults: new { controller = "Questions", action = "DoctorQuestionList", filter = UrlParameter.Optional }
+                url: "questions/{questionsType}",
+                defaults: new { controller = "Questions", action = "DoctorQuestionList", questionsType = UrlParameter.Optional }
             );
 
             routes.MapRoute(

@@ -17,10 +17,10 @@
                 <label class="span1 hidden-phone" style="padding-top: 5px; text-align: right">Filter:</label>
                 <div class="pull-right span11">
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "All Questions", Model.FirstOrDefault().Filter) <label>All Questions</label>
+                        @Html.RadioButton("rdbFilter", "All", Model.FirstOrDefault().Filter) <label>All Questions</label>
                     </label>
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "Unanswered Questions", !Model.FirstOrDefault().Filter) <label>Unassigned Questions</label>
+                        @Html.RadioButton("rdbFilter", "Unassigned", !Model.FirstOrDefault().Filter) <label>Unassigned Questions</label>
                     </label>
                 </div>
             </div>
@@ -112,19 +112,16 @@
         $(":radio").change(function () {
 
             var $textValue = $(this).val();
-            var filter = !($textValue == 'All Questions');
-            if (($textValue == 'All Questions'))
+            if (($textValue == 'All'))
             {
                 document.getElementById("HdnFlag").value = 1;
-                filter = true;
             }
-            else if (!($textValue == 'All Questions'))
+            else if (!($textValue == 'All'))
             {
                 document.getElementById("HdnFlag").value = 0;
-                filter = false;
             }
             
-            window.location.href = "../admin-questions/" + filter;
+            window.location.href = "../admin-questions/" + $textValue;
         });
 
     });

@@ -174,7 +174,7 @@ namespace MiraiConsultMVC.Controllers
             return Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult QuestionList(bool filter = true)
+        public ActionResult QuestionList(string questionsType = "")
         {
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
             if (privilege == 1)
@@ -183,6 +183,11 @@ namespace MiraiConsultMVC.Controllers
             }
             else
             {
+                bool filter = false;
+                if (questionsType.Contains("All") || string.IsNullOrEmpty(questionsType))
+                {
+                    filter = true;
+                }
                 List<QuestionModel> Qmodel = new List<QuestionModel>();
                 Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
                 return View(Qmodel);

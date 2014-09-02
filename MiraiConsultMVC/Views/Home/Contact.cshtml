@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
 }
 @Scripts.Render("~/bundles/jqueryval")
-@using (Html.BeginForm(new { autocomplete = "off" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -50,7 +50,7 @@
                                     <label class="required">Your Name:</label>
                                 </div>
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your name." })
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your name.", @autocomplete="off" })
                                     @Html.ValidationMessageFor(m => m.Name, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <label class="required">Your Email:</label>
                                 </div>
                                 <div class="span8 pull-right btn-padding-left controls-right-padding">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your email address." })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "input-block-level gray-border contact_margin input-block-display", placeholder = "Enter your email address.", @autocomplete = "off" })
                                     @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                 </div>
                             </div>

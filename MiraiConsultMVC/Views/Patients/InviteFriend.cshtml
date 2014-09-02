@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
 }
 @Scripts.Render("~/bundles/jqueryval")
-@using (Html.BeginForm(new { autocomplete = "off" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -42,7 +42,7 @@
                         <label class="required">Email Id:</label>
                     </div>
                     <div class="span8 pull-right btn-padding-left controls-right-padding">
-                        @Html.TextBoxFor(m => m.email, new { @Class = "input-block-level gray-border contact_margin input-block-display", Id = "txtEmail", placeholder = "Enter comma separated email addresses list..." })
+                        @Html.TextBoxFor(m => m.email, new { @Class = "input-block-level gray-border contact_margin input-block-display", Id = "txtEmail", placeholder = "Enter comma separated email addresses list...", @autocomplete="off" })
                         @Html.ValidationMessageFor(m=>m.email,string.Empty, new { @class = "validation-summary-errors" })                       
                     </div>
                 </div>

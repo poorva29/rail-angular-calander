@@ -213,7 +213,7 @@
                                                 <label class="cust-font-style required ">Email:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.TextBoxFor(m => m.Email, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", maxlength = "50", placeholder = "Email", @autocomplete = "off" })<br />
+                                                @Html.TextBoxFor(m => m.Email, new { id="doctorSignUpEmail", @class = "cust-no-border cust-lightgreen input-block-level contact_margin", maxlength = "50", placeholder = "Email", @autocomplete = "off" })<br />
                                                 @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>
@@ -227,7 +227,7 @@
                                                 <label class="cust-font-style required ">Password:</label>
                                             </div>
                                             <div class="span8">
-                                                @Html.PasswordFor(m => m.Password, new { @Class = "cust-no-border cust-gray input-block-level contact_margin", maxlength = "30", placeholder = "Password" })<br />
+                                                @Html.PasswordFor(m => m.Password, new { id = "doctorSignUpPassword", @Class = "cust-no-border cust-gray input-block-level contact_margin", maxlength = "30", placeholder = "Password" })<br />
                                                 @Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "validation-summary-errors" })
                                             </div>
                                         </div>

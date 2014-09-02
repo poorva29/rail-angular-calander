@@ -17,10 +17,10 @@
                 <label class="span1 hidden-phone" style="padding-top: 5px; text-align: right">Filter:</label>
                 <div class="pull-right span11">
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "All", Model.FirstOrDefault().Filter) <label>All Questions</label>
+                        @Html.RadioButton("rdbFilter", "All", Model.FirstOrDefault().Filter, new { id = "AllQuestions" }) <label for="AllQuestions">All Questions</label>
                     </label>
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "Unassigned", !Model.FirstOrDefault().Filter) <label>Unassigned Questions</label>
+                        @Html.RadioButton("rdbFilter", "Unassigned", !Model.FirstOrDefault().Filter, new { id = "UnassignedQuestions" }) <label for="UnassignedQuestions">Unassigned Questions</label>
                     </label>
                 </div>
             </div>

@@ -11,10 +11,10 @@
                 <label class="span1 hidden-phone" style="padding-top:5px; text-align:right">Filter:</label>
                 <div class="pull-right span11">
                     <label class="radio inline">
-                        @Html.RadioButton("Questions", "All",!Model.FirstOrDefault().Filter) <label>All Questions</label>
+                        @Html.RadioButton("Questions", "All", !Model.FirstOrDefault().Filter, new { id = "AllQuestions" }) <label for="AllQuestions">All Questions</label>
                     </label>
                     <label class="radio inline">
-                        @Html.RadioButton("Questions", "Unanswered", Model.FirstOrDefault().Filter) <label>Unanswered Questions</label>
+                        @Html.RadioButton("Questions", "Unanswered", Model.FirstOrDefault().Filter, new { id = "UnansweredQuestions" }) <label for="UnansweredQuestions">Unanswered Questions</label>
                     </label>
                 </div>
             </form>

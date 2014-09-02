@@ -4084,4 +4084,7 @@ table.cust-table {
 .submit-padding-left{
     padding-left:2% !important;
 }
+.column-word-break{
+    word-wrap:break-word;
+}
 

@@ -3810,6 +3810,7 @@ table.cust-table {
     .btn-padding-left {
         padding-left: 5% !important;
     }
+
     .search-margin-left {
         margin-left: -24%;
     }
@@ -4077,7 +4078,13 @@ table.cust-table {
     border-bottom:1px solid #DEE1BA;
     border-top:1px solid #DEE1BA;
 }
+.logo-margin-left{
+    margin-left:4%;
+}
 .submit-padding-left{
     padding-left:2% !important;
+}
+.column-word-break{
+    word-wrap:break-word;
 }
 

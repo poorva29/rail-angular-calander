@@ -8,7 +8,7 @@
 <script type="text/javascript" src="~/Content/js/utility.js"></script>
 
 @Scripts.Render("~/bundles/jqueryval")
-@using (Html.BeginForm(new { autocomplete = "off" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -58,7 +58,7 @@
                                             <label class="required cust-font-style ">First Name:</label>
                                         </div>
                                         <div class="span8">
-                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", placeholder = "First Name" })<br />
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level contact_margin", placeholder = "First Name", @autocomplete = "off" })<br />
                                             @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                             <label class=" required cust-font-style">Last Name:</label>
                                         </div>
                                         <div class="span8">
-                                            @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Last Name" })<br />
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Last Name", @autocomplete = "off" })<br />
                                             @Html.ValidationMessageFor(m => m.LastName, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                         <div class="span8">
                                             <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                                  data-date-enddate="new Date()" style="width: 100%">
-                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", @style = "margin-top:0px;width: 85%;", @placeholder = "Date Of Birth",@Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
+                                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve cust-lightgreen cust-gray contact_margin", @style = "margin-top:0px;width: 85%;", @placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? "" : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob", @autocomplete = "off" })
                                                 <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                             <label class="cust-font-style">Height (in cm):</label>
                                         </div>
                                         <div class="span8">
-                                            @Html.TextBoxFor(m => m.Height, new { @Class = "input-block-level cust-lightgreen cust-lightgreen contact_margin", placeholder = "Height in cm", @Value = (Model.Height == 0) ? "" : Model.Height.ToString(), @onkeypress = "return isNumber(event,5,this);" })<br />
+                                            @Html.TextBoxFor(m => m.Height, new { @Class = "input-block-level cust-lightgreen cust-lightgreen contact_margin", placeholder = "Height in cm", @Value = (Model.Height == 0) ? "" : Model.Height.ToString(), @onkeypress = "return isNumber(event,5,this);", @autocomplete = "off" })<br />
                                             @*@Html.ValidationMessageFor(m => m.Height, string.Empty, new { @class = "validation-summary-errors" })*@
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                             <label class="cust-font-style">Weight (in kg):</label>
                                         </div>
                                         <div class="span8">
-                                            @Html.TextBoxFor(m => m.Weight, new { @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Weight in kg", @Value = (Model.Weight == 0) ? "" : Model.Weight.ToString(), @onkeypress = "return isDecimalNumber(event,3,this);" })<br />
+                                            @Html.TextBoxFor(m => m.Weight, new { @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Weight in kg", @Value = (Model.Weight == 0) ? "" : Model.Weight.ToString(), @onkeypress = "return isDecimalNumber(event,3,this);", @autocomplete = "off" })<br />
                                             @*// @Html.ValidationMessageFor(m => m.Weight, string.Empty, new { @class = "validation-summary-errors" })*@
                                         </div>
                                     </div>
@@ -215,7 +215,7 @@
                                         <label class="cust-font-style">Pin Code:</label>
                                     </div>
                                     <div class="span8">
-                                        @Html.TextBoxFor(m => m.Pincode, new { @Class = "input-block-level cust-lightgreen cust-lightgreen contact_margin", placeholder = "Pin Code", @Value = (Model.Pincode == 0) ? "" : Model.Pincode.ToString(), @onkeypress = "return isNumber(event,6,this);" })<br />
+                                        @Html.TextBoxFor(m => m.Pincode, new { @Class = "input-block-level cust-lightgreen cust-lightgreen contact_margin", placeholder = "Pin Code", @Value = (Model.Pincode == 0) ? "" : Model.Pincode.ToString(), @onkeypress = "return isNumber(event,6,this);", @autocomplete = "off" })<br />
                                         @Html.ValidationMessageFor(m => m.Pincode, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
                                         <label class="cust-font-style">Mobile No:</label>
                                     </div>
                                     <div class="span8">
-                                        @Html.TextBoxFor(m => m.MobileNo, new { @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);" })<br />
+                                        @Html.TextBoxFor(m => m.MobileNo, new { @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Mobile No", @onkeypress = "return isNumber(event,10,this);", @autocomplete = "off" })<br />
                                         @Html.ValidationMessageFor(m => m.MobileNo, string.Empty, new { @class = "validation-summary-errors" })
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@
                                             <label class="required cust-font-style">Email:</label>
                                         </div>
                                         <div class="span8">
-                                            @Html.TextBoxFor(m => m.Email, new { id = "patientSignUpEmail", @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Email" })<br />
+                                            @Html.TextBoxFor(m => m.Email, new { id = "patientSignUpEmail", @Class = "input-block-level cust-lightgreen cust-gray contact_margin", placeholder = "Email", @autocomplete = "off" })<br />
                                             @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>
@@ -268,7 +268,7 @@
                             <div class="row-fluid cust-padding-bw-row text-center">
                                 <div class="span12">
                                     <input type="submit" name="btnCreatePatientAccount" value="Create Account" onclick="" id="btnCreatePatientAccount" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" />
-                                    <input type="reset" name="btnClear" value="Clear" id="btnClear" onclick="window.location.href = '/User/PatientSignUp'" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" />
+                                    <input type="reset" name="btnClear" value="Clear" id="btnClear" onclick="window.location.href = '/patient-signup'" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" />
                                 </div>
                             </div>
                         </div>

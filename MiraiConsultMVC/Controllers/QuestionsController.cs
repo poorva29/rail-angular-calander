@@ -22,7 +22,7 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DoctorQuestionList(int userId = 0, bool filter = true)
+        public ActionResult DoctorQuestionList(int userId = 0, string questionsType = "")
         {
             BasePage BPage = new BasePage();
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.questionlist));
@@ -43,8 +43,11 @@ namespace MiraiConsultMVC.Controllers
                 var QuestionsById = db.getQuestionListByDoctorid(userId).ToList();
                 QuestionModel QModel;
                 AnswerModel AModel;
-
-
+                bool filter = false;
+                if (questionsType.Contains("Unanswered") || string.IsNullOrEmpty(questionsType))
+                {
+                    filter = true;
+                }
                 if (QuestionsById != null && QuestionsById.Count > 0)
                 {
                     foreach (var question in QuestionsById)

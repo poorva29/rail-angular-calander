@@ -87,7 +87,7 @@
                     response = JSON.parse(response);
                     for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
                         var UserId = document.getElementById("HdnUserID").value, ansimg = '';
-                        if (response[indexcnt].doctorimg)
+                        if (response[indexcnt].doctorimg && response[indexcnt].doctorimg)
                             var img = response[indexcnt].photourl + escape(response[indexcnt].doctorimg);
                         else
                             var img = "../Content/image/img-na.png";

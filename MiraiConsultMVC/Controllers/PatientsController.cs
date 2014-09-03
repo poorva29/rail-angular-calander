@@ -560,6 +560,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
+        [ValidateInput(false)]
         public ActionResult GetSimilarQuestion(string questionText)
         {
             IList<AskDoctor> lstQuestions = new List<AskDoctor>();
@@ -579,6 +580,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
+        [ValidateInput(false)]
         public JsonResult question_Insert(string questionText)
         {
             int userId = 0;
@@ -647,7 +649,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-
+        [ValidateInput(false)]
         public ActionResult similarQuestions(string question)
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();

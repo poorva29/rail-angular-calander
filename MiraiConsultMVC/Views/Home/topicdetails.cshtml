@@ -15,9 +15,9 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     {
-        <div class="custom-central-div">          
+        <div class="custom-central-div" style="margin-top:6%">
             <div class="row-fluid">
-                <div style="margin-top:8%">
+                <div>
                     <div class='row-fluid'>
                         <div class="span12">
                             <label class="finddoc-title">Relevant Questions About @ViewBag.tag</label>
@@ -35,34 +35,35 @@
                                         </a>
                                     </div>
                                 </div>
-                            <div class='row-fluid'>
-                            @if(!String.IsNullOrEmpty(Model.ToList()[i].DocImg) || !String.IsNullOrEmpty(Model.ToList()[i].answerreplyedby))
-                            {
-                                
-                                    <div id="feedDocImage_SQ" class='span1'>
-                                        <div class='feedDocImage img'>
-                                            @if ((Model.ToList()[i].DocImg) != "" && (Model.ToList()[i].DocImg) != null)
-                                            {
-                                                <img src='@Model.ToList()[i].DocImg' />
-                                            }
-                                            else
-                                            {
-                                                <img src='~/Content/image/img-na.png' />
-                                            }
+                                <div class='row-fluid'>
+                                    @if (!String.IsNullOrEmpty(Model.ToList()[i].DocImg) || !String.IsNullOrEmpty(Model.ToList()[i].answerreplyedby))
+                                    {
+
+                                        <div id="feedDocImage_SQ" class='span1'>
+                                            <div class='feedDocImage img'>
+                                                @if ((Model.ToList()[i].DocImg) != "" && (Model.ToList()[i].DocImg) != null)
+                                                {
+                                                    <img src='@Model.ToList()[i].DocImg' />
+                                                }
+                                                else
+                                                {
+                                                    <img src='~/Content/image/img-na.png' />
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='span6 middle-size-padding'>
-                                        <div class='ans_time_detail'>@Model.ToList()[i].answerreplyedby </div>
-                                        <div class='title_text'>
-                                            @Model.ToList()[i].Title
+                                        <div class='span6 middle-size-padding'>
+                                            <div class='ans_time_detail'>@Model.ToList()[i].answerreplyedby </div>
+                                            <div class='title_text'>
+                                                @Model.ToList()[i].Title
+                                            </div>
                                         </div>
-                                    </div>
-                                } else
-                                {
+                                    }
+                                    else
+                                    {
                                         <div class='span11'>
                                             <p class='ans_text'>No answers received </p>
                                         </div>
-                                }
+                                    }
                                     @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
@@ -73,8 +74,8 @@
                                     }
 
                                     <div class='span11 middle-size-padding'>
-                                        @if (Model.ToList()[i].answers != null && Model.ToList()[i].answers.Count>0)
-                                        { 
+                                        @if (Model.ToList()[i].answers != null && Model.ToList()[i].answers.Count > 0)
+                                        {
                                             if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
                                             {
                                                 <div class='span5 '>

@@ -4038,6 +4038,15 @@ table.cust-table {
     .btn-margin-left{
         margin-left:-5%;
     }
+    .btn-float-right{
+        float:right;
+    }
+    .signupbtn-margin-left {
+        margin-left: -1%;
+    }    
+    .signupclearbtn-margin-left{
+        margin-left:1%;
+    }
 }
 .menu-margin-top {
     padding-left:2px;

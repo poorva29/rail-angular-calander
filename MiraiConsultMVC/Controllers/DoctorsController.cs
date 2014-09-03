@@ -177,7 +177,7 @@ namespace MiraiConsultMVC.Controllers
                     TempData["Image"] = doctor.Image;
                 }
                 else
-                    doctorDetail.Image = "..\\Content\\image\\img-na.png";
+                    doctorDetail.Image = "\\Content\\image\\img-na.png";
                 if (doctor.qualification != null)
                 {
                     foreach (var qualification in doctor.qualification)

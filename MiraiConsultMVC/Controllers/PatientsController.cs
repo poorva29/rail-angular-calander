@@ -469,6 +469,10 @@ namespace MiraiConsultMVC.Controllers
                 {
                     questionId = qlist.FirstOrDefault().questionid;
                 }
+                else
+                {
+                    return RedirectToAction("similarquestions", "patients");
+                }
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);

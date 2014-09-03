@@ -90,7 +90,7 @@
                         <div class="span12">
                             <div class="span8 pull-right btn-padding-left">
                                 <input type="submit" id="btnSend" class="btn thanx gray-border" value="Send" />
-                                <input type="reset" id="btnClear" class="btn cancel gray-border" value="Reset" onclick="window.location.href = '/contact-us'" />
+                                <input type="reset" id="btnClear" class="btn cancel gray-border" value="Reset" onclick="resetAction();" />
                             </div>
                         </div>
                     </div>
@@ -102,6 +102,10 @@
 }
 <script src="../Scripts/jquery-1.9.1.min.js"></script>
 <script>
+    function resetAction() {
+        $("span.validation-summary-errors.field-validation-error").html("");
+        window.location.href = '/contact-us';
+    }
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)

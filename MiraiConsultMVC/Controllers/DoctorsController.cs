@@ -171,10 +171,11 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Status = Convert.ToInt32(doctor.Status);
                 if (doctor.IsEmailVerified != null)
                     doctorDetail.IsEmailVerified = Convert.ToBoolean(doctor.IsEmailVerified);
-                if (doctor.Image != null)
+                if (doctor.Image != null && doctor.PhotoUrl != null)
                 {
                     doctorDetail.Image = doctor.PhotoUrl + doctor.Image;
                     TempData["Image"] = doctor.Image;
+                    TempData["PhotoUrl"] = doctor.PhotoUrl;
                 }
                 else
                     doctorDetail.Image = "\\Content\\image\\img-na.png";
@@ -397,6 +398,7 @@ namespace MiraiConsultMVC.Controllers
                 doctor.UserName = profile.UserName;
                 doctor.RegistrationNumber = profile.RegistrationNumber;
                 string docOldImage = Convert.ToString(TempData["Image"]);
+                string docOldImagePath = Convert.ToString(TempData["PhotoUrl"]);
                 string filename = "";
                 filename = file != null ? file.FileName : "";
                 filename = filename.Substring(filename.LastIndexOf('\\') + 1);
@@ -416,7 +418,7 @@ namespace MiraiConsultMVC.Controllers
                 }
                 else
                 {
-                    doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
+                    doctor.PhotoUrl = docOldImagePath;
                     doctor.Image = docOldImage;
                 }
                 
@@ -460,13 +462,13 @@ namespace MiraiConsultMVC.Controllers
                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                             TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
                             TempData["Email"] = doctor.Email;
-                            TempData["Image"] = doctor.Image;
                         }
                         else
                         {
                             TempData["message"] = "Details updated successfully.";
-                            TempData["Image"] = doctor.Image;
                         }
+                        TempData["Image"] = doctor.Image;
+                        TempData["PhotoUrl"] = doctor.PhotoUrl;
                         if (filename != "")
                         {
                             string strPhysicalFilePath = "";

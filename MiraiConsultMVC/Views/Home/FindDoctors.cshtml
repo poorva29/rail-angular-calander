@@ -143,7 +143,7 @@
                         $("#searchspan").empty();
                         $("#searchResult").append("<div class='title_fontSize title_color'>Search Result<hr class='hr_color'></div>");
                         for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
-                            if (response[indexcnt].photopath)
+                            if (response[indexcnt].photopath && response[indexcnt].photourl)
                                 var img = (response[indexcnt].photopath) + escape(response[indexcnt].photourl);
                             else
                                 var img = "Content/image/img-na.png";

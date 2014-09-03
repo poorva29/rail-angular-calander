@@ -10,7 +10,6 @@ input[type="file"] {
 .max-width {
     max-width: 236px;
 }
-
 .min-width {
     min-width: 200px;
 }
@@ -3290,6 +3289,9 @@ table.cust-table {
 
     /* Landscape phones and down */
 @media only screen and (max-width: 480px) {
+    .profile-max-width{
+         max-width: 270px;
+    }
     .answer-title {
         padding-bottom: 5px;
         margin-bottom: 6px;
@@ -3645,8 +3647,8 @@ table.cust-table {
     }
 
     .main-outter-padding {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: auto;
+        padding-right: auto;
         margin-top:6%;
     }
 
@@ -4032,6 +4034,9 @@ table.cust-table {
         float:none;
         padding-top:0;
         text-align:left;
+    }
+    .btn-margin-left{
+        margin-left:-5%;
     }
 }
 .menu-margin-top {

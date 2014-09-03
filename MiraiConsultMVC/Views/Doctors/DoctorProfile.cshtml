@@ -32,7 +32,7 @@
                             <div class="span2 custom-occupy intermediate-size-padding">
                                 <div>
                                     <div class="avtar img">
-                                        <img id="imgdoctorimage" src="@Model.Image" class="img-rounded" alt="DoctorPhoto" />
+                                        <img id="imgdoctorimage" src="@Model.Image" class="img-rounded avtar img" alt="DoctorPhoto" />
                                     </div>
                                 </div>
                             </div>
@@ -217,8 +217,8 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12 btn-margin-top profile-button" style="text-align: center">
-                        <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" id="btnSubmit" value="Save" onclick="if (!ValidateAllControl()) return false;" />
-                        <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" value="Reset" onclick="window.location.href = '/doctor-profile'" />
+                        <input type="submit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style button-float" id="btnSubmit" value="Save" onclick="if (!ValidateAllControl()) return false;" />
+                        <input type="reset" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style button-float" value="Reset" onclick="resetAction();" />
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -390,8 +390,8 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 btn-margin-top btn-margin-bottom profile-button docprofile-btn-padding" style="text-align: center">
-                            <input type="button" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style" value="Save" onclick="validateClinic()" />
-                            <input type="button" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style" onclick="closeDiv(); return false;" value="Close" />
+                            <input type="button" id="btnLocationSubmit" class="btn cust-button-radius cust-skyblue cust-uppercase cust-space-around cust-medium-button cust-font-style button-float" value="Save" onclick="validateClinic()" />
+                            <input type="button" class="btn cust-button-radius cust-uppercase cust-red cust-space-around cust-medium-button cust-font-style button-float" onclick="closeDiv(); return false;" value="Close" />
                         </div>
                     </div>
                 </div>
@@ -623,6 +623,13 @@
             return false;
         }
     });
+
+    function resetAction() {
+        $("span.validation-summary-errors.field-validation-error").html("");
+        $("ul.chzn-choices").html("");
+        window.location.href = '/doctor-profile';
+    }
+
     $("#Image").change(function () {
         var fileType = $(this).val();
         FileUploadValidation(fileType);

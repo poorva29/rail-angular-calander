@@ -82,6 +82,10 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult Static404()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Error(string name)
         {

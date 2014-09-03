@@ -122,7 +122,7 @@ function isValidDateofBirth(args) {
         }
     }
 }
-function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, answerreplyedby,questiontext, endorsecount) {
+function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, answerreplyedby, questiontext, endorsecount) {
     button.disabled = true;
     if (button.children[0].innerHTML != 'Want to endorse?') {
         $(div).getElementsByTagName('a').onclick = '';
@@ -134,6 +134,7 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     endorsecount++;
     var space = ' ' + endorsecount + ' ';
     $(div).get(0).childNodes[1].innerHTML = space;
+    button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -141,7 +142,6 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","Email":"' + Email + '","answerreplyedby":"' + answerreplyedby + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","endorsecount":"' + endorsecount + '"}',
         url: "../../Services/UserService.svc/endorsetodoctor",
         success: function (response) {
-            button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
             response = JSON.parse(response);
         },
         error: function (e) {

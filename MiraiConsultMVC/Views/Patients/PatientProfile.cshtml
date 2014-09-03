@@ -40,11 +40,11 @@
                     <div class=" " id="patinet_profile">
                         <div class="row-fluid custom-equal-padding">
                             <div class="row-fluid cust-padding-bw-row">
-                                <div class="span6 intermediate-size-padding">
-                                    <div class="control-group">
+                                <div class="span6 span_margin">
+                                    <div class="control-group controlgroup_margin">
                                         <label class="control-label cust-font-style required ">First Name:</label>
                                         <div class="controls">
-                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level max-width min-width contact_margin", placeholder = "First Name" })<br/>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "cust-no-border cust-lightgreen input-block-level max-width min-width contact_margin", placeholder = "First Name" })<br />
                                             @Html.ValidationMessageFor(m => m.FirstName, string.Empty, new { @class = "validation-summary-errors" })
                                         </div>
                                     </div>

@@ -1,4 +1,3 @@
-USE [AsqaureMirai]
 GO
 /****** Object:  StoredProcedure [dbo].[add_tag]    Script Date: 9/3/2014 10:53:47 AM ******/
 SET ANSI_NULLS ON

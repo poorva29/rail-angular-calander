@@ -37,7 +37,7 @@ namespace MiraiConsultMVC.Controllers
                 ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
                 {
                     Text = dataRow.Field<string>("tagname"),
-                    NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ', '-'),
+                    NavigateUrl = ("/topics/" + dataRow.Field<string>("tagname").Replace(' ', '-')).ToLower(),
                     TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
                     ToolTip = dataRow.Field<string>("tagname")
 
@@ -214,7 +214,7 @@ namespace MiraiConsultMVC.Controllers
             ListTags = assignCssToTags(UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
             {
                 Text = dataRow.Field<string>("tagname"),
-                NavigateUrl = "/topics/" + dataRow.Field<string>("tagname").Replace(' ','-'),
+                NavigateUrl = ("/topics/" + dataRow.Field<string>("tagname").Replace(' ', '-')).ToLower(),
                 TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
                 ToolTip = dataRow.Field<string>("tagname")
             }).OrderBy(x => x.Text).ToList());

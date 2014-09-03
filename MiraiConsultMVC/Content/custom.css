@@ -3289,8 +3289,8 @@ table.cust-table {
 
     /* Landscape phones and down */
 @media only screen and (max-width: 480px) {
-    .profile-max-width{
-         max-width: 270px;
+    .date_box_width{
+        width:83% !important;
     }
     .answer-title {
         padding-bottom: 5px;
@@ -3578,7 +3578,7 @@ table.cust-table {
         padding-left: 70px !important;
     }
     .date_box_width_patient{
-        width: 58% !important;
+        width: 100% !important;
     }
 
     .gendermargin {
@@ -3764,7 +3764,7 @@ table.cust-table {
     }
 
     .icon_img_check {
-        width: 62px !important;
+        width: 30px !important;
     }
 
     .div-margin-left {
@@ -4037,6 +4037,15 @@ table.cust-table {
     }
     .btn-margin-left{
         margin-left:-5%;
+    }
+    .btn-float-right{
+        float:right;
+    }
+    .signupbtn-margin-left {
+        margin-left: -1%;
+    }    
+    .signupclearbtn-margin-left{
+        margin-left:1%;
     }
 }
 .menu-margin-top {

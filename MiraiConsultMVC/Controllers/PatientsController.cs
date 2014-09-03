@@ -463,9 +463,12 @@ namespace MiraiConsultMVC.Controllers
             {
                 //Putted as it is 
                 Session["seoQuestionText"] = "seoQuestionText";
+                int questionId = 0;
                 var qlist = db.questions.Where(x => x.question_seo.Equals(seoQuestionText)).ToList();
-                int questionId = db.questions.Where(x => x.question_seo == seoQuestionText).ToList().FirstOrDefault().questionid;
-                
+                if (qlist.Count > 0)
+                {
+                    questionId = qlist.FirstOrDefault().questionid;
+                }
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);

@@ -163,6 +163,10 @@
                         </div>
                     </div>
                 }
+                else
+                {
+                    <span>No Record found !</span>
+                }
                 @if (Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                 {
                     <div class="custom-green-container">

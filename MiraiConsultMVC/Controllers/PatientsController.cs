@@ -647,7 +647,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-
+        [ValidateInput(false)]
         public ActionResult similarQuestions(string question)
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();

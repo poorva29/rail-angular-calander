@@ -32,7 +32,7 @@
                             <div class="span2 custom-occupy intermediate-size-padding">
                                 <div>
                                     <div class="avtar img">
-                                        <img id="imgdoctorimage" src="@Model.Image" class="img-rounded avtar img" alt="DoctorPhoto" />
+                                        <img id="imgdoctorimage" src="@Model.Image" class="img-rounded avtar img"/>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                 <div class="control-group">
                                     <label class="control-label cust-font-style text-margin-top">Photo:</label>
                                     <div class="controls ">
-                                        <input type="file" name="file" id="Image" value="@Model.Image" maxlength="256" style="width: 100%;"><br />
+                                        <input type="file" name="file" id="Image" value="@Model.Image" maxlength="256" style="width: 100%;" class="max-width min-width"><br />
                                         <span id="ImageValidation" class="field-validation-error validation-summary-errors" data-valmsg-for="Image" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                     <div class="controls">
                                         <div class="input-append date" id="dob" data-date-format="dd/mm/yyyy" data-date-start-view="decade"
                                              data-date-enddate="new Date()">
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
+                                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "input-without-right-curve  date_box_width max-width min-width txtdateOfBirth cust-no-datepicker-border cust-lightgreen contact_margin", @style = "margin-top:0px;", placeholder = "Date Of Birth", @Value = Model.DateOfBirth == null ? null : Convert.ToDateTime(Model.DateOfBirth).ToString("dd/MM/yyyy"), @id = "txtDob" })
                                             <span class="add-on add-on-green  icon-with-right-curve"></span>
                                             <label id="lblErrorDateOfBirth" style="color:red"></label>
                                         </div>

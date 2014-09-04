@@ -92,10 +92,10 @@
                             <a href='#' onclick="shareOnFacebook('MiraiConsult','Healthcare now more accessible and convenient at Mirai Consult&#8482;','0','@(AskmiraiUrl)', '@(FacebookAppKey)')">
                                 <img title='Facebook' class='share_icons_width' src='../Content/image/fb.png' alt='Facebook'>
                             </a>
-                            <a class='share_link-margin ' target='_blank' href="https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= @(webaddress)">
+                            <a class='share_link-margin ' target='_blank' href="https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= @(webaddress)" oncancel="ga(' send', 'event', 'TwitterShare', 'Website', 'MiraiConsult')">
                                 <img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'>
                             </a>
-                            <a class='share_link-margin ' target='_blank' href="mailto:?Subject= I want to invite you to use Mirai Consult &amp;Body= @(webaddress)%0D%0A@(userName) @(ConfigurationManager.AppSettings["shareMessage"])">
+                            <a class='share_link-margin ' target='_blank' href="mailto:?Subject= I want to invite you to use Mirai Consult &amp;Body= @(webaddress)%0D%0A@(userName) @(ConfigurationManager.AppSettings["shareMessage"])" oncancel="ga(' send', 'event', 'EmailShare', 'Website', 'MiraiConsult')">
                                 <img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'>
                             </a>
                         </div>

@@ -581,6 +581,7 @@
     <Content Include="Views\Home\FindDoctors.cshtml" />
     <Content Include="Views\Home\NoPrivilegeError.cshtml" />
     <Content Include="Views\Home\topicdetails.cshtml" />
+    <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

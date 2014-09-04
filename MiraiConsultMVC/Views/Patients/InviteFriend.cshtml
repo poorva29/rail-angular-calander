@@ -63,7 +63,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="span8 pull-right btn-padding-left">
-                        <input type="submit" class="btn thanx tab_margin gray-border" value="Submit" onclick="if (!Page_ClientValidate()){ this.disabled = false;} else{ this.disabled = true;}">
+                        <input type="submit" class="btn thanx tab_margin gray-border" value="Submit" onclick="submitAction();">
                         <input type="reset" class="btn tab_margin cancel gray-border" value="Reset" onclick='resetAction();'>                       
                     </div>
                 </div>
@@ -119,6 +119,15 @@
     $(".input-block-level").keyup(function () {
         //Page_ClientValidate();
     });
+    function submitAction(){
+        if (!Page_ClientValidate()) {
+            _gaq.push(['_trackEvent', 'Downloads', 'PDF', '/salesForms/orderForm1.pdf']);
+            this.disabled = false;
+        } else {
+            this.disabled = true;
+        }
+    }
+
     function resetAction() {
         $("span.validation-summary-errors.field-validation-error").html("");
         window.location.href = '/invite-friends';

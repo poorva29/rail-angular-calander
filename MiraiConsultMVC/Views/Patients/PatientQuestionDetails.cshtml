@@ -137,7 +137,7 @@
                                                         isendorse = Convert.ToBoolean(@item.IsEndorse);
                                                         if (isendorse == false)
                                                         {
-                                                            <a class="custom-link" onclick='return endorseToDoctor(@Session["UserId"]," @item.AnswerId ",this)'><b>Want to endorse?</b></a>
+                                                            <a class='custom-link' onclick="return endorseToDoctor(@(Convert.ToInt32(Session["UserId"])),'@(item.AnswerId)',@("this"),' @(item.LastName)','@(item.MobileNo)','@(item.Email)','@(Session["UserFullName"])','@(item.QuestionText)','@(item.EndorseCount)')"><b>Want to endorse?</b></a>
                                                         }
                                                         else
                                                         {
@@ -221,6 +221,7 @@
 }
 <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
 <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+<script src="~/Content/js/utility.js"></script>
 <script type="text/javascript">
     var slectedtag = [];
     $(function () {
@@ -345,4 +346,3 @@
     ga('send', 'pageview');
 
 </script>
-<script type="text/javascript" src="~/Content/js/utility.js"></script>

@@ -100,7 +100,7 @@ namespace MiraiConsultMVC.Controllers
             bool IsEmailVerified;
             Random random = new Random();
             password = Convert.ToString(random.Next(100000, 999999));
-            password = Utilities.Encrypt(password);
+            password = Utilities.Encrypt("Mirai" +  password);
             status = Convert.ToInt32(UserStatus.Approved);
             userType = Convert.ToInt32(UserType.Doctor);
             IsEmailVerified = true;

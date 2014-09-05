@@ -463,9 +463,16 @@ namespace MiraiConsultMVC.Controllers
             {
                 //Putted as it is 
                 Session["seoQuestionText"] = "seoQuestionText";
+                int questionId = 0;
                 var qlist = db.questions.Where(x => x.question_seo.Equals(seoQuestionText)).ToList();
-                int questionId = db.questions.Where(x => x.question_seo == seoQuestionText).ToList().FirstOrDefault().questionid;
-                
+                if (qlist.Count > 0)
+                {
+                    questionId = qlist.FirstOrDefault().questionid;
+                }
+                else
+                {
+                    return RedirectToAction("similarquestions", "patients");
+                }
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);
@@ -560,6 +567,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
+        [ValidateInput(false)]
         public ActionResult GetSimilarQuestion(string questionText)
         {
             IList<AskDoctor> lstQuestions = new List<AskDoctor>();
@@ -579,6 +587,7 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
+        [ValidateInput(false)]
         public JsonResult question_Insert(string questionText)
         {
             int userId = 0;
@@ -647,7 +656,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-
+        [ValidateInput(false)]
         public ActionResult similarQuestions(string question)
         {
           List<QuestionModel> questionModel = new List<QuestionModel>();

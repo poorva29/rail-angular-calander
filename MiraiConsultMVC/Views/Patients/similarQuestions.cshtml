@@ -15,9 +15,9 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     {
-        <div class="custom-central-div">
+        <div class="custom-central-div" style="margin-top:7%">
             <div class="row-fluid">
-                <div style="margin-top:5%">
+                <div>
                     <div class='row-fluid span7'>
                         <textarea cols="50" id="QuestionText" name="QuestionText" rows="2" onkeyup="Count(this)" maxlength="200" onkeypress="return isEnterPress(event, this);" class="input-block-level txtQuestion_maxwidth custom-green-container">@ViewBag.Question</textarea>
                     </div>

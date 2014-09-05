@@ -43,6 +43,38 @@ namespace DAL
             }
             return user;
         }
+
+        public User GetPreRegistrationUser(string email, string password, int status, int userType, bool isEmailVerified, int questionId)
+        {
+            User user = new User();
+            DataSet dsUser = null;
+            DataRow drUser = null;
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                SqlParameter[] param = new SqlParameter[7];
+                param[0] = new SqlParameter("@email", email);
+                param[1] = new SqlParameter("@password", password); 
+                param[2] = new SqlParameter("@status", status);
+                param[3] = new SqlParameter("@usertype", userType);
+                param[4] = new SqlParameter("@registrationdate", System.DateTime.Now);
+                param[5] = new SqlParameter("@isemailverified", isEmailVerified);
+                param[6] = new SqlParameter("@questionid", questionId);
+
+                dsUser = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "SP_Check_Insert_PreRegistration", param);
+                if (dsUser != null && dsUser.Tables.Count > 0 && dsUser.Tables[0].Rows.Count > 0)
+                {
+                    drUser = dsUser.Tables[0].Rows[0];
+                    user.UserId = drUser["userid"] != DBNull.Value ? Convert.ToInt32(drUser["userid"]) : 0;
+                    user.IsUserRegistered = drUser["isUserRegistered"] != DBNull.Value && Convert.ToBoolean(drUser["isUserRegistered"]) ? true : false;
+                    user.Email = drUser["email"] != DBNull.Value ? Convert.ToString(drUser["email"]) : "";
+                    user.Password = drUser["password"] != DBNull.Value ? Convert.ToString(drUser["password"]) : "";
+                    user.FirstName = drUser["firstname"] != DBNull.Value ? Convert.ToString(drUser["firstname"]) : "";
+                    user.LastName = drUser["lastName"] != DBNull.Value ? Convert.ToString(drUser["lastName"]) : "";
+                }
+            }
+            return user;
+        }
+            
         public DataTable registerPatient(User patient)
         {
             SqlParameter[] param = new SqlParameter[19];

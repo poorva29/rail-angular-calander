@@ -36,6 +36,7 @@ namespace Model
         private bool isdocconnectuser;
         private int docconectdoctorid;
         private string photourl;
+        private bool isUserRegistered;
         public IList<DoctorSpeciality> specialities;
         [DataMember]
         public IList<DoctorLocations> locations;
@@ -70,6 +71,7 @@ namespace Model
         public bool IsDocConnectUser { get { return isdocconnectuser; } set { isdocconnectuser = value; } }
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }
         public string PhotoUrl { get { return photourl; } set { photourl = value; } }
+        public bool IsUserRegistered { get { return isUserRegistered; } set { isUserRegistered = value; } }
 
         public User()
         {

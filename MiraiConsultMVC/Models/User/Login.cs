@@ -15,5 +15,8 @@ namespace MiraiConsultMVC.Models.User
         [Required(ErrorMessage = "Please Enter Password")]
         public string Password { get; set; }
         public bool RememberMe { get; set; }
+        public bool IsCampainUser { get; set; }
+        public int QuestionId { get; set; }
+        public bool IsUserRegistered { get; set; }
     }
 }

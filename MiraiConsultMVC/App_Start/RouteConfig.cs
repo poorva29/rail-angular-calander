@@ -63,7 +63,14 @@ namespace MiraiConsultMVC
                 url: "login",
                 defaults: new { controller = "User", action = "Login" }
             );
-
+            routes.MapRoute(
+               name: "PreRegistrationUser",
+               url: "question/{QuestionId}",
+               defaults: new { controller = "Questions", action = "PreRegistrationUser" },
+               constraints: new { 
+                   QuestionId = @"\d+"
+                    }
+               );
             routes.MapRoute(
                name: "PrivacyPolicy",
                url: "privacy-policy",

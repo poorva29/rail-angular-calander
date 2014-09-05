@@ -21,6 +21,10 @@
     },
     function (response) {
         if (response && response.post_id) {
+			if (id == 0)
+        		ga('send', 'event', 'FaceBookShare', 'Website', question);
+    		else
+        		ga('send', 'event', 'FaceBookShare', 'Question', question);
             alert('Post was published.');
         } else {
             alert('Post was not published.');

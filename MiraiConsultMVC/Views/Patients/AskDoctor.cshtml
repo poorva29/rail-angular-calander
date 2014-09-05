@@ -88,6 +88,9 @@
         $(".navigation li.active").removeClass("active");
         $('#liaskdoc').addClass("active");
 
+        //ga('send', 'event', 'category', 'action');google analytics code
+        ga('send', 'event', 'Patient', 'Go To Ask Question');
+
         var MaxLength = 200;
         $('#txtAreaQuestion').keypress(function (e) {
             document.getElementById('lblValidation').style.display = 'none';
@@ -169,6 +172,8 @@
                         document.getElementById('txtAreaQuestion').style.display = 'none';
                         document.getElementById('searchResultSpan').innerHTML = '';
                         document.getElementById('ansCount').style.display = 'none';
+                        //ga('send', 'event', 'category', 'action');
+                        ga('send', 'event', 'Patient', 'Ask a question');
                     }
                 },
                 error: function (data) {

@@ -1,5 +1,5 @@
 ﻿<script>
-    var userEmail = '@(Session["UserEmail"])';
+    var userId = '@(Session["UserId"])';
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
@@ -9,8 +9,8 @@
 
     ga('create', 'UA-48132984-2', 'consult.miraihealth.com');
     ga('send', 'pageview');
-    if (userEmail.length > 0)
-        ga('set', '&uid', userEmail);
+    if (userId.length > 0)
+        ga('set', '&uid', userId);
     else
         ga('set', '&uid', '');
     // Set the user ID using signed-in user_id.

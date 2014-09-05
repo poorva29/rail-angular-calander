@@ -305,7 +305,7 @@ namespace MiraiConsultMVC
 
         public static string GetEmailTemplateToSendWelcomeMessage(string doctorName, string emailId,string password)
         {
-            string EmailBody = "<p align=left><font size=2 face=verdana>Dear Dr." + doctorName + ",</font></p>";
+            string EmailBody = "<p align=left><font size=2 face=verdana>Dear Dr. " + doctorName + ",</font></p>";
 
             EmailBody += "<p align=left><font size=2 face=verdana>Congratulations! Your MiraiConsult account has been created. Now you can login to the system with following credentials, set up your profile and continue answering questions from patients.</font></p>";
 

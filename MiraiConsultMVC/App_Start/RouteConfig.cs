@@ -65,14 +65,11 @@ namespace MiraiConsultMVC
             );
             routes.MapRoute(
                name: "PreRegistrationUser",
-               url: "Question/{QuestionId}/{email}",
+               url: "question/{QuestionId}",
                defaults: new { controller = "Questions", action = "PreRegistrationUser" },
                constraints: new { 
-                   QuestionId = @"\d+", 
-                   //firstname = @"^[A-Za-z0-9, ]+$", 
-                   //lastName = @"^[A-Za-z0-9, ]+$", 
-                   //mobileNo = @"\d{10}", 
-                   email = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" }
+                   QuestionId = @"\d+"
+                    }
                );
             routes.MapRoute(
                name: "PrivacyPolicy",

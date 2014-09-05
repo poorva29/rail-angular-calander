@@ -82,40 +82,7 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-        [AllowAnonymous]
-        [ValidateInput(false)]
-        public ActionResult IsExistingUser(int QuestionId=0, string firstname="", string lastName="", string mobileNo="", string email="")
-        {
-            MiraiConsultMVC.Models.User.Login login = new MiraiConsultMVC.Models.User.Login();
-            User user = new User();
-            string password = null;
-            int status;
-            int userType;
-            bool IsEmailVerified;
-            password = firstname + "123123";
-            password = Utilities.Encrypt(password);
-            status = Convert.ToInt32(UserStatus.Approved);
-            userType = Convert.ToInt32(UserType.Doctor);
-            IsEmailVerified = true;
-            var result = UserManager.getInstance().GetExistingUser(firstname, lastName, mobileNo, email, password, status, userType, IsEmailVerified);
-            if (result != null)
-            {
-                user.UserId = result.UserId;
-                if (result.IsUserRegistered == false)
-                {
-                    string emailBody = EmailTemplates.GetTemplateOfCampainEmailToDoc(lastName);
-                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "Mirai Consult - Campain User", emailBody, Logoimage);
-                }
-                login.IsUserRegistered = result.IsUserRegistered;
-                login.Email = result.Email;
-                login.Password = result.Password;
-                login.IsCampainUser = true;
-                login.QuestionId = QuestionId;
-            }
-            return RedirectToAction("Login");
-        }
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -154,10 +121,6 @@ namespace MiraiConsultMVC.Controllers
                                     Session["UnQuestionCount"] = showUnansweredQuestionCount();
                                     return RedirectToAction("DoctorQuestionList", "Questions");
                                     //redirect to doctor page
-                                }
-                                if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved) && log.IsCampainUser==true)
-                                {
-                                    return RedirectToAction("DoctorQuestionDetails", "questions", new { QuestionId =log.QuestionId});
                                 }
                                 else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient))
                                 {
@@ -221,6 +184,114 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
+
+        public ActionResult CampaignLogin(string Username, string password, int QuestionID)
+        {
+            if (ModelState.IsValid)
+            {
+
+                string SuperAdminEmailId = ConfigurationManager.AppSettings["SuperAdminEmailId"]; // Please make sure that this username doesn't exist in Patient, Doctor, DoctorAssistant table
+                string SuperAdminUserPassword = ConfigurationManager.AppSettings["SuperAdminUserPassword"].ToString();
+                //string dbpasswd = Utilities.Encrypt(log.Password);
+                int userType;
+                User user;
+                if (Username != SuperAdminEmailId && !String.IsNullOrEmpty(Username))
+                {
+                    var isLogin = db.users.FirstOrDefault(x => x.email.Equals(Username) && x.password.Equals(password));
+                    if (isLogin != null)
+                    {
+                        if (Convert.ToBoolean(isLogin.isemailverified))
+                        {
+                            userType = Convert.ToInt32(isLogin.usertype);
+                            setUserPrivilegesBasedOnUsertype(userType);
+                            if ((Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved)) || (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient)))
+                            {
+                                Session["UserFirstName"] = isLogin.firstname;
+                                Session["UserLastName"] = isLogin.lastname;
+                                Session["UserFullName"] = isLogin.firstname + " " + isLogin.lastname;
+                                Session["UserName"] = isLogin.username;
+                                Session["UserEmail"] = isLogin.email;
+                                Session["UserId"] = isLogin.userid;
+                                Session["UserType"] = isLogin.usertype;
+                                Session["locationid"] = isLogin.locationid;
+                                Session["cityid"] = isLogin.cityid;
+                                RememberMe(true, Username, password);
+
+                                //if User is Campain user then redirects to submit answer of a given question
+                                if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved))
+                                {
+                                    return RedirectToAction("DoctorQuestionDetails", "questions", new { QuestionId = QuestionID });
+                                }
+                                //-------------------------------------------------------------------------------------------------------
+                                if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved))
+                                {
+                                    Session["UnQuestionCount"] = showUnansweredQuestionCount();
+                                    return RedirectToAction("DoctorQuestionList", "Questions");
+                                    //redirect to doctor page
+                                }
+                                else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient))
+                                {
+                                    return RedirectToAction("feed", "feed");
+                                    // redirect to patient page
+                                }
+                            }
+                            else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor))
+                            {
+                                if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
+                                {
+                                    ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
+                                    return View();
+                                }
+                                else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Rejected))
+                                {
+                                    ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
+                                    return View();
+                                }
+                            }
+                            else if (isLogin.password == password && isLogin.usertype > 2)
+                            {
+                                ViewBag.errorMsg = "Email Id or Password does not match.";
+                                return View();
+                            }
+                        }
+                        else if (isLogin.password == password && isLogin.usertype > 2)
+                        {
+                            ViewBag.errorMsg = "Email Id or Password does not match.";
+                            return View();
+                        }
+                        else
+                        {
+                            ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.errorMsg = "Email Id or Password does not match.";
+                        return View();
+                    }
+                }
+                else if (Username == SuperAdminEmailId && password == SuperAdminUserPassword)
+                {
+                    Session["UserFirstName"] = "super";
+                    Session["UserLastName"] = "admin";
+                    Session["UserFullName"] = "Super Admin";
+                    Session["UserEmail"] = SuperAdminEmailId;
+                    Session["UserId"] = 9999999;
+                    Session["UserType"] = 0;
+                    setUserPrivilegesBasedOnUsertype(0);
+                    RememberMe(true, Username, password);
+                    return RedirectToAction("ManageDoctors");
+                }
+                else
+                {
+                    ViewBag.errorMsg = "Email Id or Password does not match.";
+                    return View();
+                }
+            }
+            return View();
+        }
+
         protected void RememberMe(bool rememberMe, string email, string password)
         {
             if (rememberMe == true)
@@ -1097,7 +1168,7 @@ namespace MiraiConsultMVC.Controllers
             return 0;
         }
 
-        private void setUserPrivilegesBasedOnUsertype(int userType)
+        public void setUserPrivilegesBasedOnUsertype(int userType)
         {
             List<int> privileges = new List<int>();
             switch (userType)

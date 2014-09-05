@@ -9,6 +9,8 @@ using DAL;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using Model;
+using MiraiConsultMVC.Models.User;
 namespace MiraiConsultMVC.Controllers
 {
     public class QuestionsController : Controller
@@ -87,6 +89,43 @@ namespace MiraiConsultMVC.Controllers
                 return View(Questions);
             }
         }
+        public ActionResult PreRegistrationUser(int QuestionId, string firstname, string lastName, string mobileNo, string email)
+        {
+            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+            Login login = new Login();
+            User user = new User();
+            string password = string.Empty;
+            int status;
+            int userType;
+            bool IsEmailVerified;
+            Random random = new Random();
+            password = Convert.ToString(random.Next(100000, 999999));
+            password = Utilities.Encrypt(password);
+            status = Convert.ToInt32(UserStatus.Approved);
+            userType = Convert.ToInt32(UserType.Doctor);
+            IsEmailVerified = true;
+            var result = UserManager.getInstance().GetPreRegistrationUser(firstname, lastName, mobileNo, email, password, status, userType, IsEmailVerified, QuestionId);
+            if (result.Email != null)
+            {
+                user.UserId = result.UserId;
+                if (result.IsUserRegistered == false)
+                {
+                    string doctorName = firstname + " " + lastName;
+                    string tempPassword = Utilities.Decrypt(password);
+                    string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
+                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
+                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiConsult - Your MiraiConsult account has been created", emailBody, Logoimage);
+                }
+                login.IsUserRegistered = result.IsUserRegistered;
+                login.Email = result.Email;
+                login.Password = result.Password;
+                login.IsCampainUser = true;
+                login.QuestionId = QuestionId;
+                return RedirectToAction("CampaignLogin", "User", new { Username = result.Email, Password = result.Password, QuestionId = QuestionId });
+            }
+            return RedirectToAction("Login", "User");
+        }
         [HttpGet]
         public ActionResult DoctorQuestionDetails(int QuestionId = 0)
         {
@@ -140,7 +179,7 @@ namespace MiraiConsultMVC.Controllers
                     return View(QDModel);
                 }
             //}
-            catch
+            catch(Exception e)
             {
                 return View();
             }

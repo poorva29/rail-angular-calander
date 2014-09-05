@@ -64,10 +64,11 @@ namespace MiraiConsultMVC
                 defaults: new { controller = "User", action = "Login" }
             );
             routes.MapRoute(
-               name: "IsExistingUser",
-               url: "IsExistingUser/{QuestionId}/{firstname}/{lastName}/{mobileNo}/{email}",
-               defaults: new { controller = "User", action = "IsExistingUser", QuestionId = UrlParameter.Optional, firstname = UrlParameter.Optional, lastName = UrlParameter.Optional, mobileNo = UrlParameter.Optional, email = UrlParameter.Optional }
-           );
+               name: "PreRegistrationUser",
+               url: "{QuestionId}/{firstname}/{lastName}/{mobileNo}",
+               defaults: new { controller = "Questions", action = "PreRegistrationUser" },
+               constraints: new { QuestionId = @"\d+",firstname=@"^[A-Za-z0-9, ]+$",lastName=@"^[A-Za-z0-9, ]+$" ,mobileNo = @"\d{10}" }
+               );
             routes.MapRoute(
                name: "PrivacyPolicy",
                url: "privacy-policy",

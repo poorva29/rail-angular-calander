@@ -115,7 +115,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiConsult - Your MiraiConsult account has been created", emailBody, Logoimage);
+                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiConsult - Your Mirai Consult account has been created", emailBody, Logoimage);
                 }
                 login.IsUserRegistered = result.IsUserRegistered;
                 login.Email = result.Email;

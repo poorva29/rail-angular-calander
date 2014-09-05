@@ -43,6 +43,37 @@ namespace DAL
             }
             return user;
         }
+
+        public User GetExistingUser(string firstname, string lastName, string mobileNo, string email, string password, int status, int userType, bool isEmailVerified)
+        {
+            User user = new User();
+            DataSet dsUser = null;
+            DataRow drUser = null;
+            using (conn = SqlHelper.GetSQLConnection())
+            {
+                SqlParameter[] param = new SqlParameter[9];
+                param[0] = new SqlParameter("@firstname", firstname);
+                param[1] = new SqlParameter("@lastname", lastName);
+                param[2] = new SqlParameter("@emnail", email);
+                param[3] = new SqlParameter("@mobile", mobileNo);
+                param[4] = new SqlParameter("@password", password); 
+                param[5] = new SqlParameter("@status", status);
+                param[6] = new SqlParameter("@usertype", userType);
+                param[7] = new SqlParameter("@registrationdate", DateTime.Now);
+                param[8] = new SqlParameter("@isemailverified", isEmailVerified); 
+
+
+                dsUser = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "SP_Check_Insert_PreRegistration", param);
+                if (dsUser != null && dsUser.Tables.Count > 0 && dsUser.Tables[0].Rows.Count > 0)
+                {
+                    user.UserId = drUser["userid"] != DBNull.Value ? Convert.ToInt32(drUser["userid"]) : 0;
+                    user.IsEmailVerified = drUser["isUserRegistered"] != DBNull.Value && Convert.ToBoolean(drUser["isUserRegistered"]) ? true : false;
+                    user.Email = drUser["email"] != DBNull.Value ? Convert.ToString(drUser["email"]) : "";
+                }
+            }
+            return user;
+        }
+            
         public DataTable registerPatient(User patient)
         {
             SqlParameter[] param = new SqlParameter[19];

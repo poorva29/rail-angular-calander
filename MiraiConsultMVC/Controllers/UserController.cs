@@ -82,7 +82,40 @@ namespace MiraiConsultMVC.Controllers
             }
             return View();
         }
-
+        [AllowAnonymous]
+        [ValidateInput(false)]
+        public ActionResult IsExistingUser(int QuestionId=0, string firstname="", string lastName="", string mobileNo="", string email="")
+        {
+            MiraiConsultMVC.Models.User.Login login = new MiraiConsultMVC.Models.User.Login();
+            User user = new User();
+            string password = null;
+            int status;
+            int userType;
+            bool IsEmailVerified;
+            password = firstname + "123123";
+            password = Utilities.Encrypt(password);
+            status = Convert.ToInt32(UserStatus.Approved);
+            userType = Convert.ToInt32(UserType.Doctor);
+            IsEmailVerified = true;
+            var result = UserManager.getInstance().GetExistingUser(firstname, lastName, mobileNo, email, password, status, userType, IsEmailVerified);
+            if (result != null)
+            {
+                user.UserId = result.UserId;
+                if (result.IsUserRegistered == false)
+                {
+                    string emailBody = EmailTemplates.GetTemplateOfCampainEmailToDoc(lastName);
+                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
+                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "Mirai Consult - Campain User", emailBody, Logoimage);
+                }
+                login.IsUserRegistered = result.IsUserRegistered;
+                login.Email = result.Email;
+                login.Password = result.Password;
+                login.IsCampainUser = true;
+                login.QuestionId = QuestionId;
+            }
+            return RedirectToAction("Login");
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -121,6 +154,10 @@ namespace MiraiConsultMVC.Controllers
                                     Session["UnQuestionCount"] = showUnansweredQuestionCount();
                                     return RedirectToAction("DoctorQuestionList", "Questions");
                                     //redirect to doctor page
+                                }
+                                if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Doctor) && Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Approved) && log.IsCampainUser==true)
+                                {
+                                    return RedirectToAction("DoctorQuestionDetails", "questions", new { QuestionId =log.QuestionId});
                                 }
                                 else if (Convert.ToInt32(isLogin.usertype) == Convert.ToInt32(UserType.Patient))
                                 {

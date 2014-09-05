@@ -89,7 +89,7 @@ namespace MiraiConsultMVC.Controllers
                 return View(Questions);
             }
         }
-        public ActionResult PreRegistrationUser(int QuestionId, string firstname, string lastName, string mobileNo, string email)
+        public ActionResult PreRegistrationUser(int QuestionId, string email)
         {
             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
             Login login = new Login();
@@ -104,13 +104,13 @@ namespace MiraiConsultMVC.Controllers
             status = Convert.ToInt32(UserStatus.Approved);
             userType = Convert.ToInt32(UserType.Doctor);
             IsEmailVerified = true;
-            var result = UserManager.getInstance().GetPreRegistrationUser(firstname, lastName, mobileNo, email, password, status, userType, IsEmailVerified, QuestionId);
+            var result = UserManager.getInstance().GetPreRegistrationUser(email, password, status, userType, IsEmailVerified, QuestionId);
             if (result.Email != null)
             {
                 user.UserId = result.UserId;
                 if (result.IsUserRegistered == false)
                 {
-                    string doctorName = firstname + " " + lastName;
+                    string doctorName = result.FirstName + " " + result.LastName;
                     string tempPassword = Utilities.Decrypt(password);
                     string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();

@@ -302,5 +302,33 @@ namespace MiraiConsultMVC
                                       "</form></body></html>";
             return strBodyContent;
         }
+
+        public static string GetEmailTemplateToSendWelcomeMessage(string doctorName, string emailId,string password)
+        {
+            string EmailBody = "<p align=left><font size=2 face=verdana>Dear Dr." + doctorName + ",</font></p>";
+
+            EmailBody += "<p align=left><font size=2 face=verdana>Congratulations! Your MiraiConsult account has been created. Now you can login to the system with following credentials, set up your profile and continue answering questions from patients.</font></p>";
+
+            EmailBody += "<p align=left> <font size=2 face=verdana>Credentials:</font></p>";
+
+            EmailBody += "<p align=left><font size=2 face=verdana>Email ID: " + emailId +"</font></p>";
+
+            EmailBody += "<p align=left><font size=2 face=verdana>Password: " + password +"</font></p>";
+
+            string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
+                                      EmailBody +
+                                      "<br>" +
+                                      "<font size=2 face=verdana> Best wishes,</font>" +
+                                      "<br>" +
+                                      "<font size=2 face=verdana>Mirai Health Team</font>" +
+                                      "<br>" +
+                                      "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
+                                      "<br>" +
+                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                      "<br>" + "<br>" + "<br>" +
+                                      "<img src='cid:logoImage' ></img>" +
+                                      "</form></body></html>";
+            return strBodyContent;
+        }
     }
 }

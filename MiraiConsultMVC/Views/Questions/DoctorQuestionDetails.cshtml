@@ -261,6 +261,8 @@
                     $("#lblErrortxtAnswer").html("Please Enter Answer.");
                 }
                 if (errormsg == "") {
+                    var QuestionText = $(".question_text").html();
+                    ga(' send', 'event', 'Doctor', 'Answer', 'Create Patient Account',QuestionText);
                     return true;
                 }
                 else {

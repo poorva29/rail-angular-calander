@@ -38,6 +38,7 @@
                                 </div>
                             </div>
                         </div>
+                        <script type="text/javascript"> ga(' send', 'event', 'Doctor', 'Create Account', 'Create Patient Account');</script>
                     }
                     else
                     {
@@ -312,9 +313,7 @@
     });
     $(function () {
         $('#dob').datepicker();
-        if ($('#SuccessMessagediv').length > 0) {
-            ga(' send', 'event', 'Doctor', 'Create Account', 'Create Patient Account');
-        }
+        
     });
 
     function getRegistrationCouncilbyCountry(countryId) {

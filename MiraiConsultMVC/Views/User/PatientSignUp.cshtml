@@ -318,6 +318,9 @@
     });
     $(function () {
         $('#dob').datepicker();
+        if ($('#SuccessMessagediv').length > 0) {
+            ga(' send', 'event', 'Patient', 'Create Account', 'Create Patient Account')
+        }
     });
     function getStatebyCountry(countryId) {
         if (countryId.length == 0)

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.30\SQLSERVER2012;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL2012;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.answers" Member="answers">
     <Type Name="answer">
       <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -300,12 +300,6 @@
       <Association Name="state_hospital" Member="hospitals" ThisKey="stateid" OtherKey="stateid" Type="hospital" />
     </Type>
   </Table>
-  <Table Name="dbo.tag" Member="tags">
-    <Type Name="tag">
-      <Column Name="tagid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="tagname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.unregpatient" Member="unregpatients">
     <Type Name="unregpatient">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -413,6 +407,13 @@
       <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="question_seo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag" Member="tags">
+    <Type Name="tag">
+      <Column Name="tagid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tagname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tag_seo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.answer_Insert" Method="answer_Insert">

@@ -226,12 +226,17 @@ namespace MiraiConsultMVC.Controllers
             return View(ListTags);
         }
 
-        public ActionResult topicdetails(string tag)
+        public ActionResult topicdetails(string tagseo)
         {
             AnswerModel ansModel;
             IList<QuestionModel> lstQuestions = new List<QuestionModel>();
-            ViewBag.tag = tag;
-            var questionList = db.get_AllQuestionsByTagSEO(tag, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+            var tag = db.tags.FirstOrDefault(x => x.tag_seo.Equals(tagseo));
+            ViewBag.tag = tagseo;
+            if(tag!=null)
+            {
+                ViewBag.tag = tag.tagname;
+            }
+            var questionList = db.get_AllQuestionsByTagSEO(tagseo, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
             {
                 foreach (var item in questionList)

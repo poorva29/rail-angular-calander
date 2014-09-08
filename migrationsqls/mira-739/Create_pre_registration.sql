@@ -1,5 +1,5 @@
 
-/****** Object:  Table [dbo].[tbl_pre_registration]    Script Date: 9/5/2014 6:28:25 PM ******/
+/****** Object:  Table [dbo].[tbl_pre_registration]    Script Date: 9/8/2014 11:00:24 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,7 +14,6 @@ CREATE TABLE [dbo].[tbl_pre_registration](
 	[firstname] [varchar](50) NOT NULL,
 	[lastname] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
-	[mobileno] [varchar](15) NOT NULL,
  CONSTRAINT [PK_tbl_pre_registration] PRIMARY KEY CLUSTERED 
 (
 	[prereg_userid] ASC

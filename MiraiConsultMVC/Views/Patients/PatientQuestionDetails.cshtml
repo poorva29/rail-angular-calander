@@ -104,18 +104,28 @@
                             {
                                 <div class='row-fluid'>
                                     @if (Session["UserId"] != null) {
+                                        string userType = "";
+                                        if (Session["UserType"] != null)
+                                        {
+                                            if (Convert.ToString(Session["UserType"]) == "1"){
+                                                userType = "Doctor";
+                                            }
+                                            else if(Convert.ToString(Session["UserType"]) == "2"){
+                                                userType = "Patient";
+                                            }
+                                        }                                        
                                     <div>
                                         <div class='top_marging_sharelink'>
                                             <div style="width:72%" class="pull-left hidden-phone">
                                                 <hr style="margin:12px;" />
                                             </div>
-                                            <a href='#' onclick='shareOnFacebook("@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.QuestionText)))","@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.AnswerText)) )","@item.QuestionId","@ViewBag.AskmiraiUrl","@ViewBag.FacebookAppKey")'>
+                                            <a href='#' onclick='shareOnFacebook("@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.QuestionText)))","@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.AnswerText)) )","@item.QuestionId","@ViewBag.AskmiraiUrl","@ViewBag.FacebookAppKey", "@userType")'>
                                                 <img title='Facebook' class='share_icons_width' src='~/Content/image/fb.png' alt='Facebook'>
                                             </a>
-                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/answers/@item.QuestionId' oncancel="ga('send', 'event', 'Doctor', 'Share On Twitter', @item.QuestionId)"><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
+                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/answers/@item.QuestionId' oncancel="ga('send', 'event', '@userType', 'Share On Twitter', @item.QuestionId)"><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
 
                                             <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has been shared an Answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
-                                                <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email' oncancel="ga('send', 'event', 'Doctor', 'Share On Email', @item.QuestionId)">
+                                                <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email' oncancel="ga('send', 'event', '@userType', 'Share On Email', @item.QuestionId)">
                                                 @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                     bool isuserthanked;

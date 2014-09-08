@@ -1,4 +1,4 @@
-﻿function shareOnFacebook(question, answer, id, url, appkey) {
+﻿function shareOnFacebook(question, answer, id, url, appkey, usertype) {
     FB.init({
         appId: appkey,
     });
@@ -21,10 +21,12 @@
     },
     function (response) {
         if (response && response.post_id) {
-			if (id == 0)
-			    ga('send', 'event', 'Doctor', 'Share on Facebook', question);
-    		else
-			    ga('send', 'event', 'Doctor', 'Share on Facebook', question);
+            if (usertype == 'Patient' || usertype == 'Doctor') {
+                if (id == 0)
+                    ga('send', 'event', usertype, 'Share on Facebook', question);
+                else
+                    ga('send', 'event', usertype, 'Share on Facebook', question);
+            }
             alert('Post was published.');
         } else {
             alert('Post was not published.');
@@ -158,6 +160,7 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
 }
 
 function bookaptclicked(docid, docName) {
+    ga(' send', 'event', 'Patient', 'Book Appointment ', docName);
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -166,7 +169,6 @@ function bookaptclicked(docid, docName) {
         url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
         success: function (response) {
             response = JSON.parse(response);
-            ga(' send', 'event', 'Patient', 'Book Appointment ', docName);
         },
         error: function (e) {
 

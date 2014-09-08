@@ -122,17 +122,17 @@
                 });
             });
             function btnSearchDoctor_Click(ClickEvent) {
-                if (ClickEvent) {
-                    labelOfEvent = $('#locality-select').html() + '/' + $('#city-select').html();
-                    ga(' send', 'event', 'Patient', 'Find Doctor', labelOfEvent);
-                }
-                $('#searchspan').empty();
-                $("#searchResult").empty();
                 var cityid = $('#city-select').val();
                 var locationid = ""
                 if ($('#locality-select').val() != null) {
                     locationid = $('#locality-select').val();
                 }
+                if (ClickEvent) {
+                    labelOfEvent = $("#city-select option[value='" + cityid + "']").text() + '/' + $("#locality-select option[value='" + locationid + "']").text();
+                    ga(' send', 'event', 'Patient', 'Find Doctor', labelOfEvent);
+                }
+                $('#searchspan').empty();
+                $("#searchResult").empty();
                 var specialityOrName = $('#txtSpecialityOrName').val();
                 var docconnecturl = document.getElementById("hdnDocconnecturl").value;
 

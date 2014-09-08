@@ -33,11 +33,11 @@ namespace MiraiConsultMVC.Controllers
             }
             else
             {
-                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && UserId == null)
+                if (Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin) && UserId == null)
                 {
                     userId = Convert.ToInt32(Session["DoctorId"]);
                 }
-                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                else if (Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                 {
                     userId = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(UserId.ToString()).Replace(" ", "+")));
                     Session["DoctorId"] = userId;
@@ -375,16 +375,18 @@ namespace MiraiConsultMVC.Controllers
         {
             DataTable dtDoctor = new DataTable();
             User doctor = new User();
+            string docOldImage = null;
+            string docOldImagePath = null;
             if (ModelState.IsValid)
             {
-                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                if (Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
                 {
                     doctor.UserId = Convert.ToInt32(Session["DoctorId"]);
                 }
                 else
                 doctor.UserId = Convert.ToInt32(Session["UserId"]);
                 doctor.Email = profile.Email;
-                if (!TempData["Email"].Equals(profile.Email))
+                if (TempData["Email"] != null && !TempData["Email"].Equals(profile.Email))
                     doctor.IsEmailVerified = false;
                 else
                     doctor.IsEmailVerified = true;
@@ -397,8 +399,14 @@ namespace MiraiConsultMVC.Controllers
                 doctor.RegistrationDate = System.DateTime.Now;
                 doctor.UserName = profile.UserName;
                 doctor.RegistrationNumber = profile.RegistrationNumber;
-                string docOldImage = Convert.ToString(TempData["Image"]);
-                string docOldImagePath = Convert.ToString(TempData["PhotoUrl"]);
+                if (TempData["Image"] != null)
+                {
+                    docOldImage = Convert.ToString(TempData["Image"]);
+                }
+                if (TempData["PhotoUrl"] != null)
+                {
+                    docOldImagePath = Convert.ToString(TempData["PhotoUrl"]);
+                } 
                 string filename = "";
                 filename = file != null ? file.FileName : "";
                 filename = filename.Substring(filename.LastIndexOf('\\') + 1);
@@ -449,7 +457,7 @@ namespace MiraiConsultMVC.Controllers
                     if (Convert.ToBoolean(dtDoctor.Rows[0]["EmailAvailable"]))
                     {
                         string usertype = Convert.ToString(Session["UserType"]);
-                        if (!TempData["Email"].Equals(doctor.Email))
+                        if (TempData["Email"] != null && !TempData["Email"].Equals(doctor.Email))
                         {
                             bool isemailverfiy = true;
                             string doctorid = Convert.ToString(dtDoctor.Rows[0]["UserId"]);
@@ -508,7 +516,7 @@ namespace MiraiConsultMVC.Controllers
                                 }
                             }
                         }
-                        if (Convert.ToInt32(usertype) == Convert.ToInt32(UserType.Doctor))
+                        if (Session["UserType"] != null && Convert.ToInt32(usertype) == Convert.ToInt32(UserType.Doctor))
                         {
                             HttpContext.Session["UserFirstName"] = doctor.FirstName;
                             HttpContext.Session["UserLastName"] = doctor.LastName;

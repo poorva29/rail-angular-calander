@@ -120,10 +120,24 @@
         //Page_ClientValidate();
     });
     $(function () {
+
         var successMessage = $(".success_message_color.msg_font");
         if (successMessage.length > 0) {
+            var userType = '';
+            @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+            {
+                @:userType = 'Doctor';   
+            }
+            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+            {
+                @:userType = 'Patient';   
+            }
+            else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+            {
+                @:userType = 'SuperAdmin';
+            }
             //ga('send', 'event', 'category', 'action');
-            ga('send', 'event', 'Friends', 'Invite Friends');
+            ga('send', 'event', userType, 'Invite Friends');
         }
     });
     function resetAction() {

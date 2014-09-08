@@ -215,6 +215,7 @@
     }
     function removeAssignDoctor(userid, questionid) {
         if (confirm("Are you sure you want to remove this user from assigned doctors?") == true) {
+            document.body.style.cursor = 'wait';
             //var agent = navigator.userAgent;
             //var reg1 = /MSIE\s?(\d+)(?:\.(\d+))?/i;
             //var reg2 = /Trident\/7\./;
@@ -230,6 +231,7 @@
                 success: function (response) {
                     
                     if (response == "Assign doctor has been removed successfully.") {
+                        document.body.style.cursor = 'default';
                         //$(removebtn).parent().parents('tr').remove();
                         window.location.reload(true);
                     }
@@ -253,6 +255,7 @@
         IEReload();
     }
     function btnAssign_Click() {
+        document.body.style.cursor = 'wait';
         $('.btnAssign').prop("disabled", true);
         //__doPostBack('AssignDoctor', doctorIds.join(","));
 
@@ -263,6 +266,7 @@
             contentType: 'application/json',
             url: '/Assign-Doctor/' + document.getElementById('hdnQuestionId').value + '/' + doctorIds.join(","),
             success: function (response) {
+                document.body.style.cursor = 'default';
                 location.reload(true);
               /*  var ListOfDoctors = '<table cellpadding="0" cellspacing="0" border="0" class="custom-table zebra-striped"' +
                   'id="assign-doctor-list" width="100%">' +

@@ -82,7 +82,7 @@
         if (responsFlag == 1) {
             if (confirm("Are you sure you want to Reject this question?") == true) {
                 //PageMethods.RejectQuestionByQuestionID(questionId, onSuccess, onFailure);
-
+                document.body.style.cursor = 'wait';
                 $.ajax({
                     type: 'GET',
                     url: '/RejectQuestionByQuestionID/' +  questionId,
@@ -91,6 +91,7 @@
                     success: function (response) {
                         alert(response);
                         window.location.href = "admin-questions";
+                        document.body.style.cursor = 'default';
                     },
                     error: function () {
                         alert("Error");

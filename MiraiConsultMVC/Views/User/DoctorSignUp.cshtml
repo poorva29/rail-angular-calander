@@ -312,6 +312,9 @@
     });
     $(function () {
         $('#dob').datepicker();
+        if ($('#SuccessMessagediv').length > 0) {
+            ga(' send', 'event', 'Doctor', 'Create Account', 'Create Patient Account');
+        }
     });
 
     function getRegistrationCouncilbyCountry(countryId) {

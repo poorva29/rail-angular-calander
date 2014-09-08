@@ -67,7 +67,7 @@
                                     {
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                         {
-                                             <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@Utilities.Encrypt(Convert.ToString(item.Doctor))")'>Book Appointment </a>
                                         }
                                     }
                                 </div>
@@ -96,7 +96,7 @@
                                 {
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                     {
-                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@Utilities.Encrypt(Convert.ToString(item.Doctor))")'>Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -112,10 +112,10 @@
                                             <a href='#' onclick='shareOnFacebook("@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.QuestionText)))","@HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(Convert.ToString(item.AnswerText)) )","@item.QuestionId","@ViewBag.AskmiraiUrl","@ViewBag.FacebookAppKey")'>
                                                 <img title='Facebook' class='share_icons_width' src='~/Content/image/fb.png' alt='Facebook'>
                                             </a>
-                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/answers/@item.QuestionId' oncancel="ga('send', 'event', 'TwitterShare', 'Website', @item.QuestionId)"><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
+                                            <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/answers/@item.QuestionId' oncancel="ga('send', 'event', 'Doctor', 'Share On Twitter', @item.QuestionId)"><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
 
                                             <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has been shared an Answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
-                                                <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email' oncancel="ga('send', 'event', 'EmailShare', 'Website', @item.QuestionId)">
+                                                <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email' oncancel="ga('send', 'event', 'Doctor', 'Share On Email', @item.QuestionId)">
                                                 @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
                                                     bool isuserthanked;

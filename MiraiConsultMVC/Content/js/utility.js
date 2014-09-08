@@ -22,10 +22,7 @@
     function (response) {
         if (response && response.post_id) {
             if (usertype == 'Patient' || usertype == 'Doctor') {
-                if (id == 0)
-                    ga('send', 'event', usertype, 'Share on Facebook', question);
-                else
-                    ga('send', 'event', usertype, 'Share on Facebook', question);
+                ga('send', 'event', usertype, 'Share on Facebook', question);
             }
             alert('Post was published.');
         } else {

@@ -127,11 +127,7 @@
         $('#liinvitefriends').addClass("active");
     });
 
-    $(".input-block-level").keyup(function () {
-        //Page_ClientValidate();
-    });
     $(function () {
-
         var successMessage = $(".success_message_color.msg_font");
         if (successMessage.length > 0) {
             var userType = '';
@@ -149,8 +145,6 @@
                     @:userType = 'SuperAdmin';
                 }
             }
-            
-            //ga('send', 'event', 'category', 'action');
             ga('send', 'event', userType, 'Invite Friends');
         }
     });

@@ -60,7 +60,7 @@
                             {
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
-                                        <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId'>
+                                        <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId' onclick="googleAnalytics('@Model.ToList()[i].QuestionText');">
                                             <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
                                         </a>
                                     </div>
@@ -144,64 +144,81 @@
                     }
                 });
             });
+            function googleAnalytics(QuestionText) {
+
+                var userType = '';
+                @if (Session["UserType"] != null) {
+                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor)){
+                    @:userType = 'Doctor';
+                                }
+                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)){
+                    @:userType = 'Patient';
+                                }
+                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin)){
+                    @:userType = 'SuperAdmin';
+                }
+                
+                                }
+                ga('send', 'event', userType, 'Click on similar Questions', QuestionText);
+            }
             $('#QuestionText').bind('input propertychange', function () {
                 if ($(this).val().length <= 200) {
                     document.getElementById('count').innerHTML = $(this).val().length + "/200";
                 }
             });
-            function isEnterPress(evt, x) {
-                var charCode = (evt.which) ? evt.which : event.keyCode
-                if (charCode == 13) {
-                    var session = '@Session["UserType"]';
+                function isEnterPress(evt, x) {
+                    var charCode = (evt.which) ? evt.which : event.keyCode
+                    if (charCode == 13) {
+                        var session = '@Session["UserType"]';
                         window.location.href = "/similar-Questions/" + x.value;
-                    return false;
-                }
-                return true;
-            }
-            $(function () {
-                $(".navigation li.active").removeClass("active");
-                $('#liSimilarQuestions').addClass("active");
-            });
-            function Count(x) {
-                if (x.value.length <= 200) {
-                    document.getElementById('count').innerHTML = x.value.length + "/200";
-                }
-            }
-            function bookaptclicked(docid) {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: '{"userid":' + docid + '}',
-                    url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
-                    success: function (response) {
-                        response = JSON.parse(response);
-                        console.log(response);
-                    },
-                    error: function (e) {
-
+                        return false;
                     }
-                });
-            }
-            function isEnterPress(evt, x) {
-                var charCode = (evt.which) ? evt.which : event.keyCode
-                if (charCode == 13) {
-                    var session = '@Session["UserType"]';
-                    if (session != null && session == 2)
-                        window.location.href = "../Patients/AskDoctor?question=" + x.value;
-                    else
-                        window.location.href = "../similar-questions?question=" + x.value;
-                    return false;
+                    return true;
                 }
-                return true;
-            }
-            //function maxLengthPaste(field, maxChars) {
-            //    event.returnValue = false;
-            //    if ((field.value.length + window.clipboardData.getData("Text").length) >= maxChars) {
-            //        return false;
-            //    }
-            //    event.returnValue = true;
-            //}
+                $(function () {
+                    $(".navigation li.active").removeClass("active");
+                    $('#liSimilarQuestions').addClass("active");
+                });
+                function Count(x) {
+                    if (x.value.length <= 200) {
+                        document.getElementById('count').innerHTML = x.value.length + "/200";
+                    }
+                }
+                function bookaptclicked(docid) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: '{"userid":' + docid + '}',
+                        url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
+                        success: function (response) {
+                            response = JSON.parse(response);
+                            console.log(response);
+                        },
+                        error: function (e) {
+
+                        }
+                    });
+                }
+                function isEnterPress(evt, x) {
+                    var charCode = (evt.which) ? evt.which : event.keyCode
+                    if (charCode == 13) {
+                        var session = '@Session["UserType"]';
+                        if (session != null && session == 2)
+                            window.location.href = "../Patients/AskDoctor?question=" + x.value;
+                        else
+                            window.location.href = "../similar-questions?question=" + x.value;
+                        return false;
+                    }
+                    return true;
+                }
+                //function maxLengthPaste(field, maxChars) {
+                //    event.returnValue = false;
+                //    if ((field.value.length + window.clipboardData.getData("Text").length) >= maxChars) {
+                //        return false;
+                //    }
+                //    event.returnValue = true;
+                //}
 
         </script>
     }

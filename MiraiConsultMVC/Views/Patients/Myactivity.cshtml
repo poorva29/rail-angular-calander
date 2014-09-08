@@ -22,7 +22,7 @@
                         }
                         else
                         {
-                            <a class="question_text" href="../answers/@question.QuestionId">
+                            <a class="question_text" href="../answers/@question.QuestionId" onclick="ga('send', 'event', 'Patient', 'Review The Answers', '@(question.QuestionText)');">
                                 @question.QuestionText
                             </a>
                         }

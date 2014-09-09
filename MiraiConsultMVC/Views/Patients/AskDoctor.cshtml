@@ -145,7 +145,6 @@
     $("#btnAskMirai").click(function () {
 
         var questionText = document.getElementById('txtAreaQuestion').value.trim();
-        var questionText = document.getElementById('txtAreaQuestion').value;
         if (questionText == null || questionText.trim() == "") {
             document.getElementById('lblValidation').style.display = 'block';
             document.getElementById('lblValidation').innerHTML = "Please Enter Question";
@@ -169,6 +168,7 @@
                         document.getElementById('txtAreaQuestion').style.display = 'none';
                         document.getElementById('searchResultSpan').innerHTML = '';
                         document.getElementById('ansCount').style.display = 'none';
+                        ga('send', 'event', 'Patient', 'Ask Question',questionText);
                     }
                 },
                 error: function (data) {

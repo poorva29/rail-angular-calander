@@ -152,12 +152,6 @@
         <elementListCompartment Id="98ba9ce8-c3a7-47ee-acdb-c13681c37f57" absoluteBounds="0.765, 9.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5a73e111-2e65-43ea-bb20-db16a1c399a5" absoluteBounds="15.75, 12.75, 2, 1.1939925130208344">
-      <DataClassMoniker Name="/_dbAskMiraiDataContext/tag" />
-      <nestedChildShapes>
-        <elementListCompartment Id="f74b3301-d42e-4295-ad0a-d11db350c0d8" absoluteBounds="15.765, 13.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="2eed1ffd-49d7-47f6-ae9b-7b6b8d306f41" absoluteBounds="12.75, 15.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/_dbAskMiraiDataContext/unregpatient" />
       <nestedChildShapes>
@@ -240,6 +234,12 @@
       <DataClassMoniker Name="/_dbAskMiraiDataContext/question" />
       <nestedChildShapes>
         <elementListCompartment Id="93781522-ff3c-46d0-82bf-7dc5215e7e95" absoluteBounds="15.765, 3.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b33a33c7-a577-4998-b742-7fe024bf53b7" absoluteBounds="15.5, 11.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/_dbAskMiraiDataContext/tag" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a3cb4532-1676-46e4-8ec0-d10a8ea51de4" absoluteBounds="15.515, 12.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

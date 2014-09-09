@@ -83,7 +83,7 @@ namespace MiraiConsultMVC.Controllers
                 profile.UserType = Convert.ToInt32(UserType.Patient);
                 profile.UserId = Convert.ToInt32(Session["UserId"]);
                 profile.Status = Convert.ToInt32(UserStatus.Pending);
-                if (!TempData["Email"].Equals(profile.Email))
+                if (TempData["Email"] != null && !TempData["Email"].Equals(profile.Email))
                 {
                     profile.IsEmailVerified = false;
                 }
@@ -101,7 +101,7 @@ namespace MiraiConsultMVC.Controllers
                     var res = result.FirstOrDefault();
                     if (Convert.ToBoolean(res.EmailAvailable))
                      {
-                         if (!TempData["Email"].Equals(profile.Email))
+                         if (TempData["Email"] != null && !TempData["Email"].Equals(profile.Email))
                          {
                              string patientid = Convert.ToString(res.UserId);
                              string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();

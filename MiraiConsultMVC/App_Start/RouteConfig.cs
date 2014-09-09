@@ -232,7 +232,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "topics1",
-               url: "topics/{tag}",
+               url: "topics/{tagseo}",
                defaults: new { controller = "home", action = "topicdetails" }
               
                );

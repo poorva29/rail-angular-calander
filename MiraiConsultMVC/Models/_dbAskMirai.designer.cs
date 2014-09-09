@@ -102,15 +102,15 @@ namespace MiraiConsultMVC.Models
     partial void Insertstate(state instance);
     partial void Updatestate(state instance);
     partial void Deletestate(state instance);
-    partial void Inserttag(tag instance);
-    partial void Updatetag(tag instance);
-    partial void Deletetag(tag instance);
     partial void Insertunregpatient(unregpatient instance);
     partial void Updateunregpatient(unregpatient instance);
     partial void Deleteunregpatient(unregpatient instance);
     partial void Insertquestion(question instance);
     partial void Updatequestion(question instance);
     partial void Deletequestion(question instance);
+    partial void Inserttag(tag instance);
+    partial void Updatetag(tag instance);
+    partial void Deletetag(tag instance);
     #endregion
 		
 		public _dbAskMiraiDataContext() : 
@@ -343,14 +343,6 @@ namespace MiraiConsultMVC.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<tag> tags
-		{
-			get
-			{
-				return this.GetTable<tag>();
-			}
-		}
-		
 		public System.Data.Linq.Table<unregpatient> unregpatients
 		{
 			get
@@ -404,6 +396,14 @@ namespace MiraiConsultMVC.Models
 			get
 			{
 				return this.GetTable<question>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tag> tags
+		{
+			get
+			{
+				return this.GetTable<tag>();
 			}
 		}
 		
@@ -6898,92 +6898,6 @@ namespace MiraiConsultMVC.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tag")]
-	public partial class tag : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _tagid;
-		
-		private string _tagname;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntagidChanging(int value);
-    partial void OntagidChanged();
-    partial void OntagnameChanging(string value);
-    partial void OntagnameChanged();
-    #endregion
-		
-		public tag()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagid", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int tagid
-		{
-			get
-			{
-				return this._tagid;
-			}
-			set
-			{
-				if ((this._tagid != value))
-				{
-					this.OntagidChanging(value);
-					this.SendPropertyChanging();
-					this._tagid = value;
-					this.SendPropertyChanged("tagid");
-					this.OntagidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagname", DbType="VarChar(50)")]
-		public string tagname
-		{
-			get
-			{
-				return this._tagname;
-			}
-			set
-			{
-				if ((this._tagname != value))
-				{
-					this.OntagnameChanging(value);
-					this.SendPropertyChanging();
-					this._tagname = value;
-					this.SendPropertyChanged("tagname");
-					this.OntagnameChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.unregpatient")]
 	public partial class unregpatient : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -8598,6 +8512,116 @@ namespace MiraiConsultMVC.Models
 					this._question_seo = value;
 					this.SendPropertyChanged("question_seo");
 					this.Onquestion_seoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tag")]
+	public partial class tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _tagid;
+		
+		private string _tagname;
+		
+		private string _tag_seo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OntagidChanging(int value);
+    partial void OntagidChanged();
+    partial void OntagnameChanging(string value);
+    partial void OntagnameChanged();
+    partial void Ontag_seoChanging(string value);
+    partial void Ontag_seoChanged();
+    #endregion
+		
+		public tag()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagid", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int tagid
+		{
+			get
+			{
+				return this._tagid;
+			}
+			set
+			{
+				if ((this._tagid != value))
+				{
+					this.OntagidChanging(value);
+					this.SendPropertyChanging();
+					this._tagid = value;
+					this.SendPropertyChanged("tagid");
+					this.OntagidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tagname", DbType="VarChar(50)")]
+		public string tagname
+		{
+			get
+			{
+				return this._tagname;
+			}
+			set
+			{
+				if ((this._tagname != value))
+				{
+					this.OntagnameChanging(value);
+					this.SendPropertyChanging();
+					this._tagname = value;
+					this.SendPropertyChanged("tagname");
+					this.OntagnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tag_seo", DbType="VarChar(100)")]
+		public string tag_seo
+		{
+			get
+			{
+				return this._tag_seo;
+			}
+			set
+			{
+				if ((this._tag_seo != value))
+				{
+					this.Ontag_seoChanging(value);
+					this.SendPropertyChanging();
+					this._tag_seo = value;
+					this.SendPropertyChanged("tag_seo");
+					this.Ontag_seoChanged();
 				}
 			}
 		}

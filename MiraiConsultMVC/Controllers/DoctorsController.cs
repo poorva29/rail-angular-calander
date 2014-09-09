@@ -375,8 +375,8 @@ namespace MiraiConsultMVC.Controllers
         {
             DataTable dtDoctor = new DataTable();
             User doctor = new User();
-            string docOldImage = null;
-            string docOldImagePath = null;
+            string docOldImage = string.Empty; 
+            string docOldImagePath = string.Empty; 
             if (ModelState.IsValid)
             {
                 if (Session["UserType"] != null && Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))

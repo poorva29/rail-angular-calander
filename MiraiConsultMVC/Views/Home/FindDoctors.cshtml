@@ -129,7 +129,7 @@
                 }
                 if (ClickEvent) {
                     labelOfEvent = $("#city-select option[value='" + cityid + "']").text() + '/' + $("#locality-select option[value='" + locationid + "']").text();
-                    ga(' send', 'event', 'Patient', 'Find Doctor', labelOfEvent);
+                    ga('send', 'event', 'Patient', 'Find Doctor', labelOfEvent);
                 }
                 $('#searchspan').empty();
                 $("#searchResult").empty();

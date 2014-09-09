@@ -157,7 +157,7 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
 }
 
 function bookaptclicked(docid, docName) {
-    ga(' send', 'event', 'Patient', 'Book Appointment ', docName);
+    ga('send', 'event', 'Patient', 'Book Appointment ', docName);
     $.ajax({
         type: 'POST',
         dataType: 'json',

@@ -1,4 +1,4 @@
-﻿function shareOnFacebook(question, answer, id, url, appkey) {
+﻿function shareOnFacebook(question, answer, id, url, appkey, usertype) {
     FB.init({
         appId: appkey,
     });
@@ -21,6 +21,9 @@
     },
     function (response) {
         if (response && response.post_id) {
+            if (usertype == 'Patient' || usertype == 'Doctor') {
+                ga('send', 'event', usertype, 'Share on Facebook', question);
+            }
             alert('Post was published.');
         } else {
             alert('Post was not published.');
@@ -79,6 +82,7 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","emailid":"' + emailid + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","thanxcount":"' + thanxcount + '"}',
         url: "../../Services/UserService.svc/thanktodoctor",
         success: function (response) {
+            ga('send', 'event', 'Patient ', 'It is usefull', questiontext);
             response = JSON.parse(response);
         },
         error: function (e) {
@@ -142,6 +146,8 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","Email":"' + Email + '","answerreplyedby":"' + answerreplyedby + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","endorsecount":"' + endorsecount + '"}',
         url: "../../Services/UserService.svc/endorsetodoctor",
         success: function (response) {
+            button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
+            ga('send', 'event', 'Doctor ', 'Endorse', questiontext);
             response = JSON.parse(response);
         },
         error: function (e) {
@@ -150,7 +156,8 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     return false;
 }
 
-function bookaptclicked(docid) {
+function bookaptclicked(docid, docName) {
+    ga('send', 'event', 'Patient', 'Book Appointment ', docName);
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -159,7 +166,6 @@ function bookaptclicked(docid) {
         url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
         success: function (response) {
             response = JSON.parse(response);
-            console.log(response);
         },
         error: function (e) {
 

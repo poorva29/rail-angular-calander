@@ -414,6 +414,10 @@
         var locationid = $('#locality-select').val();
         var specialityOrName = $('#txtSpecialityOrName').val();
         $("#searchResult").empty();
+        if(locationid == null)
+        {
+            locationid = '';
+        }
         show_doctorTable(cityid, locationid, specialityOrName);
         return false;
     };

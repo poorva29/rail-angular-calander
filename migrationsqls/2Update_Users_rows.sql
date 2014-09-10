@@ -3,7 +3,7 @@ GO
 
 UPDATE [dbo].[users]
    SET 
-      [name_seo] = firstname +'-'+ lastname
- WHERE name_seo is null
+      [name_seo] =LOWER(dbo.RemoveSpecialChars(REPLACE(firstname + '-' +lastname, ' ', '-')))
+      WHERE name_seo is null
 GO
 

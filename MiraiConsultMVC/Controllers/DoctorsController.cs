@@ -26,6 +26,11 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult doctorsPublicProfile(string seo_name = null)
         {
             int docId = 0;
+            var doc = db.users.FirstOrDefault(x => x.name_seo.Equals(seo_name));
+            if (doc != null)
+            {
+                docId = doc.userid;
+            }
             return View(getDoctorDetailsByDoctorId(docId));
         }
         public ActionResult DoctorProfile(string UserId=null)

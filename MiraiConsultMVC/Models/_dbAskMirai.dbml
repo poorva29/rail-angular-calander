@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL2012;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.answers" Member="answers">
     <Type Name="answer">
       <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -859,40 +859,6 @@
       <Column Name="Value" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.get_questiondetailsbyId" Method="get_questiondetailsbyId">
-    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="assignQuestion" Type="System.Int32" DbType="Int" />
-    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
-    <ElementType Name="get_questiondetailsbyIdResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="patientlastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="patientemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="doctorimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="answerimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="answerdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Docid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="doctor" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="ispatientthank" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isendorse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="thanxcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="endorsecount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="docconnectdoctorid" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.get_UserbyEmailId" Method="get_UserbyEmailId">
     <Parameter Name="emailId" Type="System.String" DbType="VarChar(100)" />
     <ElementType Name="get_UserbyEmailIdResult">
@@ -1578,6 +1544,41 @@
       <Column Name="docImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="ansImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="docImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_questiondetailsbyId" Method="get_questiondetailsbyId">
+    <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="assignQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_questiondetailsbyIdResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="patientlastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="patientemail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="mobileno" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="answerid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctorimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerimg" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answerdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Docid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="doctor" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ispatientthank" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isendorse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="thanxcount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="endorsecount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="name_seo" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="docconnectdoctorid" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

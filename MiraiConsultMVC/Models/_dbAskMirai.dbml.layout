@@ -158,7 +158,7 @@
         <elementListCompartment Id="15080412-ba94-4feb-85e5-168443c70126" absoluteBounds="12.765, 16.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.31814697265625); (3.5 : 2.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/_dbAskMiraiDataContext/city/city_hospital" />
       <nodes>
         <classShapeMoniker Id="9aefaa40-cd1e-4d2e-be22-b56125edbc3f" />

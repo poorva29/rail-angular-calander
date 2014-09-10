@@ -191,6 +191,12 @@ namespace MiraiConsultMVC
                defaults: new { controller = "Doctors", action = "DoctorProfile" }
                
            );
+            
+            routes.MapRoute(
+              name: "DoctorProfile2",
+              url: "doctor/{seo_name}",
+              defaults: new { controller = "Doctors", action = "doctorsPublicProfile", seo_name = UrlParameter.Optional }
+          );
 
             routes.MapRoute(
                 name: "Answers3",
@@ -198,14 +204,6 @@ namespace MiraiConsultMVC
                 defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional },
                 constraints: new { QuestionId = @"\d+" }
             );
-
-
-            routes.MapRoute(
-               name: "doctors-profile",
-               url: "doctors-profile/{seo_name}",
-               defaults: new { controller = "Doctors", action = "doctorsPublicProfile", seo_name = UrlParameter.Optional }
-           );
-
 
             routes.MapRoute(
                 name: "similarQuestions",

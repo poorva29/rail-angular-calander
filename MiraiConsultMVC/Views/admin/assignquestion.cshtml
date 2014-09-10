@@ -500,8 +500,6 @@
                     $('<option></option>')
                         .val(response[cnt]["locationid"])
                         .html(response[cnt]["name"]));
-                $('#locality-select').append('<option></option>');
-                $('#locality-select').append($('#locality-select').html());
                 $(".chzn-select").trigger("liszt:updated");
             },
             error: function (data) {

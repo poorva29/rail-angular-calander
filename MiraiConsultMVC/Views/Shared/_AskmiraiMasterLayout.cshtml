@@ -54,7 +54,7 @@
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password")
-                                        || Session["seoQuestionText"]!=null)
+                                        || Session["seoQuestionText"] != null || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctors-profile"))
                                     {
                                         Session["seoQuestionText"] = null;
                                             <div class="pull-right">

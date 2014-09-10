@@ -199,7 +199,12 @@ namespace MiraiConsultMVC
                 constraints: new { QuestionId = @"\d+" }
             );
 
-            
+
+            routes.MapRoute(
+               name: "doctors-profile",
+               url: "doctors-profile/{seo_name}",
+               defaults: new { controller = "Doctors", action = "doctorsPublicProfile", seo_name = UrlParameter.Optional }
+           );
 
 
             routes.MapRoute(

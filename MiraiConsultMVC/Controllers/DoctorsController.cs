@@ -23,6 +23,11 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
+        public ActionResult doctorsPublicProfile(string seo_name = null)
+        {
+            int docId = 0;
+            return View(getDoctorDetailsByDoctorId(docId));
+        }
         public ActionResult DoctorProfile(string UserId=null)
         {
             int userId;

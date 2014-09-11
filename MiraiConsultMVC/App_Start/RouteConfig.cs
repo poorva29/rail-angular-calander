@@ -196,13 +196,7 @@ namespace MiraiConsultMVC
               name: "DoctorProfile2",
               url: "doctor/{seo_name}",
               defaults: new { controller = "Doctors", action = "doctorsPublicProfile", seo_name = UrlParameter.Optional }
-          );
-
-            routes.MapRoute(
-             name: "doctors-profile3",
-             url: "doctor/{seo_name}/{isConsult}",
-             defaults: new { controller = "Doctors", action = "doctorsPublicProfile", seo_name = UrlParameter.Optional, isConsult = UrlParameter.Optional }
-          );
+           );
 
             routes.MapRoute(
                 name: "Answers3",

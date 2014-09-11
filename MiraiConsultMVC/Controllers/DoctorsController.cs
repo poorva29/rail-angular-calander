@@ -31,7 +31,10 @@ namespace MiraiConsultMVC.Controllers
             {
                 docId = doc.userid;
             }
-            ViewBag.isConsult = isConsult;
+            if (!string.IsNullOrEmpty(isConsult))
+            {
+                ViewBag.isConsult = Convert.ToInt32(isConsult);
+            }
             return View(getDoctorDetailsByDoctorId(docId));
         }
         public ActionResult DoctorProfile(string UserId=null)

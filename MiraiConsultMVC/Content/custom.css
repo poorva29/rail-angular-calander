@@ -4048,6 +4048,9 @@ table.cust-table {
     .signupclearbtn-margin-left{
         margin-left:1%;
     }
+    .border-color-doc-details{
+        border-right: none !important;
+    }
 }
 .menu-margin-top {
     padding-left:2px;
@@ -4134,4 +4137,27 @@ table.cust-table {
 }
 .doc-details-div{
     margin: 5px 0px 10px 0px;
+}
+.docavtar {
+    background: none repeat scroll 0 0 transparent;
+    border: none;
+    display: inline-block;
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.image-margin-view-doc-details {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+.doc-details-hr {
+    border: solid #F37363;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 1.25rem 0 1.1875rem;
+    height: 0;
 }

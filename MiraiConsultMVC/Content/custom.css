@@ -3198,6 +3198,9 @@ table.cust-table {
     .area-box-margin{
         margin-left: -18px;
     }
+    .border-color-doc-details{
+        border-right: none !important;
+    }
 }
 
 @media only screen and (max-width: 761px) {
@@ -3285,6 +3288,9 @@ table.cust-table {
 @media only screen and (max-width: 740px) {
     .search-padding-top{
         padding-top:15% !important;
+    }
+    .border-color-doc-details{
+        border-right: none !important;
     }
 }
 

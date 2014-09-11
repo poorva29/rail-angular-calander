@@ -22,16 +22,15 @@
                         </div>
                         <div class="doc-details-div">
                             @{
-    string qualification = "";
-    if (Model.qualification != null && Model.qualification.Count > 0)
-    {
-        foreach (var q in Model.qualification)
-        {
-            qualification += q.Degree + ",";
-        }
-        qualification = qualification.TrimEnd(',');
-    }
-
+                                string qualification = "";
+                                if (Model.qualification != null && Model.qualification.Count > 0)
+                                {
+                                    foreach (var q in Model.qualification)
+                                    {
+                                        qualification += q.Degree + ",";
+                                    }
+                                    qualification = qualification.TrimEnd(',');
+                                }
                             }
                             <span class="loc-label">Qualification:</span>@qualification
                         </div>
@@ -153,7 +152,7 @@
                 </div>
                 <div class="row-fluid">
                     <hr class="doc-details-hr" />
-                    @if (!string.IsNullOrEmpty(ViewBag.isConsult) && Convert.ToInt32(ViewBag.isConsult) != 1)
+                    @if (string.IsNullOrEmpty(ViewBag.isConsult) || Convert.ToInt32(ViewBag.isConsult) != 1)
                     {
                         <div class="doc-clinic-details" style="margin-bottom:15px">History Of Responses</div>
                         <div id="feed" class="margin_bottom"></div>
@@ -166,8 +165,8 @@
                     else
                     {
                         <div class="row-fluid">
-                            <div class="center_align"><span>992255886699</span></div>
-                        </div>   
+                            <div class="center_align"><span>9922556699</span></div>
+                        </div>
                     }
                 </div>
             </div>
@@ -178,16 +177,22 @@
     </div>
     <script type="text/javascript">
         var indexoF;
-        $(function () {
-            indexoF = 0;
-            populateFeedData(indexoF, false);
-        });
-        $(window).scroll(function () {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
-                indexoF = parseInt(indexoF) + 5
-                populateFeedData(indexoF, true)
-            }
-        });
+
+        @if (string.IsNullOrEmpty(ViewBag.isConsult) || Convert.ToInt32(ViewBag.isConsult) != 1)
+        {
+            @: $(function () {
+            @: indexoF = 0;
+            @: populateFeedData(indexoF, false);
+            @:});
+        
+            @:$(window).scroll(function () {
+            @:if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+            @:   indexoF = parseInt(indexoF) + 5
+            @:  populateFeedData(indexoF, true)
+            @:}
+            @:});
+        
+        }
         function populateFeedData(index) {
             var RecordSize = document.getElementById("HdnRecordSize").value;
             var UserId = document.getElementById("HdnUserID").value;

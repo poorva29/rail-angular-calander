@@ -25,6 +25,9 @@ input[type="file"] {
     font-weight: 600;
     margin-left: 12px;
 }
+.button-align-center{
+    text-align:center;
+}
 
 .required:after {
     color: #e32;
@@ -2081,6 +2084,10 @@ table.cust-table {
 }
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 1025px) {
+    .button-align-center{
+        margin-left:-2% !important;
+        text-align:left;
+    }
     .main-outter-padding{
         padding-left: 40px;
         padding-right: 40px;
@@ -2108,7 +2115,7 @@ table.cust-table {
         padding-left:10px;
     }
      .intermediate-size-padding{
-        padding-left:3px;
+        padding-left:15px;
     }
 
     .txtAreaQuestion_div {
@@ -3198,6 +3205,10 @@ table.cust-table {
     .area-box-margin{
         margin-left: -18px;
     }
+    .button-align-center{
+        margin-left:-3% !important;
+        text-align:left;
+    }
 }
 
 @media only screen and (max-width: 761px) {
@@ -4048,6 +4059,10 @@ table.cust-table {
     .signupclearbtn-margin-left{
         margin-left:1%;
     }
+     .button-align-center{
+        margin-left:0% !important;
+        text-align:left;
+    }
 }
 .menu-margin-top {
     padding-left:2px;
@@ -4101,5 +4116,8 @@ table.cust-table {
 }
 .column-word-break{
     word-wrap:break-word;
+}
+.profile-margin-left{
+    margin-left:0% !important;
 }
 

@@ -155,7 +155,7 @@
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
-                    url: "/User/ApproveDoctor?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorName=" + DoctorName+"&DoctorEmail="+DoctorEmail,
+                    url: "/User/ApproveDoctor?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorName=" + DoctorName + "&DoctorEmail=" + encodeURIComponent(DoctorEmail),
                     success: function (response) {
                         if (response == "Doctor has been Approved successfully.") {
                             $('form').submit();
@@ -180,7 +180,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: "/User/RejectDoctorByDoctorId?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorEmail=" + DoctorEmail,
+                url: "/User/RejectDoctorByDoctorId?doctorid=" + doctorid + "&DoctorMobile=" + DoctorMobile + "&DoctorEmail=" + encodeURIComponent(DoctorEmail),
                 success: function (response) {
                     if (response == "Doctor has been Rejected successfully.") {
                         $('form').submit();

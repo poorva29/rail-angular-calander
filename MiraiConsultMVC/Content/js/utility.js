@@ -22,6 +22,7 @@
     function (response) {
         if (response && response.post_id) {
             if (usertype == 'Patient' || usertype == 'Doctor') {
+                question  = unescape(question);
                 ga('send', 'event', usertype, 'Share on Facebook', question);
             }
             alert('Post was published.');
@@ -156,8 +157,8 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     return false;
 }
 
-function bookaptclicked(docid, docName) {
-    ga('send', 'event', 'Patient', 'Book Appointment ', docName);
+function bookaptclicked(docid) {
+    ga('send', 'event', 'Patient', 'Book Appointment ', '');
     $.ajax({
         type: 'POST',
         dataType: 'json',

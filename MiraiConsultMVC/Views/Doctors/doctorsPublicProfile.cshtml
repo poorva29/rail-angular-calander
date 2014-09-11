@@ -1,0 +1,262 @@
+﻿@model MiraiConsultMVC.Models.DoctorProfile
+@{
+    ViewBag.Title = "TopicDetails";
+    if (Session["UserId"] != null)
+    {
+        Layout = "~/Views/Shared/_PatientMasterLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+    }
+}
+@using (Html.BeginForm())
+{
+    <div class="custom-central-div" style="margin-top:6%">
+        <div class="row-fluid">
+            <div>
+                <div class='row-fluid'>
+                    <div class="span12">
+                        <div class="doc-profile-title">
+                            Dr. @(Model.FirstName + " " + Model.LastName)
+                        </div>
+                        <div class="doc-details-div">
+                            @{
+    string qualification = "";
+    if (Model.qualification != null && Model.qualification.Count > 0)
+    {
+        foreach (var q in Model.qualification)
+        {
+            qualification += q.Degree + ",";
+        }
+        qualification = qualification.TrimEnd(',');
+    }
+
+                            }
+                            <span class="loc-label">Qualification:</span>@qualification
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div id="feedDocImage_SQ" class='span3'>
+                            <div class="docavtar image-margin-view-doc-details">
+                                <img src='@Model.Image' style="max-height:150px; max-width:150px" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span9">
+                        <div class="span12">
+                            <h4 class="doc-clinic-details" style="margin-left:-13px;margin-bottom:15px;">
+                                CLINIC/ HOSPITAL ADDRESS DETAILS:
+                            </h4>
+                        </div>
+                        <div class="span12">
+                            @if (Model.locations != null && Model.locations.Count > 0)
+                            {
+                                int count = 1;
+                                <div class="row">
+                                    @foreach (var location in Model.locations)
+                                    {
+
+                                        if (count % 2 == 0)
+                                        {
+                                            <div class="span5" style="float:left;margin-left:0px;margin-bottom:20px;">
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span5"> Clinic Name:</div><div class="span5 left" style="word-wrap: break-word">@location.ClinicName</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span5">City:</div><div class="span5 left" style="word-wrap: break-word">@location.City</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span5">Location:</div><div class="span5 left" style="word-wrap: break-word">@location.Location</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span5">Address:</div><div class="span5 left" style="word-wrap: break-word">@location.Address</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span5">Phone:</div><div class="span5 left" style="word-wrap: break-word">@location.Telephone</div></div>
+                                            </div>
+                                            <br /> <hr class="doc-details-hr" />
+                                        }
+                                        else
+                                        {
+                                            <div class="span5 border-color-doc-details" style="float: left; margin-left: 0px; margin-bottom: 20px">
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span6">Clinic Name:</div><div class=" span5 left" style="word-wrap: break-word">@location.ClinicName</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span6">City:</div><div class="span5 left" style="word-wrap: break-word">@location.City</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span6">Location:</div><div class="span5 left" style="word-wrap: break-word">@location.Location</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span6">Address:</div><div class="span5 left" style="word-wrap: break-word">@location.Address</div></div>
+                                                <div class="span12" style="margin:0px"><div class="left loc-label span6">Phone:</div><div class="span5 left" style="word-wrap: break-word">@location.Telephone</div></div>
+                                            </div>
+                                        }
+                                        count++;
+                                    }
+                                    <hr class="doc-details-hr" />
+                                </div>
+                            }
+                            else
+                            {
+                                <label>No Record Found....</label>
+                            }
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12"><h4 class="doc-clinic-details">OTHER DETAILS:</h4></div>
+                            <div class="span5">
+                                <div class="border-color-doc-details" style="margin-bottom:15px">
+                                    @if (Model.specialities != null && Model.specialities.Count > 0)
+                                    {
+                                        <div><span class="left loc-label">Specialities:</span></div>
+                                        int cnt = 1;
+                                        foreach (var speciality in Model.specialities)
+                                        {
+                                            if (!String.IsNullOrEmpty(speciality.Speciality))
+                                            {
+                                                <div>
+                                                    <span class="left">@(cnt + ". " + speciality.Speciality)</span>
+                                                </div>
+                                                cnt++;
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <div class="border-color-doc-details">
+
+                                    @if (Model.details != null && Model.details.Count > 0)
+                                    {
+                                        <div><span class="left loc-label">Award/Recognition:</span></div>
+                                        int cnt = 1;
+                                        foreach (var detail in Model.details)
+                                        {
+                                            if (!String.IsNullOrEmpty(detail.Certification))
+                                            {
+                                                <div>
+                                                    <span class="left">@(cnt + ". " + detail.Certification)</span>
+                                                </div>
+                                                cnt++;
+                                            }
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="span5">
+                                @if (Model.qualification != null && Model.qualification.Count > 0)
+                                {
+                                    <div><span class="left loc-label">Education:</span></div>
+                                    int cnt = 1;
+                                    foreach (var q in Model.qualification)
+                                    {
+                                        if (!String.IsNullOrEmpty(q.Degree))
+                                        {
+                                            <div>
+                                                <span class="left">@(cnt + ". " + q.Degree)</span>
+                                            </div>
+                                            cnt++;
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row-fluid">
+                    <hr class="doc-details-hr" />
+                    @if (!string.IsNullOrEmpty(ViewBag.isConsult) && Convert.ToInt32(ViewBag.isConsult) != 1)
+                    {
+                        <div class="doc-clinic-details" style="margin-bottom:15px">History Of Responses</div>
+                        <div id="feed" class="margin_bottom"></div>
+                        <input type="hidden" id="HdnUserID" name="HdnUserID" value="@Model.UserId" />
+                        <input type="hidden" id="HdnRecordSize" name="HdnRecordSize" value="@(ConfigurationManager.AppSettings["NumberOfRecored"].ToString())" />
+                        <input type="hidden" id="HdnUserFullName" name="HdnUserFullName" value="@(Model.FirstName+" "+Model.LastName)" />
+                        <input type="hidden" id="FacebookAppKey" name="FacebookAppKey" value="@(Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]))" />
+                        <input type="hidden" id="AskmiraiUrl" name="AskmiraiUrl" value="@(Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]))" />
+                    }
+                    else
+                    {
+                        <div class="row-fluid">
+                            <div class="center_align"><span>992255886699</span></div>
+                        </div>   
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center" id="loadingImage">
+            <img alt="Data Loading.." src="~/Content/image/ajax_loader.gif" style="width: 50px" />
+        </div>
+    </div>
+    <script type="text/javascript">
+        var indexoF;
+        $(function () {
+            indexoF = 0;
+            populateFeedData(indexoF, false);
+        });
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+                indexoF = parseInt(indexoF) + 5
+                populateFeedData(indexoF, true)
+            }
+        });
+        function populateFeedData(index) {
+            var RecordSize = document.getElementById("HdnRecordSize").value;
+            var UserId = document.getElementById("HdnUserID").value;
+            var UserFullName = document.getElementById("HdnUserFullName").value;
+            var urladdress = "../Services/UserService.svc/getFeedList?lastQuestionNo=" + index + "&RecordSize=" + RecordSize + "&UserId=" + UserId + "&myFeed=" + 1 + "&isEncrypt=false";
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urladdress,
+                success: function (response) {
+                    var Question = 0;
+                    response = JSON.parse(response);
+                    for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
+                        var UserId = document.getElementById("HdnUserID").value, ansimg = '';
+                        if (response[indexcnt].doctorimg && response[indexcnt].doctorimg)
+                            var img = response[indexcnt].photourl + escape(response[indexcnt].doctorimg);
+                        else
+                            var img = "../Content/image/img-na.png";
+                        if (response[indexcnt].answerimg)
+                            var ansimg = "../feed/answerPhotos/" + escape(response[indexcnt].answerimg);
+                        var template;
+                        var thanxcount = response[indexcnt].endorsecount;
+                        var answerid = response[indexcnt].answerid;
+                        var title;
+                        if (response[indexcnt].title != null)
+                            title = response[indexcnt].title;
+                        else
+                            title = "";
+                        template = "<div class='span12 custom-yellow-container' ><div class='custom-inner-green-container'><a class='question_text' href='../answers/" + response[indexcnt].questionid + "'>" + response[indexcnt].questiontext + "</a></div> <div id=" + answerid + "ans>" +
+                        "<div class='inner-count-likes pull-right' title='Thanked by patient'>" + response[indexcnt].thanxcount + "</div><div class='inner-count-endorse pull-right' title='Endorsed'> " + response[indexcnt].endorsecount + "</div><div></div></div></div><div class='row-fluid'>" +
+                        "<div class='span6 middle-size-padding'><div class='title_text'>" + title + "</div></div></div><div class='row-fluid'>";
+                        if (ansimg.length > 0) {
+                            template = template + "<div class='span5'><p class='ans_text' style='word-wrap: break-word;'>" + response[indexcnt].answertext + "</p></div><div class='span3'><div class=''><div class='feedAnsImage img'><img src=" + ansimg + "></div></div></div></div>";
+                        }
+                        else {
+                            template = template + "<div class='span11'><p class='ans_text' style='word-wrap: break-word;'>" + response[indexcnt].answertext + "</p></div>";
+                        }
+                        var url = document.getElementById("AskmiraiUrl").value;
+                        var FBappkey = document.getElementById("FacebookAppKey").value;
+                        template = template + "<div class='row-fluid margintop_tosharebutn'>" +
+                        "<div class='pull-right' style='width:100%'><div class='top_marging_sharelink'><div class='hidden-phone span9'><hr style='margin:15px;'></div><a href='#' onclick='shareOnFacebook(\"" + escape(response[indexcnt].questiontext) + "\",\"" + escape(response[indexcnt].answertext) + "\", \"" + escape(response[indexcnt].questionid) + "\",\"" + url.toString() + "\",\"" + FBappkey.toString() + "\", \"Doctor\")'><img title='Facebook' class='share_icons_width' src='../Content/image/fb.png' alt='Facebook'></a>" +
+
+                        "<a class='share_link-margin ' target='_blank'  href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= " + url.toString() + "/answers/" + escape(response[indexcnt].questionid) + "' onclick='ga(\"send\", \"event\", \"Doctor\", \"Share On Twitter\", \"" + response[indexcnt].questiontext + "\")'><img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'></a>" +
+                        //"<a class='share_link-margin ' target='_blank'  href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= Q. " + escape(response[indexcnt].questiontext) + " \n Ans. " + escape(response[indexcnt].answertext) + " \n " + url.toString() + "/Patients/PatientQuestionDetails/" + escape(response[indexcnt].questionid) + "'><img title='Twitter' class='share_icons_width' src='../Resources/image/twitter.png' alt='Twitter'></a>" +
+                        "<a class='share_link-margin ' target='' href='mailto:?Subject=Mirai Consult has shared an answer with you &amp;Body= Q. " + escape(response[indexcnt].questiontext) + " %0D%0A  Ans. " + escape(response[indexcnt].answertext) + "' style='margin-right:10px'  onclick='ga(\"send\", \"event\", \"Doctor\", \"Share on Email\", \"" + response[indexcnt].questiontext + "\")'><img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'></a>";
+
+                        if (UserId != response[indexcnt].docid) {
+                            if (response[indexcnt].isendorse) {
+                                template = template.concat("<a class='custom-green-text'><img src='../Content/image/thanks.png'/>Endorsed</a>");
+                            }
+                            else {
+                                var QuestionText = response[indexcnt].questiontext.replace(/\s{2,}/g, ' ');
+                                template = template.concat("<a class=\"custom-link\" onclick=\"return endorseToDoctor(" + UserId + "," + response[indexcnt].answerid + ",this,'" + response[indexcnt].docLastname + "','" + response[indexcnt].docmobileno + "','" + response[indexcnt].doctEmail + "','" + UserFullName + "','" + escape(QuestionText) + "','" + response[indexcnt].endorsecount + "')\"><b>Want to endorse?</b></a>")
+                            }
+                        }
+                        template = template.concat("</div></div></div><div class='visible-phone row-fluid'><br/></div>")
+                        $("#feed").append(template);
+                        Question++;
+                    }
+                    if (Question < 3) {
+                        document.getElementById("loadingImage").style.visibility = "hidden"
+                    }
+                    if (response.length == 0 && $("#feed").html().length == 0) {
+                        $('#feed')[0].innerHTML = 'No records found';
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    </script>
+}

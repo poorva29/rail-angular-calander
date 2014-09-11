@@ -414,6 +414,10 @@
         var locationid = $('#locality-select').val();
         var specialityOrName = $('#txtSpecialityOrName').val();
         $("#searchResult").empty();
+        if(locationid == null)
+        {
+            locationid = '';
+        }
         show_doctorTable(cityid, locationid, specialityOrName);
         return false;
     };
@@ -500,8 +504,6 @@
                     $('<option></option>')
                         .val(response[cnt]["locationid"])
                         .html(response[cnt]["name"]));
-                $('#locality-select').append('<option></option>');
-                $('#locality-select').append($('#locality-select').html());
                 $(".chzn-select").trigger("liszt:updated");
             },
             error: function (data) {

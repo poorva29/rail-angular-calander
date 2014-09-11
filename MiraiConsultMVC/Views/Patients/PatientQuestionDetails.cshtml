@@ -67,7 +67,7 @@
                                     {
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                         {
-                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@Utilities.Encrypt(Convert.ToString(item.Doctor))")'>Book Appointment </a>
+                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
                                         }
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                         {
@@ -100,7 +100,7 @@
                                 {
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                     {
-                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@Utilities.Encrypt(Convert.ToString(item.Doctor))")'>Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
                                     }
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                     {

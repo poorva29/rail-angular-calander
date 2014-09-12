@@ -412,6 +412,7 @@ namespace MiraiConsultMVC.Controllers
                     qm.ThanxCount = Convert.ToInt32(item.thanxcount);
                     qm.Title = item.title;
                     qm.UserId = Convert.ToInt32(item.userid);
+                    qm.Name_seo = item.name_seo;
                     QDModel.Add(qm);
                 }
                 ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
@@ -511,6 +512,7 @@ namespace MiraiConsultMVC.Controllers
                     qm.ThanxCount = Convert.ToInt32(item.thanxcount);
                     qm.Title = item.title;
                     qm.UserId = Convert.ToInt32(item.userid);
+                    qm.Name_seo = item.name_seo;
                     QDModel.Add(qm);
                 }
                 ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
@@ -678,6 +680,7 @@ namespace MiraiConsultMVC.Controllers
               questions.answerreplyedby = QuestionDetails.Tables[0].Rows[i]["answerreplyedby"].ToString(); 
               questions.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
               questions.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
+              questions.name_seo = QuestionDetails.Tables[0].Rows[i]["name_seo"].ToString();
               Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
               Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
               questions.answers.Add(Answer);

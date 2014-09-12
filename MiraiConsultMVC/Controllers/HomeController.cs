@@ -249,6 +249,7 @@ namespace MiraiConsultMVC.Controllers
                     qModel.answerreplyedby = item.doctorname;
                     qModel.DocImg = item.docImageUrl + item.docImage;
                     qModel.Counts = item.counts;
+                    qModel.name_seo = item.name_seo;
                     ansModel.AnswerText = item.answertext;
                     ansModel.AnswerImage = item.ansImage;
                     qModel.answers.Add(ansModel);

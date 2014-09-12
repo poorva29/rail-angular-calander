@@ -23,6 +23,20 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
+        public ActionResult doctorsPublicProfile(string seo_name = null, string isConsult = null)
+        {
+            int docId = 0;
+            var doc = db.users.FirstOrDefault(x => x.name_seo.Equals(seo_name));
+            if (doc != null)
+            {
+                docId = doc.userid;
+            }
+            if (!string.IsNullOrEmpty(isConsult))
+            {
+                ViewBag.isConsult = Convert.ToInt32(isConsult);
+            }
+            return View(getDoctorDetailsByDoctorId(docId));
+        }
         public ActionResult DoctorProfile(string UserId=null)
         {
             int userId;
@@ -149,7 +163,10 @@ namespace MiraiConsultMVC.Controllers
 
                 IList<DoctorSpeciality> SelectedSpecialities = new List<DoctorSpeciality>();
                 SelectedSpecialities = doctor.specialities;
-
+                if (doctor.specialities.Count > 0)
+                {
+                    doctorDetail.specialities = doctor.specialities;
+                }
                 int[] values = new int[SelectedSpecialities.Count];
                 for (int i = 0; i < SelectedSpecialities.Count; i++)
                 {

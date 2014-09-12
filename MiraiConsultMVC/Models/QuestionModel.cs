@@ -44,6 +44,7 @@ namespace MiraiConsultMVC.Models
         public int EndorseCount { get; set; }
         public bool IsDocconnectUser { get; set; }
         public string DocconnectDoctorId { get; set; }
+        public string Name_seo { get; set; }
         
     }
     public class QuestionModel
@@ -73,6 +74,8 @@ namespace MiraiConsultMVC.Models
         public bool isdocconnectuser { get { return _isdocconnectuser; } set { _isdocconnectuser = value; } }
         public bool Filter { get; set; }
         public string answerreplyedby { get; set; }
+        public string name_seo { get; set; }
+
         public QuestionModel()
         {
             answers = new List<AnswerModel>();

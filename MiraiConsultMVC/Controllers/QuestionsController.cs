@@ -182,6 +182,7 @@ namespace MiraiConsultMVC.Controllers
                         qm.ThanxCount = Convert.ToInt32(item.thanxcount);
                         qm.Title = item.title;
                         qm.UserId = Convert.ToInt32(item.userid);
+                        qm.Name_seo = item.name_seo;
                         QDModel.Add(qm);
                     }
                     return View(QDModel);

@@ -1533,20 +1533,6 @@
     <Parameter Name="userid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Boolean" />
   </Function>
-  <Function Name="dbo.get_AllQuestionsByTagSEO" Method="get_AllQuestionsByTagSEO">
-    <Parameter Name="TagSEOText" Parameter="tagSEOText" Type="System.String" DbType="VarChar(200)" />
-    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
-    <ElementType Name="get_AllQuestionsByTagSEOResult">
-      <Column Name="doctorname" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
-      <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="docImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="ansImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="docImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.get_questiondetailsbyId" Method="get_questiondetailsbyId">
     <Parameter Name="questionid" Type="System.Int32" DbType="Int" />
     <Parameter Name="userid" Type="System.Int32" DbType="Int" />
@@ -1580,6 +1566,21 @@
       <Column Name="isdocconnectuser" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="name_seo" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="docconnectdoctorid" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_AllQuestionsByTagSEO" Method="get_AllQuestionsByTagSEO">
+    <Parameter Name="TagSEOText" Parameter="tagSEOText" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_AllQuestionsByTagSEOResult">
+      <Column Name="doctorname" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="docImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ansImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="docImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="name_seo" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

@@ -1060,18 +1060,18 @@ namespace MiraiConsultMVC.Models
 			return ((System.Nullable<bool>)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username, usertype, userid).ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_AllQuestionsByTagSEO")]
-		public ISingleResult<get_AllQuestionsByTagSEOResult> get_AllQuestionsByTagSEO([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TagSEOText", DbType="VarChar(200)")] string tagSEOText, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionStatus)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tagSEOText, questionStatus);
-			return ((ISingleResult<get_AllQuestionsByTagSEOResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_questiondetailsbyId")]
 		public ISingleResult<get_questiondetailsbyIdResult> get_questiondetailsbyId([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> userid, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> assignQuestion, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionStatus)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionid, userid, assignQuestion, questionStatus);
 			return ((ISingleResult<get_questiondetailsbyIdResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_AllQuestionsByTagSEO")]
+		public ISingleResult<get_AllQuestionsByTagSEOResult> get_AllQuestionsByTagSEO([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TagSEOText", DbType="VarChar(200)")] string tagSEOText, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionStatus)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tagSEOText, questionStatus);
+			return ((ISingleResult<get_AllQuestionsByTagSEOResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -18091,158 +18091,6 @@ namespace MiraiConsultMVC.Models
 		}
 	}
 	
-	public partial class get_AllQuestionsByTagSEOResult
-	{
-		
-		private string _doctorname;
-		
-		private System.Nullable<int> _questionid;
-		
-		private string _questiontext;
-		
-		private string _counts;
-		
-		private string _answertext;
-		
-		private string _docImage;
-		
-		private string _ansImage;
-		
-		private string _docImageUrl;
-		
-		public get_AllQuestionsByTagSEOResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_doctorname", DbType="VarChar(200)")]
-		public string doctorname
-		{
-			get
-			{
-				return this._doctorname;
-			}
-			set
-			{
-				if ((this._doctorname != value))
-				{
-					this._doctorname = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", DbType="Int")]
-		public System.Nullable<int> questionid
-		{
-			get
-			{
-				return this._questionid;
-			}
-			set
-			{
-				if ((this._questionid != value))
-				{
-					this._questionid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
-		public string questiontext
-		{
-			get
-			{
-				return this._questiontext;
-			}
-			set
-			{
-				if ((this._questiontext != value))
-				{
-					this._questiontext = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counts", DbType="VarChar(331)")]
-		public string counts
-		{
-			get
-			{
-				return this._counts;
-			}
-			set
-			{
-				if ((this._counts != value))
-				{
-					this._counts = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_answertext", DbType="VarChar(500)")]
-		public string answertext
-		{
-			get
-			{
-				return this._answertext;
-			}
-			set
-			{
-				if ((this._answertext != value))
-				{
-					this._answertext = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docImage", DbType="VarChar(200)")]
-		public string docImage
-		{
-			get
-			{
-				return this._docImage;
-			}
-			set
-			{
-				if ((this._docImage != value))
-				{
-					this._docImage = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ansImage", DbType="VarChar(200)")]
-		public string ansImage
-		{
-			get
-			{
-				return this._ansImage;
-			}
-			set
-			{
-				if ((this._ansImage != value))
-				{
-					this._ansImage = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docImageUrl", DbType="VarChar(200)")]
-		public string docImageUrl
-		{
-			get
-			{
-				return this._docImageUrl;
-			}
-			set
-			{
-				if ((this._docImageUrl != value))
-				{
-					this._docImageUrl = value;
-				}
-			}
-		}
-	}
-	
 	public partial class get_questiondetailsbyIdResult
 	{
 		
@@ -18732,6 +18580,176 @@ namespace MiraiConsultMVC.Models
 				if ((this._docconnectdoctorid != value))
 				{
 					this._docconnectdoctorid = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_AllQuestionsByTagSEOResult
+	{
+		
+		private string _doctorname;
+		
+		private System.Nullable<int> _questionid;
+		
+		private string _questiontext;
+		
+		private string _counts;
+		
+		private string _answertext;
+		
+		private string _docImage;
+		
+		private string _ansImage;
+		
+		private string _docImageUrl;
+		
+		private string _name_seo;
+		
+		public get_AllQuestionsByTagSEOResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_doctorname", DbType="VarChar(200)")]
+		public string doctorname
+		{
+			get
+			{
+				return this._doctorname;
+			}
+			set
+			{
+				if ((this._doctorname != value))
+				{
+					this._doctorname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", DbType="Int")]
+		public System.Nullable<int> questionid
+		{
+			get
+			{
+				return this._questionid;
+			}
+			set
+			{
+				if ((this._questionid != value))
+				{
+					this._questionid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
+		public string questiontext
+		{
+			get
+			{
+				return this._questiontext;
+			}
+			set
+			{
+				if ((this._questiontext != value))
+				{
+					this._questiontext = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counts", DbType="VarChar(331)")]
+		public string counts
+		{
+			get
+			{
+				return this._counts;
+			}
+			set
+			{
+				if ((this._counts != value))
+				{
+					this._counts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_answertext", DbType="VarChar(500)")]
+		public string answertext
+		{
+			get
+			{
+				return this._answertext;
+			}
+			set
+			{
+				if ((this._answertext != value))
+				{
+					this._answertext = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docImage", DbType="VarChar(200)")]
+		public string docImage
+		{
+			get
+			{
+				return this._docImage;
+			}
+			set
+			{
+				if ((this._docImage != value))
+				{
+					this._docImage = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ansImage", DbType="VarChar(200)")]
+		public string ansImage
+		{
+			get
+			{
+				return this._ansImage;
+			}
+			set
+			{
+				if ((this._ansImage != value))
+				{
+					this._ansImage = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docImageUrl", DbType="VarChar(200)")]
+		public string docImageUrl
+		{
+			get
+			{
+				return this._docImageUrl;
+			}
+			set
+			{
+				if ((this._docImageUrl != value))
+				{
+					this._docImageUrl = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name_seo", DbType="VarChar(150)")]
+		public string name_seo
+		{
+			get
+			{
+				return this._name_seo;
+			}
+			set
+			{
+				if ((this._name_seo != value))
+				{
+					this._name_seo = value;
 				}
 			}
 		}

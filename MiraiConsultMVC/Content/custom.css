@@ -4197,3 +4197,25 @@ table.cust-table {
 .doc-div-min-height {
     min-height:25px !important;
 }
+.doc-image-avtar {
+    max-height:150px;
+    max-width:150px;
+}
+.doc-Clinic {
+    margin-left:-13px;
+    margin-bottom:15px;
+    height:inherit;
+}
+.doc-clinic-container {
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+.margin-left-null {
+    margin-left:0px !important;
+}
+.margin-null {
+    margin:0px !important;
+}
+.doc-detail-word-break {
+    word-wrap: break-word;
+}

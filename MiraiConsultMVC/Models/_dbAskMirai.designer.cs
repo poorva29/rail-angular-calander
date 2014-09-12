@@ -114,7 +114,7 @@ namespace MiraiConsultMVC.Models
     #endregion
 		
 		public _dbAskMiraiDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AsquareMiraiConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AsquareMiraiConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

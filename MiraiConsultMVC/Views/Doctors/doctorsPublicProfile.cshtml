@@ -151,7 +151,7 @@
                 </div>
                 <div class="row-fluid">
                     <hr class="doc-details-hr" />
-                    @if (ViewBag.isConsult != 0 && Convert.ToInt32(ViewBag.isConsult) != 1)
+                    @if (Convert.ToInt32(ViewBag.isConsult) != 1)
                     {
                         <div class="doc-clinic-details" style="margin-bottom:15px">History Of Responses</div>
                         <div id="feed" class="margin_bottom"></div>
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        @if (string.IsNullOrEmpty(ViewBag.isConsult) || Convert.ToInt32(ViewBag.isConsult) != 1)
+        @if (Convert.ToInt32(ViewBag.isConsult) != 1)
         {
             <div style="text-align: center" id="loadingImage">
                 <img alt="Data Loading.." src="~/Content/image/ajax_loader.gif" style="width: 50px" />
@@ -188,7 +188,7 @@
             {
                 @:$("#OtherDetails").css("display", "none");
             }
-            @if (string.IsNullOrEmpty(ViewBag.isConsult) || Convert.ToInt32(ViewBag.isConsult) != 1)
+            @if (Convert.ToInt32(ViewBag.isConsult) != 1)
             {
                 @: indexoF = 0;
                 @: populateFeedData(indexoF, false);

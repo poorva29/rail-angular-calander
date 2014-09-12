@@ -4072,16 +4072,15 @@ table.cust-table {
         margin-left: 0% !important;
         text-align: left;
     }
-    .border-color-doc-details{
+    .border-color-doc-details {
         border-right: none !important;
-=======
+    }
     .border-color-doc-details {
         border-right: none !important;
     }
      .button-align-center{
         margin-left:0% !important;
         text-align:left;
->>>>>>> 7d86fc9cbd117c5e67054c0b7cba28b5be6a2970
     }
 }
 .menu-margin-top {

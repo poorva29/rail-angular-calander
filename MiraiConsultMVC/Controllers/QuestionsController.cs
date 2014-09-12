@@ -127,10 +127,18 @@ namespace MiraiConsultMVC.Controllers
             return RedirectToAction("Login", "User");
         }
         [HttpGet]
-        public ActionResult DoctorQuestionDetails(int QuestionId = 0)
+        public ActionResult DoctorQuestionDetails(string seoQuestionText = null)
         {
             try
             {
+                db = new _dbAskMiraiDataContext();
+                int QuestionId = 0;
+                if (!String.IsNullOrEmpty(seoQuestionText))
+                {
+                    question q = db.questions.FirstOrDefault(x => x.question_seo.Equals(seoQuestionText));
+                    if (q != null)
+                        QuestionId = q.questionid;
+                }
                 Session["UnQuestionCount"] = showUnansweredQuestionCount();
                 TempData["QuestionId"] = QuestionId;
                 int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.doctorquestiondetails));

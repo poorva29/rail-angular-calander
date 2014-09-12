@@ -37,7 +37,7 @@
                         </div>
                         <div class='custom-middle middle-size-padding question-padding' style='width:80%; word-break:break-all'>
                             @*<a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>*@
-                            <a class='question_text' href='/questions/@(question.QuestionId)'>
+                            <a class='question_text' href='/question/@(System.Text.RegularExpressions.Regex.Replace(question.QuestionText.Replace(' ', '-'), "[^a-zA-Z0-9_-]+", " ").Replace(" ", "").ToLower())'>
                                 @question.QuestionText
                             </a>
                         </div>

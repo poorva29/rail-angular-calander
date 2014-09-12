@@ -364,11 +364,12 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetails(int questionId = 0)
+        public ActionResult PatientQuestionDetails(string questiontext = null)
         {
             try
             {
                 //Putted as it is 
+
                 if (Request.QueryString["questionid"] != null)
                 {
                     questionId = Convert.ToInt32(Request.QueryString["questionid"]);

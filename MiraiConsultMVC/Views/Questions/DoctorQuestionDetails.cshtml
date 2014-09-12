@@ -158,8 +158,8 @@
                                         <label class="pull-left span4 required  btn-padding-left">Answer:</label>
                                         <div class="pull-right span8  main-outter-padding">
                                             <div>
-                                                <textarea class="input-block-level txtareaborder" maxlength="500" id="txtAnswer" name="AnswerText" onkeyup="Count(this)" placeholder="Enter Your Answer Here." clientidmode="Static" runat="server" rows="3" cols="10"></textarea>
-                                                <label id="count" style="float:right">0/500</label>
+                                                <textarea class="input-block-level txtareaborder" maxlength="1000" id="txtAnswer" name="AnswerText" onkeyup="Count(this)" placeholder="Enter Your Answer Here." clientidmode="Static" runat="server" rows="3" cols="10"></textarea>
+                                                <label id="count" style="float:right">0/1000</label>
 
                                             </div>
                                             <div><label id="lblErrortxtAnswer" style="color:red"></label></div>
@@ -190,10 +190,10 @@
         </div>
         <script type="text/javascript">
             $('#txtAnswer').bind('input propertychange', function () {
-                if ($(this).val().length <= 500) {
-                    document.getElementById('count').innerHTML = $(this).val().length + "/500";
+                if ($(this).val().length <= 1000) {
+                    document.getElementById('count').innerHTML = $(this).val().length + "/1000";
                 }
-                var MaxLength = 500;
+                var MaxLength = 1000;
                 var text = $(this).val();
                 if ($(this).val().length > MaxLength) {
                     $(this).val(text.substr(0, (MaxLength)));
@@ -201,7 +201,7 @@
                 $("#lblErrortxtAnswer").html('');
             });
             $(document).ready(function () {
-                var MaxLength = 500;
+                var MaxLength = 1000;
                 $('#txtAnswer').keyup(function (e) {
                     var text = $(this).val();
                     if ($(this).val().length > MaxLength) {
@@ -219,8 +219,8 @@
             });
             function Count(x) {
                 if (x.id == 'txtAnswer'){
-                    if (x.value.length <= 500) {
-                        document.getElementById('count').innerHTML = x.value.length + "/500";
+                    if (x.value.length <= 1000) {
+                        document.getElementById('count').innerHTML = x.value.length + "/1000";
                     }
                 }
             }

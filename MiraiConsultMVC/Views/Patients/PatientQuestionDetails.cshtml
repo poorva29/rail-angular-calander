@@ -54,7 +54,7 @@
                                     }
                                 </div>
                                 <div class='span8 middle-size-padding'>
-                                    <div class='ans_time_detail'>Dr.  @item.Doctor </div>
+                                    <div><a class='ans_time_detail' target="_blank" href='../doctor/@item.Name_seo'>Dr.  @item.Doctor </a></div>
                                     <div class='title_text'>
                                         <b> @item.Title</b>
                                     </div>
@@ -68,6 +68,10 @@
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                         {
                                             <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                        }
+                                        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
+                                        {
+                                            <a class='pull-right btn book_appt_button' href='../doctor/@item.Name_seo?isConsult=1' target='_blank'>Book Appointment </a>
                                         }
                                     }
                                 </div>
@@ -97,6 +101,10 @@
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                     {
                                         <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                    }
+                                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
+                                    {
+                                        <a class='pull-left btn book_appt_button' href='../doctor/@item.Name_seo ?isConsult = 1' target='_blank'>Book Appointment </a>
                                     }
                                 }
                             </div>

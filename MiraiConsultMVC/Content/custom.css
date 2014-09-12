@@ -148,7 +148,9 @@ a.question_text:hover {
     color: #A5AB51;
     font-family: Raleway,arial;
 }
-
+a.ans_time_detail:hover {
+    color: #788647;
+}
 .ans_text {
     line-height: 20px;
     text-align: justify;
@@ -3205,6 +3207,9 @@ table.cust-table {
     .area-box-margin{
         margin-left: -18px;
     }
+    .border-color-doc-details {
+        border-right: none !important;
+    }
     .button-align-center{
         margin-left:-3% !important;
         text-align:left;
@@ -3296,6 +3301,9 @@ table.cust-table {
 @media only screen and (max-width: 740px) {
     .search-padding-top{
         padding-top:15% !important;
+    }
+    .border-color-doc-details{
+        border-right: none !important;
     }
 }
 
@@ -4059,6 +4067,16 @@ table.cust-table {
     .signupclearbtn-margin-left{
         margin-left:1%;
     }
+    .button-align-center {
+        margin-left: 0% !important;
+        text-align: left;
+    }
+    .border-color-doc-details {
+        border-right: none !important;
+    }
+    .border-color-doc-details {
+        border-right: none !important;
+    }
      .button-align-center{
         margin-left:0% !important;
         text-align:left;
@@ -4121,3 +4139,58 @@ table.cust-table {
     margin-left:0% !important;
 }
 
+.doc-profile-title {
+    font-family: 'Open Sans', Verdana;
+    font-size: 13pt;
+    color: #F37363;
+    padding: 5px 0 10px 0;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.loc-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7182a3;
+    margin-right: 5px;
+}
+
+.doc-details-div {
+    margin: 5px 0px 10px 0px;
+}
+
+.doc-clinic-details {
+    color: #a9af41;
+    font-size: 14px;
+    font-weight: 800;
+}
+.border-color-doc-details{
+    border-right: 1px solid;
+    border-color: #F37363;
+    margin-right: 13px;
+}
+.doc-details-div{
+    margin: 5px 0px 10px 0px;
+}
+.docavtar {
+    background: none repeat scroll 0 0 transparent;
+    border: none;
+    display: inline-block;
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.image-margin-view-doc-details {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+.doc-details-hr {
+    border: solid #F37363;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 1.25rem 0 1.1875rem;
+    height: 0;
+}

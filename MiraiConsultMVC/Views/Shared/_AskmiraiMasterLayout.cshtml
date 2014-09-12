@@ -54,7 +54,7 @@
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("questiondetails") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("similar-questions")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("forgot-password") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("answers")
                                         || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("reset-password")
-                                        || Session["seoQuestionText"]!=null)
+                                        || Session["seoQuestionText"] != null || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctor"))
                                     {
                                         Session["seoQuestionText"] = null;
                                             <div class="pull-right">
@@ -63,7 +63,7 @@
                                                 </ul>
                                             </div>
                                            
-                                        }
+                                    }
                                     else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("terms-of-use") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("privacy-policy")

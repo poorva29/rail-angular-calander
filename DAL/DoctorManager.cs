@@ -236,6 +236,10 @@ namespace DAL
                     {
                         doctor.PhotoUrl = Convert.ToString(dr["photourl"]);
                     }
+                    if (!String.IsNullOrEmpty(Convert.ToString(dr["isdocconnectuser"])))
+                    {
+                        doctor.IsDocConnectUser = Convert.ToBoolean(dr["isdocconnectuser"]);
+                    }
                     if (dsDoctorDetails.Tables.Count == 5)
                     {
                         dvdocspecialities = new DataView(dsDoctorDetails.Tables[1]);

@@ -23,6 +23,10 @@ namespace MiraiConsultMVC.Controllers
         {
             return View();
         }
+        public ActionResult ContactDetail()
+        {
+            return View();
+        }
         public ActionResult doctorsPublicProfile(string seo_name = null, string isConsult = null)
         {
             int docId = 0;
@@ -34,6 +38,10 @@ namespace MiraiConsultMVC.Controllers
             if (!string.IsNullOrEmpty(isConsult))
             {
                 ViewBag.isConsult = Convert.ToInt32(isConsult);
+            }
+            if (Session["UserType"] != null)
+            {
+                ViewBag.UserType = Convert.ToInt32(Session["UserType"]);
             }
             return View(getDoctorDetailsByDoctorId(docId));
         }
@@ -129,6 +137,7 @@ namespace MiraiConsultMVC.Controllers
                 doctorDetail.FirstName = Convert.ToString(doctor.FirstName);
                 doctorDetail.LastName = Convert.ToString(doctor.LastName);
                 doctorDetail.Email = Convert.ToString(doctor.Email);
+                doctorDetail.IsDocConnectUser = doctor.IsDocConnectUser;
                 TempData["Email"] = Convert.ToString(doctor.Email);
                 if (doctor.MobileNo != null)
                     doctorDetail.MobileNo = Convert.ToString(doctor.MobileNo);

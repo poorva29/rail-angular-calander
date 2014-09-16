@@ -191,7 +191,7 @@ function FileUploadValidation(fileType) {
         $("#ImageValidation").html("");
     }
 }
-var $dialog = $('<div id="ContactDeatilDiv"></div>')
+var $dialog = $('<div id="ContactDeatilDiv" class="bg-lightgreen"></div>')
             .dialog({
                 autoOpen: false,
                 modal: true,
@@ -205,7 +205,7 @@ var $dialog = $('<div id="ContactDeatilDiv"></div>')
             });
 function ViewProfile(DoctorID) {
     var page = "../Doctors/ContactDetail";
-    $dialog.html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
+    $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-lightgreen"></iframe>')
     .dialog('open');
     $(".ui-dialog-titlebar").hide();
 }

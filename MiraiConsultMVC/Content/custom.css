@@ -4219,3 +4219,6 @@ table.cust-table {
 .doc-detail-word-break {
     word-wrap: break-word;
 }
+.bg-lightgreen {
+    background-color: #EEEFCF !important;
+}

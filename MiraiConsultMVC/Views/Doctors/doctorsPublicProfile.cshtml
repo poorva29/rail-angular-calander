@@ -38,16 +38,18 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span3">
-                        <div id="feedDocImage_SQ" class='span3'>
-                            <div class="docavtar image-margin-view-doc-details">
-                                @if(Model.Image =="\\Content\\image\\img-na.png")
-                                {
-                                    <img class="doc-image-avtar" src='..\Content\image\img-na.png' />
-                                }
-                                else
-                                {
-                                    <img class="doc-image-avtar" src='@Model.Image' />
-                                }
+                        <div>
+                            <div id="" class='span2'>
+                                <div class="avtar img">
+                                    @if (Model.Image == "\\Content\\image\\img-na.png")
+                                    {
+                                        <img class="doc-image-avtar" src='..\Content\image\img-na.png' />
+                                    }
+                                    else
+                                    {
+                                        <img class="doc-image-avtar" src='@Model.Image' />
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

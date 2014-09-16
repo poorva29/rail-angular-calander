@@ -191,12 +191,14 @@ function FileUploadValidation(fileType) {
         $("#ImageValidation").html("");
     }
 }
+var wWidth = $(window).width();
+var dWidth = wWidth * 0.3;
 var $dialog = $('<div id="ContactDeatilDiv" class="bg-lightgreen"></div>')
             .dialog({
                 autoOpen: false,
                 modal: true,
-                height: 300,
-                width: 400,
+                height: 200,
+                width: dWidth,
                 resizable: false,
                 position: 'center',
                 open: function (event, ui) {

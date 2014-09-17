@@ -4222,3 +4222,9 @@ table.cust-table {
 .bg-white {
     background-color: #ffffff !important;
 }
+.cust-below-space-reduce {
+    margin-bottom: 0;
+}
+.cust-space-above{
+    margin-top: 14px;
+}

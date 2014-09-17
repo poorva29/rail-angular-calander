@@ -4222,3 +4222,6 @@ table.cust-table {
 .bg-white {
     background-color: #ffffff !important;
 }
+.pagination ul>li>a:hover,.pagination ul>.active>a,.pagination ul>.active>span{
+    background-color:#BCBCBC;
+}

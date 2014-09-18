@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html class="bg-white">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ContactDetail</title>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <link href="~/Content/custom.css" rel="stylesheet" />
+</head>
+<body class="bg-white">
+    <div class="bg-white doc-detail-word-break">
+        <div id="bookappt" class="row-fluid center_align bg-white ">
+            <div class="span12 answer-title doc-detail-word-break">
+                Book Appointment
+            </div>
+        </div>
+        <div class="row-fluid center_align bg-white">
+            <div class="span12 answer-title doc-detail-word-break">
+                To book an appointment call on 8888888
+            </div>
+        </div>
+        <div class="row-fluid center_align bg-white">
+            <div class="span12">
+                <button class="btn thanx cust-red " style="padding:4px 30px;" onclick="closeDialog(); return false;">OK</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    function closeDialog() {
+        parent.closeDialog();
+    }
+</script>

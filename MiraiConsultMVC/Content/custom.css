@@ -4148,7 +4148,7 @@ table.cust-table {
     text-transform: uppercase;
 }
 .loc-label {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color: #7182a3;
     margin-right: 5px;
@@ -4193,4 +4193,41 @@ table.cust-table {
     clear: both;
     margin: 1.25rem 0 1.1875rem;
     height: 0;
+}
+.doc-div-min-height {
+    min-height:25px !important;
+}
+.doc-image-avtar {
+    max-height:150px;
+    max-width:150px;
+}
+.doc-Clinic {
+    margin-left:-13px;
+    margin-bottom:15px;
+    height:inherit;
+}
+.doc-clinic-container {
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+.margin-left-null {
+    margin-left:0px !important;
+}
+.margin-null {
+    margin:0px !important;
+}
+.doc-detail-word-break {
+    word-wrap: break-word;
+}
+.bg-white {
+    background-color: #ffffff !important;
+}
+.pagination ul > li > a:hover, .pagination ul > .active > a, .pagination ul > .active > span {
+    background-color: #BCBCBC;
+}
+.cust-below-space-reduce {
+    margin-bottom: 0;
+}
+.cust-space-above{
+    margin-top: 14px;
 }

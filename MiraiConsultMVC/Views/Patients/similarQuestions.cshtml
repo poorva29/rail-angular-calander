@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
 
-                                    @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
+                                    @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
                                             <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
@@ -93,7 +93,14 @@
                                             <br />
                                         </div>
                                     }
-
+                                    @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser)==false)
+                                    {
+                                        <div class="span3  pull-right hidden-phone">
+                                            <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId)">Book Appointment </a>
+                                            <br />
+                                            <br />
+                                        </div>
+                                    }
                                     <div class='span11 middle-size-padding'>
                                         @if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
                                         {
@@ -114,11 +121,19 @@
                                         }
                                     </div>
                                 </div>
-                                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
+                                if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                 {
                                     var href = (Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) + "&frmaskmirai=1").Trim();
                                     <div class="span3 offset1 pull-left visible-phone">
                                         <a class='btn book_appt_button' href='href' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
+                                    </div>
+                                    <br />
+                                }
+                                if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser)==false)
+                                {
+                                    var href = (Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) + "&frmaskmirai=1").Trim();
+                                    <div class="span3 offset1 pull-left visible-phone">
+                                        <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId)">Book Appointment </a>
                                     </div>
                                     <br />
                                 }

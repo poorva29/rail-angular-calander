@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.IO;
 using Model;
 using MiraiConsultMVC.Models.User;
+using log4net;
 namespace MiraiConsultMVC.Controllers
 {
     public class QuestionsController : Controller
@@ -19,6 +20,7 @@ namespace MiraiConsultMVC.Controllers
         // GET: /Questions/
         _dbAskMiraiDataContext db;
         BasePage BPage = new BasePage();
+        private static readonly ILog logfile = LogManager.GetLogger(typeof(QuestionsController));
         public ActionResult Index()
         {
             return View();
@@ -91,38 +93,45 @@ namespace MiraiConsultMVC.Controllers
         }
         public ActionResult PreRegistrationUser(int QuestionId, string email)
         {
-            _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-            Login login = new Login();
-            User user = new User();
-            string password = string.Empty;
-            int status;
-            int userType;
-            bool IsEmailVerified;
-            Random random = new Random();
-            password = Convert.ToString(random.Next(100000, 999999));
-            password = Utilities.Encrypt("Mirai" +  password);
-            status = Convert.ToInt32(UserStatus.Approved);
-            userType = Convert.ToInt32(UserType.Doctor);
-            IsEmailVerified = true;
-            var result = UserManager.getInstance().GetPreRegistrationUser(email, password, status, userType, IsEmailVerified, QuestionId);
-            if (result.Email != null)
+            try
             {
-                user.UserId = result.UserId;
-                if (result.IsUserRegistered == false)
+                _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
+                Login login = new Login();
+                User user = new User();
+                string password = string.Empty;
+                int status;
+                int userType;
+                bool IsEmailVerified;
+                Random random = new Random();
+                password = Convert.ToString(random.Next(100000, 999999));
+                password = Utilities.Encrypt("Mirai" + password);
+                status = Convert.ToInt32(UserStatus.Approved);
+                userType = Convert.ToInt32(UserType.Doctor);
+                IsEmailVerified = true;
+                var result = UserManager.getInstance().GetPreRegistrationUser(email, password, status, userType, IsEmailVerified, QuestionId);
+                if (result.Email != null)
                 {
-                    string doctorName = result.FirstName + " " + result.LastName;
-                    string tempPassword = Utilities.Decrypt(password);
-                    string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
-                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiConsult - Your Mirai Consult account has been created", emailBody, Logoimage);
+                    user.UserId = result.UserId;
+                    if (result.IsUserRegistered == false)
+                    {
+                        string doctorName = result.FirstName + " " + result.LastName;
+                        string tempPassword = Utilities.Decrypt(password);
+                        string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
+                        string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                        string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
+                        Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiConsult - Your Mirai Consult account has been created", emailBody, Logoimage);
+                    }
+                    login.IsUserRegistered = result.IsUserRegistered;
+                    login.Email = result.Email;
+                    login.Password = result.Password;
+                    login.IsCampainUser = true;
+                    login.QuestionId = QuestionId;
+                    return RedirectToAction("CampaignLogin", "User", new { Username = result.Email, Password = result.Password, QuestionId = QuestionId });
                 }
-                login.IsUserRegistered = result.IsUserRegistered;
-                login.Email = result.Email;
-                login.Password = result.Password;
-                login.IsCampainUser = true;
-                login.QuestionId = QuestionId;
-                return RedirectToAction("CampaignLogin", "User", new { Username = result.Email, Password = result.Password, QuestionId = QuestionId });
+            }
+            catch(Exception e)
+            {
+                logfile.Error("Controller exception >>> \n" + e.Message);
             }
             return RedirectToAction("Login", "User");
         }
@@ -261,6 +270,7 @@ namespace MiraiConsultMVC.Controllers
                         qm.ThanxCount = Convert.ToInt32(item.thanxcount);
                         qm.Title = item.title;
                         qm.UserId = Convert.ToInt32(item.userid);
+                        qm.Name_seo = item.name_seo;
                         QDModel.Add(qm);
                     }
                     if (filename != "")

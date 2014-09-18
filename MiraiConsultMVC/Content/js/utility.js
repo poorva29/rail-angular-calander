@@ -191,3 +191,26 @@ function FileUploadValidation(fileType) {
         $("#ImageValidation").html("");
     }
 }
+var wWidth = $(window).width();
+var dWidth = wWidth * 0.3;
+var $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
+            .dialog({
+                autoOpen: false,
+                modal: true,
+                height: 200,
+                width: dWidth,
+                resizable: false,
+                position: 'center',
+                open: function (event, ui) {
+                    $('#ContactDeatilDiv').css('overflow', 'hidden'); //this line does the actual hiding
+                }
+            });
+function ViewProfile(DoctorID) {
+    var page = "../Doctors/ContactDetail";
+    $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-white"></iframe>')
+    .dialog('open');
+    $(".ui-dialog-titlebar").hide();
+}
+function closeDialog() {
+    $dialog.dialog('close');
+}

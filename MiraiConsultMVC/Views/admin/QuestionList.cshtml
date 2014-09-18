@@ -17,16 +17,19 @@
                 <label class="span1 hidden-phone" style="padding-top: 5px; text-align: right">Filter:</label>
                 <div class="pull-right span11">
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "All", Model.FirstOrDefault().Filter, new { id = "AllQuestions" }) <label for="AllQuestions">All Questions</label>
+                        @Html.RadioButton("rdbFilter", "All",true, new { id = "AllQuestions" }) <label for="AllQuestions">All Questions</label>
                     </label>
                     <label class="radio inline">
-                        @Html.RadioButton("rdbFilter", "Unassigned", !Model.FirstOrDefault().Filter, new { id = "UnassignedQuestions" }) <label for="UnassignedQuestions">Unassigned Questions</label>
+                        @Html.RadioButton("rdbFilter", "Unassigned", new { id = "UnassignedQuestions" }) <label for="UnassignedQuestions">Unassigned Questions</label>
+                    </label>
+                    <label class="radio inline">
+                        @Html.RadioButton("rdbFilter", "Unanswered", new { id = "UnansweredQuestions" }) <label for="UnansweredQuestions">Unanswered Questions</label>
                     </label>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class=" span12">
-                    <div clientidmode="Static" class="cust-Q-title" runat="server" id="questionListTitle"></div>
+                    <div class="cust-Q-title" id="questionListTitle">All Questions</div>
                     <hr class="hr_color" />
                 </div>
             </div>
@@ -81,7 +84,6 @@
     function rejectQuestionByQuestionID(questionId, rejectbtn) {
         if (responsFlag == 1) {
             if (confirm("Are you sure you want to Reject this question?") == true) {
-                //PageMethods.RejectQuestionByQuestionID(questionId, onSuccess, onFailure);
                 document.body.style.cursor = 'wait';
                 $.ajax({
                     type: 'GET',
@@ -113,16 +115,24 @@
         $(":radio").change(function () {
 
             var $radioBtnValue = $(this).val();
-            if (($radioBtnValue == 'All'))
-            {
+            if (($radioBtnValue == 'All')) {
                 document.getElementById("HdnFlag").value = 1;
+                $("#questionListTitle").html('All Questions')
+                $("#question").html('');
+                populateQuestionData(0);
             }
-            else if (!($radioBtnValue == 'All'))
-            {
+            else if ($radioBtnValue == 'Unassigned') {
                 document.getElementById("HdnFlag").value = 0;
+                $("#questionListTitle").html('Unassigned Questions')
+                $("#question").html('');
+                populateQuestionData(0);
             }
-            
-            window.location.href = "../admin-questions/" + $radioBtnValue;
+            else if ($radioBtnValue = 'Unanswered') {
+                document.getElementById("HdnFlag").value = 2;
+                $("#questionListTitle").html('Unanswered Questions')
+                $("#question").html('');
+                populateQuestionData(0);
+            }
         });
 
     });

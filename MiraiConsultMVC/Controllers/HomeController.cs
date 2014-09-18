@@ -240,6 +240,7 @@ namespace MiraiConsultMVC.Controllers
             #region Associated questions with tag
             
             var questionList = db.get_AllQuestionsByTagSEO(tagseo, Convert.ToInt32(QuestionStatus.Approved)).ToList();
+
             if (questionList != null && questionList.Count() > 0)
             {
                 foreach (var item in questionList)
@@ -293,7 +294,7 @@ namespace MiraiConsultMVC.Controllers
 
         protected List<Tag> assignCssToTags(List<Tag> ListTags)
         {
-            if (ListTags != null || ListTags.Count > 0)
+            if (ListTags != null && ListTags.Count > 0)
             {
                 decimal totalTagWeight = ListTags.Sum(x => x.TagWeight);
                 int percentileWeight = ListTags.Max(x => x.TagWeight) == 0 ? 1 : ListTags.Max(x => x.TagWeight);

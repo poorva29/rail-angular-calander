@@ -241,35 +241,35 @@ namespace MiraiConsultMVC.Controllers
                                     if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Registered))
                                     {
                                         ViewBag.errorMsg = "Dear Doctor, Your account is waiting for approval from MiraiHealth. Please log-in after you receive the activation email.";
-                                        return View();
+                                        return View("login","user");
                                     }
                                     else if (Convert.ToInt32(isLogin.status) == Convert.ToInt32(UserStatus.Rejected))
                                     {
                                         ViewBag.errorMsg = "Dear Doctor, Your account is Rejected.";
-                                        return View();
+                                        return View("login", "user");
                                     }
                                 }
                                 else if (isLogin.password == password && isLogin.usertype > 2)
                                 {
                                     ViewBag.errorMsg = "Email Id or Password does not match.";
-                                    return View();
+                                    return View("login", "user");
                                 }
                             }
                             else if (isLogin.password == password && isLogin.usertype > 2)
                             {
                                 ViewBag.errorMsg = "Email Id or Password does not match.";
-                                return View();
+                                return View("login", "user");
                             }
                             else
                             {
                                 ViewBag.errorMsg = "Your email is not verified, Please verify your email.";
-                                return View();
+                                return View("login", "user");
                             }
                         }
                         else
                         {
                             ViewBag.errorMsg = "Email Id or Password does not match.";
-                            return View();
+                            return View("login", "user");
                         }
                     }
                     else if (Username == SuperAdminEmailId && password == SuperAdminUserPassword)

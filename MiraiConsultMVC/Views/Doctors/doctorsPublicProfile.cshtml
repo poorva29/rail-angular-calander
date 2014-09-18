@@ -24,14 +24,14 @@
                                 {
                                     foreach (var q in Model.qualification)
                                     {
-                                        qualification += q.Degree + ",";
+                                        qualification += q.Degree.Trim() + ", ";
                                     }
                                     qualification = qualification.TrimEnd(',');
                                 }
                             }
                         </div>
                         <div class="inline">
-                            <div class="doc-profile-title" style="position:relative;float:left;">Dr. @(Model.FirstName + " " + Model.LastName) </div><div style="padding-top:3px;float: left; position: relative; line-height:2"> @qualification.TrimEnd(',')</div>
+                            <div class="doc-profile-title position-left">Dr. @(Model.FirstName + " " + Model.LastName) </div><div class="position-left paddig-top"> @qualification.TrimEnd(',')</div>
                         </div>
                     </div>
                 </div>

@@ -17,12 +17,9 @@
             <div>
                 <div class='row-fluid'>
                     <div class="span12">
-                        <div class="doc-profile-title">
-                            Dr. @(Model.FirstName + " " + Model.LastName)
-                        </div>
                         <div class="doc-details-div">
                             @{
-                                string qualification = "";
+                                string qualification = ", ";
                                 if (Model.qualification != null && Model.qualification.Count > 0)
                                 {
                                     foreach (var q in Model.qualification)
@@ -30,9 +27,11 @@
                                         qualification += q.Degree + ",";
                                     }
                                     qualification = qualification.TrimEnd(',');
-                                    <span class="loc-label">Qualification:</span>@qualification
                                 }
                             }
+                        </div>
+                        <div class="inline">
+                            <div class="doc-profile-title" style="position:relative;float:left;">Dr. @(Model.FirstName + " " + Model.LastName) </div><div style="padding-top:3px;float: left; position: relative; line-height:2"> @qualification.TrimEnd(',')</div>
                         </div>
                     </div>
                 </div>
@@ -269,15 +268,13 @@
                                         @if (Model.specialities != null && Model.specialities.Count > 0)
                                         {
                                             <div><span class="left loc-label">Specialities:</span></div>
-                                            int cnt = 1;
                                             foreach (var speciality in Model.specialities)
                                             {
                                                 if (!String.IsNullOrEmpty(speciality.Speciality))
                                                 {
                                                     <div>
-                                                        <span class="left">@(cnt + ". " + speciality.Speciality)</span>
+                                                        <span class="left">@(speciality.Speciality)</span>
                                                     </div>
-                                                    cnt++;
                                                 }
                                             }
                                         }
@@ -289,15 +286,13 @@
                                             {
                                                 <div><span class="left loc-label">Award/Recognition:</span></div>
                                             }
-                                            int cnt = 1;
                                             foreach (var detail in Model.details)
                                             {
                                                 if (!String.IsNullOrEmpty(detail.Certification))
                                                 {
                                                     <div>
-                                                        <span class="left">@(cnt + ". " + detail.Certification)</span>
+                                                        <span class="left">@(detail.Certification)</span>
                                                     </div>
-                                                    cnt++;
                                                 }
                                             }
 
@@ -308,15 +303,13 @@
                                     @if (Model.qualification != null && Model.qualification.Count > 0)
                                     {
                                         <div><span class="left loc-label">Education:</span></div>
-                                        int cnt = 1;
                                         foreach (var q in Model.qualification)
                                         {
                                             if (!String.IsNullOrEmpty(q.Degree))
                                             {
                                                 <div>
-                                                    <span class="left">@(cnt + ". " + q.Degree)</span>
+                                                    <span class="left">@(q.Degree)</span>
                                                 </div>
-                                                cnt++;
                                             }
                                         }
                                     }

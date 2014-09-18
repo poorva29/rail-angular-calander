@@ -62,11 +62,11 @@
                             <div class="span6 hidden-phone">
                                 @if (Model.locations != null && Model.locations.Count > 0)
                                 {
-                                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.IsDocConnectUser))
+                                    if (Convert.ToBoolean(Model.IsDocConnectUser))
                                     {
                                         <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(Model.UserId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Model.UserId))")'>Book Appointment </a>
                                     }
-                                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.IsDocConnectUser) == false)
+                                    if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                                     {
                                         <a class='pull-right btn book_appt_button' onclick="ViewProfile(@Model.UserId)">Book Appointment </a>
                                     }
@@ -149,13 +149,13 @@
                         </div>
                             @if (Model.locations != null && Model.locations.Count > 0)
                             {
-                                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.IsDocConnectUser))
+                                if (Convert.ToBoolean(Model.IsDocConnectUser))
                                 {
                                     <div class="span6 visible-phone">
                                         <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(Model.UserId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Model.UserId))")'>Book Appointment </a>
                                     </div> 
                                 }
-                                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(Model.IsDocConnectUser) == false)
+                                if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                                 {
                                     <div class="span6 visible-phone">
                                         <a class='pull-left btn book_appt_button' onclick="ViewProfile(@Model.UserId)">Book Appointment </a>

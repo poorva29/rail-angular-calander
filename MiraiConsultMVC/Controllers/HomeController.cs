@@ -236,6 +236,9 @@ namespace MiraiConsultMVC.Controllers
             {
                 ViewBag.tag = tag.tagname;
             }
+
+            #region Associated questions with tag
+            
             var questionList = db.get_AllQuestionsByTagSEO(tagseo, Convert.ToInt32(QuestionStatus.Approved)).ToList();
             if (questionList != null && questionList.Count() > 0)
             {
@@ -256,7 +259,11 @@ namespace MiraiConsultMVC.Controllers
                     lstQuestions.Add(qModel);
                 }
             }
+            #endregion
 
+            //Altered By Amol Patil on 18/09/2014 : Added result of "similar questions of respective tag" to result of "tags associated with questions"
+            #region Similar Questions of respective tag
+                        
             DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(tagseo, Convert.ToInt32(QuestionStatus.Approved));
             if (QuestionDetails != null && QuestionDetails.Tables[0].Rows.Count > 0)
             {
@@ -279,7 +286,8 @@ namespace MiraiConsultMVC.Controllers
                     lstQuestions.Add(qModel);
                 }
             }
-            //return Json(lstQuestions, JsonRequestBehavior.AllowGet);
+            #endregion
+            
             return View(lstQuestions);
         }
 

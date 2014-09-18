@@ -137,7 +137,10 @@
                                         }
                                         count++;
                                     }
-                                    <hr class="doc-details-hr" />
+                                    @if(Model.locations.Count > 2)
+                                    { 
+                                        <hr class="doc-details-hr" />
+                                    }
                                 </div>
                             }
                         </div>
@@ -233,7 +236,10 @@
                                         }
                                         count++;
                                     }
-                                    <hr class="doc-details-hr" />
+                                    @if(Model.locations.Count > 2)
+                                    { 
+                                        <hr class="doc-details-hr" />
+                                    }
                                 </div>
                             }
                         </div>

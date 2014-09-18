@@ -61,7 +61,7 @@
                                 <div class='row-fluid'>
                                     <div class='span12 custom-green-container' style="display:table">
                                         <a style="display:table-row" href='/answers/@Model.ToList()[i].QuestionId' onclick="googleAnalytics('@Model.ToList()[i].QuestionText');">
-                                            <div class='question_text custom-middle'>@Model.ToList()[i].QuestionText </div>
+                                            <div class='question_text custom-middle'>@Html.Raw(Model.ToList()[i].QuestionText) </div>
                                         </a>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                         @if (!string.IsNullOrEmpty(Model.ToList()[i].answers[0].AnswerImage))
                                         {
                                             <div class='span5 '>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText </p>
+                                                <p class='ans_text'>@Html.Raw(Model.ToList()[i].answers[0].AnswerText) </p>
                                             </div>
                                             <div class='span3 offset1' id="feedAnsImage_SQ">
                                                 <div class='feedAnsImage img'>
@@ -116,7 +116,7 @@
                                         else
                                         {
                                             <div class='span11'>
-                                                <p class='ans_text'>@Model.ToList()[i].answers[0].AnswerText</p>
+                                                <p class='ans_text'>@Html.Raw(@Model.ToList()[i].answers[0].AnswerText)</p>
                                             </div>
                                         }
                                     </div>

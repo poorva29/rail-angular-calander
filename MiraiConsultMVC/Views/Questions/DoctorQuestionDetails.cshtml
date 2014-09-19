@@ -16,7 +16,7 @@
                     @if (Model != null && Model.Count() != 0)
                     {
                         <div class='span12 custom-green-container'>
-                            <div class='question_text'>@Model.FirstOrDefault().QuestionText</div>
+                            <div class='question_text'>@Html.Raw(@Model.FirstOrDefault().QuestionText)</div>
                         </div>
                         <br />
                         if (@Model.FirstOrDefault().AnswerId != null)
@@ -63,7 +63,7 @@
                                         @if (!String.IsNullOrEmpty(item.AnswerImg))
                                         {
                                             <div class='span5 offset1'>
-                                                <p class='ans_text'>@item.AnswerText</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
                                             </div>
                                             <div class='span3'>
                                                 <div class='feedAnsImage img'>
@@ -74,7 +74,7 @@
                                         else
                                         {
                                             <div class='span11 offset1'>
-                                                <p class='ans_text'>@item.AnswerText</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
                                             </div>
                                         }
                                     </div>

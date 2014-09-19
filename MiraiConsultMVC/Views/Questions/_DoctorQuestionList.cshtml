@@ -35,7 +35,7 @@
                         </div>
                         <div class='custom-middle middle-size-padding question-padding' style='width:80%; word-break:break-all'>
                             <a class='question_text' href='/question/@question.QuestionTextSeo'>
-                                @question.QuestionText
+                                @Html.Raw(question.QuestionText)
                             </a>
                         </div>
                         <div class='custom-middle'>
@@ -50,11 +50,11 @@
                                 <div style="display:table-cell"></div>
                                 @if (question.answers.First().AnswerText.Length > 80)
                                 {
-                                    <div class='ans_text question-padding' style="display:table-cell">@question.answers.First().AnswerText.Substring(0, 80)</div>
+                                    <div class='ans_text question-padding' style="display:table-cell">@Html.Raw(question.answers.First().AnswerText.Substring(0, 80))</div>
                                 }
                                 else
                                 {
-                                    <div class='ans_text question-padding' style="display:table-cell">@question.answers.First().AnswerText</div>
+                                    <div class='ans_text question-padding' style="display:table-cell">@Html.Raw(question.answers.First().AnswerText)</div>
                                 }
                                 <div style="display:table-cell"></div>
                             </div>

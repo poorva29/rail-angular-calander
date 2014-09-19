@@ -15,24 +15,22 @@
     <div class="custom-central-div" style="margin-top:6%">
         <div class="row-fluid">
             <div>
-                <div class='row-fluid'>
+                <div class='row-fluid cust-small-space-below'>
                     <div class="span12">
-                        <div class="doc-profile-title">
-                            Dr. @(Model.FirstName + " " + Model.LastName)
-                        </div>
-                        <div class="doc-details-div">
-                            @{
-                                string qualification = "";
-                                if (Model.qualification != null && Model.qualification.Count > 0)
+                        @{
+                            string qualification = "";
+                            if (Model.qualification != null && Model.qualification.Count > 0)
+                            {
+                                qualification = ", ";
+                                foreach (var q in Model.qualification)
                                 {
-                                    foreach (var q in Model.qualification)
-                                    {
-                                        qualification += q.Degree + ",";
-                                    }
-                                    qualification = qualification.TrimEnd(',');
-                                    <span class="loc-label">Qualification:</span>@qualification
+                                    qualification += q.Degree + ",";
                                 }
+                                qualification = qualification.TrimEnd(',');
                             }
+                        }
+                        <div class="doc-profile-title">
+                            Dr. @(Model.FirstName + " " + Model.LastName)@qualification
                         </div>
                     </div>
                 </div>
@@ -137,7 +135,10 @@
                                         }
                                         count++;
                                     }
-                                    <hr class="doc-details-hr" />
+                                    @if(Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.details != null && Model.details.Count > 0)))
+                                    { 
+                                        <hr class="doc-details-hr" />
+                                    }
                                 </div>
                             }
                         </div>
@@ -233,7 +234,10 @@
                                         }
                                         count++;
                                     }
-                                    <hr class="doc-details-hr" />
+                                    @if(Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.details != null && Model.details.Count > 0)))
+                                    { 
+                                        <hr class="doc-details-hr" />
+                                    }
                                 </div>
                             }
                         </div>
@@ -269,15 +273,13 @@
                                         @if (Model.specialities != null && Model.specialities.Count > 0)
                                         {
                                             <div><span class="left loc-label">Specialities:</span></div>
-                                            int cnt = 1;
                                             foreach (var speciality in Model.specialities)
                                             {
                                                 if (!String.IsNullOrEmpty(speciality.Speciality))
                                                 {
                                                     <div>
-                                                        <span class="left">@(cnt + ". " + speciality.Speciality)</span>
+                                                        <span class="left">@(speciality.Speciality)</span>
                                                     </div>
-                                                    cnt++;
                                                 }
                                             }
                                         }
@@ -289,15 +291,13 @@
                                             {
                                                 <div><span class="left loc-label">Award/Recognition:</span></div>
                                             }
-                                            int cnt = 1;
                                             foreach (var detail in Model.details)
                                             {
                                                 if (!String.IsNullOrEmpty(detail.Certification))
                                                 {
                                                     <div>
-                                                        <span class="left">@(cnt + ". " + detail.Certification)</span>
+                                                        <span class="left">@(detail.Certification)</span>
                                                     </div>
-                                                    cnt++;
                                                 }
                                             }
 
@@ -308,15 +308,13 @@
                                     @if (Model.qualification != null && Model.qualification.Count > 0)
                                     {
                                         <div><span class="left loc-label">Education:</span></div>
-                                        int cnt = 1;
                                         foreach (var q in Model.qualification)
                                         {
                                             if (!String.IsNullOrEmpty(q.Degree))
                                             {
                                                 <div>
-                                                    <span class="left">@(cnt + ". " + q.Degree)</span>
+                                                    <span class="left">@(q.Degree)</span>
                                                 </div>
-                                                cnt++;
                                             }
                                         }
                                     }

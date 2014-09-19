@@ -4231,3 +4231,14 @@ table.cust-table {
 .cust-space-above{
     margin-top: 14px;
 }
+.position-left {
+    position:relative;
+    float:left;
+}
+.paddig-top {
+    padding-top:3px; 
+    line-height:2;
+}
+.cust-small-space-below{
+    margin-bottom:10px;
+}

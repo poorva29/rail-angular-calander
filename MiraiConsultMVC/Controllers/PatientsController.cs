@@ -68,6 +68,7 @@ namespace MiraiConsultMVC.Controllers
                         questions.QuestionText = Convert.ToString(dr["questiontext"]);
                         questions.Counts = Convert.ToString(dr["counts"]);
                         questions.CreateDate = Convert.ToDateTime(dr["createdate"]);
+                        questions.QuestionTextSeo = Convert.ToString(dr["question_seo"]);
                         lstQuestions.Add(questions);
                     }
                 }
@@ -368,13 +369,14 @@ namespace MiraiConsultMVC.Controllers
         {
             try
             {
-                //Putted as it is 
-
-                if (Request.QueryString["questionid"] != null)
+                if (!String.IsNullOrEmpty(questiontext))
                 {
-                    questionId = Convert.ToInt32(Request.QueryString["questionid"]);
+                    var qt = db.questions.FirstOrDefault(x => x.question_seo.Equals(questiontext));
+                    if (qt != null)
+                    {
+                        questionId = qt.questionid;
+                    }
                 }
-
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);
@@ -681,6 +683,7 @@ namespace MiraiConsultMVC.Controllers
               questions.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
               questions.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
               questions.name_seo = QuestionDetails.Tables[0].Rows[i]["name_seo"].ToString();
+              questions.QuestionTextSeo = QuestionDetails.Tables[0].Rows[i]["question_seo"].ToString();
               Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
               Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
               questions.answers.Add(Answer);

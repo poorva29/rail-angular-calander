@@ -159,9 +159,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "assignquestion",
-                url: "assign-question/{questionid}",
-                defaults: new {controller="admin",action="assignquestion" },
-                constraints: new { QuestionId = @"\d+" }
+                url: "assign-question/{seoQuestionText}",
+                defaults: new {controller="admin",action="assignquestion" }
                 );
             
 

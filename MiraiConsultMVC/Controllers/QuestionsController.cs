@@ -61,6 +61,7 @@ namespace MiraiConsultMVC.Controllers
                         QModel.QuestionId = Convert.ToInt32(question.questionid);
                         QModel.QuestionText = Convert.ToString(question.questiontext);
                         QModel.CreateDate = Convert.ToDateTime(question.createdate);
+                        QModel.QuestionTextSeo = question.question_seo;
                         if (question.answeredby != null)
                         {
                             QModel.AnsweredBy = Convert.ToInt32(question.answeredby);
@@ -73,7 +74,6 @@ namespace MiraiConsultMVC.Controllers
                         QModel.UserId = userId;
                         QModel.Filter = filter;
                         Questions.Add(QModel);
-
                     }
                 }
                 else

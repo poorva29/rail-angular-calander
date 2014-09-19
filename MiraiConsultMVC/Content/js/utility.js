@@ -206,10 +206,24 @@ var $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
                 }
             });
 function ViewProfile(DoctorID) {
+    ga('send', 'event', 'Patient', 'Book Appointment ', '');
     var page = "../Doctors/ContactDetail";
     $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-white"></iframe>')
     .dialog('open');
     $(".ui-dialog-titlebar").hide();
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: '{"userid":\"' + DoctorID + '"\}',
+        url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
+        success: function (response) {
+            response = JSON.parse(response);
+        },
+        error: function (e) {
+
+        }
+    });
 }
 function closeDialog() {
     $dialog.dialog('close');

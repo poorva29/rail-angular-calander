@@ -18,9 +18,10 @@
                 <div class='row-fluid cust-small-space-below'>
                     <div class="span12">
                         @{
-                            string qualification = ", ";
+                            string qualification = "";
                             if (Model.qualification != null && Model.qualification.Count > 0)
                             {
+                                qualification = ", ";
                                 foreach (var q in Model.qualification)
                                 {
                                     qualification += q.Degree + ",";

@@ -14,26 +14,50 @@
     <link href="~/Content/custom.css" rel="stylesheet" />
 </head>
 <body class="bg-white">
-    <div class="bg-white doc-detail-word-break">
+    <div id="hidden-phone" class="bg-white doc-detail-word-break center_align" style="padding: 6px;">
         <div id="bookappt" class="row-fluid center_align bg-white ">
-            <div class="span12 answer-title doc-detail-word-break">
+            <div class="span12 answer-title doc-detail-word-break center_align">
                 Book Appointment
             </div>
         </div>
         <div class="row-fluid center_align bg-white">
-            <div class="span12 answer-title doc-detail-word-break">
+            <div class="span12 answer-title doc-detail-word-break center_align">
                 To book an appointment call on 8888888
             </div>
         </div>
         <div class="row-fluid center_align bg-white">
-            <div class="span12">
+            <div class="span12 center_align">
                 <button class="btn thanx cust-red " style="padding:4px 30px;" onclick="closeDialog(); return false;">OK</button>
+            </div>
+        </div>
+    </div>
+    <div id="visible-phone" class="bg-white doc-detail-word-break " style="padding: 15px;">
+        <div id="bookappt" class="row-fluid center_align bg-white ">
+            <div class="span12 answer-title doc-detail-word-break center_align small-font">
+                Book Appointment
+            </div>
+        </div>
+        <div class="row-fluid center_align bg-white">
+            <div class="span12 answer-title doc-detail-word-break center_align small-font">
+                <p class="center_align"> To book an appointment call on 8888888</p>
+            </div>
+        </div>
+        <div class="row-fluid center_align bg-white">
+            <div class="span12">
+                <button class="btn thanx cust-red " style="padding:2px 19px;" onclick="closeDialog(); return false;">OK</button>
             </div>
         </div>
     </div>
 </body>
 </html>
+<script src="~/Content/js/utility.js"></script>
 <script type="text/javascript">
+    if (isMobile.any()) {
+        $('#hidden-phone').hide()
+    }
+    else{
+        $('#visible-phone').hide()
+    }
     function closeDialog() {
         parent.closeDialog();
     }

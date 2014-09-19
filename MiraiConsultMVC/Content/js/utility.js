@@ -215,13 +215,12 @@ var isMobile = {
 };
 var $dialog;
 if (isMobile.any()) {
-    alert('mobile')
-    dWidth = wWidth * 0.8;
-    $dialog = $('<div id="ContactDeatilDiv" class="bg-white visible-phone"></div>')
+    dWidth = wWidth * 0.75;
+    $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
                 .dialog({
                     autoOpen: false,
                     modal: true,
-                    height: 200,
+                    maxheight: 160,
                     width: dWidth,
                     resizable: false,
                     position: 'center',
@@ -231,7 +230,7 @@ if (isMobile.any()) {
                 });
 }
 else {
-    $dialog = $('<div id="ContactDeatilDiv" class="bg-white hidden-phone" ></div>')
+    $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
             .dialog({
                 autoOpen: false,
                 modal: true,

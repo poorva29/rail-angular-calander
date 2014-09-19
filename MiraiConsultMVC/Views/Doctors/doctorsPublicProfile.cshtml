@@ -67,7 +67,7 @@
                                     }
                                     if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                                     {
-                                        <a class='pull-right btn book_appt_button' onclick="ViewProfile(@Model.UserId)">Book Appointment </a>
+                                        <a class='pull-right btn book_appt_button' onclick="ViewProfile(@Model.UserId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.UserId))')">Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -161,7 +161,7 @@
                             @if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                             {
                                 <div class="span6 visible-phone">
-                                    <a class='pull-left btn book_appt_button' onclick="ViewProfile(@Model.UserId)">Book Appointment </a>
+                                    <a class='pull-left btn book_appt_button' onclick="ViewProfile(@Model.UserId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.UserId))')">Book Appointment </a>
                                 </div>
                             }
                         </div>

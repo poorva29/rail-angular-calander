@@ -88,7 +88,7 @@
                                     @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
-                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
+                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))')">Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>
@@ -96,7 +96,7 @@
                                     @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser)==false)
                                     {
                                         <div class="span3  pull-right hidden-phone">
-                                            <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId)">Book Appointment </a>
+                                            <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))');">Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>
@@ -123,9 +123,8 @@
                                 </div>
                                 if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                 {
-                                    var href = (Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) + "&frmaskmirai=1").Trim();
                                     <div class="span3 offset1 pull-left visible-phone">
-                                        <a class='btn book_appt_button' href='href' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))")'>Book Appointment </a>
+                                        <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Convert.ToString(Model.ToList()[i].UserId)))")'>Book Appointment </a>
                                     </div>
                                     <br />
                                 }
@@ -133,7 +132,7 @@
                                 {
                                     var href = (Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId)) + "&frmaskmirai=1").Trim();
                                     <div class="span3 offset1 pull-left visible-phone">
-                                        <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId)">Book Appointment </a>
+                                        <a class='btn book_appt_button' onclick="ViewProfile(@Model.ToList()[i].UserId); bookaptclicked('@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))');"> Book Appointment </a>
                                     </div>
                                     <br />
                                 }
@@ -226,6 +225,22 @@
                         return false;
                     }
                     return true;
+                }
+                function bookaptclicked(docid) {
+                    ga('send', 'event', 'Patient', 'Book Appointment ', '');
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: '{"userid":\"' + docid + '"\}',
+                        url: "../../Services/UserService.svc/IncrementAppointmentHitCnt",
+                        success: function (response) {
+                            response = JSON.parse(response);
+                        },
+                        error: function (e) {
+
+                        }
+                    });
                 }
         </script>
     }

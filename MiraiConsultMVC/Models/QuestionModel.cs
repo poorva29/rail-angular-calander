@@ -58,6 +58,7 @@ namespace MiraiConsultMVC.Models
         private int answeredby;
         private string _docImg;
         private string _title;
+        private string textSeo;
         private bool _isdocconnectuser;
         public IList<AnswerModel> answers;
 
@@ -75,7 +76,7 @@ namespace MiraiConsultMVC.Models
         public bool Filter { get; set; }
         public string answerreplyedby { get; set; }
         public string name_seo { get; set; }
-
+        public string QuestionTextSeo { get { return textSeo; } set { textSeo = value; } }
         public QuestionModel()
         {
             answers = new List<AnswerModel>();

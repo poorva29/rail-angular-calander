@@ -254,6 +254,7 @@ namespace MiraiConsultMVC.Controllers
                     qModel.DocImg = item.docImageUrl + item.docImage;
                     qModel.Counts = item.counts;
                     qModel.name_seo = item.name_seo;
+                    qModel.QuestionTextSeo = item.question_seo;
                     ansModel.AnswerText = item.answertext;
                     ansModel.AnswerImage = item.ansImage;
                     qModel.answers.Add(ansModel);
@@ -280,6 +281,7 @@ namespace MiraiConsultMVC.Controllers
                     qModel.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
                     qModel.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
                     qModel.name_seo = QuestionDetails.Tables[0].Rows[i]["name_seo"].ToString();
+                    qModel.QuestionTextSeo = QuestionDetails.Tables[0].Rows[i]["question_seo"].ToString();
                     Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
                     Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
                     qModel.answers.Add(Answer);

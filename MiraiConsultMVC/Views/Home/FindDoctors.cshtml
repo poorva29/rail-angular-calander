@@ -170,7 +170,7 @@
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
                                     template = template + "<div class='span3 pull-right'><a onclick='bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + response[indexcnt].name + "\")' href='" + docconnecturl + response[indexcnt].userid + "&frmaskmirai=1' Class='btn book_appt_button make_appointment_btn btn-margin-bottom' target='_blank' >Book Appointment </a></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-right'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' onclick='ViewProfile(\"" + response[indexcnt].userid + "\")'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-right'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' onclick='ViewProfile(\"" + response[indexcnt].userid + "\") ;bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + response[indexcnt].name + "\");'>Book Appointment </a></div>";
                             template = template + "</div>";
                             $("#searchResult").append(template);
                         }

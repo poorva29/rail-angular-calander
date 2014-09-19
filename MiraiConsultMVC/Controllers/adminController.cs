@@ -24,9 +24,8 @@ namespace MiraiConsultMVC.Controllers
         public DataTable AssignDoctors;
         int assignQuestion = 1;
         _dbAskMiraiDataContext db;
-        public ActionResult assignquestion(int? QuestionId)
+        public ActionResult assignquestion(string seoQuestionText)
         {
-
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
             if (privilege == 1)
             {
@@ -34,6 +33,12 @@ namespace MiraiConsultMVC.Controllers
             }
             else
             {
+                db = new _dbAskMiraiDataContext();
+                int QuestionId = 0;
+                if (!string.IsNullOrEmpty(seoQuestionText))
+                {
+                    QuestionId = db.questions.FirstOrDefault(x => x.question_seo.Equals(seoQuestionText)) != null ? db.questions.FirstOrDefault(x => x.question_seo.Equals(seoQuestionText)).questionid : 0;
+                }
                 ViewBag.questionid = QuestionId;
                 if (Session["UserId"] != null)
                 {
@@ -56,14 +61,9 @@ namespace MiraiConsultMVC.Controllers
                     row["userid"] = 0;
                     row["locations"] = "";
                     AssignDoctors.Rows.Add(row);
-
                 }
-
-
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
-
                 List<tag> tags = new List<tag>();
-
                 tags = dtTags.AsEnumerable().Select(dataRow => new tag
                     {
                         tagid = dataRow.Field<int>("tagid"),
@@ -78,15 +78,12 @@ namespace MiraiConsultMVC.Controllers
                         tagid = dataRow.Field<int>("tagid")
 
                     }).ToList();
-
                     int[] values = new int[Selectedtags.Count];
                     for (int i = 0; i < Selectedtags.Count; i++)
                     {
                         values[i] = Selectedtags.ToList()[i].tagid;
                     }
-
                     MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
-
                     ViewBag.tags = makeSelected;
                 }
                 else
@@ -94,15 +91,11 @@ namespace MiraiConsultMVC.Controllers
                     tag ObjectTag = new tag();
                     ObjectTag.tagid = 0;
                     ObjectTag.tagname = "";
-
                     tags.Add(ObjectTag);
                     MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", tags);
-
                     ViewBag.tags = makeSelected;
                 }
-
                 List<AssignQuestion> viewmodel = new List<AssignQuestion>();
-
                 viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
                 {
                     id = dataRow.Field<int>("id"),
@@ -114,7 +107,6 @@ namespace MiraiConsultMVC.Controllers
                     questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
                     Questionid = Convert.ToInt32(QuestionId)
                 }).ToList();
-
                 return View(viewmodel);
             }
         }

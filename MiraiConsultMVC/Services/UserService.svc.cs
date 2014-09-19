@@ -38,10 +38,7 @@ namespace Services
                 {
                     for (int cnt = 0; cnt < feedlist.Rows.Count; cnt++)
                     {
-                        if (Convert.ToBoolean(feedlist.Rows[cnt]["isdocconnectuser"]))
-                        {
-                            feedlist.Rows[cnt]["docid"] = Utilities.Encrypt(Convert.ToString(feedlist.Rows[cnt]["docid"]));
-                        }
+                        feedlist.Rows[cnt]["docid"] = Utilities.Encrypt(Convert.ToString(feedlist.Rows[cnt]["docid"]));
                     }
                 }
             }
@@ -59,13 +56,7 @@ namespace Services
             {
                 for (int cnt = 0; cnt < feedlist.Rows.Count; cnt++)
                 {
-                    if (!String.IsNullOrEmpty(Convert.ToString(feedlist.Rows[cnt]["isdocconnectuser"])))
-                    {
-                        if (Convert.ToBoolean(feedlist.Rows[cnt]["isdocconnectuser"]))
-                        {
-                            feedlist.Rows[cnt]["userid"] = Utilities.Encrypt(Convert.ToString(feedlist.Rows[cnt]["userid"]));
-                        }
-                    }
+                    feedlist.Rows[cnt]["userid"] = Utilities.Encrypt(Convert.ToString(feedlist.Rows[cnt]["userid"]));
                 }
             }
             return JsonConvert.SerializeObject(feedlist);

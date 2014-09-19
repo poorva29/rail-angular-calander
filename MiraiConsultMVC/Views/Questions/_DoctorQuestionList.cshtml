@@ -13,8 +13,6 @@
                     if (question.UserId == question.AnsweredBy && filterType)
                     { continue; }
                 }
-                // string st = cnt % 2 == 0 ? "row-fluid icon_padding_bottom":"row-fluid icon_padding_bottom";
-
                 <div class='row-fluid icon_padding_bottom @(cnt % 2 != 0 ? "custom-yellow-back" : "")'>
                     <div style="display:table-row">
                         <div class="custom-middle">
@@ -36,8 +34,7 @@
                             }
                         </div>
                         <div class='custom-middle middle-size-padding question-padding' style='width:80%; word-break:break-all'>
-                            @*<a class='question_text' href='doctorquestiondetails.aspx?questionid=<%= question.QuestionId%>'>*@
-                            <a class='question_text' href='/questions/@(question.QuestionId)'>
+                            <a class='question_text' href='/question/@question.QuestionTextSeo'>
                                 @Html.Raw(question.QuestionText)
                             </a>
                         </div>

@@ -4239,3 +4239,6 @@ table.cust-table {
     padding-top:3px; 
     line-height:2;
 }
+.cust-small-space-below{
+    margin-bottom:10px;
+}

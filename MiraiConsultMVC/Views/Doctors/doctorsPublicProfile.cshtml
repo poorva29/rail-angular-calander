@@ -15,24 +15,21 @@
     <div class="custom-central-div" style="margin-top:6%">
         <div class="row-fluid">
             <div>
-                <div class='row-fluid'>
+                <div class='row-fluid cust-small-space-below'>
                     <div class="span12">
-                        <div class="doc-profile-title">
-                            Dr. @(Model.FirstName + " " + Model.LastName)
-                        </div>
-                        <div class="doc-details-div">
-                            @{
-                                string qualification = "";
-                                if (Model.qualification != null && Model.qualification.Count > 0)
+                        @{
+                            string qualification = ", ";
+                            if (Model.qualification != null && Model.qualification.Count > 0)
+                            {
+                                foreach (var q in Model.qualification)
                                 {
-                                    foreach (var q in Model.qualification)
-                                    {
-                                        qualification += q.Degree + ",";
-                                    }
-                                    qualification = qualification.TrimEnd(',');
-                                    <span class="loc-label">Qualification:</span>@qualification
+                                    qualification += q.Degree + ",";
                                 }
+                                qualification = qualification.TrimEnd(',');
                             }
+                        }
+                        <div class="doc-profile-title">
+                            Dr. @(Model.FirstName + " " + Model.LastName)@qualification
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=VI-D071;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.answers" Member="answers">
     <Type Name="answer">
       <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1074,19 +1074,6 @@
       <Column Name="patienttype" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.getQuestionListByDoctorid" Method="getQuestionListByDoctorid">
-    <Parameter Name="userID" Type="System.Int32" DbType="Int" />
-    <ElementType Name="getQuestionListByDoctoridResult">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QuestionsRowNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="questiontext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="asignedDoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="answeredby" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.getQuestionListByQuestionText" Method="getQuestionListByQuestionText">
     <Parameter Name="questionText" Type="System.String" DbType="VarChar(200)" />
     <ElementType Name="getQuestionListByQuestionTextResult">
@@ -1568,6 +1555,20 @@
       <Column Name="docconnectdoctorid" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
+  <Function Name="dbo.getQuestionListByDoctorid" Method="getQuestionListByDoctorid">
+    <Parameter Name="userID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="getQuestionListByDoctoridResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="questionid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionsRowNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="questiontext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="answertext" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="asignedDoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="answeredby" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="question_seo" Type="System.String" DbType="VarChar(225)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.get_AllQuestionsByTagSEO" Method="get_AllQuestionsByTagSEO">
     <Parameter Name="TagSEOText" Parameter="tagSEOText" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="questionStatus" Type="System.Int32" DbType="Int" />
@@ -1581,6 +1582,7 @@
       <Column Name="ansImage" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="docImageUrl" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="name_seo" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="question_seo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

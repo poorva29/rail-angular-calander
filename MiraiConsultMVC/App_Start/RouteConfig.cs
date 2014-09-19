@@ -147,9 +147,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Questions2",
-                url: "questions/{QuestionId}",
-                defaults: new { controller = "Questions", action = "DoctorQuestionDetails" },
-                constraints: new { QuestionId = @"\d+" }
+                url: "question/{seoQuestionText}",
+                defaults: new { controller = "Questions", action = "DoctorQuestionDetails" }
             );
 
             routes.MapRoute(
@@ -160,9 +159,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "assignquestion",
-                url: "assign-question/{questionid}",
-                defaults: new {controller="admin",action="assignquestion" },
-                constraints: new { QuestionId = @"\d+" }
+                url: "assign-question/{seoQuestionText}",
+                defaults: new {controller="admin",action="assignquestion" }
                 );
             
 
@@ -200,9 +198,8 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                 name: "Answers3",
-                url: "answers/{QuestionId}/{*questiontext}",
-                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional },
-                constraints: new { QuestionId = @"\d+" }
+                url: "answers/{*questiontext}",
+                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional }
             );
 
             routes.MapRoute(

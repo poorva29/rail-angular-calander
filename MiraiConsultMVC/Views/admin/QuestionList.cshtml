@@ -107,31 +107,32 @@
     $(window).scroll(function () {
         if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
             var RecordSize = document.getElementById("HdnRecordSize").value;
-            indexoF = parseInt(indexoF) + parseInt(RecordSize)
+            indexoF = parseInt(indexoF) + parseInt(RecordSize) + 1;
             populateQuestionData(indexoF)
         }
     });
     $(function () {
         $(":radio").change(function () {
-
+            indexoF = 0;
+            document.getElementById("loadingImage").style.visibility = "visible";
             var $radioBtnValue = $(this).val();
             if (($radioBtnValue == 'All')) {
                 document.getElementById("HdnFlag").value = 1;
                 $("#questionListTitle").html('All Questions')
                 $("#question").html('');
-                populateQuestionData(0);
+                populateQuestionData(indexoF);
             }
             else if ($radioBtnValue == 'Unassigned') {
                 document.getElementById("HdnFlag").value = 0;
                 $("#questionListTitle").html('Unassigned Questions')
                 $("#question").html('');
-                populateQuestionData(0);
+                populateQuestionData(indexoF);
             }
             else if ($radioBtnValue = 'Unanswered') {
                 document.getElementById("HdnFlag").value = 2;
                 $("#questionListTitle").html('Unanswered Questions')
                 $("#question").html('');
-                populateQuestionData(0);
+                populateQuestionData(indexoF);
             }
         });
 
@@ -148,7 +149,7 @@
                 var Question = 0;
                 response = JSON.parse(response);
                 if (response.length == 0) {
-                    document.getElementById("loadingImage").style.visibility = "hidden"
+                    document.getElementById("loadingImage").style.visibility = "hidden";
                 }
                 cnt = response.length;
                 for (indexcnt = 0; indexcnt < response.length; indexcnt++) {
@@ -161,15 +162,15 @@
                     var title;
                     title = "";
                     if (indexcnt % 2 != 0)
-                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='/assign-question/" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom custom-yellow-back'><div class='custom-middle'>" + img + "</div><div class='custom-middle middle-size-padding question-padding' style='width:80%;word-break: break-all;'><div><a href='/assign-question/" + response[indexcnt].question_seo + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div  class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
                     else
-                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='/assign-question/" + response[indexcnt].questionid + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
+                        template = "<div class='row-fluid icon_padding_bottom'><div class='custom-middle '>" + img + "</div><div  class='custom-middle middle-size-padding  question-padding' style='width:80%;word-break: break-all'><div><a href='/assign-question/" + response[indexcnt].question_seo + "' class='question_text'>" + response[indexcnt].questiontext + "</a></div></div><div class='custom-middle'><img src='../Content/image/del-question.png' title='Delete' class='float_right cust-del-icon' onclick='rejectQuestionByQuestionID(" + response[indexcnt].questionid + ",this)'/></div></div>";
 
                     $("#question").append(template);
                     Question++;
                 }
                 if (Question < 7) {
-                    document.getElementById("loadingImage").style.visibility = "hidden"
+                    document.getElementById("loadingImage").style.visibility = "hidden";
                 }
                 if (response.length == 0 && $("#question").html().length == 0) {
                     $('#question')[0].innerHTML = 'No records found';

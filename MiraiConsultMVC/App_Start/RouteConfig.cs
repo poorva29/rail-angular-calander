@@ -146,11 +146,19 @@ namespace MiraiConsultMVC
            );
 
             routes.MapRoute(
-                name: "Questions2",
-                url: "question/{seoQuestionText}",
-                defaults: new { controller = "Questions", action = "DoctorQuestionDetails" }
+                name: "Questions3",
+                url: "questions/{QuestionId}",
+                defaults: new { controller = "Questions", action = "DoctorQuestionDetails" },
+                constraints: new { QuestionId = @"\d+" }
             );
 
+            routes.MapRoute(
+                name: "Questions2",
+                url: "question/{seoQuestionText}",
+                defaults: new { controller = "Questions", action = "DoctorQuestions" }
+            );
+
+            
             routes.MapRoute(
                 name: "Questions1",
                 url: "questions/{questionsType}",
@@ -158,9 +166,16 @@ namespace MiraiConsultMVC
             );
 
             routes.MapRoute(
+                name: "assignquestion1",
+                url: "assign-question/{questionid}",
+                defaults: new { controller = "admin", action = "assignquestion" },
+                constraints: new { QuestionId = @"\d+" }
+                );
+
+            routes.MapRoute(
                 name: "assignquestion",
                 url: "assign-question/{seoQuestionText}",
-                defaults: new {controller="admin",action="assignquestion" }
+                defaults: new {controller="admin",action="assignquestions" }
                 );
             
 
@@ -176,6 +191,7 @@ namespace MiraiConsultMVC
                 defaults: new { controller = "feed", action = "doctorfeed" }
             );
 
+            
             routes.MapRoute(
                 name: "DoctorProfile",
                 url: "doctor-profile",
@@ -196,19 +212,26 @@ namespace MiraiConsultMVC
               defaults: new { controller = "Doctors", action = "doctorsPublicProfile" }
            );
 
+
+            routes.MapRoute(
+                name: "Answers4",
+                url: "answers/{QuestionId}",
+                defaults: new { controller = "Patients", action = "PatientQuestionDetails"},
+                constraints: new { QuestionId = @"\d+" }
+            );
+
             routes.MapRoute(
                 name: "Answers3",
                 url: "answers/{*questiontext}",
-                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional }
+                defaults: new { controller = "Patients", action = "PatientQuestionDetail", questiontext = UrlParameter.Optional }
             );
+
 
             routes.MapRoute(
                 name: "similarQuestions",
                 url: "similar-questions",
                 defaults: new { controller = "Patients", action = "similarQuestions" }
                 );
-
-            
 
             routes.MapRoute(
                name: "similarQuestions1",

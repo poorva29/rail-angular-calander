@@ -24,7 +24,7 @@ namespace MiraiConsultMVC.Controllers
         public DataTable AssignDoctors;
         int assignQuestion = 1;
         _dbAskMiraiDataContext db;
-        public ActionResult assignquestion(string seoQuestionText)
+        public ActionResult assignquestions(string seoQuestionText)
         {
             int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
             if (privilege == 1)
@@ -111,6 +111,87 @@ namespace MiraiConsultMVC.Controllers
             }
         }
 
+        public ActionResult assignquestion(int? QuestionId)
+        {
+            int privilege = BPage.isAuthorisedandSessionExpired(Convert.ToInt32(Privileges.assignQuestion));
+            if (privilege == 1)
+            {
+                return RedirectToAction("NoPrivilegeError", "Home");
+            }
+            else
+            {
+                db = new _dbAskMiraiDataContext();
+                ViewBag.questionid = QuestionId;
+                if (Session["UserId"] != null)
+                {
+                    userId = Convert.ToInt32(Session["UserId"].ToString());
+                }
+                QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(Convert.ToInt32(QuestionId), userId, assignQuestion, Convert.ToInt32(QuestionStatus.Approved));
+
+                if (QuestionDetails.Tables[2].Rows.Count != 0)
+                {
+                    AssignDoctors = QuestionDetails.Tables[2];
+                }
+                else
+                {
+                    AssignDoctors = QuestionDetails.Tables[2];
+                    DataRow row = AssignDoctors.NewRow();
+                    row["id"] = 0;
+                    row["name"] = "";
+                    row["cities"] = "";
+                    row["specialities"] = "";
+                    row["userid"] = 0;
+                    row["locations"] = "";
+                    AssignDoctors.Rows.Add(row);
+                }
+                DataTable dtTags = UtilityManager.getInstance().getAlltags();
+                List<tag> tags = new List<tag>();
+                tags = dtTags.AsEnumerable().Select(dataRow => new tag
+                {
+                    tagid = dataRow.Field<int>("tagid"),
+                    tagname = dataRow.Field<string>("tagname"),
+                }).ToList();
+
+                if (QuestionDetails != null && QuestionDetails.Tables.Count != 0 && QuestionDetails.Tables[1].Rows.Count != 0)
+                {
+                    List<tag> Selectedtags = new List<tag>();
+                    Selectedtags = QuestionDetails.Tables[1].AsEnumerable().Select(dataRow => new tag
+                    {
+                        tagid = dataRow.Field<int>("tagid")
+
+                    }).ToList();
+                    int[] values = new int[Selectedtags.Count];
+                    for (int i = 0; i < Selectedtags.Count; i++)
+                    {
+                        values[i] = Selectedtags.ToList()[i].tagid;
+                    }
+                    MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
+                    ViewBag.tags = makeSelected;
+                }
+                else
+                {
+                    tag ObjectTag = new tag();
+                    ObjectTag.tagid = 0;
+                    ObjectTag.tagname = "";
+                    tags.Add(ObjectTag);
+                    MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", tags);
+                    ViewBag.tags = makeSelected;
+                }
+                List<AssignQuestion> viewmodel = new List<AssignQuestion>();
+                viewmodel = AssignDoctors.AsEnumerable().Select(dataRow => new AssignQuestion
+                {
+                    id = dataRow.Field<int>("id"),
+                    name = dataRow.Field<string>("name"),
+                    cities = dataRow.Field<string>("cities"),
+                    specialities = dataRow.Field<string>("specialities"),
+                    userid = dataRow.Field<int>("userid"),
+                    locations = dataRow.Field<string>("locations"),
+                    questiontext = QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString(),
+                    Questionid = Convert.ToInt32(QuestionId)
+                }).ToList();
+                return View(viewmodel);
+            }
+        }
         public JsonResult AssignDoctor(int QuestionId, string AssignDoctorIds)
         {
             string[] ArrayOfID = null;

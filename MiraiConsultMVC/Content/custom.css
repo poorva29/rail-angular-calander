@@ -4245,3 +4245,6 @@ table.cust-table {
 .cust-small-space-below{
     margin-bottom:10px;
 }
+.cust-no-margin {
+    margin: 0;
+}

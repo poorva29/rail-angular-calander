@@ -193,11 +193,48 @@ function FileUploadValidation(fileType) {
 }
 var wWidth = $(window).width();
 var dWidth = wWidth * 0.3;
-var $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
+var isMobile = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+var $dialog;
+if (isMobile.any()) {
+    dWidth = wWidth * 0.75;
+    $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
+                .dialog({
+                    autoOpen: false,
+                    modal: true,
+                    maxheight: 160,
+                    width: dWidth,
+                    resizable: false,
+                    position: 'center',
+                    open: function (event, ui) {
+                        $('#ContactDeatilDiv').css('overflow', 'hidden'); //this line does the actual hiding
+                    }
+                });
+}
+else {
+    $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
             .dialog({
                 autoOpen: false,
                 modal: true,
-                height: 200,
+                maxheight: 120,
                 width: dWidth,
                 resizable: false,
                 position: 'center',
@@ -205,6 +242,7 @@ var $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
                     $('#ContactDeatilDiv').css('overflow', 'hidden'); //this line does the actual hiding
                 }
             });
+}
 function ViewProfile(DoctorID) {
     var page = "../Doctors/ContactDetail";
     $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-white"></iframe>')

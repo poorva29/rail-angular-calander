@@ -4239,6 +4239,9 @@ table.cust-table {
     padding-top:3px; 
     line-height:2;
 }
+.book-appt-small-font {
+    font-size: 14px;
+}
 .cust-small-space-below{
     margin-bottom:10px;
 }

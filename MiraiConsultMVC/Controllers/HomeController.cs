@@ -290,8 +290,8 @@ namespace MiraiConsultMVC.Controllers
                 }
             }
             #endregion
-            
-            return View(lstQuestions);
+
+            return View(lstQuestions.GroupBy(Question => Question.QuestionId).Select(Questions => Questions.First()));
         }
 
         protected List<Tag> assignCssToTags(List<Tag> ListTags)

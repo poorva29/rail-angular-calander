@@ -83,7 +83,7 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","emailid":"' + emailid + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","thanxcount":"' + thanxcount + '"}',
         url: "../../Services/UserService.svc/thanktodoctor",
         success: function (response) {
-            ga('send', 'event', 'Patient ', 'It is usefull', questiontext);
+            ga('send', 'event', 'Patient ', 'Marked Question as Useful', questiontext);
             response = JSON.parse(response);
         },
         error: function (e) {

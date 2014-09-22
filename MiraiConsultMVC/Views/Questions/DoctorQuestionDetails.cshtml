@@ -5,7 +5,7 @@
 }
 
 <script type="text/javascript" src="~/Content/js/utility.js"></script>
-@using (Html.BeginForm(Html.BeginForm("DoctorQuestionDetails", "Questions", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off" })))
+@using (Html.BeginForm(Html.BeginForm("DoctorQuestionDetails", "Questions", FormMethod.Post, new { @encType = "multipart/form-data", autocomplete = "off", novalidate="true" })))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -16,7 +16,7 @@
                     @if (Model != null && Model.Count() != 0)
                     {
                         <div class='span12 custom-green-container'>
-                            <div class='question_text'>@Model.FirstOrDefault().QuestionText</div>
+                            <div class='question_text'>@Html.Raw(@Model.FirstOrDefault().QuestionText)</div>
                         </div>
                         <br />
                         if (@Model.FirstOrDefault().AnswerId != null)
@@ -63,7 +63,7 @@
                                         @if (!String.IsNullOrEmpty(item.AnswerImg))
                                         {
                                             <div class='span5 offset1'>
-                                                <p class='ans_text'>@item.AnswerText</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
                                             </div>
                                             <div class='span3'>
                                                 <div class='feedAnsImage img'>
@@ -74,7 +74,7 @@
                                         else
                                         {
                                             <div class='span11 offset1'>
-                                                <p class='ans_text'>@item.AnswerText</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
                                             </div>
                                         }
                                     </div>
@@ -262,7 +262,7 @@
                 }
                 if (errormsg == "") {
                     var QuestionText = $(".question_text").html();
-                    ga('send', 'event', 'Doctor', 'Answer', 'Create Patient Account',QuestionText);
+                    ga('send', 'event', 'Doctor', 'Answered Questions',QuestionText);
                     return true;
                 }
                 else {

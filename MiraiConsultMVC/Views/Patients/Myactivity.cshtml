@@ -17,13 +17,13 @@
                         @if (question.Counts.Equals("No answers received"))
                         {
                         <a class="question_text" href="#">
-                            @question.QuestionText
+                            @Html.Raw(question.QuestionText)
                         </a>
                         }
                         else
                         {
-                            <a class="question_text" href="../answers/@question.QuestionId" onclick="ga('send', 'event', 'Patient', 'Review The Answers', '@(question.QuestionText)');">
-                                @question.QuestionText
+                            <a class="question_text" href="../answers/@question.QuestionTextSeo" onclick="ga('send', 'event', 'Patient', 'Review The Answers', '@(question.QuestionText)');">
+                                @Html.Raw(question.QuestionText)
                             </a>
                         }
                     </div>

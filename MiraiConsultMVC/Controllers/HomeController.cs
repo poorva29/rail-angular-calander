@@ -254,6 +254,7 @@ namespace MiraiConsultMVC.Controllers
                     qModel.DocImg = item.docImageUrl + item.docImage;
                     qModel.Counts = item.counts;
                     qModel.name_seo = item.name_seo;
+                    qModel.QuestionTextSeo = item.question_seo;
                     ansModel.AnswerText = item.answertext;
                     ansModel.AnswerImage = item.ansImage;
                     qModel.answers.Add(ansModel);
@@ -289,6 +290,7 @@ namespace MiraiConsultMVC.Controllers
                         //Counts = Convert.ToString(QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString().Length) + "/200"
                         lstQuestions.Add(qModel);
                     }
+
                 }
             }
             #endregion

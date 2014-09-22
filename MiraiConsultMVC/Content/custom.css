@@ -4222,9 +4222,23 @@ table.cust-table {
 .bg-white {
     background-color: #ffffff !important;
 }
+.pagination ul > li > a:hover, .pagination ul > .active > a, .pagination ul > .active > span {
+    background-color: #BCBCBC;
+}
 .cust-below-space-reduce {
     margin-bottom: 0;
 }
 .cust-space-above{
     margin-top: 14px;
+}
+.position-left {
+    position:relative;
+    float:left;
+}
+.paddig-top {
+    padding-top:3px; 
+    line-height:2;
+}
+.cust-small-space-below{
+    margin-bottom:10px;
 }

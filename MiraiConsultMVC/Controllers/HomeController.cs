@@ -265,28 +265,32 @@ namespace MiraiConsultMVC.Controllers
 
             //Altered By Amol Patil on 18/09/2014 : Added result of "similar questions of respective tag" to result of "tags associated with questions"
             #region Similar Questions of respective tag
-                        
-            DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(tagseo, Convert.ToInt32(QuestionStatus.Approved));
-            if (QuestionDetails != null && QuestionDetails.Tables[0].Rows.Count > 0)
+
+
+            if (tag != null)
             {
-                for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)
+                DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyQuestionText(tag.tagname, Convert.ToInt32(QuestionStatus.Approved));
+                if (QuestionDetails != null && QuestionDetails.Tables[0].Rows.Count > 0)
                 {
-                    QuestionModel qModel = new QuestionModel();
-                    AnswerModel Answer = new AnswerModel();
-                    qModel.UserId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["userid"].ToString());
-                    qModel.QuestionId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["questionid"].ToString());
-                    qModel.QuestionText = QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString();
-                    qModel.DocImg = QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString();
-                    qModel.answerreplyedby = QuestionDetails.Tables[0].Rows[i]["answerreplyedby"].ToString();
-                    qModel.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
-                    qModel.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
-                    qModel.name_seo = QuestionDetails.Tables[0].Rows[i]["name_seo"].ToString();
-                    qModel.QuestionTextSeo = QuestionDetails.Tables[0].Rows[i]["question_seo"].ToString();
-                    Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
-                    Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
-                    qModel.answers.Add(Answer);
-                    //Counts = Convert.ToString(QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString().Length) + "/200"
-                    lstQuestions.Add(qModel);
+                    for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)
+                    {
+                        QuestionModel qModel = new QuestionModel();
+                        AnswerModel Answer = new AnswerModel();
+                        qModel.UserId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["userid"].ToString());
+                        qModel.QuestionId = Convert.ToInt32(QuestionDetails.Tables[0].Rows[i]["questionid"].ToString());
+                        qModel.QuestionText = QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString();
+                        qModel.DocImg = QuestionDetails.Tables[0].Rows[i]["doctorimg"].ToString();
+                        qModel.answerreplyedby = QuestionDetails.Tables[0].Rows[i]["answerreplyedby"].ToString();
+                        qModel.Title = QuestionDetails.Tables[0].Rows[i]["title"].ToString();
+                        qModel.isdocconnectuser = Convert.ToBoolean(QuestionDetails.Tables[0].Rows[i]["isdocconnectuser"].ToString());
+                        qModel.name_seo = QuestionDetails.Tables[0].Rows[i]["name_seo"].ToString();
+                        Answer.AnswerImage = QuestionDetails.Tables[0].Rows[i]["answerimg"].ToString();
+                        Answer.AnswerText = QuestionDetails.Tables[0].Rows[i]["answertext"].ToString();
+                        qModel.answers.Add(Answer);
+                        //Counts = Convert.ToString(QuestionDetails.Tables[0].Rows[0]["questiontext"].ToString().Length) + "/200"
+                        lstQuestions.Add(qModel);
+                    }
+
                 }
             }
             #endregion

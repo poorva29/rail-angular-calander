@@ -192,7 +192,6 @@ function FileUploadValidation(fileType) {
     }
 }
 var wWidth = $(window).width();
-var dWidth = wWidth * 0.35;
 var isMobile = {
     Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -232,6 +231,7 @@ if (isMobile.any()) {
                 });
 }
 else {
+    var dWidth = wWidth * 0.30;
     $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
             .dialog({
                 autoOpen: false,
@@ -281,11 +281,9 @@ $(document).on("dialogopen", ".ui-dialog", function (event, ui) {
     fluidDialog();
 });
 $(window).on("orientationchange", function (event) {
-    alert('ori');
     fluidDialog();
 });
 $(window).resize(function () {
-    alert('resize');
     fluidDialog();
 });
 

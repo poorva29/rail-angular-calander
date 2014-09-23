@@ -192,7 +192,6 @@ function FileUploadValidation(fileType) {
     }
 }
 var wWidth = $(window).width();
-var dWidth = wWidth * 0.3;
 var isMobile = {
     Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -216,11 +215,11 @@ var isMobile = {
 var $dialog;
 if (isMobile.any()) {
     dWidth = wWidth * 0.75;
-    $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
+    $dialog = $('<div id="ContactDeatilDiv" class="bg-white" style="padding-bottom: 0px; "></div>')
                 .dialog({
                     autoOpen: false,
                     modal: true,
-                    maxheight: 160,
+                    maxheight: 120,
                     width: dWidth,
                     resizable: false,
                     position: 'center',
@@ -230,6 +229,7 @@ if (isMobile.any()) {
                 });
 }
 else {
+    var dWidth = wWidth * 0.30;
     $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
             .dialog({
                 autoOpen: false,
@@ -245,7 +245,7 @@ else {
 }
 function ViewProfile(DoctorID) {
     var page = "../Doctors/ContactDetail";
-    $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-white"></iframe>')
+    $dialog.html('<iframe style="border: 0px;" src="' + page + '" width="100%" height="100%" class="bg-white"  scrolling="no" ></iframe>')
     .dialog('open');
     $(".ui-dialog-titlebar").hide();
 }

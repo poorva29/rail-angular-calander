@@ -192,6 +192,7 @@ function FileUploadValidation(fileType) {
     }
 }
 var wWidth = $(window).width();
+var dWidth = wWidth * 0.35;
 var isMobile = {
     Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -219,8 +220,10 @@ if (isMobile.any()) {
                 .dialog({
                     autoOpen: false,
                     modal: true,
+                    width: 'auto',
+                    maxWidth: dWidth,
                     maxheight: 120,
-                    width: dWidth,
+                    fluid: true,
                     resizable: false,
                     position: 'center',
                     open: function (event, ui) {
@@ -229,7 +232,6 @@ if (isMobile.any()) {
                 });
 }
 else {
-    var dWidth = wWidth * 0.30;
     $dialog = $('<div id="ContactDeatilDiv" class="bg-white"></div>')
             .dialog({
                 autoOpen: false,
@@ -238,6 +240,7 @@ else {
                 width: dWidth,
                 resizable: false,
                 position: 'center',
+                fluid: true,
                 open: function (event, ui) {
                     $('#ContactDeatilDiv').css('overflow', 'hidden'); //this line does the actual hiding
                 }
@@ -252,3 +255,37 @@ function ViewProfile(DoctorID) {
 function closeDialog() {
     $dialog.dialog('close');
 }
+function fluidDialog() {
+    var $visible = $(".ui-dialog:visible");
+    // each open dialog
+    $visible.each(function () {
+        var $this = $(this);
+        var dialog = $this.find(".ui-dialog-content").data("ui-dialog");
+        // if fluid option == true
+        if (dialog.options.fluid) {
+            var wWidth = $(window).width();
+            // check window width against dialog width
+            if (wWidth < (parseInt(dialog.options.maxWidth) + 50)) {
+                // keep dialog from filling entire screen
+                $this.css("max-width", "90%");
+            } else {
+                // fix maxWidth bug
+                $this.css("max-width", dialog.options.maxWidth + "px");
+            }
+            //reposition dialog
+            dialog.option("position", dialog.options.position);
+        }
+    });
+}
+$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
+    fluidDialog();
+});
+$(window).on("orientationchange", function (event) {
+    alert('ori');
+    fluidDialog();
+});
+$(window).resize(function () {
+    alert('resize');
+    fluidDialog();
+});
+

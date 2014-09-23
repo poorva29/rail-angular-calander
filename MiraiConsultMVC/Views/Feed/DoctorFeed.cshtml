@@ -63,6 +63,7 @@
         function onFilterChange(selectedBtn) {
             indexoF = 0;
             var value = $("input[name='Filter']:checked").val()
+            document.getElementById("loadingImage").style.visibility = "visible";
             $("#feed").empty();
             populateFeedData(indexoF);
             $('.unique_class').html(value)
@@ -133,7 +134,7 @@
                             Question++;
                         }
                         if (Question < 3) {
-                            document.getElementById("loadingImage").style.visibility = "hidden"
+                            document.getElementById("loadingImage").style.visibility = "hidden";
                         }
                         if (response.length == 0 && $("#feed").html().length == 0) {
                             $('#feed')[0].innerHTML = 'No records found';

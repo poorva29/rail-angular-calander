@@ -63,6 +63,17 @@ namespace MiraiConsultMVC
                 url: "login",
                 defaults: new { controller = "User", action = "Login" }
             );
+
+            routes.MapRoute(
+               name: "Questions1",
+               url: "question/{QuestionId}",
+               defaults: new { controller = "Questions", action = "DoctorQuestionDetails" },
+               constraints: new
+               {
+                   QuestionId = @"\d+"
+               }
+               );
+
             routes.MapRoute(
                name: "PreRegistrationUser",
                url: "question/{QuestionId}",
@@ -160,7 +171,7 @@ namespace MiraiConsultMVC
 
             
             routes.MapRoute(
-                name: "Questions1",
+                name: "Questions111",
                 url: "questions/{questionsType}",
                 defaults: new { controller = "Questions", action = "DoctorQuestionList", questionsType = UrlParameter.Optional }
             );

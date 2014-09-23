@@ -64,14 +64,14 @@
                                             <p class='ans_text'>No answers received </p>
                                         </div>
                                     }
-                                    @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QModel.isdocconnectuser))
+                                    @*@if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QModel.isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
                                             <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + @MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(QModel.UserId)) &frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(QModel.UserId))")'>Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>
-                                    }
+                                    }*@
 
                                     <div class='span11 middle-size-padding'>
                                         @if (QModel.answers != null && QModel.answers.Count > 0)
@@ -96,14 +96,14 @@
                                         }
                                     </div>
                                 </div>
-                                if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QModel.isdocconnectuser))
+                                @*if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(QModel.isdocconnectuser))
                                 {
                                     var href = (Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]) + MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(QModel.UserId)) + "&frmaskmirai=1").Trim();
                                     <div class="span3 offset1 pull-left visible-phone">
                                         <a class='btn book_appt_button' href='href' target='_blank' onclick='bookaptclicked( "@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(QModel.UserId))")'>Book Appointment </a>
                                     </div>
                                     <br />
-                                }
+                                }*@
                             }
                         }
                         else

@@ -66,7 +66,7 @@ namespace MiraiConsultMVC
 
             routes.MapRoute(
                name: "Questions1",
-               url: "question/{QuestionId}",
+               url: "questions/{QuestionId}",
                defaults: new { controller = "Questions", action = "DoctorQuestionDetails" },
                constraints: new
                {

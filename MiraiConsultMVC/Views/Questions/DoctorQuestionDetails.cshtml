@@ -158,7 +158,7 @@
                                         <label class="pull-left span4 required  btn-padding-left">Answer:</label>
                                         <div class="pull-right span8  main-outter-padding">
                                             <div>
-                                                <textarea class="input-block-level txtareaborder" id="txtAnswer" name="AnswerText"  placeholder="Enter Your Answer Here." rows="3" cols="10"></textarea>
+                                                <textarea class="input-block-level txtareaborder" id="txtAnswer" name="AnswerText" onkeyup="Count(this)" placeholder="Enter Your Answer Here." rows="3" cols="10"></textarea>
                                                 <label id="count" style="float:right">0/1000</label>
 
                                             </div>
@@ -217,6 +217,13 @@
                     $('#liDocQuestions').addClass("active");
                 }
             });
+            function Count(x) {
+                if (x.id == 'txtAnswer'){
+                    if (x.value.length <= 1000) {
+                        document.getElementById('count').innerHTML = x.value.length + "/1000";
+                    }
+                }
+            }
             function validatePhoto(sender, args) {
                 var file = document.getElementById('<%=fileUploadForImage.ClientID%>');
                 var fileName = file.value;

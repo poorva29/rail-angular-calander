@@ -30,6 +30,24 @@
                 <img alt="Data Loading.." src="~/Content/image/ajax_loader.gif" style="width: 50px" />
             </div>
         </div>
+        <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header center_align">
+                        <h4 class="popup-title">
+                            Book Appointment
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="answer-title doc-detail-word-break center_align">To book an appointment call on</p>
+                        <p class="answer-title doc-detail-word-break center_align margin-null">07666 252 444</p>
+                    </div>
+                    <div class="modal-footer center_align">
+                        <button type="button" class="btn thanx cust-red" style="padding:4px 30px;" data-dismiss="modal"><b>OK</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
         <script type="text/javascript" src="~/Content/js/utility.js"></script>
         <script type="text/javascript">
@@ -85,7 +103,7 @@
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
                                     template = template + "<div class='span3 pull-right hidden-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a><br/><br/></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-right hidden-phone'><a Class='btn book_appt_button' onclick='ViewProfile(\"" + response[indexcnt].docid + "\");bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-right hidden-phone'><a Class='btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
                             }
                             template = template + "</div>";
                             if (ansimg.length > 0) {
@@ -98,7 +116,7 @@
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
                                     template = template + "<div class='span3 pull-left visible-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-left visible-phone'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' onclick='ViewProfile(\"" + response[indexcnt].docid + "\");bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-left visible-phone'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
                             }
                             if (document.getElementById("HiddenUserType").value != "0") {
                                 template = template + "<div class='row-fluid margintop_tosharebutn'>";

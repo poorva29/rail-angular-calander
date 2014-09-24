@@ -4245,3 +4245,14 @@ table.cust-table {
 .cust-small-space-below{
     margin-bottom:10px;
 }
+.popup-title{
+    font-size: 22px;
+    color: #a7af38;
+    font-weight: 600;
+}
+.modal-footer {
+    padding: 8px 15px 8px;
+}
+.modal{
+    top:35%;
+}

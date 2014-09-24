@@ -71,7 +71,7 @@
                                         }
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                         {
-                                            <a class='pull-right btn book_appt_button' onclick="ViewProfile(@item.DocId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))') ">Book Appointment </a>
+                                            <a class='pull-right btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))') ">Book Appointment </a>
                                         }
                                     }
                                 </div>
@@ -104,7 +104,7 @@
                                     }
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                     {
-                                        <a class='pull-left btn book_appt_button' onclick="ViewProfile(@item.DocId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))')">Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))')">Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -237,6 +237,24 @@
     <meta property="og:description" content="@ViewBag.metaDescription" />
     <meta property="og:type" content="website" />
 }
+<div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header center_align">
+                <h4 class="popup-title">
+                    Book Appointment
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p class="answer-title doc-detail-word-break center_align">To book an appointment call on</p>
+                <p class="answer-title doc-detail-word-break center_align margin-null">07666 252 444</p>
+            </div>
+            <div class="modal-footer center_align">
+                <button type="button" class="btn thanx cust-red" style="padding:4px 30px;" data-dismiss="modal"><b>OK</b></button>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" id="hdnQuestionid" value="@ViewBag.questionid" />
 <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
 <script src="~/Content/js/utility.js"></script>

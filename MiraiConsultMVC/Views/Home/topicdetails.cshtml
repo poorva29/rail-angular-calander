@@ -114,6 +114,13 @@
                 </div>
             </div>
         </div>
+        @section metatags {
+            <meta name="description" content="@ViewBag.tag">
+        }
+    
+         @section tileTags {
+            <title>Mirai Consult : @ViewBag.tag </title>
+        }
         <script type="text/javascript" src="~/Content/js/utility.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {

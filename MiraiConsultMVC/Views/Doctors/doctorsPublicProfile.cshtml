@@ -370,6 +370,13 @@
             </div>
         </div>
     </div>
+    @section metatags {
+            <meta name="description" content="Dr. @(Model.FirstName + " " + Model.LastName)">
+        }
+    @section tileTags {
+            <title>Mirai Consult : doctor : Dr. @(Model.FirstName + " " + Model.LastName) </title>
+    }
+    
     <script src="~/Content/js/utility.js"></script>
     <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
     <script type="text/javascript">

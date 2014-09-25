@@ -231,11 +231,15 @@
     </div>
 </div>
 @section metatags {
+    <meta name="description" content="@ViewBag.QuestionText">
     <meta property="og:title" content="@ViewBag.metatitle" />
     <meta property="og:url" content="@ViewBag.metaUrl">
     <meta property="og:image" content="@ConfigurationSettings.AppSettings["askMiraiLink"]/Content/image/logoImage.png" />
     <meta property="og:description" content="@ViewBag.metaDescription" />
     <meta property="og:type" content="website" />
+}
+@section tileTags {
+    <title>Mirai Consult : @ViewBag.QuestionText </title>
 }
 <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

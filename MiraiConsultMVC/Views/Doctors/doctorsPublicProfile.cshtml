@@ -67,7 +67,7 @@
                                     }
                                     if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                                     {
-                                        <a class='pull-right btn book_appt_button' onclick="ViewProfile(@Model.UserId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.UserId))')">Book Appointment </a>
+                                        <a class="pull-right btn book_appt_button" onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Model.UserId))")' data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -161,7 +161,7 @@
                             @if (Convert.ToBoolean(Model.IsDocConnectUser) == false)
                             {
                                 <div class="span6 visible-phone">
-                                    <a class='pull-left btn book_appt_button' onclick="ViewProfile(@Model.UserId); bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.UserId))')">Book Appointment </a>
+                                    <a class="pull-left btn book_appt_button" onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Model.UserId))")' data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="bookaptclicked()">Book Appointment </a>
                                 </div>
                             }
                         </div>
@@ -351,6 +351,24 @@
                 <img alt="Data Loading.." src="~/Content/image/ajax_loader.gif" style="width: 50px" />
             </div>
         }
+    </div>
+    <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header center_align">
+                    <h4 class="popup-title">
+                        Book Appointment
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p class="answer-title doc-detail-word-break center_align">To book an appointment call on</p>
+                    <p class="answer-title doc-detail-word-break center_align margin-null">07666 252 444</p>
+                </div>
+                <div class="modal-footer center_align">
+                    <button type="button" class="btn thanx cust-red" style="padding:4px 30px;" data-dismiss="modal"><b>OK</b></button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="~/Content/js/utility.js"></script>
     <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>

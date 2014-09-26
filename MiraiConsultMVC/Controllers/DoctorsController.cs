@@ -264,6 +264,10 @@ namespace MiraiConsultMVC.Controllers
                         {
                             doctorlocation.ClinicName = Convert.ToString(locations.ClinicName);
                         }
+                        if (!String.IsNullOrEmpty(Convert.ToString(locations.HospitalName)))
+                        {
+                            doctorlocation.HospitalName = Convert.ToString(locations.HospitalName);
+                        }
                         if (!String.IsNullOrEmpty(Convert.ToString(locations.Location)))
                         {
                             doctorlocation.Location = Convert.ToString(locations.Location);

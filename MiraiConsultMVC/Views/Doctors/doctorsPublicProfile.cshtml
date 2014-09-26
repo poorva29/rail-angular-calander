@@ -82,10 +82,20 @@
                                         if (count % 2 == 0)
                                         {
                                             <div class="span5 left doc-clinic-container" style="margin-left: 0;">
-                                                <div class="span12 doc-div-min-height margin-null">
+                                               @if (!string.IsNullOrEmpty(location.ClinicName))
+                                                {
+                                                 <div class="span12 doc-div-min-height margin-null">
                                                     <div class="left loc-label doc-div-min-height span4"> Clinic Name:</div>
                                                     <div class="span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
                                                 </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(location.HospitalName) && location.HospitalName != "-")
+                                                {
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4"> Hospital Name:</div>
+                                                        <div class="span7 doc-div-min-height left doc-detail-word-break">@location.HospitalName</div>
+                                                    </div>
+                                                }
                                                 <div class="span12 doc-div-min-height margin-null">
                                                     <div class="left loc-label doc-div-min-height span4">City:</div>
                                                     <div class="span7 doc-div-min-height left doc-detail-word-break">@location.City</div>
@@ -111,10 +121,20 @@
                                         else
                                         {
                                             <div class="span5 border-color-doc-details left doc-clinic-container" style="margin-left: 0;">
-                                                <div class="span12 doc-div-min-height margin-null">
-                                                    <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
-                                                    <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
-                                                </div>
+                                                @if (!string.IsNullOrEmpty(location.ClinicName))
+                                                { 
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
+                                                        <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(location.HospitalName) && location.HospitalName != "-")
+                                                {
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Hospital Name:</div>
+                                                        <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.HospitalName</div>
+                                                    </div>
+                                                }
                                                 <div class="span12 doc-div-min-height margin-null">
                                                     <div class="left loc-label doc-div-min-height span4">City:</div>
                                                     <div class="span7 doc-div-min-height left doc-detail-word-break">@location.City</div>
@@ -177,10 +197,21 @@
                                         if (count % 2 == 0)
                                         {
                                             <div class="span5 left doc-clinic-container">
-                                                <div class="span12 doc-div-min-height margin-null">
-                                                    <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
-                                                    <div class="span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
-                                                </div>
+                                                
+                                                @if (!string.IsNullOrEmpty(location.ClinicName))
+                                                { 
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
+                                                        <div class="span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(location.HospitalName) && location.HospitalName != "-")
+                                                {
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Hospital Name:</div>
+                                                        <div class="span7 doc-div-min-height left doc-detail-word-break">@location.HospitalName</div>
+                                                    </div>
+                                                }
                                                 <div class="span12 doc-div-min-height margin-null">
                                                     <div class="left loc-label doc-div-min-height span4">City:</div>
                                                     <div class="span7 doc-div-min-height left doc-detail-word-break">@location.City</div>
@@ -206,10 +237,20 @@
                                         else
                                         {
                                             <div class="span5 border-color-doc-details left doc-clinic-container">
-                                                <div class="span12 doc-div-min-height margin-null">
-                                                    <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
-                                                    <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
-                                                </div>
+                                                @if (!string.IsNullOrEmpty(location.ClinicName))
+                                                { 
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Clinic Name:</div>
+                                                        <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.ClinicName</div>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(location.HospitalName) && location.HospitalName != "-")
+                                                {
+                                                    <div class="span12 doc-div-min-height margin-null">
+                                                        <div class="left loc-label doc-div-min-height span4">Hospital Name:</div>
+                                                        <div class=" span7 doc-div-min-height left doc-detail-word-break">@location.HospitalName</div>
+                                                    </div>
+                                                }
                                                 <div class="span12 doc-div-min-height margin-null">
                                                     <div class="left loc-label doc-div-min-height span4">City:</div>
                                                     <div class="span7 doc-div-min-height left doc-detail-word-break">@location.City</div>

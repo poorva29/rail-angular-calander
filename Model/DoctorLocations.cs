@@ -19,6 +19,7 @@ namespace Model
         private string clinicname;
         private string address;
         private string telephone;
+        private string hospitalname;
 
         public int DoctorLocationId { get { return doctorlocationid; } set { doctorlocationid = value; } }
         public int CountryId { get { return countryid; } set { countryid = value; } }
@@ -32,5 +33,6 @@ namespace Model
         public string ClinicName { get { return clinicname; } set { clinicname = value; } }
         public string Address { get { return address; } set { address = value; } }
         public string Telephone { get { return telephone; } set { telephone = value; } }
+        public string HospitalName { get { return hospitalname; } set { hospitalname = value; } }
     }
 }

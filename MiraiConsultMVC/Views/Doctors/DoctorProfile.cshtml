@@ -435,63 +435,67 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{int locationId;
-                                    int countryId;
-                                    int stateId;
-                                    string city;
-                                    string Location;
-                                    string Address;
-                                    string TelephoneNo;
-                                    string ClinicName;
-                                    int cityid;
-                                    foreach (Model.DoctorLocations doctorlocations in Model.locations)
-                                    {
-                                        countryId = doctorlocations.CountryId;
-                                        stateId = doctorlocations.StateId;
-                                        locationId = doctorlocations.LocationId;
-                                        city = Convert.ToString(doctorlocations.City);
-                                        cityid = doctorlocations.CityId;
-                                        Location = Convert.ToString(doctorlocations.Location);
-                                        Address = Convert.ToString(doctorlocations.Address);
-                                        TelephoneNo = Convert.ToString(doctorlocations.Telephone);
-                                        ClinicName = Convert.ToString(doctorlocations.ClinicName);
-                                        doctorID = Convert.ToInt32(Model.UserId);
-                                        <tr>
-                                            <td>@doctorlocations.DoctorLocationId</td>
-                                            <td>
-                                                @doctorID
-                                            </td>
-                                            <td>@countryId</td>
-                                            <td>@stateId</td>
-                                            <td>
-                                                @cityid
-                                            </td>
-                                            <td>
-                                                @locationId
-                                            </td>
-                                            <td>
-                                                @city
-                                            </td>
-                                            <td>
-                                                @Location
-                                            </td>
-                                            <td>
-                                                @Address
-                                            </td>
-                                            <td>
-                                                @ClinicName
-                                            </td>
-                                            <td>
-                                                @TelephoneNo
-                                            </td>
-                                            <td class="last-row">
-                                                <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
-                                            </td>
-                                            <td class="last-row">
-                                                <a class="delete hand-cursor" href=""><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
-                                            </td>
-                                        </tr>
-                                    }
+                                    @{
+                                        int locationId;
+                                        int countryId;
+                                        int stateId;
+                                        string city;
+                                        string Location;
+                                        string Address;
+                                        string TelephoneNo;
+                                        string ClinicName;
+                                        int cityid;
+                                        foreach (Model.DoctorLocations doctorlocations in Model.locations)
+                                        {
+                                            countryId = doctorlocations.CountryId;
+                                            stateId = doctorlocations.StateId;
+                                            locationId = doctorlocations.LocationId;
+                                            city = Convert.ToString(doctorlocations.City);
+                                            cityid = doctorlocations.CityId;
+                                            Location = Convert.ToString(doctorlocations.Location);
+                                            Address = Convert.ToString(doctorlocations.Address);
+                                            TelephoneNo = Convert.ToString(doctorlocations.Telephone);
+                                            ClinicName = Convert.ToString(doctorlocations.ClinicName);
+                                            doctorID = Convert.ToInt32(Model.UserId);
+                                            if (!string.IsNullOrEmpty(ClinicName))
+                                            {
+                                                <tr>
+                                                    <td>@doctorlocations.DoctorLocationId</td>
+                                                    <td>
+                                                        @doctorID
+                                                    </td>
+                                                    <td>@countryId</td>
+                                                    <td>@stateId</td>
+                                                    <td>
+                                                        @cityid
+                                                    </td>
+                                                    <td>
+                                                        @locationId
+                                                    </td>
+                                                    <td>
+                                                        @city
+                                                    </td>
+                                                    <td>
+                                                        @Location
+                                                    </td>
+                                                    <td>
+                                                        @Address
+                                                    </td>
+                                                    <td>
+                                                        @ClinicName
+                                                    </td>
+                                                    <td>
+                                                        @TelephoneNo
+                                                    </td>
+                                                    <td class="last-row">
+                                                        <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
+                                                    </td>
+                                                    <td class="last-row">
+                                                        <a class="delete hand-cursor" href=""><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
                                     }
                                 </tbody>
                             </table>

@@ -306,6 +306,10 @@ namespace DAL
                                 {
                                     doctorlocation.ClinicName = Convert.ToString(drlocation["clinicname"]);
                                 }
+                                if (!String.IsNullOrEmpty(Convert.ToString(drlocation["hospitalname"])))
+                                {
+                                    doctorlocation.HospitalName = Convert.ToString(drlocation["hospitalname"]);
+                                }
                                 if (!String.IsNullOrEmpty(Convert.ToString(drlocation["location_name"])))
                                 {
                                     doctorlocation.Location = Convert.ToString(drlocation["location_name"]);

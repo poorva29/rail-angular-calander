@@ -371,7 +371,8 @@
         </div>
     </div>
     @section metatags {
-            <meta name="description" content="Dr. @(Model.FirstName + " " + Model.LastName)">
+            <meta name="title" content="@(Model.FirstName + " " + Model.LastName)">
+            <meta name="description" content="@(Model.FirstName + " " + Model.LastName)">
         }
     @section tileTags {
             <title>Mirai Consult-doctor-@(Model.FirstName + " " + Model.LastName) </title>

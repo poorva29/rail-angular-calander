@@ -43,11 +43,7 @@
         function isEnterPressOnGlobalSearch(evt, x) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode == 13) {
-                var session = '@Session["UserType"]';
-                if (session != null && session == 2)
-                    window.location.href = "/similar-questions/" + x.value;
-                else
-                    window.location.href = "/similar-questions/" + x.value;
+                window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
                 return false;
             }
             return true;

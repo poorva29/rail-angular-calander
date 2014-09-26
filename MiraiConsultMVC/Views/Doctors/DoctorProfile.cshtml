@@ -424,6 +424,9 @@
                                             Clinic Name
                                         </th>
                                         <th>
+                                            Hospital Name
+                                        </th>
+                                        <th>
                                             Telephone No
                                         </th>
                                         <th>
@@ -444,6 +447,7 @@
                                         string Address;
                                         string TelephoneNo;
                                         string ClinicName;
+                                        string HospitalName;
                                         int cityid;
                                         foreach (Model.DoctorLocations doctorlocations in Model.locations)
                                         {
@@ -456,45 +460,55 @@
                                             Address = Convert.ToString(doctorlocations.Address);
                                             TelephoneNo = Convert.ToString(doctorlocations.Telephone);
                                             ClinicName = Convert.ToString(doctorlocations.ClinicName);
+                                            HospitalName = Convert.ToString(doctorlocations.HospitalName);
                                             doctorID = Convert.ToInt32(Model.UserId);
-                                            if (!string.IsNullOrEmpty(ClinicName))
-                                            {
-                                                <tr>
-                                                    <td>@doctorlocations.DoctorLocationId</td>
-                                                    <td>
-                                                        @doctorID
-                                                    </td>
-                                                    <td>@countryId</td>
-                                                    <td>@stateId</td>
-                                                    <td>
-                                                        @cityid
-                                                    </td>
-                                                    <td>
-                                                        @locationId
-                                                    </td>
-                                                    <td>
-                                                        @city
-                                                    </td>
-                                                    <td>
-                                                        @Location
-                                                    </td>
-                                                    <td>
-                                                        @Address
-                                                    </td>
-                                                    <td>
-                                                        @ClinicName
-                                                    </td>
-                                                    <td>
-                                                        @TelephoneNo
-                                                    </td>
-                                                    <td class="last-row">
-                                                        <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
-                                                    </td>
-                                                    <td class="last-row">
+                                            <tr>
+                                                <td>@doctorlocations.DoctorLocationId</td>
+                                                <td>
+                                                    @doctorID
+                                                </td>
+                                                <td>@countryId</td>
+                                                <td>@stateId</td>
+                                                <td>
+                                                    @cityid
+                                                </td>
+                                                <td>
+                                                    @locationId
+                                                </td>
+                                                <td>
+                                                    @city
+                                                </td>
+                                                <td>
+                                                    @Location
+                                                </td>
+                                                <td>
+                                                    @Address
+                                                </td>
+                                                <td>
+                                                    @ClinicName
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(doctorlocations.HospitalName) && doctorlocations.HospitalName != "-")
+                                                    {
+                                                        @HospitalName
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @TelephoneNo
+                                                </td>
+                                                <td class="last-row">
+                                                    @if (!string.IsNullOrEmpty(ClinicName))
+                                                    {
+                                                    <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
+                                                    }
+                                                </td>
+                                                <td class="last-row">
+                                                    @if (!string.IsNullOrEmpty(ClinicName))
+                                                    {
                                                         <a class="delete hand-cursor" href=""><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
-                                                    </td>
-                                                </tr>
-                                            }
+                                                    }
+                                                </td>
+                                            </tr>
                                         }
                                     }
                                 </tbody>
@@ -1293,6 +1307,7 @@
             /* location */null,
             /* Address*/null,
             /* clinic name*/null,
+            /* hospital name*/null,
             /*TelephoneNo  */null,
             /* Edit */null,
             /* Delete */null

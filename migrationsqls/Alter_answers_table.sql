@@ -9,4 +9,4 @@
 -- =============================================
 
 Alter table answers
-Alter column [answertext] varchar(1000)
+Alter column [answertext] varchar(1500)

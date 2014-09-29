@@ -20,8 +20,29 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="margin_bottom">
-                @if (Model != null && Model.Count() != 0)
+                @{string uType = "";
+                if (Session["UserType"] != null)
                 {
+                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+                    {
+                        uType = "Doctor";
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+                    {
+                        uType = "Patient";
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+                    {
+                       uType = "SuperAdmin";
+                    }
+                }
+                else
+                {
+                    uType = "NotLoggedIn";
+                }
+                }
+                @if (Model != null && Model.Count() != 0)
+                { 
                     <div class='span12 custom-green-container'>
                         <div class="question_text">@Html.Raw(Model.FirstOrDefault().QuestionText)</div>
                     </div>
@@ -67,11 +88,11 @@
                                     {
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                         {
-                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                            <a class='pull-right btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@uType")'>Book Appointment </a>
                                         }
                                         if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                         {
-                                            <a class='pull-right btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))') ">Book Appointment </a>
+                                            <a class='pull-right btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))','@uType') ">Book Appointment </a>
                                         }
                                     }
                                 </div>
@@ -100,11 +121,11 @@
                                 {
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser))
                                     {
-                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))")'>Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@Utilities.Encrypt(Convert.ToString(item.DocId).Trim())&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(item.DocId))","@uType")'>Book Appointment </a>
                                     }
                                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient) && Convert.ToBoolean(item.IsDocconnectUser) == false)
                                     {
-                                        <a class='pull-left btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))')">Book Appointment </a>
+                                        <a class='pull-left btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(item.DocId))','@uType')">Book Appointment </a>
                                     }
                                 }
                             </div>
@@ -261,6 +282,13 @@
 <script type="text/javascript">
     var slectedtag = [];
     $(function () {
+        var useType = '@uType';
+        var questionText = '';
+        @if (Model != null)
+        {
+            @:questionText = "@Html.Raw(Model.FirstOrDefault().QuestionText)";
+                }
+        ga('send', 'event', useType, 'Review Others Answers', questionText)
         slectedtag = $("select").val();
     });
     $(function () {
@@ -268,7 +296,7 @@
         if (refUrl.indexOf("answers") >= 0 || refUrl.indexOf("Doctor-Answers") >= 0) {
             $(".navigation li.active").removeClass("active");
             $('#liAdminFeed').addClass("active");
-            $('#liFeed').addClass("active"); 
+            $('#liFeed').addClass("active");
             $('#liDocFeed').addClass("active");
         }
         else if (refUrl.indexOf("similar-Questions") >= 0) {
@@ -302,8 +330,7 @@
             Updatedslectedtag = $("select").val();
             var newtags = [];
             var deletedtags = [];
-            if(!jQuery.isEmptyObject(Updatedslectedtag))
-            {
+            if (!jQuery.isEmptyObject(Updatedslectedtag)) {
                 for (var i = 0; i < Updatedslectedtag.length; i++) {
                     var index = $.inArray(Updatedslectedtag[i], slectedtag)
                     if (index == -1) {
@@ -311,8 +338,7 @@
                     }
                 }
             }
-            if(!jQuery.isEmptyObject(slectedtag))
-            {
+            if (!jQuery.isEmptyObject(slectedtag)) {
                 for (var i = 0; i < slectedtag.length; i++) {
                     var index = $.inArray(slectedtag[i], Updatedslectedtag)
                     if (index == -1) {

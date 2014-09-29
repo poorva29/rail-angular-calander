@@ -1,7 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Mirai Consult™</title>
+    @{
+        if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctor") || Session["seoQuestionText"] != null || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics"))
+        {
+            @RenderSection("titleTags", required: false)
+        }
+        else
+        {
+            <title>Mirai Consult ™ </title>
+        }
+    }
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link href="~/Content/navigation.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Scripts/google-code-prettify/prettify.css" />

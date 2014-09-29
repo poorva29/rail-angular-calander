@@ -540,6 +540,8 @@ namespace MiraiConsultMVC.Controllers
                 }
                 MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
                 ViewBag.tags = makeSelected;
+                if (QDModel.Count > 0)
+                    ViewBag.QuestionText = QDModel.FirstOrDefault().QuestionText;
                 return View(QDModel);
             }
             catch (Exception e)

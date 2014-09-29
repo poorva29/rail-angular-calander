@@ -176,7 +176,7 @@
                                         }
                                         count++;
                                     }
-                                    @if(Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.details != null && Model.details.Count > 0)))
+                                    @if (Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.qualification != null && Model.qualification.Count > 0) || (Model.details != null && Model.details.Where(x => x.Certification != null).Count() > 0)))
                                     { 
                                         <hr class="doc-details-hr" />
                                     }
@@ -295,7 +295,7 @@
                                         }
                                         count++;
                                     }
-                                    @if(Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.details != null && Model.details.Count > 0)))
+                                    @if (Model.locations.Count > 0 && ((Model.specialities != null && Model.specialities.Count > 0) || (Model.qualification != null && Model.qualification.Count > 0) || (Model.details != null && Model.details.Where(x => x.Certification != null).Count() > 0)))
                                     { 
                                         <hr class="doc-details-hr" />
                                     }
@@ -304,7 +304,7 @@
                         </div>
                     </div>
                 }
-                @if ((Model.specialities != null && Model.specialities.Count > 0) || (Model.details != null && Model.details.Count > 0) || (Model.details != null && Model.details.Count > 0))
+                @if ((Model.specialities != null && Model.specialities.Count > 0) || (Model.qualification != null && Model.qualification.Count > 0) || (Model.details != null && Model.details.Where(x => x.Certification != null).Count() > 0))
                 {
                     <div class="row-fluid hidden-phone">
                         <div class="span2 hidden-phone">
@@ -431,6 +431,14 @@
             </div>
         </div>
     </div>
+    @section metatags {
+            <meta name="title" content="@(Model.FirstName + " " + Model.LastName)">
+            <meta name="description" content="@(Model.FirstName + " " + Model.LastName)">
+        }
+    @section titleTags {
+            <title>Mirai Consult-doctor-@(Model.FirstName + " " + Model.LastName) </title>
+    }
+    
     <script src="~/Content/js/utility.js"></script>
     <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
     <script type="text/javascript">

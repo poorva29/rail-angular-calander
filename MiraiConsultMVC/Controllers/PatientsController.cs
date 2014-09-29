@@ -556,10 +556,12 @@ namespace MiraiConsultMVC.Controllers
                 //Putted as it is 
                 Session["seoQuestionText"] = "seoQuestionText";
                 int questionId = 0;
+                ViewBag.QuestionText = "";
                 var qlist = db.questions.Where(x => x.question_seo.Equals(seoQuestionText)).ToList();
                 if (qlist.Count > 0)
                 {
                     questionId = qlist.FirstOrDefault().questionid;
+                    ViewBag.QuestionText = qlist.FirstOrDefault().questiontext;
                 }
                 else
                 {

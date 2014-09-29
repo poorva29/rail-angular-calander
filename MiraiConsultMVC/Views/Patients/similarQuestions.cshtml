@@ -12,6 +12,27 @@
 }
 @using (Html.BeginForm())
 {
+    string userType = "";
+    if (Session["UserType"] != null)
+    {
+        if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor))
+        {
+            userType = "Doctor";
+        }
+        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
+        {
+            userType = "Patient";
+        }
+        else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin))
+        {
+            userType = "SuperAdmin";
+        }
+
+    }
+    else
+    {
+        userType = "NotLoggedIn";
+    }
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     {
@@ -88,7 +109,7 @@
                                     @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                     {
                                         <div class="span3  pull-right hidden-phone">
-                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))')">Book Appointment </a>
+                                            <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))','@userType')">Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>
@@ -96,7 +117,7 @@
                                     @if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser)==false)
                                     {
                                         <div class="span3  pull-right hidden-phone">
-                                            <a class='btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))');">Book Appointment </a>
+                                            <a class='btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick="bookaptclicked('@Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))','@userType');">Book Appointment </a>
                                             <br />
                                             <br />
                                         </div>
@@ -124,7 +145,7 @@
                                 if (Convert.ToBoolean(Model.ToList()[i].isdocconnectuser))
                                 {
                                     <div class="span3 offset1 pull-left visible-phone">
-                                        <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Convert.ToString(Model.ToList()[i].UserId)))")'>Book Appointment </a>
+                                        <a class='btn book_appt_button' href='@Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"])@MiraiConsultMVC.Utilities.Encrypt(Convert.ToString(Model.ToList()[i].UserId))&frmaskmirai=1' target='_blank' onclick='bookaptclicked( "@Utilities.Encrypt(Convert.ToString(Convert.ToString(Model.ToList()[i].UserId)))","@userType ")'>Book Appointment </a>
                                     </div>
                                     <br />
                                 }
@@ -179,18 +200,23 @@
             function googleAnalytics(QuestionText) {
 
                 var userType = '';
-                @if (Session["UserType"] != null) {
+                @if (Session["UserType"] != null)
+                {
                     if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor)){
                     @:userType = 'Doctor';
                                 }
-                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)){
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)){
                     @:userType = 'Patient';
                                 }
-                else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin)){
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin)){
                     @:userType = 'SuperAdmin';
-                }
+                    }
                 
-                                }
+                }
+                else
+                {
+                    @:userType = 'NotLoggedIn';
+                }
                 ga('send', 'event', userType, 'Click on similar Questions', QuestionText);
             }
             $('#QuestionText').bind('input propertychange', function () {
@@ -244,8 +270,8 @@
                     }
                     return true;
                 }
-                function bookaptclicked(docid) {
-                    ga('send', 'event', 'Patient', 'Book Appointment ', '');
+                function bookaptclicked(docid,userType) {
+                    ga('send', 'event', userType, 'Book Appointment ', '');
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',

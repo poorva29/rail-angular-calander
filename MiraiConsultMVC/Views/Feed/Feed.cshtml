@@ -65,7 +65,30 @@
                     populateFeedData(indexoF)
                 }
             });
+            function FindUserType() {
+                var userType = '';
+                @if (Session["UserType"] != null)
+                {
+                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor)){
+                        @:userType = 'Doctor';
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)){
+                            @:userType = 'Patient';
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin)){
+                            @:userType = 'SuperAdmin';
+                    }
+                
+                }
+                else
+                {
+                    @:userType = 'NotLoggedIn';
+                }
+                return userType;
+            }
+
             function populateFeedData(index) {
+                var userType = FindUserType();
                 var RecordSize = document.getElementById("HdnRecordSize").value;
                 var UserId = document.getElementById("HdnUserID").value;
                 var docconnecturl = document.getElementById("hdnDocconnecturl").value;
@@ -101,9 +124,9 @@
                             "<div class='row-fluid custom-occupy'><div class='span1 hidden-phone'><div class='center_align'><div class='feedDocImage img' style='margin-bottom:10px'><img src=" + img + "></div></div></div><div class='visible-phone feedDocImage img' style='margin-bottom:10px'><img src=" + img + "></div><div class='span6  middle-size-padding '><div class='ans_time_detail'><a class='ans_time_detail' target='_blank' href='../doctor/" + response[indexcnt].name_seo +"'>Dr. " + response[indexcnt].answerreplyedby + "</a> </div><div class='title_text'><b>" + title + "</b></div></div>";
                             if (document.getElementById("HiddenUserType").value != "0") {
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
-                                    template = template + "<div class='span3 pull-right hidden-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a><br/><br/></div>";
+                                    template = template + "<div class='span3 pull-right hidden-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\",\"" + userType + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a><br/><br/></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-right hidden-phone'><a Class='btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-right hidden-phone'><a Class='btn book_appt_button' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\",\"" + userType + "\")'>Book Appointment </a></div>";
                             }
                             template = template + "</div>";
                             if (ansimg.length > 0) {
@@ -114,9 +137,9 @@
                             }
                             if (document.getElementById("HiddenUserType").value != "0") {
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
-                                    template = template + "<div class='span3 pull-left visible-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-left visible-phone'><a class='btn book_appt_button' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\",\"" + userType + "\")' href='" + docconnecturl + response[indexcnt].docid + "&frmaskmirai=1' Class='btn book_appt_button' target='_blank' > Book Appointment </a></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-left visible-phone'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\")'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-left visible-phone'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].docid + "\",\"" + userType + "\")'>Book Appointment </a></div>";
                             }
                             if (document.getElementById("HiddenUserType").value != "0") {
                                 template = template + "<div class='row-fluid margintop_tosharebutn'>";

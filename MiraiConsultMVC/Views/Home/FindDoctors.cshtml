@@ -138,7 +138,29 @@
                     }
                 });
             });
+            function FindUserType() {
+                var userType = '';
+                @if (Session["UserType"] != null)
+                {
+                    if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Doctor)){
+                        @:userType = 'Doctor';
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient)){
+                            @:userType = 'Patient';
+                    }
+                    else if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.SuperAdmin)){
+                            @:userType = 'SuperAdmin';
+                    }
+                
+                }
+                else
+                {
+                    @:userType = 'NotLoggedIn';
+                                }
+                return userType;
+            }
             function btnSearchDoctor_Click(ClickEvent) {
+                var userType = FindUserType();
                 var cityid = $('#city-select').val();
                 var locationid = ""
                 if ($('#locality-select').val() != null) {
@@ -185,9 +207,9 @@
                             "</div><div class='span7 margin_leftdocdetail middle-size-padding div-margin-left'><div class='subtitle_fontSize find-doc-name'><a class='subtitle_fontSize find-doc-name question_text' target='_blank' href='../doctor/" + response[indexcnt].name_seo + "'>" + response[indexcnt].name + "</a></div>" +
                             "<div class='subtitle_fontSize'><div class='span3'><b>Specialities: </b></div><div class='span9 content_wrap searchresult-margin-left'>" + response[indexcnt].specialities + "</div></div><div class='subtitle_fontSize'><div class='span3'><b>Location: </b></div><div class='span9 content_wrap searchresult-margin-left'>" + loaction + "</div></div></div>"
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")
-                                    template = template + "<div class='span3 pull-right'><a onclick='bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + response[indexcnt].name + "\")' href='" + docconnecturl + response[indexcnt].userid + "&frmaskmirai=1' Class='btn book_appt_button make_appointment_btn btn-margin-bottom' target='_blank' >Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-right'><a onclick='bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + userType + "\")' href='" + docconnecturl + response[indexcnt].userid + "&frmaskmirai=1' Class='btn book_appt_button make_appointment_btn btn-margin-bottom' target='_blank' >Book Appointment </a></div>";
                                 if (response[indexcnt].isdocconnectuser != true)
-                                    template = template + "<div class='span3 pull-right'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + response[indexcnt].name + "\");'>Book Appointment </a></div>";
+                                    template = template + "<div class='span3 pull-right'><a Class='btn book_appt_button make_appointment_btn btn-margin-bottom' data-toggle='modal' data-target='#myModal' data-backdrop='static' data-keyboard='false' onclick='bookaptclicked(\"" + response[indexcnt].userid + "\", \"" + userType + "\");'>Book Appointment </a></div>";
                             template = template + "</div>";
                             $("#searchResult").append(template);
                         }

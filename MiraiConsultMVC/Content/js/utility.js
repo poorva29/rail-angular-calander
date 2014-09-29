@@ -157,8 +157,8 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
     return false;
 }
 
-function bookaptclicked(docid) {
-    ga('send', 'event', 'Patient', 'Book Appointment ', '');
+function bookaptclicked(docid,userType) {
+    ga('send', 'event', userType, 'Book Appointment ', '');
     $.ajax({
         type: 'POST',
         dataType: 'json',

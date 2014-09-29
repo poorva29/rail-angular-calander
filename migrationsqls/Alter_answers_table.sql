@@ -2,9 +2,9 @@
 
 -- Author: <pavan shevle>
 
--- Create date: 12/09/2014
+-- Create date: 29/09/2014
 
--- Description: changed answertext column of answers table as 1000 char
+-- Description: changed answertext column of answers table as 1500 char
 
 -- =============================================
 

@@ -22,11 +22,16 @@
                             if (Model.qualification != null && Model.qualification.Count > 0)
                             {
                                 qualification = ", ";
+                                int count = 1;
                                 foreach (var q in Model.qualification)
                                 {
-                                    qualification += q.Degree + ", ";
+                                    qualification += q.Degree;
+                                    if (count != Model.qualification.Count)
+                                    {
+                                        qualification += ",";
+                                    }
+                                    count++;
                                 }
-                                qualification = qualification.TrimEnd(',');
                             }
                         }
                         <div class="doc-profile-title">

@@ -5,7 +5,7 @@
     @{
         if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("doctor") || Session["seoQuestionText"] != null || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("topics"))
         {
-            @RenderSection("titeTags", required: false)
+            @RenderSection("titleTags", required: false)
         }   
         else
         {

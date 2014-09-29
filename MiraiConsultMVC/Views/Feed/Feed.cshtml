@@ -65,7 +65,7 @@
                     populateFeedData(indexoF)
                 }
             });
-            function FindUseType() {
+            function FindUserType() {
                 var userType = '';
                 @if (Session["UserType"] != null)
                 {
@@ -88,7 +88,7 @@
             }
 
             function populateFeedData(index) {
-                var userType = FindUseType();
+                var userType = FindUserType();
                 var RecordSize = document.getElementById("HdnRecordSize").value;
                 var UserId = document.getElementById("HdnUserID").value;
                 var docconnecturl = document.getElementById("hdnDocconnecturl").value;

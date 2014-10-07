@@ -83,7 +83,7 @@ function thankToDoctor(userid, answerid, button, lastname, mobileno, emailid, qu
         data: '{"userid":"' + userid + '","answerid":"' + answerid + '","lastname":"' + lastname + '","emailid":"' + emailid + '","mobileno":"' + mobileno + '","questiontext":"' + questiontext + '","thanxcount":"' + thanxcount + '"}',
         url: "../../Services/UserService.svc/thanktodoctor",
         success: function (response) {
-            ga('send', 'event', 'Patient ', 'Marked Question as Useful', questiontext);
+            ga('send', 'event', 'Patient ', 'Marked Question as Useful', unescape(questiontext));
             response = JSON.parse(response);
         },
         error: function (e) {
@@ -148,7 +148,7 @@ function endorseToDoctor(userid, answerid, button, lastname, mobileno, Email, an
         url: "../../Services/UserService.svc/endorsetodoctor",
         success: function (response) {
             button.innerHTML = '<img src="../Content/image/thanks.png"/><div class="inline custom-green-text">Endorsed</div>';
-            ga('send', 'event', 'Doctor ', 'Endorse', questiontext);
+            ga('send', 'event', 'Doctor ', 'Endorse', unescape(questiontext));
             response = JSON.parse(response);
         },
         error: function (e) {

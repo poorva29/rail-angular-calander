@@ -461,6 +461,10 @@
                                             TelephoneNo = Convert.ToString(doctorlocations.Telephone);
                                             ClinicName = Convert.ToString(doctorlocations.ClinicName);
                                             HospitalName = Convert.ToString(doctorlocations.HospitalName);
+                                            if (HospitalName == "-")
+                                            {
+                                                HospitalName = null;
+                                            }
                                             doctorID = Convert.ToInt32(Model.UserId);
                                             <tr>
                                                 <td>@doctorlocations.DoctorLocationId</td>
@@ -488,7 +492,7 @@
                                                     @ClinicName
                                                 </td>
                                                 <td>
-                                                    @if (!string.IsNullOrEmpty(doctorlocations.HospitalName) && doctorlocations.HospitalName != "-")
+                                                    @if (!string.IsNullOrEmpty(HospitalName))
                                                     {
                                                         @HospitalName
                                                     }
@@ -497,13 +501,13 @@
                                                     @TelephoneNo
                                                 </td>
                                                 <td class="last-row">
-                                                    @if (!string.IsNullOrEmpty(ClinicName))
+                                                    @if (string.IsNullOrEmpty(HospitalName))
                                                     {
                                                     <a class="edit hand-cursor" href=""><img alt="edit" class="cust-icon" src="../Content/image/edit2.png" /></a>
                                                     }
                                                 </td>
                                                 <td class="last-row">
-                                                    @if (!string.IsNullOrEmpty(ClinicName))
+                                                    @if (string.IsNullOrEmpty(HospitalName))
                                                     {
                                                         <a class="delete hand-cursor" href=""><img alt="delete" class="cust-icon" src="../Content/image/bin-1.png" /></a>
                                                     }

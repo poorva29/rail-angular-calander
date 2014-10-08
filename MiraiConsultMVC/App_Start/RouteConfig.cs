@@ -166,7 +166,7 @@ namespace MiraiConsultMVC
             routes.MapRoute(
                 name: "Questions2",
                 url: "question/{seoQuestionText}",
-                defaults: new { controller = "Questions", action = "DoctorQuestions" }
+                defaults: new { controller = "Questions", action = "DoctorQuestionDetails", seoQuestionText = UrlParameter.Optional }
             );
 
             
@@ -186,7 +186,7 @@ namespace MiraiConsultMVC
             routes.MapRoute(
                 name: "assignquestion",
                 url: "assign-question/{seoQuestionText}",
-                defaults: new {controller="admin",action="assignquestions" }
+                defaults: new { controller = "admin", action = "assignquestion", seoQuestionText = UrlParameter.Optional }
                 );
             
 
@@ -234,7 +234,7 @@ namespace MiraiConsultMVC
             routes.MapRoute(
                 name: "Answers3",
                 url: "answers/{*questiontext}",
-                defaults: new { controller = "Patients", action = "PatientQuestionDetail", questiontext = UrlParameter.Optional }
+                defaults: new { controller = "Patients", action = "PatientQuestionDetails", questiontext = UrlParameter.Optional }
             );
 
 

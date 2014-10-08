@@ -365,106 +365,27 @@ namespace MiraiConsultMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult PatientQuestionDetail(string questiontext = null)
+        public ActionResult PatientQuestionDetails(int questionId = 0, string questiontext = null)
         {
             try
             {
-                if (!String.IsNullOrEmpty(questiontext))
+                if (!string.IsNullOrEmpty(questiontext) && questionId == 0)
                 {
-                    var qt = db.questions.FirstOrDefault(x => x.question_seo.Equals(questiontext));
-                    if (qt != null)
+                    var qId = db.questions.FirstOrDefault(x => x.question_seo.Equals(questiontext));
+                    if (qId != null)
                     {
-                        questionId = qt.questionid;
+                        questionId = qId.questionid;
                     }
-                }
-                if (Session["UserId"] != null)
-                {
-                    userId = Convert.ToInt32(Session["UserId"]);
-                }
-                IList<QuestionDtlModel> QDModel = new List<QuestionDtlModel>();
-                QuestionDtlModel qm;
-                System.Data.Linq.ISingleResult<get_questiondetailsbyIdResult> ModelQuestion = db.get_questiondetailsbyId(questionId, userId, 0, Convert.ToInt32(QuestionStatus.Approved));
-                @ViewBag.questionid = questionId;
-                foreach (var item in ModelQuestion)
-                {
-                    qm = new QuestionDtlModel();
-                    qm.AnswerDate = Convert.ToDateTime(item.answerdate);
-                    qm.AnswerId = Convert.ToInt32(item.answerid);
-                    qm.AnswerImg = item.answerimg;
-                    qm.AnswerText = item.answertext;
-                    qm.CreateDate = Convert.ToDateTime(item.createdate);
-                    qm.DocconnectDoctorId = item.docconnectdoctorid;
-                    qm.DocId = Convert.ToInt32(item.Docid);
-                    qm.Doctor = item.doctor;
-                    qm.DoctorImg = item.doctorimg;
-                    qm.Email = item.Email;
-                    qm.EndorseCount = Convert.ToInt32(item.endorsecount);
-                    qm.Gender = Convert.ToInt32(item.gender);
-                    qm.Id = item.id;
-                    qm.IsDocconnectUser = Convert.ToBoolean(item.isdocconnectuser);
-                    qm.IsEndorse = Convert.ToBoolean(item.isendorse);
-                    qm.IsPatientThank = Convert.ToBoolean(item.ispatientthank);
-                    qm.LastName = item.lastname;
-                    qm.MobileNo = item.mobileno;
-                    qm.PatientEmail = item.patientemail;
-                    qm.PatientLastName = item.patientlastname;
-                    qm.QuestionId = Convert.ToInt32(item.questionid);
-                    qm.QuestionText = item.questiontext;
-                    qm.status = Convert.ToInt32(item.status);
-                    qm.ThanxCount = Convert.ToInt32(item.thanxcount);
-                    qm.Title = item.title;
-                    qm.UserId = Convert.ToInt32(item.userid);
-                    qm.Name_seo = item.name_seo;
-                    QDModel.Add(qm);
-                }
-                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
-                ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
-                if (QDModel.ToList().Count != 0)
-                {
-                    ViewBag.metatitle = QDModel.FirstOrDefault().QuestionText;
-                    ViewBag.metaUrl = ViewBag.AskmiraiUrl + "Patients/PatientQuestionDetails?questionid=" + QDModel.FirstOrDefault().QuestionId;
-                    ViewBag.metaDescription = QDModel.FirstOrDefault().AnswerText;
                 }
                 else
                 {
-                    ViewBag.metatitle = "MiraiConsult";
-                    ViewBag.metaUrl = ViewBag.AskmiraiUrl;
-                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at Mirai Consult";
+                    var qId = db.questions.FirstOrDefault(x => x.questionid == questionId);
+                    if (qId != null)
+                    {
+                        questiontext = qId.question_seo;
+                    }
                 }
-                DataTable dtTags = UtilityManager.getInstance().getAlltags();
 
-                List<tag> tags = new List<tag>();
-
-                var selectdTags = db.questiontags.Where(x => x.questionid.Equals(questionId)).ToList();
-
-                tags = dtTags.AsEnumerable().Select(dataRow => new tag
-                {
-                    tagid = dataRow.Field<int>("tagid"),
-                    tagname = dataRow.Field<string>("tagname"),
-                }).ToList();
-
-                List<tag> seletedTagslist = new List<tag>();
-                int[] values = new int[selectdTags.Count];
-                int count = 0;
-                foreach (var item in selectdTags)
-	            {
-                    values[count++]=Convert.ToInt32(item.tagid);
-	            }
-                MultiSelectList makeSelected = new MultiSelectList(tags, "tagid", "tagname", values);
-                ViewBag.tags = makeSelected;
-                return View(QDModel);
-            }
-            catch(Exception e)
-            {
-                return View();
-            }
-        }
-
-        [HttpGet]
-        public ActionResult PatientQuestionDetails(int questionId = 0)
-        {
-            try
-            {
                 if (Session["UserId"] != null)
                 {
                     userId = Convert.ToInt32(Session["UserId"]);
@@ -501,6 +422,7 @@ namespace MiraiConsultMVC.Controllers
                     qm.status = Convert.ToInt32(item.status);
                     qm.ThanxCount = Convert.ToInt32(item.thanxcount);
                     qm.Title = item.title;
+                    qm.seoQuestionText = questiontext;
                     qm.UserId = Convert.ToInt32(item.userid);
                     qm.Name_seo = item.name_seo;
                     QDModel.Add(qm);
@@ -676,6 +598,7 @@ namespace MiraiConsultMVC.Controllers
                     AskDoctor qModel = new AskDoctor();
                     qModel.QuestionId = Convert.ToInt32(item.questionid);
                     qModel.QuestionText = item.questiontext;
+                    qModel.SeoQuestionText = item.question_seo;
                     qModel.Counts = item.counts;
                     lstQuestions.Add(qModel);
                 }

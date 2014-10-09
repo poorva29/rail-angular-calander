@@ -1,6 +1,3 @@
-USE [AsquareMirai]
-GO
-
 /****** Object:  StoredProcedure [dbo].[get_AllQuestionsByTag]    Script Date: 10/9/2014 11:47:08 AM ******/
 DROP PROCEDURE [dbo].[get_AllQuestionsByTag]
 GO

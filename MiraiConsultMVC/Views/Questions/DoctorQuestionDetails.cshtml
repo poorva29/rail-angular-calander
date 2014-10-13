@@ -190,15 +190,11 @@
         </div>
         <script type="text/javascript">
             $('#txtAnswer').bind('input propertychange', function () {
-                if ($(this).val().length <= 1000) {
-                    document.getElementById('count').innerHTML = $(this).val().length + "/1000";
-                }
                 var MaxLength = 1000;
                 var text = $(this).val();
-                if ($(this).val().length > MaxLength) {
-                    $(this).val(text.substr(0, (MaxLength)));
-                }
+                $(this).val(text.substr(0, (MaxLength)));
                 $("#lblErrortxtAnswer").html('');
+                document.getElementById('count').innerHTML = $(this).val().length + "/1000";
             });
             $(document).ready(function () {
                 var MaxLength = 1000;

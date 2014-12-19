@@ -617,13 +617,6 @@ namespace MiraiConsultMVC.Models
 			return ((ISingleResult<get_AllQuestionsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_AllQuestionsByTag")]
-		public ISingleResult<get_AllQuestionsByTagResult> get_AllQuestionsByTag([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string questionText, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionStatus)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionText, questionStatus);
-			return ((ISingleResult<get_AllQuestionsByTagResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_AllQuestionsByUserId")]
 		public ISingleResult<get_AllQuestionsByUserIdResult> get_AllQuestionsByUserId([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Userid", DbType="Int")] System.Nullable<int> userid)
 		{
@@ -1072,6 +1065,13 @@ namespace MiraiConsultMVC.Models
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tagSEOText, questionStatus);
 			return ((ISingleResult<get_AllQuestionsByTagSEOResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_AllQuestionsByTag")]
+		public ISingleResult<get_AllQuestionsByTagResult> get_AllQuestionsByTag([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string questionText, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> questionStatus)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), questionText, questionStatus);
+			return ((ISingleResult<get_AllQuestionsByTagResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -11795,86 +11795,6 @@ namespace MiraiConsultMVC.Models
 		}
 	}
 	
-	public partial class get_AllQuestionsByTagResult
-	{
-		
-		private string _doctorname;
-		
-		private System.Nullable<int> _questionid;
-		
-		private string _questiontext;
-		
-		private string _counts;
-		
-		public get_AllQuestionsByTagResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_doctorname", DbType="VarChar(200)")]
-		public string doctorname
-		{
-			get
-			{
-				return this._doctorname;
-			}
-			set
-			{
-				if ((this._doctorname != value))
-				{
-					this._doctorname = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", DbType="Int")]
-		public System.Nullable<int> questionid
-		{
-			get
-			{
-				return this._questionid;
-			}
-			set
-			{
-				if ((this._questionid != value))
-				{
-					this._questionid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
-		public string questiontext
-		{
-			get
-			{
-				return this._questiontext;
-			}
-			set
-			{
-				if ((this._questiontext != value))
-				{
-					this._questiontext = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counts", DbType="VarChar(331)")]
-		public string counts
-		{
-			get
-			{
-				return this._counts;
-			}
-			set
-			{
-				if ((this._counts != value))
-				{
-					this._counts = value;
-				}
-			}
-		}
-	}
-	
 	public partial class get_AllQuestionsByUserIdResult
 	{
 		
@@ -18786,6 +18706,104 @@ namespace MiraiConsultMVC.Models
 				if ((this._question_seo != value))
 				{
 					this._question_seo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_AllQuestionsByTagResult
+	{
+		
+		private string _doctorname;
+		
+		private System.Nullable<int> _questionid;
+		
+		private string _questiontext;
+		
+		private string _question_seo;
+		
+		private string _counts;
+		
+		public get_AllQuestionsByTagResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_doctorname", DbType="VarChar(200)")]
+		public string doctorname
+		{
+			get
+			{
+				return this._doctorname;
+			}
+			set
+			{
+				if ((this._doctorname != value))
+				{
+					this._doctorname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questionid", DbType="Int")]
+		public System.Nullable<int> questionid
+		{
+			get
+			{
+				return this._questionid;
+			}
+			set
+			{
+				if ((this._questionid != value))
+				{
+					this._questionid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_questiontext", DbType="VarChar(200)")]
+		public string questiontext
+		{
+			get
+			{
+				return this._questiontext;
+			}
+			set
+			{
+				if ((this._questiontext != value))
+				{
+					this._questiontext = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_question_seo", DbType="VarChar(200)")]
+		public string question_seo
+		{
+			get
+			{
+				return this._question_seo;
+			}
+			set
+			{
+				if ((this._question_seo != value))
+				{
+					this._question_seo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counts", DbType="VarChar(331)")]
+		public string counts
+		{
+			get
+			{
+				return this._counts;
+			}
+			set
+			{
+				if ((this._counts != value))
+				{
+					this._counts = value;
 				}
 			}
 		}

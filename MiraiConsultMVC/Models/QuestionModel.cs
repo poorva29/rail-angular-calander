@@ -26,7 +26,7 @@ namespace MiraiConsultMVC.Models
         public string MobileNo { get; set; }
         public int status { get; set; }
         public DateTime CreateDate { get; set; }
-
+        public string seoQuestionText { get; set; }
         public string QuestionText { get; set; }
 
 

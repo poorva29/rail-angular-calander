@@ -13,6 +13,7 @@ namespace MiraiConsultMVC.Models
         private int status;
         private DateTime createdate;
         private string questiontext;
+        private string seoQuestionText;
         private string counts;
 
         public int QuestionId { get { return questionid; } set { questionid = value; } }
@@ -22,6 +23,7 @@ namespace MiraiConsultMVC.Models
 
         [Required(ErrorMessage = "Please Enter Question")]
         public string QuestionText { get { return questiontext; } set { questiontext = value; } }
+        public string SeoQuestionText { get { return seoQuestionText; } set { seoQuestionText = value; } }
         public string Counts { get { return counts; } set { counts = value; } }
     }
 }

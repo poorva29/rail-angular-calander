@@ -315,7 +315,7 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult UpdateDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string SelectedDegreeId, string university)
         {
             int result = 0;
-            result = DoctorManager.getInstance().UpdateDegreeUniversityByDoctorAndDegrreId(doctorId, LastSelectedDegreeID, SelectedDegreeId, university);
+            result = DoctorManager.getInstance().UpdateDegreeUniversityByDoctorAndDegrreId(Convert.ToString(Session["UserId"]), doctorId, LastSelectedDegreeID, SelectedDegreeId, university);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult DeleteDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string university)
@@ -328,7 +328,7 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult UpdateDoctorDetailsByDoctorDetailsId(string doctorId, string doctordetailsid, string SelectedTypeId, string Details)
         {
             int result = 0;
-            result = DoctorManager.getInstance().UpdateDoctorDetailsByDoctorDetailsId(doctorId, doctordetailsid, SelectedTypeId, Details);
+            result = DoctorManager.getInstance().UpdateDoctorDetailsByDoctorDetailsId(Convert.ToString(Session["UserId"]), doctorId, doctordetailsid, SelectedTypeId, Details);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -380,7 +380,7 @@ namespace MiraiConsultMVC.Controllers
             {
                 docLocation.LocationId = Convert.ToInt32(locationId);
             }
-            DataSet ds = DoctorManager.getInstance().AddUpdateDoctorClinic(doctorid, docLocation);
+            DataSet ds = DoctorManager.getInstance().AddUpdateDoctorClinic(Convert.ToString(Session["UserId"]), doctorid, docLocation);
             if (ds != null && ds.Tables.Count > 0)
             {
                 docLocID = Convert.ToInt32(ds.Tables[0].Rows[0]["doclocid"]);
@@ -481,7 +481,7 @@ namespace MiraiConsultMVC.Controllers
                     speciality.SpecialityId = Convert.ToInt32(specialityId);
                     doctor.AddSpeciality(speciality);
                 }
-                dtDoctor = DoctorManager.getInstance().UpdatedoctordetailById(doctor);
+                dtDoctor = DoctorManager.getInstance().UpdatedoctordetailById(Convert.ToString(Session["UserId"]), doctor);
                 if (dtDoctor != null && dtDoctor.Rows.Count > 0)
                 {
                     if (Convert.ToBoolean(dtDoctor.Rows[0]["EmailAvailable"]))

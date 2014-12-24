@@ -102,14 +102,14 @@ namespace DAL
             }
             return table;
         }
-        public DataTable UpdatedoctordetailById(User doctor)
+        public DataTable UpdatedoctordetailById(string uid,User doctor)
         {
             DataTable dtDoctor = null;
             DataSet dsDoctor = null;
             SqlConnection conn = null;
             using (conn = SqlHelper.GetSQLConnection())
             {
-                SqlParameter[] parm = new SqlParameter[16];
+                SqlParameter[] parm = new SqlParameter[17];
                 parm[0] = new SqlParameter("@doctorid", doctor.UserId);
                 parm[1] = new SqlParameter("@firstname", doctor.FirstName);
                 parm[2] = new SqlParameter("@lastname", doctor.LastName);
@@ -149,6 +149,7 @@ namespace DAL
                     parm[15] = new SqlParameter("@photourl", doctor.PhotoUrl);
                 else
                     parm[15] = new SqlParameter("@photourl", System.DBNull.Value);
+                parm[16] = new SqlParameter("@uid", uid);
                 dsDoctor = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_doctor_Update", parm);
                 if (dsDoctor != null && dsDoctor.Tables.Count > 0)
                 {
@@ -373,13 +374,13 @@ namespace DAL
             }
             return lstdoctors;
         }
-        public int UpdateDegreeUniversityByDoctorAndDegrreId(string doctorId, string LastSelectedDegreeID, string SelectedDegreeId, string university)
+        public int UpdateDegreeUniversityByDoctorAndDegrreId(string uid, string doctorId, string LastSelectedDegreeID, string SelectedDegreeId, string university)
         {
             SqlConnection conn = null;
             int result = 0;
             using (conn = SqlHelper.GetSQLConnection())
             {
-                SqlParameter[] param = new SqlParameter[5];
+                SqlParameter[] param = new SqlParameter[6];
                 param[0] = new SqlParameter("@doctorid", Convert.ToInt32(doctorId));
                 if (!String.IsNullOrEmpty(LastSelectedDegreeID))
                 {
@@ -399,6 +400,7 @@ namespace DAL
                     param[3] = new SqlParameter("@University", System.DBNull.Value);
                 }
                 param[4] = new SqlParameter("@otherdegree", System.DBNull.Value);
+                param[5] = new SqlParameter("@uid", uid);
                 result = Convert.ToInt32(SqlHelper.ExecuteScalar(conn, CommandType.StoredProcedure, "doctorqualification_Update", param));
             }
             return result;
@@ -446,15 +448,15 @@ namespace DAL
             }
             return result;
         }
-        public int UpdateDoctorDetailsByDoctorDetailsId(string doctorId, string doctordetailsid, string certification, string society)
+        public int UpdateDoctorDetailsByDoctorDetailsId(string uid,string doctorId, string doctordetailsid, string certification, string society)
         {
             SqlConnection conn = null;
             int result = 0;
 
             using (conn = SqlHelper.GetSQLConnection())
             {
-                SqlParameter[] param = new SqlParameter[4];
-                param[0] = new SqlParameter("@userid", Convert.ToInt32(doctorId));
+                SqlParameter[] param = new SqlParameter[5];
+                param[0] = new SqlParameter("@docid", Convert.ToInt32(doctorId));
                 if (!String.IsNullOrEmpty(doctordetailsid))
                 {
                     param[1] = new SqlParameter("@doctordetailsid", Convert.ToInt32(doctordetailsid));
@@ -472,7 +474,7 @@ namespace DAL
                 {
                     param[3] = new SqlParameter("@society", System.DBNull.Value);
                 }
-
+                param[4] = new SqlParameter("@uid", uid);
                 result = Convert.ToInt32(SqlHelper.ExecuteScalar(conn, CommandType.StoredProcedure, "askmirai_doctorsdetails_Update", param));
 
             }
@@ -517,13 +519,13 @@ namespace DAL
             }
             return dsDoctorloaction;
         }
-        public DataSet AddUpdateDoctorClinic(int doctorid, DoctorLocations docloaction)
+        public DataSet AddUpdateDoctorClinic(string uid,int doctorid, DoctorLocations docloaction)
         {
             DataSet ds = new DataSet();
             SqlConnection conn = null;
             using (conn = SqlHelper.GetSQLConnection())
             {
-                SqlParameter[] param = new SqlParameter[9];
+                SqlParameter[] param = new SqlParameter[10];
                 param[0] = new SqlParameter("@countryid", Convert.ToInt32(docloaction.CountryId));
                 param[1] = new SqlParameter("@stateid", Convert.ToInt32(docloaction.StateId));
                 param[2] = new SqlParameter("@cityid", Convert.ToInt32(docloaction.CityId));
@@ -554,6 +556,7 @@ namespace DAL
                 }
                 param[7] = new SqlParameter("@userid ", Convert.ToInt32(doctorid));
                 param[8] = new SqlParameter("@doclocid ", Convert.ToInt32(docloaction.DoctorLocationId));
+                param[9] = new SqlParameter("@uid", uid);
                 ds = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_doctorlocations_Update_and_Insert", param);
             }
             return ds;

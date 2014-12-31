@@ -54,7 +54,7 @@ namespace MiraiConsultMVC.Models
         public IList<DoctorSpeciality> specialities;
         public IList<DoctorLocations> locations;
         public IList<doctorqualifications> qualification;
-        public IList<doctordetails> details;
+        public IList<DoctorsDetails> details;
         //public IEnumerable<SelectListItem> Countries;
         public int? UserId { get { return userid; } set { userid = value; } }
 
@@ -116,7 +116,7 @@ namespace MiraiConsultMVC.Models
             specialities = new List<DoctorSpeciality>();
             locations = new List<DoctorLocations>();
             qualification = new List<doctorqualifications>();
-            details = new List<doctordetails>();
+            details = new List<DoctorsDetails>();
         }
         public void AddSpeciality(DoctorSpeciality Speciality)
         {

@@ -129,7 +129,7 @@ namespace MiraiConsultMVC.Controllers
         {
             DoctorProfile doctorDetail = new DoctorProfile();
             _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-            var doctor = DoctorManager.getInstance().getDoctorDetailsById(userId);
+            var doctor = DoctorManager.getInstance().getDetailsOfDoctorById(userId);
             //var doctor = db.users.FirstOrDefault(p => p.userid.Equals(userid));
             if (doctor != null)
             {
@@ -195,8 +195,8 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.RegistrationDate = Convert.ToDateTime(doctor.RegistrationDate);
                 if (doctor.Status != null)
                     doctorDetail.Status = Convert.ToInt32(doctor.Status);
-                if (doctor.IsEmailVerified != null)
-                    doctorDetail.IsEmailVerified = Convert.ToBoolean(doctor.IsEmailVerified);
+                if (doctor.isEmailVerified != null)
+                    doctorDetail.IsEmailVerified = Convert.ToBoolean(doctor.isEmailVerified);
                 if (doctor.Image != null && doctor.PhotoUrl != null)
                 {
                     doctorDetail.Image = doctor.PhotoUrl + doctor.Image;
@@ -287,7 +287,7 @@ namespace MiraiConsultMVC.Controllers
                 {
                     foreach (var detail in doctor.details)
                     {
-                        doctordetails doctordetails = new doctordetails();
+                        DoctorsDetails doctordetails = new DoctorsDetails();
                         if (!String.IsNullOrEmpty(Convert.ToString(detail.DocDetailsId)))
                         {
                             doctordetails.DocDetailsId = Convert.ToInt32(detail.DocDetailsId);
@@ -315,7 +315,8 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult UpdateDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string SelectedDegreeId, string university)
         {
             int result = 0;
-            result = DoctorManager.getInstance().UpdateDegreeUniversityByDoctorAndDegrreId(doctorId, LastSelectedDegreeID, SelectedDegreeId, university);
+            string uid = Convert.ToString(Session["UserId"]);
+            result = DoctorManager.getInstance().UpdateQualificationDetailByDoctorAndDegrreId(uid, doctorId, LastSelectedDegreeID, SelectedDegreeId, university);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult DeleteDegreeByDoctor(string doctorId, string LastSelectedDegreeID, string university)
@@ -328,7 +329,8 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult UpdateDoctorDetailsByDoctorDetailsId(string doctorId, string doctordetailsid, string SelectedTypeId, string Details)
         {
             int result = 0;
-            result = DoctorManager.getInstance().UpdateDoctorDetailsByDoctorDetailsId(doctorId, doctordetailsid, SelectedTypeId, Details);
+            string uid = Convert.ToString(Session["UserId"]);
+            result = DoctorManager.getInstance().UpdateotherDetailsByDoctorDetailsId(uid, doctorId, doctordetailsid, SelectedTypeId, Details);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -380,7 +382,8 @@ namespace MiraiConsultMVC.Controllers
             {
                 docLocation.LocationId = Convert.ToInt32(locationId);
             }
-            DataSet ds = DoctorManager.getInstance().AddUpdateDoctorClinic(doctorid, docLocation);
+            string uid = Convert.ToString(Session["UserId"]);
+            DataSet ds = DoctorManager.getInstance().AddUpdateDocClinic(uid, doctorid, docLocation);
             if (ds != null && ds.Tables.Count > 0)
             {
                 docLocID = Convert.ToInt32(ds.Tables[0].Rows[0]["doclocid"]);
@@ -395,7 +398,7 @@ namespace MiraiConsultMVC.Controllers
         public JsonResult DeleteDoctorLocationByDoctorLocationId(string docLocationId)
         {
             int result = 0;
-            result = DoctorManager.getInstance().DeleteDoctorLocattonByDoctorLocationId(docLocationId);
+            result = DoctorManager.getInstance().DeleteDocLocationByDoctorLocationId(docLocationId);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -417,10 +420,11 @@ namespace MiraiConsultMVC.Controllers
                 doctor.UserId = Convert.ToInt32(Session["UserId"]);
                 doctor.Email = profile.Email;
                 if (TempData["Email"] != null && !TempData["Email"].Equals(profile.Email))
-                    doctor.IsEmailVerified = false;
+                    doctor.isEmailVerified = false;
                 else
-                    doctor.IsEmailVerified = true;
-                doctor.Gender = profile.Gender;
+                    doctor.isEmailVerified = true;
+                //----------------------------------------------------
+                doctor.Gender = Convert.ToString(profile.Gender);
                 doctor.FirstName = profile.FirstName;
                 doctor.LastName = profile.LastName;
                 doctor.MobileNo = profile.MobileNo == null ? "" : profile.MobileNo;
@@ -481,7 +485,8 @@ namespace MiraiConsultMVC.Controllers
                     speciality.SpecialityId = Convert.ToInt32(specialityId);
                     doctor.AddSpeciality(speciality);
                 }
-                dtDoctor = DoctorManager.getInstance().UpdatedoctordetailById(doctor);
+                string uid = Convert.ToString(Session["UserId"]);
+                dtDoctor = DoctorManager.getInstance().UpdatedoctordetailById(uid, doctor);
                 if (dtDoctor != null && dtDoctor.Rows.Count > 0)
                 {
                     if (Convert.ToBoolean(dtDoctor.Rows[0]["EmailAvailable"]))
@@ -552,7 +557,7 @@ namespace MiraiConsultMVC.Controllers
                             HttpContext.Session["UserLastName"] = doctor.LastName;
                             HttpContext.Session["UserFullName"] = doctor.FirstName + " " + doctor.LastName;
                             HttpContext.Session["UserMobileNo"] = doctor.MobileNo;
-                            HttpContext.Session["IsEmailVerified"] = doctor.IsEmailVerified;
+                            HttpContext.Session["IsEmailVerified"] = doctor.isEmailVerified;
                         }
                     }
                     else

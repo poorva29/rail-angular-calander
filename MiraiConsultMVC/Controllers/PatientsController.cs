@@ -154,7 +154,7 @@ namespace MiraiConsultMVC.Controllers
         public IList<Country> poupulateCountry()
         {
            IList<Country> countryLst = new List<Country>();
-           DataTable countrylist = DAL.UtilityManager.getInstance().getAllCountries();
+           DataTable countrylist = DAL.UtilityManager.getInstance().getAllCountriesByName();
             if(countrylist != null && countrylist.Rows.Count > 0)
             {
                 foreach(DataRow country in countrylist.Rows)

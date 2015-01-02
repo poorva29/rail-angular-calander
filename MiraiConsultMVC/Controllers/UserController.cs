@@ -621,7 +621,7 @@ namespace MiraiConsultMVC.Controllers
                         datarows = dvdoctorsdetails.Table.Select(expression, sortOrder);
                         foreach (DataRow drdoctorsdetails in datarows)
                         {
-                            doctordetails doctordetails = new doctordetails();
+                            DoctorsDetails doctordetails = new DoctorsDetails();
                             if (!String.IsNullOrEmpty(Convert.ToString(drdoctorsdetails["docdetailsid"])))
                             {
                                 doctordetails.DocDetailsId = Convert.ToInt32(drdoctorsdetails["docdetailsid"]);
@@ -681,7 +681,7 @@ namespace MiraiConsultMVC.Controllers
                     int isLinkActivate = 0;
                     string email = "";
                     int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+")));
-                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, email, out isLinkActivate);
+                    isLinkActivate = UtilityManager.getInstance().ActivateByEmail(userID, isEmailVerify, email, out isLinkActivate);
                     if (isLinkActivate == 0)
                     {
                          ViewBag.Message= "Sorry, this link has already been used.";
@@ -708,7 +708,7 @@ namespace MiraiConsultMVC.Controllers
                     int userID = Convert.ToInt32(Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["id"].ToString()).Replace(" ", "+")));
                     isEmailVerify = Convert.ToBoolean(Request.QueryString["isemailverify"]);
                     string emailid = Utilities.Decrypt(HttpUtility.UrlDecode(Request.QueryString["email"].ToString()).Replace(" ", "+"));
-                    isLinkActivate = UtilityManager.getInstance().ActivateEmail(userID, isEmailVerify, emailid, out isLinkActivate);
+                    isLinkActivate = UtilityManager.getInstance().ActivateByEmail(userID, isEmailVerify, emailid, out isLinkActivate);
                     if (isLinkActivate == 1)
                     {
                         ViewBag.Message = "Thank you for email verification. Now you can receive email notifications from MiraiConsult";
@@ -891,7 +891,8 @@ namespace MiraiConsultMVC.Controllers
                 modelUser.Image=filename;
                 doctor.FirstName = modelUser.FirstName;
                 doctor.LastName = modelUser.LastName;
-                doctor.Gender = Convert.ToInt32(modelUser.Gender);
+                //----------------------------------------------------
+                doctor.Gender = Convert.ToString(modelUser.Gender);
                 if (!string.IsNullOrEmpty(Convert.ToString(modelUser.DateOfBirth)))
                     doctor.DateOfBirth = DateTime.Parse(Convert.ToString(modelUser.DateOfBirth));
                 doctor.Email = modelUser.Email;
@@ -904,7 +905,8 @@ namespace MiraiConsultMVC.Controllers
                 doctor.RegistrationCouncil = Convert.ToInt32(modelUser.Regcouncilid);//modelUser.Regcouncilid);
                 doctor.AboutMe = modelUser.AboutMe;
                 doctor.Status = Convert.ToInt32(UserStatus.Pending);
-                doctor.UserType = Convert.ToInt32(UserType.Doctor);             
+                //----------------------------------------------------
+                doctor.UserType = Convert.ToInt32(UserType.Doctor).ToString();
                 if (filename != "")
                     doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
                 else

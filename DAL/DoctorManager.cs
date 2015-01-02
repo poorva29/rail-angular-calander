@@ -15,14 +15,14 @@ namespace DAL
         public static DoctorManager getInstance() { return _instance; }
         SqlConnection conn = null;
 
-        public DataTable registerdoctor(User doctor)
+        public DataTable registerdoctor(string uid,User doctor)
         {
             SqlConnection conn = null;
             DataTable dtDoctor = null;
             DataSet dsDoctor = null;
             using (conn = SqlHelper.GetSQLConnection())
             {
-                SqlParameter[] parm = new SqlParameter[18];
+                SqlParameter[] parm = new SqlParameter[19];
                 parm[0] = new SqlParameter("@firstname", doctor.FirstName);
                 parm[1] = new SqlParameter("@lastname", doctor.LastName);
                 parm[2] = new SqlParameter("@gender", doctor.Gender);
@@ -70,6 +70,7 @@ namespace DAL
                     parm[17] = new SqlParameter("@photourl", doctor.PhotoUrl);
                 else
                     parm[17] = new SqlParameter("@photourl", System.DBNull.Value);
+                parm[18] = new SqlParameter("@uid", uid);
                 dsDoctor = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_doctor_Insert", parm);
                 if (dsDoctor != null && dsDoctor.Tables.Count > 0)
                 {

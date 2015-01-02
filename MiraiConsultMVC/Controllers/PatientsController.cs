@@ -96,7 +96,8 @@ namespace MiraiConsultMVC.Controllers
                 {
                     profile.DateOfBirth = DateTime.Parse(Convert.ToString(profile.DateOfBirth));
                 }
-                var result = (db.askmirai_patient_Insert_Update(profile.FirstName, profile.LastName, profile.Email, profile.MobileNo == null ? "" : profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified)).ToList();
+                int uid = Convert.ToInt32(Session["UserId"]);
+                var result = (db.askmirai_patient_Insert_Update(uid, profile.FirstName, profile.LastName, profile.Email, profile.MobileNo == null ? "" : profile.MobileNo, profile.Gender, profile.DateOfBirth, profile.CountryId, profile.StateId, profile.LocationId, profile.CityId, profile.Password, profile.Height, profile.Weight, profile.Address, profile.Pincode, profile.UserId, profile.RegistrationDate, profile.Status, profile.UserType, profile.UserName, profile.IsEmailVerified)).ToList();
                 if (result != null && result.Count() > 0)
                 {
                     var res = result.FirstOrDefault();

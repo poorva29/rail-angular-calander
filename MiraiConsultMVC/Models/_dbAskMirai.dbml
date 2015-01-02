@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai_Staging" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai_Staging;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.answers" Member="answers">
     <Type Name="answer">
       <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -530,33 +530,6 @@
     <Parameter Name="userFirstName" Type="System.String" DbType="VarChar(50)" Direction="InOut" />
     <ElementType Name="askmirai_get_UserIdandTypebyEmailResult">
       <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.askmirai_patient_Insert_Update" Method="askmirai_patient_Insert_Update">
-    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
-    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
-    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
-    <Parameter Name="height" Type="System.Decimal" DbType="Decimal(18,0)" />
-    <Parameter Name="weight" Type="System.Decimal" DbType="Decimal(18,0)" />
-    <Parameter Name="address" Type="System.String" DbType="VarChar(70)" />
-    <Parameter Name="pincode" Type="System.Int32" DbType="Int" />
-    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="registrationdate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="status" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Usertype" Parameter="usertype" Type="System.Int32" DbType="Int" />
-    <Parameter Name="username" Type="System.String" DbType="VarChar(150)" />
-    <Parameter Name="emailverified" Type="System.Boolean" DbType="Bit" />
-    <ElementType Name="askmirai_patient_Insert_UpdateResult">
-      <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.assignDoctorToQuestion" Method="assignDoctorToQuestion">
@@ -1584,6 +1557,34 @@
       <Column Name="questiontext" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="question_seo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="counts" Type="System.String" DbType="VarChar(331)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_patient_Insert_Update" Method="askmirai_patient_Insert_Update">
+    <Parameter Name="uid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="height" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="weight" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="pincode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="registrationdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Usertype" Parameter="usertype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="username" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="emailverified" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="askmirai_patient_Insert_UpdateResult">
+      <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

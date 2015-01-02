@@ -88,9 +88,9 @@ namespace DAL
             }
             return patient;
         }
-        public DataTable updatePatientDetails(User patient)
+        public DataTable updatePatientDetails(string uid, User patient)
         {
-            SqlParameter[] param = new SqlParameter[21];
+            SqlParameter[] param = new SqlParameter[22];
             DataSet dsPatient = null;
             DataTable dtPatient = null;
             using (conn = SqlHelper.GetSQLConnection())
@@ -178,6 +178,7 @@ namespace DAL
                 param[18] = new SqlParameter("@username", patient.Email);
                 param[19] = new SqlParameter("@userid", patient.UserId);
                 param[20] = new SqlParameter("@emailverified", patient.IsEmailVerified);
+                param[21] = new SqlParameter("@uid", uid);
                 dsPatient = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "askmirai_patient_Insert_Update", param);
                 if (dsPatient != null && dsPatient.Tables.Count > 0)
                 {

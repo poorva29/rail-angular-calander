@@ -298,16 +298,17 @@ namespace DAL
             }
             return result;
         }
-        public DataSet assignDoctorToQuestion(int questionid, string doctorIds)
+        public DataSet assignDoctorToQuestion(string uid, int questionid, string doctorIds)
         {
             DataSet doctorList = new DataSet();
             SqlConnection conn = null;
             int result;
-            SqlParameter[] parm = new SqlParameter[2];
+            SqlParameter[] parm = new SqlParameter[3];
             using (conn = SqlHelper.GetSQLConnection())
             {
                 parm[0] = new SqlParameter("@questionid", questionid);
                 parm[1] = new SqlParameter("@doctorIds", doctorIds);
+                parm[2] = new SqlParameter("@uid", uid);
                 doctorList = SqlHelper.ExecuteDataset(conn, CommandType.StoredProcedure, "assignDoctorToQuestion", parm);
             }
             if ((doctorList != null) && (doctorList.Tables.Count > 0))

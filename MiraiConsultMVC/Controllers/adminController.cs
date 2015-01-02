@@ -115,7 +115,7 @@ namespace MiraiConsultMVC.Controllers
             string[] ArrayOfID = null;
 
             questionId = QuestionId;
-            AssignDoctors = QuestionManager.getInstance().assignDoctorToQuestion(questionId, AssignDoctorIds).Tables[0];
+            AssignDoctors = QuestionManager.getInstance().assignDoctorToQuestion(Convert.ToString(Session["UserId"]), questionId, AssignDoctorIds).Tables[0];
 
             if (Session["UserId"] != null)
             {

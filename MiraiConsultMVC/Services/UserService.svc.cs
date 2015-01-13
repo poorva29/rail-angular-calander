@@ -334,7 +334,7 @@ namespace Services
                             string emailVerficationURL = ConfigurationManager.AppSettings["EmailVerificationLink"].ToString();
                             string emailBody = EmailTemplates.SendNotificationEmailtoUser(dr["firstname"].ToString(), patientid, emailVerficationURL, "");
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("..\\Content\\image\\LogoForMail.png");
+                            string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("Content\\image\\LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, dr["email"].ToString(), "Mirai Consult - Verify your email", emailBody, Logoimage);
 
                             HttpContext.Current.Response.Write("{'Msg':'verification email shortly'}");

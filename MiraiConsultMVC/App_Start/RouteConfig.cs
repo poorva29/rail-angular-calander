@@ -278,6 +278,12 @@ namespace MiraiConsultMVC
            );
 
             routes.MapRoute(
+                name: "ask-question",
+                url: "askquestion",
+                defaults: new { controller = "Home", action = "AskDoctor" }
+           ); 
+
+            routes.MapRoute(
               name: "seo-question",
               url: "{seoQuestionText}",
               defaults: new { controller = "Patients", action = "seoQuestionDetails" }

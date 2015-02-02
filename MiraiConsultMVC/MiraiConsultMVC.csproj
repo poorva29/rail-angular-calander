@@ -589,6 +589,7 @@
     <Content Include="Views\Home\Static404.cshtml" />
     <Content Include="Views\Doctors\doctorsPublicProfile.cshtml" />
     <Content Include="Views\Doctors\ContactDetail.cshtml" />
+    <Content Include="Views\Home\AskDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

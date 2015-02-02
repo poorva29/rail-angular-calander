@@ -56,6 +56,10 @@ namespace MiraiConsultMVC.Controllers
             return View();
         }
 
+        public ActionResult AskDoctor()
+        {
+            return View();
+        } 
         public ActionResult Contact()
         {
             

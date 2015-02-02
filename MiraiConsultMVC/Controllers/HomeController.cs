@@ -49,6 +49,35 @@ namespace MiraiConsultMVC.Controllers
             }
         }
 
+        public ActionResult TagCloud()
+        {
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_AutoCompleteSearch");
+            }
+            else
+            {
+                UserService US = new UserService();
+                Tag t = new Tag();
+                List<Tag> ListTags = new List<Tag>();
+
+                ListTags = UtilityManager.getInstance().get_allTagsWithCountOfAnsweredQuestions().Tables[0].AsEnumerable().Select(dataRow => new Tag
+                {
+                    Text = dataRow.Field<string>("tagname"),
+                    NavigateUrl = ("/topics/" + dataRow.Field<string>("tag_seo")),
+                    TagWeight = Convert.ToInt32(dataRow.Field<string>("counts")),
+                    ToolTip = dataRow.Field<string>("tagname")
+
+                }).OrderByDescending(x => x.TagWeight).ToList();
+                int intTagCount = Convert.ToInt32(ConfigurationSettings.AppSettings["NumberOfTags"]);
+                ListTags = assignCssToTags(ListTags.Take(intTagCount).OrderBy(x => x.Text).ToList());
+
+                return View(ListTags);
+            }
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";

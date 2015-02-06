@@ -13,17 +13,10 @@
     <link rel="stylesheet" href="~/Content/custom.css" />
 
 </head>
-<body>
-    <div style="vertical-align: central; padding-top: 119px; background-color: #e9e9e8 !important;">
+<body style="background-image:none !important">
+    <div style="vertical-align: central; background-color: #e9e9e8 !important;">
         <div class="container">
-            <div class="hidden-phone" style=" padding-left:8% !important">
-                <div class=" row-fluid">
-                    <div class="innerdivborders span11">
-                        <div class="ask-question-div-title">
-                            <p class="div-title-firsts div-padding padding-askdoctor" style="padding-top:2%">Ask Doctors</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="hidden-phone">
                 <div class="row-fluid">
                     <div class=" span11 ">
                         <textarea class="input-block-level Questiontextarea div-askdoctor-padding" id="txtAreaQuestion" onkeyup="Count(this)"
@@ -37,13 +30,6 @@
                 </div>
             </div>
             <div class="visible-phone">
-                <div class="row-fluid">
-                    <div class=" span12 ">
-                        <div class=" center_align btnpadding-right" style="padding-left:3%">
-                            <p class="ask-question-div-title div-title-firsts" style="font-family: 'Raleway', sans-serif !important">Ask Doctors</p>
-                        </div>
-                    </div>
-                </div>
                 <textarea class="input-block-level Questiontextarea questextarea div-askdoctor-padding textareadiv-margin" id="txtQuestion" onkeyup="Count(this)"
                           placeholder="Type your question here" rows="3" cols="5" maxlength="200" onkeypress="return isEnterPress(event, this);" onpaste='return maxLengthPaste(this,"200");' style="font-size: 14px; height: 43% !important;"></textarea>
 
@@ -108,9 +94,9 @@
             question = "";
         var session = '@Session["UserType"]';
         if (session != null && session == 2)
-            window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(question);
+            window.open("../Patients/AskDoctor?question=" + encodeURIComponent(question), '_blank');
         else
-            window.location.href = "/similar-questions?question=" + encodeURIComponent(question);
+            window.open("/similar-questions?question=" + encodeURIComponent(question), '_blank');
     }
 
     function isEnterPress(evt, x) {
@@ -118,10 +104,12 @@
         if (charCode == 13) {
             var session = '@Session["UserType"]';
             if (session != null && session == 2) {
-                window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(x.value);
+                window.open("../Patients/AskDoctor?question=" + encodeURIComponent(x.value), '_blank');
+                //window.location.href = "../Patients/AskDoctor?question=" + encodeURIComponent(x.value);
             }
             else {
-                window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
+                window.open("/similar-questions?question=" + encodeURIComponent(x.value), '_blank');
+                //window.location.href = "/similar-questions?question=" + encodeURIComponent(x.value);
             }
             return false;
         }

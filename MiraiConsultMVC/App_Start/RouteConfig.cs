@@ -276,23 +276,10 @@ namespace MiraiConsultMVC
                 url: "RejectQuestionByQuestionID/{qusetionID}",
                 defaults: new { controller = "admin", action = "RejectQuestionByQuestionID" }
            );
-
-            routes.MapRoute(
-                name: "ask-question",
-                url: "askquestion",
-                defaults: new { controller = "Home", action = "AskDoctor" }
-           ); 
-
             routes.MapRoute(
               name: "seo-question",
               url: "{seoQuestionText}",
               defaults: new { controller = "Patients", action = "seoQuestionDetails" }
-              );
-
-            routes.MapRoute(
-              name: "tag-cloud",
-              url: "{tagcloud}",
-              defaults: new { controller = "Home", action = "TagCloud" }
               );
 
             routes.MapRoute(

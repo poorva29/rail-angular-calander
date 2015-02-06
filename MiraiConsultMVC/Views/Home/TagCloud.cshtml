@@ -20,22 +20,13 @@
 </head>
 <body style="background-image:none !important">
     <div id="wrap">
-        <div class="main-outter-padding">
+        <div style="padding-right:40px">
             <div class="row-fluid">
-                <div class="span12">
-                    <div style="margin-top:1%;margin-bottom:1%">
-                        <img alt="img" src="~/Content/image/Home_endorse.png" height="30px" width="35px"><span style="font-size: 15px; font-weight: bold; margin-right: 20px; margin-left: 8px; color: #222324">Topics</span>|<span style="margin-left: 24px; font-size: 12px; font-weight: normal; color: #696A6B">Select the topic you wish to know more. These are the current trending topics.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="main-outter-padding">
-            <div class="row-fluid tagDiv">
                 <div class="span12">
                     <p class="tagcloud tagcloud-margin" style="line-height: 23px;">
                         @foreach (var t in Model)
                         {
-                            <a href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>
+                            <a target="_blank" style="color: #333333 !important;" href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>
                         }
                         <a href="~/topics" class="tagAcnhor" style="color: #222324;font-size:14px">view more...</a>
                     </p>

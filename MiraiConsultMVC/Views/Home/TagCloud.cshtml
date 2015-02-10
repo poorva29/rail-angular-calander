@@ -19,16 +19,16 @@
   
 </head>
 <body style="background-image:none !important">
-    <div id="wrap">
+    <div id="wrap" style="background-color:#e5e5e5">
         <div style="padding-right:40px">
             <div class="row-fluid">
                 <div class="span12">
-                    <p class="tagcloud tagcloud-margin" style="line-height: 23px;">
-                        @foreach (var t in Model)
+                    <p class="tagcloud tagcloud-margin" style="line-height: 23px;margin:0px !important">
+                        @foreach (var t in Model )
                         {
                             <a target="_blank" style="color: #333333 !important;" href='@(t.NavigateUrl)' class='@(t.CssClass)' title='@(t.ToolTip + " " + t.TagWeight + " Answers")'>@t.Text</a>
                         }
-                        <a href="~/topics" class="tagAcnhor" style="color: #222324;font-size:14px">view more...</a>
+                        <a href="~/topics" class="tagAcnhor" style="color: #222324;font-size:14px" target="_blank">view more...</a>
                     </p>
                 </div>
             </div>

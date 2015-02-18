@@ -17,6 +17,8 @@ using MiraiConsultMVC;
 using System.IO;
 using Model;
 using log4net;
+using System.Net;
+using System.Text;
 namespace MiraiConsultMVC.Controllers
 {
     public class UserController : Controller
@@ -957,6 +959,77 @@ namespace MiraiConsultMVC.Controllers
                         string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                         Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
+
+                        string sessioUrl = Utilities.GenerateSessionURl();
+                        var sessionhttp = (HttpWebRequest)WebRequest.Create(new Uri(sessioUrl));
+                        sessionhttp.Accept = "application/json";
+                        sessionhttp.ContentType = "application/json";
+                        sessionhttp.Method = "POST";
+                        var response = sessionhttp.GetResponse();
+                        var stream = response.GetResponseStream();
+                        var sr = new StreamReader(stream);
+                        var content = sr.ReadToEnd();
+                        var sessionDetail = new
+                        {
+                            session = new
+                            {
+                                _id = "",
+                                application_id = "",
+                                created_at = "",
+                                device_id = "",
+                                nonce = "",
+                                token = "",
+                                ts = "",
+                                updated_at = "",
+                                user_id = "",
+                                id = ""
+                            }
+                        };
+                        if (!string.IsNullOrEmpty(content))
+                        {
+                            sessionDetail = JsonConvert.DeserializeAnonymousType(content, sessionDetail);
+                            string token = sessionDetail.session.token;
+                            if (!string.IsNullOrEmpty(token))
+                            {
+                                string signUpUrl = "http://api.quickblox.com/users.json";
+
+                                var signUphttp = (HttpWebRequest)WebRequest.Create(new Uri(signUpUrl));
+                                signUphttp.Accept = "application/json";
+                                signUphttp.ContentType = "application/json";
+                                signUphttp.Method = "POST";
+                                signUphttp.Headers["QB-Token"] = token;
+                                var StreamWriter = new StreamWriter(signUphttp.GetRequestStream());
+                                string login = modelUser.Email.Split('@')[0];  
+
+                                string post = "{\"user\": {\"login\": \"" + login + "\", \"password\": \"" + Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]) + "\", \"email\": \"" + modelUser.Email + "\"}}";
+                                StreamWriter.Write(Convert.ToString(post));
+                                StreamWriter.Flush();
+                                StreamWriter.Close();
+                               
+                                var signUpResponse = signUphttp.GetResponse();
+                                var signUpStream = signUpResponse.GetResponseStream();
+                                var signUpsr = new StreamReader(signUpStream);
+                                var signUpJson = signUpsr.ReadToEnd();
+
+                                var userDetail = new
+                                {
+                                    user = new
+                                    {
+                                        id = "",
+                                        login = "",
+                                        email = ""
+                                    }
+                                };
+                                if(!string.IsNullOrEmpty(signUpJson))
+                                {
+                                    userDetail = JsonConvert.DeserializeAnonymousType(signUpJson, userDetail);
+                                    if(userDetail != null)
+                                    {
+                                        int result = UserManager.getInstance().Insert_QuickbloxUser(Convert.ToInt32(doctorid), Convert.ToInt32(UserType.Doctor), userDetail.user.id, userDetail.user.login, Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]), userDetail.user.email);
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {

@@ -9,6 +9,9 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using System.Configuration;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace MiraiConsultMVC
 {
@@ -214,6 +217,82 @@ namespace MiraiConsultMVC
                 nonceString.Append(timeStamp[random.Next(0, timeStamp.Length - 1)]);
             }
             return nonceString.ToString();
+        }
+
+        public static int signUpOnQuickblox(int userId, string email)
+        {
+            int result = 0;
+            string sessioUrl = GenerateSessionURl();
+            var sessionhttp = (HttpWebRequest)WebRequest.Create(new Uri(sessioUrl));
+            sessionhttp.Accept = "application/json";
+            sessionhttp.ContentType = "application/json";
+            sessionhttp.Method = "POST";
+            var response = sessionhttp.GetResponse();
+            var stream = response.GetResponseStream();
+            var sr = new StreamReader(stream);
+            var content = sr.ReadToEnd();
+            var sessionDetail = new
+            {
+                session = new
+                {
+                    _id = "",
+                    application_id = "",
+                    created_at = "",
+                    device_id = "",
+                    nonce = "",
+                    token = "",
+                    ts = "",
+                    updated_at = "",
+                    user_id = "",
+                    id = ""
+                }
+            };
+            if (!string.IsNullOrEmpty(content))
+            {
+                sessionDetail = JsonConvert.DeserializeAnonymousType(content, sessionDetail);
+                string token = sessionDetail.session.token;
+                if (!string.IsNullOrEmpty(token))
+                {
+                    string signUpUrl = "http://api.quickblox.com/users.json";
+
+                    var signUphttp = (HttpWebRequest)WebRequest.Create(new Uri(signUpUrl));
+                    signUphttp.Accept = "application/json";
+                    signUphttp.ContentType = "application/json";
+                    signUphttp.Method = "POST";
+                    signUphttp.Headers["QB-Token"] = token;
+                    var StreamWriter = new StreamWriter(signUphttp.GetRequestStream());
+                    string login = email.Split('@')[0];
+
+                    string postJson = "{\"user\": {\"login\": \"" + login + "\", \"password\": \"" + Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]) + "\", \"email\": \"" + email + "\"}}";
+                    StreamWriter.Write(Convert.ToString(postJson));
+                    StreamWriter.Flush();
+                    StreamWriter.Close();
+
+                    var signUpResponse = signUphttp.GetResponse();
+                    var signUpStream = signUpResponse.GetResponseStream();
+                    var signUpsr = new StreamReader(signUpStream);
+                    var signUpJson = signUpsr.ReadToEnd();
+
+                    var userDetail = new
+                    {
+                        user = new
+                        {
+                            id = "",
+                            login = "",
+                            email = ""
+                        }
+                    };
+                    if (!string.IsNullOrEmpty(signUpJson))
+                    {
+                        userDetail = JsonConvert.DeserializeAnonymousType(signUpJson, userDetail);
+                        if (userDetail != null)
+                        {
+                            result = UserManager.getInstance().Insert_QuickbloxUser(userId, Convert.ToInt32(UserType.Doctor), userDetail.user.id, userDetail.user.login, Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]), userDetail.user.email);
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }

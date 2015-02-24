@@ -384,6 +384,43 @@
                         </div>
                     </div>
                 }
+                @if(!string.IsNullOrEmpty(Model.AboutMe))
+                {
+                    <div class="row-fluid">
+                        <div class="span9 offset2">
+                            <div class="row">
+                                <hr class="doc-details-hr" />
+                            </div>
+                        </div>                      
+                    </div>                   
+                     <div class="row-fluid hidden-phone">
+                        <div class="span2 hidden-phone">
+                        </div>
+                        <div class="span9">
+                            <div class="row">
+                                <div id="aboutMe" class="span5  doc-clinic-container doc-clinic-details cust-below-space-reduce">ABOUT ME:</div>
+                            </div>
+                        </div>                  
+                    </div>
+                     <div class="row-fluid visible-phone">
+                        <div class="row-fluid visible-phone">
+                            <div class="span6 visible-phone">
+                                <div id="ClinicName" class="span5 doc-clinic-details cust-below-space-reduce visible-phone">
+                                    ABOUT ME:
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2 hidden-phone">
+                        </div>
+                        <div class="span9">
+                            <div class="row">
+                                <div id="aboutMe" class="span5  doc-clinic-container cust-below-space-reduce">@Model.AboutMe</div>
+                            </div>
+                        </div> 
+                    </div>
+                }
                 <div class="row-fluid">
                     <hr class="doc-details-hr" />
                     @if (Convert.ToInt32(ViewBag.isConsult) != 1)

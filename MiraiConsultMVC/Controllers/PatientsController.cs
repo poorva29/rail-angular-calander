@@ -113,6 +113,7 @@ namespace MiraiConsultMVC.Controllers
                              Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
                              Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;                            
                              ViewBag.message = "Account has been Updated successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
+                             int quickBloxResult = Utilities.UpdateEmailByQuickBloxId(Convert.ToString(TempData["Email"]), profile.Email);
                          }
                          else
                          {

@@ -164,8 +164,9 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Registration Council:</label>
                                     <div class="controls">
-                                        @if(Model.RegistrationCouncil > 0)
+                                        @if(Model.Registrationcouncils != null)
                                         { 
+                                            ViewBag.Registrationcouncils = Model.Registrationcouncils;
                                             @Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(ViewBag.Registrationcouncils, "Value", "Text", Model.RegistrationCouncil), "--Registration Council--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen", id = "ddlRegistrationCouncil" })
                                         }
                                         else

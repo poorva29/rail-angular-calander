@@ -1450,7 +1450,7 @@
         if (validateclinicdata() && validateTelephone()) {
             $.ajax({
                 type: "GET",
-                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + address + '&telephone=' + telephone + '&clinicName=' + clinicName + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,
+                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + encodeURIComponent(address) + '&telephone=' + telephone + '&clinicName=' + encodeURIComponent(clinicName) + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

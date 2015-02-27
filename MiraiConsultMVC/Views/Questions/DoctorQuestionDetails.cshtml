@@ -134,6 +134,16 @@
                             </div>
                         </div>
                     }
+                    else if (ViewBag.lblErrorMessage == "You have already answered to this question.")
+                    {
+                        <div class="wrapper-bordered" id="ErrorMessagediv">
+                            <div class="row-fluid">
+                                <div class="span12 alert alert-error">
+                                    <label class="msg_font error_message_color">@ViewBag.lblErrorMessage</label>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     else
                     {
                         QuestionDtlModel qd = new QuestionDtlModel();

@@ -208,7 +208,7 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">About Me:</label>
                                     <div class="controls">
-                                        @Html.TextBoxFor(m => m.AboutMe, new { @class = "input-block-level txtareaborder max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "About Me" })
+                                        @Html.TextAreaFor(m => m.AboutMe, new { @class = "input-block-level txtareaborder max-width min-width cust-no-border cust-lightgreen contact_margin", placeholder = "About Me", maxlength = "200", @rows = "1", @cols = "5" })
                                     </div>
                                 </div>
                             </div>

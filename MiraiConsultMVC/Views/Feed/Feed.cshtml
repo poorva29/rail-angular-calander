@@ -130,10 +130,10 @@
                             }
                             template = template + "</div>";
                             if (ansimg.length > 0) {
-                                template = template + "<div class='row-fluid'><div class='span5 offset1'><p class='ans_text intermediate-size-padding' style='word-wrap: break-word;'>" + response[indexcnt].answertext + "</p></div><div class='span3'><div class=''><div class='feedAnsImage img'><img src=" + ansimg + "></div></div></div></div>";
+                                template = template + "<div class='row-fluid'><div class='span5 offset1'><p class='ans_text intermediate-size-padding' style='word-wrap: break-word;'>" + response[indexcnt].answertext.replace(/(?:\r\n|\r|\n)/g, '<br />') + "</p></div><div class='span3'><div class=''><div class='feedAnsImage img'><img src=" + ansimg + "></div></div></div></div>";
                             }
                             else {
-                                template = template + "<div class='row-fluid'><div class='span11 pull-right middle-size-padding'><p class='ans_text' style='word-wrap: break-word;'>" + response[indexcnt].answertext + "</p></div></div>";
+                                template = template + "<div class='row-fluid'><div class='span11 pull-right middle-size-padding'><p class='ans_text' style='word-wrap: break-word;'>" + response[indexcnt].answertext.replace(/(?:\r\n|\r|\n)/g, '<br />') + "</p></div></div>";
                             }
                             if (document.getElementById("HiddenUserType").value != "0") {
                                 if (response[indexcnt].isdocconnectuser != false && docconnecturl != "")

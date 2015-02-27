@@ -63,7 +63,7 @@
                                         @if (!String.IsNullOrEmpty(item.AnswerImg))
                                         {
                                             <div class='span5 offset1'>
-                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText.Replace("\r\n", "<br>"))</p>
                                             </div>
                                             <div class='span3'>
                                                 <div class='feedAnsImage img'>
@@ -74,7 +74,7 @@
                                         else
                                         {
                                             <div class='span11 offset1'>
-                                                <p class='ans_text'>@Html.Raw(item.AnswerText)</p>
+                                                <p class='ans_text'>@Html.Raw(item.AnswerText.Replace("\r\n","<br>"))</p>
                                             </div>
                                         }
                                     </div>

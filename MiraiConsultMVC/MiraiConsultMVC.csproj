@@ -41,7 +41,7 @@
   <ItemGroup>
     <Reference Include="DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\CareAppDalModel\DAL.dll</HintPath>
+      <HintPath>bin\DAL.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
@@ -49,7 +49,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\CareAppDalModel\Model.dll</HintPath>
+      <HintPath>bin\Model.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -317,6 +317,7 @@
     <Content Include="Content\image\likes.png" />
     <Content Include="Content\image\linkedin.png" />
     <Content Include="Content\image\logo.png" />
+    <Content Include="Content\image\LogoForHeader.png" />
     <Content Include="Content\image\LogoForMail.png" />
     <Content Include="Content\image\logoImage.png" />
     <Content Include="Content\image\mail.png" />
@@ -449,6 +450,7 @@
     <Content Include="App_Browsers\IosChrome.browser" />
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToFileSystem.pubxml" />
+    <None Include="Properties\PublishProfiles\Mvc-consult.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-alert.js" />
     <Content Include="Scripts\bootstrap-button.js" />
@@ -588,7 +590,6 @@
     <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Home\Static404.cshtml" />
     <Content Include="Views\Doctors\doctorsPublicProfile.cshtml" />
-    <Content Include="Views\Doctors\ContactDetail.cshtml" />
     <Content Include="Views\Home\AskDoctor.cshtml" />
     <Content Include="Views\Home\TagCloud.cshtml" />
   </ItemGroup>

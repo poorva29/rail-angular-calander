@@ -66,7 +66,7 @@
                                            
                                     }
                                     else if (HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Equals(ConfigurationManager.AppSettings["defaultUrl"].ToString())
-                                    || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/home/home") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")
+                                    || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("/login/User") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("contact-us")
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("terms-of-use") || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("privacy-policy")
                                     || HttpContext.Current.Request.Url.AbsoluteUri.ToLower().Contains("how-we-works"))
                                     {
@@ -201,8 +201,8 @@
                 <div class="custom-margin-box topmenu-right-margin topnavbar-position-bottom-margin" style="border:none;margin-left: 1.3%;">
                     <div class="imgwidth">
 
-                        <a class="brand" href="@Url.Action("Home","Home")">
-                            <img src="~/Content/image/logo.png" class="col-md-4 logoimage-width logo-margin-left" />
+                        <a class="brand" href="http://www.miraihealth.com/" target="_blank">
+                            <img src="~/Content/image/LogoForHeader.png" class="col-md-4 logoimage-width logo-margin-left" />
                         </a>
                     </div>
 
@@ -292,9 +292,9 @@
                             <img src="~/Content/image/blinkedin.png" class="cust-footer-icon" />
                         </a>
                     </div>
-                    <div style="float:right">
+                    @*<div style="float:right">
                         <a href="http://www.miraihealth.com/" target="_blank"><img src="~/Content/image/footer-logo.png" /></a>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="visible-phone center_align" style="width:200px;margin:auto">
                     <div class=" center_align" style="float:left">
@@ -308,9 +308,9 @@
                             <img src="~/Content/image/blinkedin.png" class="cust-footer-icon" />
                         </a>
                     </div>
-                    <div style="float:right">
+                    @*<div style="float:right">
                         <a href="http://www.miraihealth.com/" target="_blank"><img src="~/Content/image/footer-logo.png" /></a>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -336,11 +336,11 @@
                             |
                         </a>  <a class="cust-footer-text" href="@Url.Action("Contact","Home")" target="_blank">Contact Us</a> <a class="cust-footer-text" href="#">|</a> <a class="cust-footer-text" href="@Url.Action("TermsOfUse","Home")" target="_blank">Terms Of Use</a>
                     </div>
-                    <div class="span2 pull-right cust-footer-logo">
+                    @*<div class="span2 pull-right cust-footer-logo">
                         <a href="http://www.miraihealth.com/" target="_blank">
                             <img src="~/Content/image/footer-logo.png" />
                         </a>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

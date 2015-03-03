@@ -239,7 +239,7 @@ namespace MiraiConsultMVC.Controllers
                     }
                     else if (Convert.ToInt32(dsQuestionAnswer.Tables[0].Rows[0]["isInserted"]) == 0)
                     {
-                        ViewBag.lblErrorMessage = "You have already answered to this question.";
+                        ViewBag.lblErrorMessage = "You have already answered this question.";
                     }
                     else
                         ViewBag.lblSuccessMessage = null;

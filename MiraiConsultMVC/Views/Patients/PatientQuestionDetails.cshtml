@@ -153,7 +153,7 @@
                                             </a>
                                             <a class='share_link-margin ' target='_blank' href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text=@ViewBag.AskmiraiUrl/answers/@item.seoQuestionText' onclick="ga('send', 'event', '@userType', 'Share On Twitter', @item.seoQuestionText)"><img title='Twitter' class='share_icons_width' src='~/Content/image/twitter.png' alt='Twitter'></a>
 
-                                            <a class='share_link-margin ' href='mailto:?Subject=Mirai Consult has shared an answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
+                                            <a class='share_link-margin ' href='mailto:?Subject=Mirai Health has shared an answer with you &amp;Body= Q. @item.QuestionText %0D%0A  Ans.  @item.AnswerText'>
                                                 <img title='Email' class='share_icons_width' src='~/Content/image/mail.png' style="margin-right:10px;" alt='Email' onclick="ga('send', 'event', '@userType', 'Share On Email', @item.seoQuestionText)">
                                                 @if (Convert.ToInt32(Session["UserType"]) == Convert.ToInt32(UserType.Patient))
                                                 {
@@ -261,7 +261,7 @@
     <meta property="og:type" content="website" />
 }
 @section titleTags {
-    <title>Mirai Consult-@ViewBag.QuestionText </title>
+    <title>Mirai Health-@ViewBag.QuestionText </title>
 }
 <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

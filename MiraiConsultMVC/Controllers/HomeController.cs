@@ -159,7 +159,7 @@ namespace MiraiConsultMVC.Controllers
             string ErrorDescription = name;
             string EmailID = ConfigurationManager.AppSettings["ErrorEmailID"].ToString();
             string email_Content = EmailTemplates.GetEmailTemplateToSendError(ErrorDescription, Convert.ToString(TempData["ExceptionDetails"]));
-            retValue= Mail.SendHTMLMail("", EmailID, "Mirai Consult - Error", email_Content);
+            retValue = Mail.SendHTMLMail("", EmailID, "Mirai Health - Error", email_Content);
             if (retValue)
             {
                 ViewBag.success = "true";

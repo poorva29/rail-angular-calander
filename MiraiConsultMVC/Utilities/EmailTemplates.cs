@@ -17,7 +17,7 @@ namespace MiraiConsultMVC
             string msg = "";
             msg += "<p align=left><font size=2 face=verdana>Dear " + FirstName + ",</font></p>";
 
-            msg += "<p align=left><font size=2 face=verdana>Thank you and welcome to Mirai Consult (" + ConfigurationManager.AppSettings["website"] + "). ";
+            msg += "<p align=left><font size=2 face=verdana>Thank you and welcome to Mirai Health (" + ConfigurationManager.AppSettings["website"] + "). ";
 
             msg += "<p align=left><font size=2 face=verdana>Please click on the link below to verify your email.</font></p>";
 
@@ -43,7 +43,7 @@ namespace MiraiConsultMVC
         {
             string msg = "";
             msg += "<p align=left><font size=2 face=verdana>Dear Dr. " + DoctorName + ",</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Congratulations! Your Mirai Consult account has been approved. Now you can login to the system with your credentials, set up your profile and start answering questions from users.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Congratulations! Your Mirai Health account has been approved. Now you can login to the system with your credentials, set up your profile and start answering questions from users.</font></p>";
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
                                         msg +
                                         "<br>" +
@@ -87,7 +87,7 @@ namespace MiraiConsultMVC
             values[0] = emailRestPasswordURL + "?id=" + HttpUtility.UrlEncode(encryptedUserId);
             string msg = "";
             msg += "<p align=left><font size=2 face=verdana>Dear " + firstName + ",</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Thank you and welcome to Mirai Consult (" + ConfigurationManager.AppSettings["website"] + "). ";
+            msg += "<p align=left><font size=2 face=verdana>Thank you and welcome to Mirai Health (" + ConfigurationManager.AppSettings["website"] + "). ";
             msg += "<p align=left><font size=2 face=verdana>Please click on the link below, to reset password.</font></p>";
             msg += "<p align=left><font size=2 face=verdana><a href=" + values[0] + ">" + values[0] + "</a></font></p>";
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
@@ -123,7 +123,7 @@ namespace MiraiConsultMVC
                                              "<font size=2 face=verdana> Regards,</font>" +
                                              "<br>" +
                                              "<br>" +
-                                             "<b><font size=2 face=verdana> Mirai Consult </font></b>" +
+                                             "<b><font size=2 face=verdana> Mirai Health </font></b>" +
 
                                              "</form></body></html>";
             return strBodyContent;
@@ -165,7 +165,7 @@ namespace MiraiConsultMVC
             string EmailBody = "<p align=left><font size=2 face=verdana>Dear " + lastname + ",</font></p>";
             EmailBody += "<p align=left><font size=2 face=verdana>" + msg + "</font></p>";
             EmailBody +="<p align=left> <font size=2 face=verdana>" +"\"" + "<font size=2 face=verdana>" + questiontext + "</font>" + "\"" +"</font></p>";
-            EmailBody += "<p align=left><font size=2 face=verdana>Please sign-into Mirai Consult (" + ConfigurationManager.AppSettings["website"] + ") to answer the question. </font></p>";
+            EmailBody += "<p align=left><font size=2 face=verdana>Please sign-into Mirai Health (" + ConfigurationManager.AppSettings["website"] + ") to answer the question. </font></p>";
 
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
                                         EmailBody +
@@ -281,7 +281,7 @@ namespace MiraiConsultMVC
            
             EmailBody += "<p align=left> <font size=2 face=verdana>" + "\"" + "<font size=2 face=verdana>" + questiontext + "</font>" + "\"" + "</font></p>";
             
-            EmailBody += "<p align=left><font size=2 face=verdana>Please sign-into Mirai Consult (" + ConfigurationManager.AppSettings["website"] + ") to view the answer.  </font></p>";
+            EmailBody += "<p align=left><font size=2 face=verdana>Please sign-into Mirai Health (" + ConfigurationManager.AppSettings["website"] + ") to view the answer.  </font></p>";
             
             EmailBody += "<p align=left><font size=2 face=verdana>You can also book an appointment with the doctor by clicking on the following link:</font></p>";
             
@@ -307,7 +307,7 @@ namespace MiraiConsultMVC
         {
             string EmailBody = "<p align=left><font size=2 face=verdana>Dear Dr. " + doctorName + ",</font></p>";
 
-            EmailBody += "<p align=left><font size=2 face=verdana>Congratulations! Your MiraiConsult account has been created. Now you can login to the system with following credentials, set up your profile and continue answering questions from patients.</font></p>";
+            EmailBody += "<p align=left><font size=2 face=verdana>Congratulations! Your Mirai Health account has been created. Now you can login to the system with following credentials, set up your profile and continue answering questions from patients.</font></p>";
 
             EmailBody += "<p align=left> <font size=2 face=verdana>Credentials:</font></p>";
 

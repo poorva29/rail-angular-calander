@@ -110,7 +110,7 @@ namespace MiraiConsultMVC.Controllers
                              string emailBody = EmailTemplates.SendNotificationEmailtoUser(profile.FirstName, patientid, emailVerficationURL, "Patient");
                              string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                              string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                              Session["UserFullName"] = profile.FirstName + ' ' + profile.LastName;                            
                              ViewBag.message = "Account has been Updated successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                          }
@@ -438,9 +438,9 @@ namespace MiraiConsultMVC.Controllers
                 }
                 else
                 {
-                    ViewBag.metatitle = "MiraiConsult";
+                    ViewBag.metatitle = "MiraiHealth";
                     ViewBag.metaUrl = ViewBag.AskmiraiUrl;
-                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at Mirai Consult";
+                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at Mirai Health";
                 }
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
 
@@ -542,9 +542,9 @@ namespace MiraiConsultMVC.Controllers
                 }
                 else
                 {
-                    ViewBag.metatitle = "MiraiConsult";
+                    ViewBag.metatitle = "MiraiHealth";
                     ViewBag.metaUrl = ViewBag.AskmiraiUrl;
-                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at MiraiConsult";
+                    ViewBag.metaDescription = "Healthcare now more accessible and convenient at Mirai Health";
                 }
                 DataTable dtTags = UtilityManager.getInstance().getAlltags();
 
@@ -658,7 +658,7 @@ namespace MiraiConsultMVC.Controllers
                             "<br>" + "<br>" + "<br>" +
                             "<img src='cid:logoImage' ></img>" +
                             "</form></body></html>";
-                string subject = "I want to invite you to use Mirai Consult";
+                string subject = "I want to invite you to use Mirai Health";
                 if (Session["UserId"] != null && Session["UserEmail"] != null)
                 {
                     from_address = Convert.ToString(Session["UserEmail"]);

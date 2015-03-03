@@ -119,7 +119,7 @@ namespace MiraiConsultMVC.Controllers
                         string emailBody = EmailTemplates.GetEmailTemplateToSendWelcomeMessage(doctorName, result.Email, tempPassword);
                         string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                         string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                        Mail.SendHTMLMailWithImage(fromEmail, result.Email, "MiraiHealth - Your Mirai Consult account has been created", emailBody, Logoimage);
+                        Mail.SendHTMLMailWithImage(fromEmail, result.Email, "Mirai Health - Your Mirai Health account has been created", emailBody, Logoimage);
                     }
                     login.IsUserRegistered = result.IsUserRegistered;
                     login.Email = result.Email;
@@ -316,10 +316,10 @@ namespace MiraiConsultMVC.Controllers
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString().Replace("\r\n","<br>"));
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                             string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);
+                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Health - Answer Notification", emailBody, Logoimage);
                             string BookAppointmentUrl = ConfigurationManager.AppSettings["BookAppointmentLink"].ToString();
                             string Patientemailbody = EmailTemplates.GetEmailTemplateOnQuestionAnswerToPatient(QuestionDetails.Tables[0].Rows[i]["patientlastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), BookAppointmentUrl, QuestionDetails.Tables[0].Rows[i]["DocId"].ToString());
-                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["patientemail"].ToString(), "Mirai Consult - The doctor answered your question", Patientemailbody, Logoimage);
+                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["patientemail"].ToString(), "Mirai Health - The doctor answered your question", Patientemailbody, Logoimage);
                             string SmsText = ConfigurationManager.AppSettings["OnDocAnswerQuestionSendSMS"].ToString();
                             SMS.SendSMS(QuestionDetails.Tables[0].Rows[i]["mobileno"].ToString(), SmsText);
                         }

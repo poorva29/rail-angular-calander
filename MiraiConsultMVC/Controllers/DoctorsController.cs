@@ -110,7 +110,7 @@ namespace MiraiConsultMVC.Controllers
         public IList<RegistrationCouncil> PopulateRegCouncilByCountry(int countryId)
         {
             IList<RegistrationCouncil> regCouncilLst = new List<RegistrationCouncil>();
-            var registrationCouncillist = db.registrationcouncils.ToList().OrderBy(c => c.name);
+            var registrationCouncillist = db.registrationcouncils.Where(x => x.countryid.Equals(countryId)).ToList().OrderBy(c => c.name);
             if (registrationCouncillist != null && registrationCouncillist.Count() > 0)
             {
                 foreach (var registrationCouncil in registrationCouncillist)
@@ -153,11 +153,11 @@ namespace MiraiConsultMVC.Controllers
                     doctorDetail.Countries = new SelectList(countryList, "countryid", "name");
                     doctorDetail.CountryId = Convert.ToInt32(doctor.CountryId);
                 }
-                if (doctor.RegistrationCouncil > 0)
+                if (doctor.CountryId >= 0 || doctor.RegistrationCouncil > 0)
                 {
                     TempData["countryId"] = doctor.CountryId;
                     var regCouncilList = PopulateRegCouncilByCountry(Convert.ToInt32(doctor.CountryId));
-                    ViewBag.Registrationcouncils = new SelectList(regCouncilList, "regcouncilid", "name");
+                    doctorDetail.Registrationcouncils = new SelectList(regCouncilList, "regcouncilid", "name");
                     doctorDetail.RegistrationCouncil = Convert.ToInt32(doctor.RegistrationCouncil);
                 }
                 DataTable dtSpecialities = UtilityManager.getInstance().getAllSpecialities();

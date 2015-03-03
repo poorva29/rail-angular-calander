@@ -164,8 +164,9 @@
                                 <div class="control-group controlgroup_margin">
                                     <label class="control-label cust-font-style">Registration Council:</label>
                                     <div class="controls">
-                                        @if(Model.RegistrationCouncil > 0)
+                                        @if(Model.Registrationcouncils != null)
                                         { 
+                                            ViewBag.Registrationcouncils = Model.Registrationcouncils;
                                             @Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(ViewBag.Registrationcouncils, "Value", "Text", Model.RegistrationCouncil), "--Registration Council--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen", id = "ddlRegistrationCouncil" })
                                         }
                                         else
@@ -1450,7 +1451,7 @@
         if (validateclinicdata() && validateTelephone()) {
             $.ajax({
                 type: "GET",
-                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + address + '&telephone=' + telephone + '&clinicName=' + clinicName + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,
+                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + encodeURIComponent(address) + '&telephone=' + telephone + '&clinicName=' + encodeURIComponent(clinicName) + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,//For accepting the special character(/ ? : @ & = + $ #) there need to be encoded uri.
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

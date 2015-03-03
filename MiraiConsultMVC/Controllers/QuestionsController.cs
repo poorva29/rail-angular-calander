@@ -230,11 +230,17 @@ namespace MiraiConsultMVC.Controllers
                 {
                     title = formCollection["Title"];
                 }
-                int result = QuestionManager.getInstance().SaveDoctorAnswer(QuestionId, userId, title, answer, filename);
-                if (result > 0)
+                DataSet dsQuestionAnswer = QuestionManager.getInstance().SaveDoctorAnswer(QuestionId, userId, title, answer, filename);
+                if (dsQuestionAnswer != null)
                 {
-                    if (result == 1)
+                    if (Convert.ToInt32(dsQuestionAnswer.Tables[0].Rows[0]["isInserted"]) == 1)
+                    {
                         ViewBag.lblSuccessMessage = "Thank you for answering the question.";
+                    }
+                    else if (Convert.ToInt32(dsQuestionAnswer.Tables[0].Rows[0]["isInserted"]) == 0)
+                    {
+                        ViewBag.lblErrorMessage = "You have already answered this question.";
+                    }
                     else
                         ViewBag.lblSuccessMessage = null;
                     QuestionDtlModel qm;

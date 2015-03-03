@@ -313,7 +313,7 @@ namespace MiraiConsultMVC.Controllers
                         {
                             Session["UnQuestionCount"] = showUnansweredQuestionCount();
                             string msgText = ConfigurationManager.AppSettings["OnDocAnswerAssignQuestionSendEmail"].ToString();
-                            string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
+                            string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString().Replace("\r\n","<br>"));
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                             string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);

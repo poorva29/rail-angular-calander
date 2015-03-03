@@ -101,7 +101,7 @@
                                 @if (item.AnswerImg != null)
                                 {
                                     <div class='span5 offset1 middle-size-padding'>
-                                        <p class='ans_text'>@item.AnswerText</p>
+                                        <p class='ans_text'>@Html.Raw(item.AnswerText.Replace("\r\n","<br/>"))</p>
                                     </div>
                                     <div class='span3'>
                                         <div class='feedAnsImage img'>
@@ -112,7 +112,7 @@
                                 else
                                 {
                                     <div class='span11 offset1 middle-size-padding'>
-                                        <p class='ans_text'>@item.AnswerText</p>
+                                        <p class='ans_text'>@Html.Raw(item.AnswerText.Replace("\r\n", "<br/>"))</p>
                                     </div>
                                 }
                             </div>

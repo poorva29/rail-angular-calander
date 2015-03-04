@@ -59,13 +59,13 @@
                         @if (Session["UserId"] == null && Model != null && Model.ToList().Count != 0)
                         {
                             <div class="span10 similarquestions_loginlink">
-                                <a href="/login" class="divredirectlogin">Not Satisfied with below Answers? <strong>Send your Question to the Mirai Consult&#8482; panel of doctors</strong> </a>
+                                <a href="/login" class="divredirectlogin">Not Satisfied with below Answers? <strong>Send your Question to the Mirai Health&#8482; panel of doctors</strong> </a>
                             </div>
                         }
                         else if (Session["UserId"] == null && (Model == null || Model.ToList().Count == 0))
                         {
                             <div class="span10 similarquestions_loginlink">
-                                <a href="/login" class="divredirectlogin">Send your Question to the Mirai Consult&#8482; panel of doctors</a>
+                                <a href="/login" class="divredirectlogin">Send your Question to the Mirai Health&#8482; panel of doctors</a>
                             </div>
                         }
                     </div>

@@ -425,7 +425,7 @@
                     <hr class="doc-details-hr" />
                     @if (Convert.ToInt32(ViewBag.isConsult) != 1)
                     {
-                        <div class="doc-clinic-details" style="margin-bottom:15px">Mirai Consult activity</div>
+                        <div class="doc-clinic-details" style="margin-bottom:15px">Mirai Health activity</div>
                         <div id="feed" class="margin_bottom"></div>
                         <input type="hidden" id="HdnUserID" name="HdnUserID" value="@Model.UserId" />
                         <input type="hidden" id="HdnRecordSize" name="HdnRecordSize" value="@(ConfigurationManager.AppSettings["NumberOfRecored"].ToString())" />
@@ -473,7 +473,7 @@
             <meta name="description" content="@(Model.FirstName + " " + Model.LastName)">
     }
     @section titleTags {
-            <title>Mirai Consult-doctor-@(Model.FirstName + " " + Model.LastName) </title>
+            <title>Mirai Health-doctor-@(Model.FirstName + " " + Model.LastName) </title>
     }
     <script src="~/Content/js/utility.js"></script>
     <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
@@ -546,7 +546,7 @@
 
                             "<a class='share_link-margin ' target='_blank'  href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= " + url.toString() + "/answers/" + escape(response[indexcnt].question_seo) + "' onclick='ga(\"send\", \"event\", \"Doctor\", \"Share On Twitter\", \"" + response[indexcnt].questiontext + "\")'><img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'></a>" +
                             //"<a class='share_link-margin ' target='_blank'  href='https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= Q. " + escape(response[indexcnt].questiontext) + " \n Ans. " + escape(response[indexcnt].answertext) + " \n " + url.toString() + "/Patients/PatientQuestionDetails/" + escape(response[indexcnt].questionid) + "'><img title='Twitter' class='share_icons_width' src='../Resources/image/twitter.png' alt='Twitter'></a>" +
-                            "<a class='share_link-margin ' target='' href='mailto:?Subject=Mirai Consult has shared an answer with you &amp;Body= Q. " + escape(response[indexcnt].questiontext) + " %0D%0A  Ans. " + escape(response[indexcnt].answertext) + "' style='margin-right:10px'  onclick='ga(\"send\", \"event\", \"Doctor\", \"Share on Email\", \"" + response[indexcnt].questiontext + "\")'><img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'></a>";
+                            "<a class='share_link-margin ' target='' href='mailto:?Subject=Mirai Health has shared an answer with you &amp;Body= Q. " + escape(response[indexcnt].questiontext) + " %0D%0A  Ans. " + escape(response[indexcnt].answertext) + "' style='margin-right:10px'  onclick='ga(\"send\", \"event\", \"Doctor\", \"Share on Email\", \"" + response[indexcnt].questiontext + "\")'><img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'></a>";
                         }
                         if (UserId != response[indexcnt].docid) {
                             if (response[indexcnt].isendorse) {

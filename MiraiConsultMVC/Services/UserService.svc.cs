@@ -75,7 +75,7 @@ namespace Services
                 string emailBody = EmailTemplates.GetEmailTemplateOnPatientThanked(msgText, lastname, questiontext, thanxcount);
                 string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                 string Logoimage = HttpContext.Current.Server.MapPath("..\\Content\\image\\LogoForMail.png");
-                Mail.SendHTMLMailWithImage(fromEmail, emailid, "Mirai Consult - Patient thanked your answer", emailBody, Logoimage);
+                Mail.SendHTMLMailWithImage(fromEmail, emailid, "Mirai Health - Patient thanked your answer", emailBody, Logoimage);
             }
             if (!string.IsNullOrEmpty(mobileno))
             {
@@ -98,7 +98,7 @@ namespace Services
                 string emailBody = EmailTemplates.GetEmailTemplateOnDoctorEndorsed(msgText, lastname, questiontext, endorsecount);
                 string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                 string Logoimage = HttpContext.Current.Server.MapPath("..\\Content\\image\\LogoForMail.png");
-                Mail.SendHTMLMailWithImage(fromEmail, Email, "Mirai Consult - Endorsements Notification", emailBody, Logoimage);
+                Mail.SendHTMLMailWithImage(fromEmail, Email, "Mirai Health - Endorsements Notification", emailBody, Logoimage);
             }
             string SmsText = ConfigurationManager.AppSettings["OnDoctorEndoresedSendSMS"].ToString();
             if (!string.IsNullOrEmpty(mobileno))
@@ -288,7 +288,7 @@ namespace Services
                             string emailBody = EmailTemplates.GetEmailTemplateOnQuestionAnswer(msgText, QuestionDetails.Tables[0].Rows[i]["lastname"].ToString(), QuestionDetails.Tables[0].Rows[i]["questiontext"].ToString(), QuestionDetails.Tables[0].Rows[i]["answertext"].ToString());
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                             string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("..\\Content\\image\\LogoForMail.png");
-                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Consult - Answer Notification", emailBody, Logoimage);
+                            Mail.SendHTMLMailWithImage(fromEmail, QuestionDetails.Tables[0].Rows[i]["Email"].ToString(), "Mirai Health - Answer Notification", emailBody, Logoimage);
                         }
                     }
                     HttpContext.Current.Response.Write("{'Msg':'Answer Updated'}");
@@ -335,7 +335,7 @@ namespace Services
                             string emailBody = EmailTemplates.SendNotificationEmailtoUser(dr["firstname"].ToString(), patientid, emailVerficationURL, "");
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                             string Logoimage = AppDomain.CurrentDomain.BaseDirectory + ("Content\\image\\LogoForMail.png");
-                            Mail.SendHTMLMailWithImage(fromEmail, dr["email"].ToString(), "Mirai Consult - Verify your email", emailBody, Logoimage);
+                            Mail.SendHTMLMailWithImage(fromEmail, dr["email"].ToString(), "Mirai Health - Verify your email", emailBody, Logoimage);
 
                             HttpContext.Current.Response.Write("{'Msg':'verification email shortly'}");
                         }

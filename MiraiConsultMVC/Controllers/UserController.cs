@@ -386,7 +386,7 @@ namespace MiraiConsultMVC.Controllers
         {
             string smsText = ConfigurationManager.AppSettings["DocApproveNotificationTextMsg"].ToString();
             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-            string subject = "Mirai Consult - Your registration request to Mirai Consult has been approved";
+            string subject = "Mirai Health - Your registration request to Mirai Health has been approved";
             string body = EmailTemplates.GetTemplateOfApprovalNotificationEmailToDoc(DoctorName);
             int DoctorID = Convert.ToInt32(doctorid);
             object jsonObj;
@@ -415,7 +415,7 @@ namespace MiraiConsultMVC.Controllers
             
             string smsText = ConfigurationManager.AppSettings["DocRejectNotificationTextMsg"].ToString();
             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-            string subject = "Mirai Consult - your registration request has been rejected.";
+            string subject = "Mirai Health - your registration request has been rejected.";
             string body = EmailTemplates.EmailNotificationTempleteForRejectedDoctor();
             int DoctorID = Convert.ToInt32(doctorID);
             int statusRejected = (int)UserStatus.Rejected;
@@ -713,7 +713,7 @@ namespace MiraiConsultMVC.Controllers
                     isLinkActivate = UtilityManager.getInstance().ActivateByEmail(userID, isEmailVerify, emailid, out isLinkActivate);
                     if (isLinkActivate == 1)
                     {
-                        ViewBag.Message = "Thank you for email verification. Now you can receive email notifications from MiraiConsult";
+                        ViewBag.Message = "Thank you for email verification. Now you can receive email notifications from Mirai Health";
                         Session["IsEmailVerified"] = isEmailVerify;
                     }
                     else
@@ -739,7 +739,7 @@ namespace MiraiConsultMVC.Controllers
                     string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(userId.ToString(), firstname,emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Consult - reset your password", emailBody, Logoimage);
+                    Mail.SendHTMLMailWithImage(fromEmail, name, "Mirai Health - reset your password", emailBody, Logoimage);
                     ViewBag.success = "true";
                     ViewBag.Msg = "Email has been sent to your email address. After clicking on the link in the email, you can reset your password.";
                     ModelState.Clear();
@@ -817,7 +817,7 @@ namespace MiraiConsultMVC.Controllers
 
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                    Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                     int quickBloxResult = Utilities.signUpOnQuickblox(Convert.ToInt32(res.UserId), values.Email);
                 }
@@ -958,7 +958,7 @@ namespace MiraiConsultMVC.Controllers
                         string emailBody = EmailTemplates.SendNotificationEmailtoUser(doctor.FirstName, doctorid, emailVerficationURL, "Doctor");
                         string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                         string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                        Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                        Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
                         int result = Utilities.signUpOnQuickblox(Convert.ToInt32(dtDoctor.Rows[0]["UserId"]), doctor.Email);
                     }

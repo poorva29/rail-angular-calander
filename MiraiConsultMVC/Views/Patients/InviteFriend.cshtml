@@ -72,7 +72,7 @@
             <div class='row-fluid'>
                 <div class="span12">
                     <div class="span4 pull-left btn-padding-left">
-                        <label>Share Mirai Consult&#8482; on:</label>
+                        <label>Share Mirai Health&#8482; on:</label>
                     </div>
                     <div class="span8 pull-right btn-padding-left">
                         <div class='top_marging_sharelink'>
@@ -100,13 +100,13 @@
                                AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
                                FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
                             }
-                            <a href='#' onclick="shareOnFacebook('MiraiConsult','Healthcare now more accessible and convenient at Mirai Consult&#8482;','0','@(AskmiraiUrl)', '@(FacebookAppKey)', '@(userType)')">
+                            <a href='#' onclick="shareOnFacebook('MiraiHealth','Healthcare now more accessible and convenient at Mirai Health&#8482;','0','@(AskmiraiUrl)', '@(FacebookAppKey)', '@(userType)')">
                                 <img title='Facebook' class='share_icons_width' src='../Content/image/fb.png' alt='Facebook'>
                             </a>
-                            <a class='share_link-margin ' target='_blank' href="https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= @(webaddress)" onclick="ga('send', 'event', '@(userType)', 'Invite On Twitter', 'MiraiConsult')">
+                            <a class='share_link-margin ' target='_blank' href="https://twitter.com/intent/tweet?button_hashtag=TwitterStories&text= @(webaddress)" onclick="ga('send', 'event', '@(userType)', 'Invite On Twitter', 'MiraiHealth')">
                                 <img title='Twitter' class='share_icons_width' src='../Content/image/twitter.png' alt='Twitter'>
                             </a>
-                            <a class='share_link-margin ' target='_blank' href="mailto:?Subject= I want to invite you to use Mirai Consult &amp;Body= @(webaddress)%0D%0A@(userName) @(ConfigurationManager.AppSettings["shareMessage"])" onclick="ga('send', 'event', '@(userType)', 'Invite on Facebook', 'MiraiConsult')">
+                            <a class='share_link-margin ' target='_blank' href="mailto:?Subject= I want to invite you to use Mirai Health &amp;Body= @(webaddress)%0D%0A@(userName) @(ConfigurationManager.AppSettings["shareMessage"])" onclick="ga('send', 'event', '@(userType)', 'Invite on Facebook', 'Mirai Health')">
                                 <img title='Email' class='share_icons_width' src='../Content/image/mail.png' alt='Email'>
                             </a>
                         </div>

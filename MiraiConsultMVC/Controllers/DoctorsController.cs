@@ -502,7 +502,7 @@ namespace MiraiConsultMVC.Controllers
                             string emailBody = EmailTemplates.SendEmailVerifcationtoUser(profile.LastName, doctorid, emailVerficationURL, Usertype, emailid, isemailverfiy);
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                             string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                            Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Consult - Verify your email", emailBody, Logoimage);
+                            Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                             TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
                             TempData["Email"] = doctor.Email;
                         }

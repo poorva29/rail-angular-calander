@@ -819,7 +819,7 @@ namespace MiraiConsultMVC.Controllers
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                     Mail.SendHTMLMailWithImage(fromEmail, values.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                     ViewBag.message="Account has been created successfully and you will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
-                    int quickBloxResult = Utilities.signUpOnQuickblox(Convert.ToInt32(res.UserId), values.Email);
+                    int quickBloxResult = Utilities.signUpOnQuickblox(Convert.ToInt32(res.UserId), values.Email, Convert.ToInt32(UserType.Patient));
                 }
                 else if (!Convert.ToBoolean(res.EmailAvailable))
                 {
@@ -960,7 +960,7 @@ namespace MiraiConsultMVC.Controllers
                         string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                         Mail.SendHTMLMailWithImage(fromEmail, modelUser.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                         ViewBag.message = "Your registration request has been submitted successfully. You will receive verification email shortly. Please check spam/junk incase you don't find an email in your inbox.";
-                        int result = Utilities.signUpOnQuickblox(Convert.ToInt32(dtDoctor.Rows[0]["UserId"]), doctor.Email);
+                        int result = Utilities.signUpOnQuickblox(Convert.ToInt32(dtDoctor.Rows[0]["UserId"]), doctor.Email, Convert.ToInt32(UserType.Doctor));
                     }
                     else
                     {

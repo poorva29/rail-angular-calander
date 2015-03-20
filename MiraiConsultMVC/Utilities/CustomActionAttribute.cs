@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using log4net;
 using System.Web.Mvc;
 
 namespace MiraiConsultMVC.Controllers
 {
     public class CustomActionAttribute : FilterAttribute, IActionFilter
     {
+        private static readonly ILog logfile = LogManager.GetLogger(typeof(CustomActionAttribute));
         void IActionFilter.OnActionExecuted(ActionExecutedContext filterContext)
         {
             filterContext.Controller.ViewBag.OnActionExecuted = "IActionFilter.OnActionExecuted filter called";
@@ -36,9 +37,9 @@ namespace MiraiConsultMVC.Controllers
                         filterContext.Result = new RedirectResult("/login");
                 }
             }
-            catch
+            catch(Exception e)
             {
-                throw;
+                logfile.Error("Controller exception >>> \n" + e.Message);
             }
         }
     }

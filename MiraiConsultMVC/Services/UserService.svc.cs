@@ -275,9 +275,9 @@ namespace Services
         {
             try
             {
-                DataSet dsResult = DoctorManager.getInstance().SaveDoctorAnswer(questionId, userId, title, answer, string.Empty);
+                int result = DoctorManager.getInstance().SaveDoctorAnswer(questionId, userId, title, answer, string.Empty);
                 //Need to check for time being I had put if condition
-                if (dsResult != null && dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                if (result == 1)
                 {
                     DataSet QuestionDetails = QuestionManager.getInstance().getQuestionDetailsbyId(questionId, userId, Convert.ToInt32(QuestionStatus.Approved));
                     for (int i = 0; i < QuestionDetails.Tables[0].Rows.Count; i++)

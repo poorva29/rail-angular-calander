@@ -28,6 +28,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         BasePage BPage = new BasePage();
         private static readonly ILog logfile = LogManager.GetLogger(typeof(UserController));
+        [CustomAction]
         public ActionResult Login()
         {
             Login log = new Login();

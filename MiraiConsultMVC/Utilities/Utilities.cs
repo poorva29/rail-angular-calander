@@ -287,7 +287,7 @@ namespace MiraiConsultMVC
                         userDetail = JsonConvert.DeserializeAnonymousType(signUpJson, userDetail);
                         if (userDetail != null)
                         {
-                            result = UserManager.getInstance().Insert_QuickbloxUser(userId, Convert.ToInt32(UserType.Doctor), userDetail.user.id, userDetail.user.login, Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]), userDetail.user.email);
+                           // result = UserManager.getInstance().Insert_QuickbloxUser(userId, Convert.ToInt32(UserType.Doctor), userDetail.user.id, userDetail.user.login, Convert.ToString(ConfigurationManager.AppSettings["QuickbloxUserPassword"]), userDetail.user.email);
                         }
                     }
                 }

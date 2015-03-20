@@ -248,6 +248,7 @@
     </Compile>
     <Compile Include="Utilities\askmiraiEnum.cs" />
     <Compile Include="Utilities\BasePage.cs" />
+    <Compile Include="Utilities\CustomActionAttribute.cs" />
     <Compile Include="Utilities\EmailTemplates.cs" />
     <Compile Include="Utilities\Mail.cs" />
     <Compile Include="Utilities\SMS.cs" />

@@ -21,6 +21,7 @@ namespace MiraiConsultMVC.Controllers
     {
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         BasePage BPage = new BasePage();
+        [CustomAction]
         public ActionResult Home()
         {
             ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);

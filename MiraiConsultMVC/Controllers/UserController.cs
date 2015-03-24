@@ -760,7 +760,7 @@ namespace MiraiConsultMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPassword passwords, int id)
+        public ActionResult ResetPassword(ResetPassword passwords, string id)
         {
             if (ModelState.IsValid)
             {

@@ -28,6 +28,7 @@ namespace MiraiConsultMVC.Controllers
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         BasePage BPage = new BasePage();
         private static readonly ILog logfile = LogManager.GetLogger(typeof(UserController));
+        [CustomAction]
         public ActionResult Login()
         {
             Login log = new Login();
@@ -754,22 +755,22 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult ResetPassword(string id)
         {
-            TempData["userid"] = Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+"));
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPassword passwords)
+        public ActionResult ResetPassword(ResetPassword passwords, string id)
         {
             if (ModelState.IsValid)
             {
                 int userID = 0 ;
                 _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
-                if (!string.IsNullOrEmpty(TempData["userid"].ToString()))
+                string doctorId = Utilities.Decrypt(HttpUtility.UrlDecode(id.ToString()).Replace(" ", "+"));
+                if (!string.IsNullOrEmpty(doctorId))
                 {
-                    userID = Convert.ToInt32(TempData["userid"].ToString());
+                    userID = Convert.ToInt32(doctorId);
                 }
                 string dbpasswd = Utilities.Encrypt(passwords.Password);
                 var userRecord = db.users.FirstOrDefault(x => x.userid.Equals(userID));
@@ -778,8 +779,6 @@ namespace MiraiConsultMVC.Controllers
                     userRecord.password = Utilities.Encrypt(passwords.Password); ;
                     db.SubmitChanges();
                     ViewBag.errorMsg = "Password has been changed successfully.";
-
-                    TempData["userid"] = userID.ToString();
                 }
             }
             return View(passwords);

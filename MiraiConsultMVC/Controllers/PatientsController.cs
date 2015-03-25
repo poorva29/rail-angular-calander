@@ -125,7 +125,7 @@ namespace MiraiConsultMVC.Controllers
                      }
                     else if (!Convert.ToBoolean(res.EmailAvailable))
                     {
-                        ViewBag.message = "This username is not available. Please select a different username.";
+                        ViewBag.message = "This Email is not available. Please select a different email.";
                     }
                 }
                 TempData["Email"] = profile.Email;

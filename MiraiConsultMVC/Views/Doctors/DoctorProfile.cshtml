@@ -1451,7 +1451,7 @@
         if (validateclinicdata() && validateTelephone()) {
             $.ajax({
                 type: "GET",
-                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + encodeURIComponent(address) + '&telephone=' + telephone + '&clinicName=' + encodeURIComponent(clinicName) + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,//For accepting the special character(/ ? : @ & = + $ #) there need to be encoded uri.
+                url: '../Doctors/Location_Insert?doctorid=' + doctorId + '&address=' + encodeURIComponent(address) + '&telephone=' + telephone + '&clinicName=' + encodeURIComponent(clinicName) + '&countryId=' + countryId + '&stateId=' + stateId + '&cityId=' + cityId + '&locationId=' + locationId + '&docLocationId=' + docLocationId,@*For accepting the special character(/ ? : @ & = + $ #) there need to be encoded uri.*@
                 datatype: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (returndata) {

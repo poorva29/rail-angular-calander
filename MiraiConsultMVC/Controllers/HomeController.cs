@@ -19,6 +19,7 @@ namespace MiraiConsultMVC.Controllers
 {
     public class HomeController : Controller
     {
+        readonly log4net.ILog logfile = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         _dbAskMiraiDataContext db = new _dbAskMiraiDataContext();
         BasePage BPage = new BasePage();
         [CustomAction]
@@ -130,6 +131,7 @@ namespace MiraiConsultMVC.Controllers
             string  userId = Convert.ToString(Session["UserId"]);
             string userEmailId = Convert.ToString(Session["UserEmailId"]);
             Exception ex = (Exception)TempData["Exception"];
+            logfile.Error(ex);
             if (ex is System.Web.HttpRequestValidationException)
             {
                 ViewBag.Msg = "HTML / XML tags not allowed in input.<BR> We have detected an XML / HTML tag in one of the text input fields. These tags are not allowed in the input.";

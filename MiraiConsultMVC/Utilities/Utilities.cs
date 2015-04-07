@@ -275,11 +275,12 @@ namespace MiraiConsultMVC
                 {
                     login = login + "Mirai";
                 }
+                string loginId = email.Replace("@", "");
                 string quickbloxPassword = login + Convert.ToString(userId);
                 string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
                 qBloxpassword = qBloxpassword.Substring(0, 15);
 
-                string postJson = "{\"user\": {\"login\": \"" + login + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
+                string postJson = "{\"user\": {\"login\": \"" + loginId + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
                 StreamWriter.Write(Convert.ToString(postJson));
                 StreamWriter.Flush();
                 StreamWriter.Close();
@@ -363,6 +364,7 @@ namespace MiraiConsultMVC
                     {
                         login = login + "Mirai";
                     }
+                    string loginId = updatedEmail.Replace("@", "");
                     string quickbloxPassword = login + Convert.ToString(quickbloxDetail.Rows[0]["userid"]);
                     string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
                     qBloxpassword = qBloxpassword.Substring(0, 15);
@@ -375,7 +377,7 @@ namespace MiraiConsultMVC
                     updateUserhttp.Headers["QB-Token"] = token;
 
                     var StreamWriter = new StreamWriter(updateUserhttp.GetRequestStream());
-                    string postJson = "{\"user\": {\"login\": \"" + login + "\",\"old_password\": \"" + Convert.ToString(quickbloxDetail.Rows[0]["quickblox_password"]) + "\",\"password\": \"" + qBloxpassword + "\",\"email\": \"" + updatedEmail + "\"}}";
+                    string postJson = "{\"user\": {\"login\": \"" + loginId + "\",\"old_password\": \"" + Convert.ToString(quickbloxDetail.Rows[0]["quickblox_password"]) + "\",\"password\": \"" + qBloxpassword + "\",\"email\": \"" + updatedEmail + "\"}}";
                     StreamWriter.Write(Convert.ToString(postJson));
                     StreamWriter.Flush();
                     StreamWriter.Close();

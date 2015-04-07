@@ -276,7 +276,7 @@ namespace MiraiConsultMVC
                     login = login + "Mirai";
                 }
                 string quickbloxPassword = login + Convert.ToString(userId);
-                string qBloxpassword = CreateSignature(quickbloxPassword, secret);
+                string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
                 qBloxpassword = qBloxpassword.Substring(0, 15);
 
                 string postJson = "{\"user\": {\"login\": \"" + login + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
@@ -364,7 +364,7 @@ namespace MiraiConsultMVC
                         login = login + "Mirai";
                     }
                     string quickbloxPassword = login + Convert.ToString(quickbloxDetail.Rows[0]["userid"]);
-                    string qBloxpassword = CreateSignature(quickbloxPassword, secret);
+                    string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
                     qBloxpassword = qBloxpassword.Substring(0, 15);
 
                     string updateUserUrl = "http://api.quickblox.com/users/" + quickbloxDetail.Rows[0]["quickblox_userid"] + ".json";
@@ -409,6 +409,22 @@ namespace MiraiConsultMVC
                 }
             }
             return result;
+        }
+
+        public static String generatePasswordForQuickBlox(String secretKey, String message)
+        {
+            var StringToSign = secretKey + message;
+            var sha256 = new SHA256Managed();
+            byte[] digest = sha256.ComputeHash(Encoding.ASCII.GetBytes(StringToSign));
+            String signedInput = Convert.ToBase64String(digest);
+            //Removing the trailing = signs
+            var lastEqualsSignIndex = signedInput.Length - 1;
+            while (signedInput[lastEqualsSignIndex] == '=')
+            {
+                lastEqualsSignIndex--;
+            }
+            signedInput = signedInput.Substring(0, lastEqualsSignIndex + 1);
+            return HttpUtility.UrlEncode(signedInput.Substring(0, 10));
         }
     }
 }

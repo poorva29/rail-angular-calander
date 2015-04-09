@@ -278,7 +278,6 @@ namespace MiraiConsultMVC
                 string loginId = email.Replace("@", "");
                 string quickbloxPassword = login + Convert.ToString(userId);
                 string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
-                qBloxpassword = qBloxpassword.Substring(0, 15);
 
                 string postJson = "{\"user\": {\"login\": \"" + loginId + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
                 StreamWriter.Write(Convert.ToString(postJson));
@@ -367,7 +366,6 @@ namespace MiraiConsultMVC
                     string loginId = updatedEmail.Replace("@", "");
                     string quickbloxPassword = login + Convert.ToString(quickbloxDetail.Rows[0]["userid"]);
                     string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
-                    qBloxpassword = qBloxpassword.Substring(0, 15);
 
                     string updateUserUrl = "http://api.quickblox.com/users/" + quickbloxDetail.Rows[0]["quickblox_userid"] + ".json";
                     var updateUserhttp = (HttpWebRequest)WebRequest.Create(new Uri(updateUserUrl));

@@ -424,7 +424,7 @@ namespace MiraiConsultMVC
                 lastEqualsSignIndex--;
             }
             signedInput = signedInput.Substring(0, lastEqualsSignIndex + 1);
-            return HttpUtility.UrlEncode(signedInput.Substring(0, 10)).ToLower();
+            return HttpUtility.UrlEncode(signedInput.Substring(0, 10)).ToLower().ToLower();
         }
     }
 }

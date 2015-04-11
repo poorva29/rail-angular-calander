@@ -1642,7 +1642,6 @@
     <ElementType Name="askmirai_CheckUserIsPresentInDbResult">
       <Column Name="EmailAvailable" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SignInUsingGoogleORFacebook" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

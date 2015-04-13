@@ -275,11 +275,11 @@ namespace MiraiConsultMVC
                 {
                     login = login + "Mirai";
                 }
+                string loginId = email.Replace("@", "");
                 string quickbloxPassword = login + Convert.ToString(userId);
-                string qBloxpassword = CreateSignature(quickbloxPassword, secret);
-                qBloxpassword = qBloxpassword.Substring(0, 15);
+                string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
 
-                string postJson = "{\"user\": {\"login\": \"" + login + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
+                string postJson = "{\"user\": {\"login\": \"" + loginId + "\", \"password\": \"" + qBloxpassword + "\", \"email\": \"" + email + "\"}}";
                 StreamWriter.Write(Convert.ToString(postJson));
                 StreamWriter.Flush();
                 StreamWriter.Close();
@@ -363,9 +363,9 @@ namespace MiraiConsultMVC
                     {
                         login = login + "Mirai";
                     }
+                    string loginId = updatedEmail.Replace("@", "");
                     string quickbloxPassword = login + Convert.ToString(quickbloxDetail.Rows[0]["userid"]);
-                    string qBloxpassword = CreateSignature(quickbloxPassword, secret);
-                    qBloxpassword = qBloxpassword.Substring(0, 15);
+                    string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
 
                     string updateUserUrl = "http://api.quickblox.com/users/" + quickbloxDetail.Rows[0]["quickblox_userid"] + ".json";
                     var updateUserhttp = (HttpWebRequest)WebRequest.Create(new Uri(updateUserUrl));
@@ -375,7 +375,7 @@ namespace MiraiConsultMVC
                     updateUserhttp.Headers["QB-Token"] = token;
 
                     var StreamWriter = new StreamWriter(updateUserhttp.GetRequestStream());
-                    string postJson = "{\"user\": {\"login\": \"" + login + "\",\"old_password\": \"" + Convert.ToString(quickbloxDetail.Rows[0]["quickblox_password"]) + "\",\"password\": \"" + qBloxpassword + "\",\"email\": \"" + updatedEmail + "\"}}";
+                    string postJson = "{\"user\": {\"login\": \"" + loginId + "\",\"old_password\": \"" + Convert.ToString(quickbloxDetail.Rows[0]["quickblox_password"]) + "\",\"password\": \"" + qBloxpassword + "\",\"email\": \"" + updatedEmail + "\"}}";
                     StreamWriter.Write(Convert.ToString(postJson));
                     StreamWriter.Flush();
                     StreamWriter.Close();
@@ -409,6 +409,22 @@ namespace MiraiConsultMVC
                 }
             }
             return result;
+        }
+
+        public static String generatePasswordForQuickBlox(String secretKey, String message)
+        {
+            var StringToSign = secretKey + message;
+            var sha256 = new SHA256Managed();
+            byte[] digest = sha256.ComputeHash(Encoding.ASCII.GetBytes(StringToSign));
+            String signedInput = Convert.ToBase64String(digest);
+            //Removing the trailing = signs
+            var lastEqualsSignIndex = signedInput.Length - 1;
+            while (signedInput[lastEqualsSignIndex] == '=')
+            {
+                lastEqualsSignIndex--;
+            }
+            signedInput = signedInput.Substring(0, lastEqualsSignIndex + 1);
+            return HttpUtility.UrlEncode(signedInput.Substring(0, 10)).ToLower().ToLower();
         }
     }
 }

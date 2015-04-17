@@ -26,7 +26,7 @@ namespace MiraiConsultMVC.Models
         private bool isemailverified;
         private string address;
         private string registrationnumber;
-        private int registrationcouncil;
+        private int? registrationcouncil;
         private string aboutme;
         private bool isdocconnectuser;
         private int docconectdoctorid;
@@ -68,7 +68,7 @@ namespace MiraiConsultMVC.Models
         public bool IsEmailVerified { get { return isemailverified; } set { isemailverified = value; } }
         public string Address { get { return address; } set { address = value; } }
         public string RegistrationNumber { get { return registrationnumber; } set { registrationnumber = value; } }
-        public int RegistrationCouncil { get { return registrationcouncil; } set { registrationcouncil = value; } }
+        public int? RegistrationCouncil { get { return registrationcouncil; } set { registrationcouncil = value; } }
         public string AboutMe { get { return aboutme; } set { aboutme = value; } }
         public bool IsDocConnectUser { get { return isdocconnectuser; } set { isdocconnectuser = value; } }
         public int DocConnectDoctorId { get { return docconectdoctorid; } set { docconectdoctorid = value; } }

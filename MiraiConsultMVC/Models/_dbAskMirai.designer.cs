@@ -18937,8 +18937,6 @@ namespace MiraiConsultMVC.Models
 		
 		private System.Nullable<int> _UserId;
 		
-		private System.Nullable<int> _SignInUsingGoogleORFacebook;
-		
 		public askmirai_CheckUserIsPresentInDbResult()
 		{
 		}
@@ -18971,22 +18969,6 @@ namespace MiraiConsultMVC.Models
 				if ((this._UserId != value))
 				{
 					this._UserId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SignInUsingGoogleORFacebook", DbType="Int")]
-		public System.Nullable<int> SignInUsingGoogleORFacebook
-		{
-			get
-			{
-				return this._SignInUsingGoogleORFacebook;
-			}
-			set
-			{
-				if ((this._SignInUsingGoogleORFacebook != value))
-				{
-					this._SignInUsingGoogleORFacebook = value;
 				}
 			}
 		}

@@ -171,9 +171,7 @@
                                         }
                                         else
                                         {
-                                            <select class="input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen valid" id="ddlRegistrationCouncil" name="RegistrationCouncil">
-                                                <option value="0">--- Registration Council ---</option>
-                                            </select>
+                                             @Html.DropDownListFor(m => Model.RegistrationCouncil, new SelectList(string.Empty), "--Registration Council--", new { @class = "input-block-level max-width min-width drop-arrows cust-no-border cust-lightgreen", id = "ddlRegistrationCouncil" })                                           
                                         }
                                     </div>
                                 </div>

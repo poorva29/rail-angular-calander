@@ -275,7 +275,7 @@ namespace MiraiConsultMVC
                 {
                     login = login + "Mirai";
                 }
-                string loginId = email.Replace("@", "");
+                string loginId = "Quickblox" + userId;
                 string quickbloxPassword = login + Convert.ToString(userId);
                 string qBloxpassword = generatePasswordForQuickBlox(secret, quickbloxPassword);
 

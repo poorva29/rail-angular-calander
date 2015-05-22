@@ -504,7 +504,6 @@ namespace MiraiConsultMVC.Controllers
                             string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
                             Mail.SendHTMLMailWithImage(fromEmail, profile.Email, "Mirai Health - Verify your email", emailBody, Logoimage);
                             TempData["message"] = "Details updated successfully. You will receive verification email shortly.";
-                             int quickBloxResult = Utilities.UpdateEmailByQuickBloxId(Convert.ToString(TempData["Email"]), doctor.Email);
                             TempData["Email"] = doctor.Email;
                         }
                         else

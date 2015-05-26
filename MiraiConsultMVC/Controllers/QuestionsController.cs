@@ -230,10 +230,10 @@ namespace MiraiConsultMVC.Controllers
                 {
                     title = formCollection["Title"];
                 }
-                int result = QuestionManager.getInstance().SaveDoctorAnswer(QuestionId, userId, title, answer, filename);
-                if (result > 0)
+                DataSet result = QuestionManager.getInstance().SaveDoctorAnswer(QuestionId, userId, title, answer, filename);
+                if (result != null && result.Tables.Count > 0)
                 {
-                    if (result == 1)
+                    if (result.Tables.Count == 1)
                     {
                         ViewBag.lblSuccessMessage = "Thank you for answering the question.";
                     }

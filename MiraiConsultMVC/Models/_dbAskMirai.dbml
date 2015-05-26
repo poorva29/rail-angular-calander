@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai_Staging" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai_Staging;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsquareMirai" Class="_dbAskMiraiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.10.10.41;Initial Catalog=AsquareMirai;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsquareMiraiConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.answers" Member="answers">
     <Type Name="answer">
       <Column Name="answerid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1584,6 +1584,63 @@
     <Parameter Name="emailverified" Type="System.Boolean" DbType="Bit" />
     <ElementType Name="askmirai_patient_Insert_UpdateResult">
       <Column Name="EmailAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CheckUserIsPresentInDb" Method="CheckUserIsPresentInDb">
+    <Parameter Name="uid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="city" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="cgname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cgemail" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cgmobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="isremonedayprior" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isremmorningonapptday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isremoncancellationoflasttwo" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="usertype" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="verifyemail" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isgoogleaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isfacebookaccount" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="countrycode1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cgcountrycode" Type="System.Int32" DbType="Int" />
+    <ElementType Name="CheckUserIsPresentInDbResult">
+      <Column Name="EmailAvailable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SignInUsingGoogleORFacebook" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.askmirai_CheckUserIsPresentInDb" Method="askmirai_CheckUserIsPresentInDb">
+    <Parameter Name="uid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firstname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="mobileno" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="gender" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateofbirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="countryid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stateid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cityid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="height" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="weight" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="pincode" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="registrationdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Usertype" Parameter="usertype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="username" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="emailverified" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="askmirai_CheckUserIsPresentInDbResult">
+      <Column Name="EmailAvailable" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>

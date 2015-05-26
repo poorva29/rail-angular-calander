@@ -806,7 +806,7 @@ namespace MiraiConsultMVC.Controllers
                 if (values.DateOfBirth != null)
                     values.DateOfBirth = DateTime.Parse(Convert.ToString(values.DateOfBirth));
                 int uid = Convert.ToInt32(Session["UserId"]);
-                var result = (db.askmirai_patient_Insert_Update(uid,values.FirstName, values.LastName, values.Email, values.MobileNo == null ? "" : values.MobileNo, values.Gender, values.DateOfBirth, values.CountryId, values.StateId, values.LocationId, values.CityId, values.Password, values.Height, values.Weight, values.Address, values.Pincode, values.UserId, values.RegistrationDate, values.Status, values.UserType, values.UserName, values.IsEmailVerified)).ToList();
+                var result = (db.askmirai_CheckUserIsPresentInDb(uid,values.FirstName, values.LastName, values.Email, values.MobileNo == null ? "" : values.MobileNo, values.Gender, values.DateOfBirth, values.CountryId, values.StateId, values.LocationId, values.CityId, values.Password, values.Height, values.Weight, values.Address, values.Pincode, values.UserId, values.RegistrationDate, values.Status, values.UserType, values.UserName, values.IsEmailVerified)).ToList();
                 var res = result.FirstOrDefault();
                 if (Convert.ToBoolean(res.EmailAvailable))
                 {

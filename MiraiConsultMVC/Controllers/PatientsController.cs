@@ -621,6 +621,7 @@ namespace MiraiConsultMVC.Controllers
             question.UserId = userId;
             question.Status = Convert.ToInt32(QuestionStatus.Pending);
             question.QuestionText = questionText;
+            question.QuestionType = Convert.ToInt32(QuestionType.Public);
             result = QuestionManager.getInstance().insertQuestion(question);
             return Json(result, JsonRequestBehavior.AllowGet);
         }

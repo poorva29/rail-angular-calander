@@ -67,6 +67,8 @@ namespace MiraiConsultMVC.Models
         [Required(ErrorMessage = "Please Enter Email.")]
         [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Please enter valid email address.")]
         public string Email { get { return email; } set { email = value; } }
+
+        [Required(ErrorMessage = "Please Enter Mobile No.")]
         [RegularExpression(@"^[0-9]{10}", ErrorMessage = "Please enter 10 digit mobile number.")]
         public string MobileNo { get { return mobileno; } set { mobileno = value; } }
 

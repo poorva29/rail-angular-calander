@@ -376,7 +376,7 @@ namespace MiraiConsultMVC.Controllers
                 QuestionDetail.UserId = Convert.ToInt32(item.userid);
                 IListQuestionDetails.Add(QuestionDetail);
             }
-            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
             ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
             return View(IListQuestionDetails);
         }

@@ -25,7 +25,7 @@ namespace MiraiConsultMVC.Controllers
         [CustomAction]
         public ActionResult Home()
         {
-            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
             if(Request.IsAjaxRequest())
             {
               return  PartialView("_AutoCompleteSearch");
@@ -53,7 +53,7 @@ namespace MiraiConsultMVC.Controllers
 
         public ActionResult TagCloud()
         {
-            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_AutoCompleteSearch");

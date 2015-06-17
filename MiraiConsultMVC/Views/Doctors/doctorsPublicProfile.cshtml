@@ -428,10 +428,10 @@
                         <div class="doc-clinic-details" style="margin-bottom:15px">Mirai Health activity</div>
                         <div id="feed" class="margin_bottom"></div>
                         <input type="hidden" id="HdnUserID" name="HdnUserID" value="@Model.UserId" />
-                        <input type="hidden" id="HdnRecordSize" name="HdnRecordSize" value="@(ConfigurationManager.AppSettings["NumberOfRecored"].ToString())" />
+                        <input type="hidden" id="HdnRecordSize" name="HdnRecordSize" value="@(ConfigurationManager.AppSettings["NumberOfRecords"].ToString())" />
                         <input type="hidden" id="HdnUserFullName" name="HdnUserFullName" value="@(Model.FirstName+" "+Model.LastName)" />
                         <input type="hidden" id="FacebookAppKey" name="FacebookAppKey" value="@(Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]))" />
-                        <input type="hidden" id="AskmiraiUrl" name="AskmiraiUrl" value="@(Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]))" />
+                        <input type="hidden" id="AskmiraiUrl" name="AskmiraiUrl" value="@(Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]))" />
                         <input type="hidden" id="HiddenUserType" name="HiddenUserType" value="@ViewBag.UserType" />
                     }
                     else

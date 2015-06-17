@@ -455,7 +455,8 @@ namespace MiraiConsultMVC.Controllers
                 }
                 if (file != null && file.FileName != null)
                 {
-                    doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
+                    doctor.PhotoUrl = (ConfigurationManager.AppSettings["defaultUrl"].ToString() +
+                        ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString()).Trim();
                     doctor.Image = filename;
                 }
                 else

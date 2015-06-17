@@ -428,7 +428,7 @@ namespace MiraiConsultMVC.Controllers
                     qm.Name_seo = item.name_seo;
                     QDModel.Add(qm);
                 }
-                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
                 ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
                 if (QDModel.ToList().Count != 0)
                 {
@@ -532,7 +532,7 @@ namespace MiraiConsultMVC.Controllers
                     qm.Name_seo = item.name_seo;
                     QDModel.Add(qm);
                 }
-                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                ViewBag.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
                 ViewBag.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
                 if (QDModel.ToList().Count != 0)
                 {

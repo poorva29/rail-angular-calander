@@ -25,11 +25,11 @@ namespace MiraiConsultMVC.Controllers
                 if (Session["UserId"] != null && Session["UserType"] != null)
                 {
                     feed.HdnUserID = Convert.ToString(Session["UserId"]);
-                    feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecored"].ToString();
+                    feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecords"].ToString();
                     feed.HiddenUserType = Convert.ToString(Session["UserType"]);
                     feed.hdnDocconnecturl = Convert.ToString(ConfigurationSettings.AppSettings["DocConnectApptUrl"]);
                 }
-                feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+                feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
                 feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
                 return View(feed);
             }
@@ -41,10 +41,10 @@ namespace MiraiConsultMVC.Controllers
             if (Session["UserId"] != null && Session["UserType"] != null)
             {
                 feed.HdnUserID = Convert.ToString(Session["UserId"]);
-                feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecored"].ToString();
+                feed.HdnRecordSize = ConfigurationManager.AppSettings["NumberOfRecords"].ToString();
                 feed.HdnUserFullName = Convert.ToString(Session["UserFullName"]);
             }
-            feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["askMiraiLink"]);
+            feed.AskmiraiUrl = Convert.ToString(ConfigurationSettings.AppSettings["defaultUrl"]);
             feed.FacebookAppKey = Convert.ToString(ConfigurationSettings.AppSettings["FacebookAppKey"]);
             return View(feed);
         }

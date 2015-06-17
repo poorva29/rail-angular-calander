@@ -736,7 +736,7 @@ namespace MiraiConsultMVC.Controllers
             userId = UserManager.getInstance().getUserIdAndTypeByEmail(name, out firstname);
             if (userId != 0)
             {
-                    string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["ResetPasswordLink"]);
+                    string emailVerficationURL = Convert.ToString(ConfigurationManager.AppSettings["defaultUrl"]) + "/reset-password";
                     string emailBody = EmailTemplates.SendResetPasswordNotificationEmail(userId.ToString(), firstname,emailVerficationURL);
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
@@ -909,7 +909,8 @@ namespace MiraiConsultMVC.Controllers
                 //----------------------------------------------------
                 doctor.UserType = Convert.ToInt32(UserType.Doctor).ToString();
                 if (filename != "")
-                    doctor.PhotoUrl = ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString().Trim();
+                    doctor.PhotoUrl = (ConfigurationManager.AppSettings["defaultUrl"].ToString() + 
+                        ConfigurationManager.AppSettings["DoctorPhotosUrl"].ToString()).Trim();
                 else
                     doctor.PhotoUrl = "";
                 string uid = Convert.ToString(Session["UserId"]);

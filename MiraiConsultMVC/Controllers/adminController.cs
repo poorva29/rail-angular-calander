@@ -179,7 +179,7 @@ namespace MiraiConsultMVC.Controllers
                     filter = true;
                 }
                 List<QuestionModel> Qmodel = new List<QuestionModel>();
-                Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecoredonQuestionList"].ToString() });
+                Qmodel.Add(new QuestionModel { Filter = filter, AnsweredBy = filter ? 1 : 0, Counts = ConfigurationManager.AppSettings["NumberOfRecordsOnQuestionList"].ToString() });
                 return View(Qmodel);
             }
         }

@@ -32,7 +32,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -53,7 +53,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -73,7 +73,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -99,7 +99,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -154,7 +154,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -176,7 +176,7 @@ namespace MiraiConsultMVC
                                          "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                          "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                          "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -197,7 +197,7 @@ namespace MiraiConsultMVC
                                       "<br>" +
                                       "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                       "<br>" +
-                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                       "<br>" + "<br>" + "<br>" +
                                       "<img src='cid:logoImage' ></img>" +
                                       "</form></body></html>";
@@ -218,7 +218,7 @@ namespace MiraiConsultMVC
                                 "<br>" +
                                 "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                 "<br>" +
-                                "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                 "<br>" + "<br>" + "<br>" +
                                 "<img src='cid:logoImage' ></img>" +
                                 "</form></body></html>";
@@ -239,7 +239,7 @@ namespace MiraiConsultMVC
                                 "<br>" +
                                 "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                 "<br>" +
-                                "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                 "<br>" + "<br>" + "<br>" +
                                 "<img src='cid:logoImage' ></img>" +
                                 "</form></body></html>";
@@ -254,7 +254,7 @@ namespace MiraiConsultMVC
             EmailBody += "<p align=left><font size=2 face=verdana>Please click on the link below to ask new question.</font></p>";
 
 
-            EmailBody += "<p align=left><font size=2 face=verdana><a href=" + ConfigurationManager.AppSettings["websiteUrl"] + "> " + ConfigurationManager.AppSettings["websiteUrl"] + " </a></font></p>";
+            EmailBody += "<p align=left><font size=2 face=verdana><a href=" + ConfigurationManager.AppSettings["website"] + "> " + ConfigurationManager.AppSettings["website"] + " </a></font></p>";
 
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
                                         EmailBody +
@@ -265,7 +265,7 @@ namespace MiraiConsultMVC
                                         "<br>" +
                                         "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                         "<br>" +
-                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                        "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                         "<br>" + "<br>" + "<br>" +
                                         "<img src='cid:logoImage' ></img>" +
                                         "</form></body></html>";
@@ -296,7 +296,7 @@ namespace MiraiConsultMVC
                                       "<br>" +
                                       "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                       "<br>" +
-                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                       "<br>" + "<br>" + "<br>" +
                                       "<img src='cid:logoImage' ></img>" +
                                       "</form></body></html>";
@@ -324,7 +324,7 @@ namespace MiraiConsultMVC
                                       "<br>" +
                                       "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                                       "<br>" +
-                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                      "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                                       "<br>" + "<br>" + "<br>" +
                                       "<img src='cid:logoImage' ></img>" +
                                       "</form></body></html>";

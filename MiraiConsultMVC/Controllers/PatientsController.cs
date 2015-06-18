@@ -655,7 +655,7 @@ namespace MiraiConsultMVC.Controllers
                             "<br>" +
                             "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
                             "<br>" +
-                            "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                            "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["website"].ToString() + "</font></b>" +
                             "<br>" + "<br>" + "<br>" +
                             "<img src='cid:logoImage' ></img>" +
                             "</form></body></html>";

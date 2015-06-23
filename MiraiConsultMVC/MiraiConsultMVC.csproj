@@ -121,6 +121,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -216,10 +217,61 @@
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="EFModels\answer.cs" />
+    <Compile Include="EFModels\appointment.cs" />
+    <Compile Include="EFModels\appointmenttype.cs" />
+    <Compile Include="EFModels\city.cs" />
+    <Compile Include="EFModels\country.cs" />
+    <Compile Include="EFModels\degree.cs" />
+    <Compile Include="EFModels\delayedappointmentsrecord.cs" />
+    <Compile Include="EFModels\doctoragree.cs" />
+    <Compile Include="EFModels\doctorlocation.cs" />
+    <Compile Include="EFModels\doctorlocationworkinghour.cs" />
+    <Compile Include="EFModels\doctorqualification.cs" />
+    <Compile Include="EFModels\doctorquestion.cs" />
+    <Compile Include="EFModels\doctorsdetail.cs" />
+    <Compile Include="EFModels\doctorspeciality.cs" />
+    <Compile Include="EFModels\EFModels.cs" />
+    <Compile Include="EFModels\healthinformation.cs" />
+    <Compile Include="EFModels\hospital.cs" />
+    <Compile Include="EFModels\hospital_admin.cs" />
+    <Compile Include="EFModels\location.cs" />
+    <Compile Include="EFModels\message_read_log.cs" />
+    <Compile Include="EFModels\mobilelog.cs" />
+    <Compile Include="EFModels\package.cs" />
+    <Compile Include="EFModels\packagesubscriptionmonth.cs" />
+    <Compile Include="EFModels\patientfollowuphistory.cs" />
+    <Compile Include="EFModels\patientthank.cs" />
+    <Compile Include="EFModels\question.cs" />
+    <Compile Include="EFModels\questiontag.cs" />
+    <Compile Include="EFModels\registrationcouncil.cs" />
+    <Compile Include="EFModels\setting.cs" />
+    <Compile Include="EFModels\speciality.cs" />
+    <Compile Include="EFModels\state.cs" />
+    <Compile Include="EFModels\tag.cs" />
+    <Compile Include="EFModels\tbl_appointment_details.cs" />
+    <Compile Include="EFModels\tbl_chat_dialogs.cs" />
+    <Compile Include="EFModels\tbl_doctor_patient.cs" />
+    <Compile Include="EFModels\tbl_doctor_patient_backup.cs" />
+    <Compile Include="EFModels\tbl_messages.cs" />
+    <Compile Include="EFModels\tbl_pre_registration.cs" />
+    <Compile Include="EFModels\tbl_user_device.cs" />
+    <Compile Include="EFModels\unregpatient.cs" />
+    <Compile Include="EFModels\user.cs" />
+    <Compile Include="EFModels\userspackage.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506221307021_InitialCreate.cs" />
+    <Compile Include="Migrations\201506221307021_InitialCreate.Designer.cs">
+      <DependentUpon>201506221307021_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506221310397_AddCCA2Appointments.cs" />
+    <Compile Include="Migrations\201506221310397_AddCCA2Appointments.Designer.cs">
+      <DependentUpon>201506221310397_AddCCA2Appointments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomDateModelBinder.cs" />
     <Compile Include="Models\Patients\InviteFriend.cs" />
@@ -627,6 +679,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\LoginServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506221307021_InitialCreate.resx">
+      <DependentUpon>201506221307021_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506221310397_AddCCA2Appointments.resx">
+      <DependentUpon>201506221310397_AddCCA2Appointments.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

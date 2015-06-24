@@ -30,5 +30,18 @@ namespace MiraiConsultMVC.EFModels
         public byte[] modified_date { get; set; }
 
         public byte[] modified_by { get; set; }
+
+        [StringLength(500)]
+        public byte[] cca_order { get; set; }
+
+        public byte[] cca_status { get; set; }
+
+        public byte[] cca_paid_on { get; set; }
+
+        public byte[] cca_amount { get; set; }
+
+        public byte[] isPaid { get; set; }
+
+        public byte[] dialog_fee { get; set; }
     }
 }

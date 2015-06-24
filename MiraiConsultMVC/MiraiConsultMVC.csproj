@@ -279,9 +279,9 @@
     <Compile Include="Migrations\201506230926239_AllowNullsInPrepayColumns.Designer.cs">
       <DependentUpon>201506230926239_AllowNullsInPrepayColumns.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506241118582_AddCCA2tbl_chat_dialog.cs" />
-    <Compile Include="Migrations\201506241118582_AddCCA2tbl_chat_dialog.Designer.cs">
-      <DependentUpon>201506241118582_AddCCA2tbl_chat_dialog.cs</DependentUpon>
+    <Compile Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.cs" />
+    <Compile Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.Designer.cs">
+      <DependentUpon>201506241155536_AddCCA2tbl_chat_dialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -705,8 +705,8 @@
     <EmbeddedResource Include="Migrations\201506230926239_AllowNullsInPrepayColumns.resx">
       <DependentUpon>201506230926239_AllowNullsInPrepayColumns.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506241118582_AddCCA2tbl_chat_dialog.resx">
-      <DependentUpon>201506241118582_AddCCA2tbl_chat_dialog.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.resx">
+      <DependentUpon>201506241155536_AddCCA2tbl_chat_dialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

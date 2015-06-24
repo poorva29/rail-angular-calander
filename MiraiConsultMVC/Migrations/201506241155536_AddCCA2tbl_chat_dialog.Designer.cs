@@ -13,7 +13,7 @@ namespace MiraiConsultMVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201506241118582_AddCCA2tbl_chat_dialog"; }
+            get { return "201506241155536_AddCCA2tbl_chat_dialog"; }
         }
         
         string IMigrationMetadata.Source

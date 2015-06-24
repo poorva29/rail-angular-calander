@@ -1,8 +1,7 @@
 namespace MiraiConsultMVC.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddCCA2Appointments : DbMigration
     {
         public override void Up()

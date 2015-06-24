@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Security.Cryptography;
 using System.Text;
-using DAL;
 using System.Data;
 using System.Web.UI.WebControls;
 using System.Web.Security;
-using System.Configuration;
-using System.Net;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace MiraiConsultMVC
 {

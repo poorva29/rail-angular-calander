@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
 using System.Data;
@@ -9,8 +8,6 @@ using DAL;
 using System.Configuration;
 using MiraiConsultMVC.Models.admin;
 using System.Data.SqlClient;
-using Model;
-using MiraiConsultMVC;
 
 namespace MiraiConsultMVC.Controllers
 {

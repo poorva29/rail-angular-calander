@@ -1,18 +1,15 @@
 namespace MiraiConsultMVC.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MiraiConsultMVC.EFModels.EFModels>
+    internal sealed class Configuration : DbMigrationsConfiguration<MiraiConsultMVC.EFModels.EFModelContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MiraiConsultMVC.EFModels.EFModels context)
+        protected override void Seed(MiraiConsultMVC.EFModels.EFModelContext context)
         {
             //  This method will be called after migrating to the latest version.
 

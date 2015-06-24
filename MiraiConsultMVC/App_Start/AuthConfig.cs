@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using MiraiConsultMVC.Models;
-
-namespace MiraiConsultMVC
+﻿namespace MiraiConsultMVC
 {
     public static class AuthConfig
     {

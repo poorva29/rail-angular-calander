@@ -1,0 +1,290 @@
+﻿@model MiraiConsultMVC.EFModels.appointment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>appointment</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.subject)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.subject)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.patientid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.patientid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.doctorid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.doctorid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.docassistantid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.docassistantid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.doclocationid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.doclocationid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.starttime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.starttime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.endtime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.endtime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.isalldayevent)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.isalldayevent)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.appointmenttypeid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.appointmenttypeid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.status)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.createdat)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.createdat)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.createdby)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.createdby)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.lastmodifiedat)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.lastmodifiedat)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.lastmodifiedby)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.lastmodifiedby)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.patientname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.patientname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.patientemail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.patientemail)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.patientmobile)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.patientmobile)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.comments)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.comments)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.feedback)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.feedback)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.rating)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.rating)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.unregpatientid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.unregpatientid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.note)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.note)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.instruction)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.instruction)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.deviceid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.deviceid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.prepayamount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.prepayamount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.prepay_by)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.prepay_by)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.txncode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.txncode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ispaid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ispaid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.cca_order)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.cca_order)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.cca_status)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.cca_status)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.cca_paid_on)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.cca_paid_on)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.cca_amount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.cca_amount)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.appointmentid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -7,7 +7,6 @@ using MiraiConsultMVC.Models;
 using System.Configuration;
 using DAL;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using Model;
 using MiraiConsultMVC.Models.User;

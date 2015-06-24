@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace MiraiConsultMVC.Models.admin
+﻿namespace MiraiConsultMVC.Models.admin
 {
     public class AssignQuestion
     {

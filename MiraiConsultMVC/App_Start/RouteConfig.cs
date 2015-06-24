@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using System.ServiceModel.Activation;
 
 namespace MiraiConsultMVC
 {
@@ -15,6 +10,12 @@ namespace MiraiConsultMVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("Services/UserService.svc/{*pathInfo}");
             routes.IgnoreRoute("Content/image/DoctorPhotos/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "appt_prepay", 
+                url: "a/{code}",
+                defaults: new { controller = "appointments", action= "prepay", code = UrlParameter.Optional}
+                );
 
             routes.MapRoute(
                name: "topics",

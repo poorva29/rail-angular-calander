@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.Models;
-using MiraiConsultMVC;
 using System.Configuration;
 using System.Data;
 using Newtonsoft.Json;
 using DAL;
-using System.Web.UI.HtmlControls;
-using System.Web.UI;
 using Model;
 using System.Data.SqlClient;
 namespace MiraiConsultMVC.Controllers

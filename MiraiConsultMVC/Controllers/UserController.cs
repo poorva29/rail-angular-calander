@@ -9,16 +9,10 @@ using System.Configuration;
 using DAL;
 using Newtonsoft.Json;
 using System.Data;
-using System.Reflection;
 using System.Data.SqlClient;
-using System.Data.Linq;
-using System.Data.Linq.Mapping;
-using MiraiConsultMVC;
 using System.IO;
 using Model;
 using log4net;
-using System.Net;
-using System.Text;
 namespace MiraiConsultMVC.Controllers
 {
     public class UserController : Controller

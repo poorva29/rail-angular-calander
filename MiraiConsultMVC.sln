@@ -4,8 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiraiConsultMVC", "MiraiConsultMVC\MiraiConsultMVC.csproj", "{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B8478B44-D979-434D-ACED-309C5C3A4873} = {B8478B44-D979-434D-ACED-309C5C3A4873}
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90} = {17BDDEE3-1112-4459-9FB2-9CC69431BB90}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiraiConsultMVC.Tests", "MiraiConsultMVC.Tests\MiraiConsultMVC.Tests.csproj", "{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\careapplibrary\DAL\DAL.csproj", "{B8478B44-D979-434D-ACED-309C5C3A4873}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "..\careapplibrary\Model\Model.csproj", "{17BDDEE3-1112-4459-9FB2-9CC69431BB90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +39,22 @@ Global
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.staging|Any CPU.ActiveCfg = staging|Any CPU
 		{3E3CF11B-7B9C-4C66-8A82-0AF6B17D6345}.staging|Any CPU.Build.0 = staging|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev|Any CPU.ActiveCfg = dev|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev|Any CPU.Build.0 = dev|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.staging|Any CPU.Build.0 = Staging|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev|Any CPU.ActiveCfg = dev|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev|Any CPU.Build.0 = dev|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.staging|Any CPU.Build.0 = Staging|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

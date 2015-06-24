@@ -74,7 +74,7 @@ namespace MiraiConsultMVC.EFModels
         [Column(TypeName = "numeric")]
         public decimal? prepayamount { get; set; }
 
-        public int prepayhours { get; set; }
+        public DateTime? prepay_by { get; set; }
 
         [StringLength(10)]
         public string txncode { get; set; }
@@ -86,7 +86,7 @@ namespace MiraiConsultMVC.EFModels
 
         public int cca_status { get; set; }
 
-        public DateTime cca_paid_on { get; set; }
+        public DateTime? cca_paid_on { get; set; }
 
         [Column(TypeName = "numeric")]
         public decimal? cca_amount { get; set; }

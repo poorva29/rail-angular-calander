@@ -271,6 +271,14 @@
     <Compile Include="Migrations\201506221310397_AddCCA2Appointments.Designer.cs">
       <DependentUpon>201506221310397_AddCCA2Appointments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506230923025_AddPrepayBy2Appointments.cs" />
+    <Compile Include="Migrations\201506230923025_AddPrepayBy2Appointments.Designer.cs">
+      <DependentUpon>201506230923025_AddPrepayBy2Appointments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506230926239_AllowNullsInPrepayColumns.cs" />
+    <Compile Include="Migrations\201506230926239_AllowNullsInPrepayColumns.Designer.cs">
+      <DependentUpon>201506230926239_AllowNullsInPrepayColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomDateModelBinder.cs" />
@@ -686,6 +694,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506221310397_AddCCA2Appointments.resx">
       <DependentUpon>201506221310397_AddCCA2Appointments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506230923025_AddPrepayBy2Appointments.resx">
+      <DependentUpon>201506230923025_AddPrepayBy2Appointments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506230926239_AllowNullsInPrepayColumns.resx">
+      <DependentUpon>201506230926239_AllowNullsInPrepayColumns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

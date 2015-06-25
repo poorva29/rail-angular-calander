@@ -88,5 +88,8 @@ namespace MiraiConsultMVC.EFModels
 
         [Column(TypeName = "numeric")]
         public decimal? cca_amount { get; set; }
+
+        [ForeignKey("doclocationid")]
+        public doctorlocation doclocation { get; set; }
     }
 }

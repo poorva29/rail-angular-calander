@@ -25,7 +25,12 @@ namespace MiraiConsultMVC.Controllers
         [AllowAnonymous]
         public ActionResult prepay(string code)
         {
-            appointment appointment = db.appointments.Where(a => a.txncode == code).FirstOrDefault();
+            appointment appointment = db.appointments.Where(a => a.txncode == code).
+                Include(a => a.doclocation).FirstOrDefault();
+            if (appointment != null)
+            {
+                ViewBag.doc = db.users.Find(appointment.doctorid);
+            }
             return View(appointment);
         }
 

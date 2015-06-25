@@ -95,6 +95,10 @@
       <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.2.3\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.3\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
       <Private>True</Private>
@@ -275,6 +279,10 @@
     <Compile Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.cs" />
     <Compile Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.Designer.cs">
       <DependentUpon>201506241155536_AddCCA2tbl_chat_dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506251228055_appointmentDocLocationLink.cs" />
+    <Compile Include="Migrations\201506251228055_appointmentDocLocationLink.Designer.cs">
+      <DependentUpon>201506251228055_appointmentDocLocationLink.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -706,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506241155536_AddCCA2tbl_chat_dialog.resx">
       <DependentUpon>201506241155536_AddCCA2tbl_chat_dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506251228055_appointmentDocLocationLink.resx">
+      <DependentUpon>201506251228055_appointmentDocLocationLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

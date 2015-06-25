@@ -36,7 +36,7 @@ namespace MiraiConsultMVC.EFModels
 
         public byte[] cca_amount { get; set; }
 
-        public byte[] isPaid { get; set; }
+        public byte[] is_waived { get; set; }
 
         public byte[] dialog_fee { get; set; }
     }

@@ -18,6 +18,12 @@ namespace MiraiConsultMVC
                 );
 
             routes.MapRoute(
+                name: "appt_paid",
+                url: "appointment_paid/{id}",
+                defaults: new { controller = "appointments", action = "paid"}
+                );
+
+            routes.MapRoute(
                name: "topics",
                url: "topics",
                defaults: new { controller = "Home", action = "topics" }

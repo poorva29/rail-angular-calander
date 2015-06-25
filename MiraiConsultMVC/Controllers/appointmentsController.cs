@@ -21,7 +21,7 @@ namespace MiraiConsultMVC.Controllers
             return View(db.appointments.ToList());
         }
 
-        // GET: prepay
+        // GET: a/{code}
         [AllowAnonymous]
         public ActionResult prepay(string code)
         {
@@ -32,6 +32,25 @@ namespace MiraiConsultMVC.Controllers
                 ViewBag.doc = db.users.Find(appointment.doctorid);
             }
             return View(appointment);
+        }
+
+        // GET: appointment_paid/{id}
+        [AllowAnonymous]
+        public ActionResult paid(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            appointment appointment = db.appointments.Where(a => a.appointmentid == id).
+                Include(a => a.doclocation).FirstOrDefault();
+            if (appointment != null)
+            {
+                ViewBag.doc = db.users.Find(appointment.doctorid);
+            }
+            appointment.ispaid = true;
+            db.SaveChanges();
+            return View("prepay", appointment);
         }
 
         // GET: appointments/Details/5

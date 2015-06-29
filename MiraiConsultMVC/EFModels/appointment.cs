@@ -19,7 +19,6 @@ namespace MiraiConsultMVC.EFModels
 
         public int doclocationid { get; set; }
 
-        [Required]
         [StringLength(255)]
         public string description { get; set; }
 

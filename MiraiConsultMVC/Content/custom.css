@@ -1674,7 +1674,9 @@ div[id$="ans"]{
     border:none;
     font-size:13px;
 }
-
+.pad10 {
+    padding: 10px !important; 
+}
 .book_appt_button:hover{
     color:#fff;
     font-style:italic;

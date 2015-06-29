@@ -284,6 +284,10 @@
     <Compile Include="Migrations\201506251228055_appointmentDocLocationLink.Designer.cs">
       <DependentUpon>201506251228055_appointmentDocLocationLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506260644148_appointmentDescriptionOptional.cs" />
+    <Compile Include="Migrations\201506260644148_appointmentDescriptionOptional.Designer.cs">
+      <DependentUpon>201506260644148_appointmentDescriptionOptional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomDateModelBinder.cs" />
@@ -717,6 +721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506251228055_appointmentDocLocationLink.resx">
       <DependentUpon>201506251228055_appointmentDocLocationLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506260644148_appointmentDescriptionOptional.resx">
+      <DependentUpon>201506260644148_appointmentDescriptionOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

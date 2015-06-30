@@ -57,6 +57,10 @@ namespace Services
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/getCountryStateCityData?countryId={countryId}&stateId={stateId}&cityId={cityId}&locationId={locationId}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         String getCountryStateCityData(int countryId,int stateId,int cityId,int locationId);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/sendReminderNotiForPrepaidAppointment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void sendReminderNotiForPrepaidAppointment();
         #endregion GET
 
         #region POST

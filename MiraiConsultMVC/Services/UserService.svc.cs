@@ -9,8 +9,9 @@ using System.Web;
 using System.Configuration;
 using log4net;
 using MiraiConsultMVC;
-
-
+using MiraiConsultMVC.EFModels;
+using System.Globalization;
+using System.Data.Entity;
 
 namespace Services
 {
@@ -375,6 +376,76 @@ namespace Services
 
             }
             QuestionManager.getInstance().assignTagsToQuestion(ToAddlstTags, ToDeletelstTags, Convert.ToInt32(QuestionID));
+        }
+
+        public void sendReminderNotiForPrepaidAppointment()
+        {
+            try
+            {
+                using (var context = new EFModelContext())
+                {
+                    DateTime utcDate = DateTime.UtcNow.AddHours(13);
+                    var appointment = (from a in context.appointments.Where(a => a.prepay_by <= utcDate && a.ispaid == false) select a).ToList();
+                    if (appointment != null && appointment.Count > 0)
+                    {
+                        foreach (var a in appointment)
+                        {
+                            string emailbody = null;
+                            string Logoimage = null;
+                            string textMsg = "";
+                            string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                            string[] dateArray = Convert.ToString(a.starttime).Split(' ');
+                            var users = context.users.Find(a.doctorid);
+                            string doctorFullName = users.firstname + " " + users.lastname;
+                            var istdate = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(a.prepay_by), TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+                            if (a.patientid != -1)
+                            {
+                                var patients = new
+                                {
+                                    email = string.Empty,
+                                    mobileno = string.Empty
+                                };
+                                if (a.patientid == 0)
+                                {
+                                    patients = (from un in context.unregpatients
+                                                join app in context.appointments on un.id equals app.unregpatientid
+                                                where app.appointmentid == a.appointmentid
+                                                select new { email = un.email, mobileno = un.mobileno }).FirstOrDefault();
+                                }
+                                else if (a.patientid != 0)
+                                {
+                                    patients = (from u in context.users
+                                                join app in context.appointments on u.userid equals app.unregpatientid
+                                                where app.appointmentid == a.appointmentid
+                                                select new { email = u.email, mobileno = u.mobileno }).FirstOrDefault();
+                                }
+                                if (patients != null)
+                                {
+                                    emailbody = EmailTemplates.SendEmailNotificationToPatientForPaidAppointments(dateArray[0], dateArray[1], doctorFullName, istdate, a.txncode);
+                                    Logoimage = HttpContext.Current.Server.MapPath(@"~/Content/image/LogoForMail.png");
+                                    Mail.SendHTMLMailWithImage(fromEmail, patients.email, "Mirai Health - Prepaid Reminder Notification", emailbody, Logoimage);
+
+                                    textMsg = ConfigurationManager.AppSettings["prepaidApptReminderNotification"].ToString();
+                                    textMsg = textMsg.Replace("@doctor", doctorFullName);
+                                    textMsg = textMsg.Replace("@date", dateArray[0]);
+                                    textMsg = textMsg.Replace("@time", dateArray[1]);
+                                    textMsg = textMsg.Replace("@url", ConfigurationManager.AppSettings["prePayUrl"].ToString() + a.txncode);
+                                    textMsg = textMsg.Replace("@prepayby", Convert.ToString(istdate));
+                                    SMS.SendSMS(patients.mobileno, textMsg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                HttpContext.Current.Response.Write("{'Error':'true','Msg':'Server Error'}");
+                // Log Error details & Send Crash mail to support
+                string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
+                 "Stack trace: " + e.StackTrace + Environment.NewLine;
+                logfile.Error("Web Service >>> App Crash >>> \n" + message);
+            }
         }
     }
 }

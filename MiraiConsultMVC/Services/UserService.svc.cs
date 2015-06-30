@@ -424,7 +424,7 @@ namespace Services
                                 textMsg = textMsg.Replace("@doctor", doctorFullName);
                                 textMsg = textMsg.Replace("@date", dateArray[0]);
                                 textMsg = textMsg.Replace("@time", dateArray[1]);
-                                textMsg = textMsg.Replace("@token", a.txncode);
+                                textMsg = textMsg.Replace("@url", ConfigurationManager.AppSettings["prepaidApptReminderNotification"].ToString() + a.txncode);
                                 textMsg = textMsg.Replace("@prepayby", Convert.ToString(istdate));
                                 SMS.SendSMS(patients.mobileno, textMsg);
                             }

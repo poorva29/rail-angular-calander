@@ -12,6 +12,11 @@ namespace MiraiConsultMVC
             routes.IgnoreRoute("Content/image/DoctorPhotos/{*pathInfo}");
 
             routes.MapRoute(
+                name: "make_payment",
+                url: "make_payment",
+                defaults: new { controller = "cca_payment", action="InitiatePayment" }
+                );
+            routes.MapRoute(
                 name: "appt_prepay", 
                 url: "a/{code}",
                 defaults: new { controller = "appointments", action= "prepay", code = UrlParameter.Optional}

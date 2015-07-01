@@ -1,0 +1,26 @@
+﻿@model MiraiConsultMVC.EFModels.appointment
+
+@{
+    Layout = "~/Views/Shared/_AskmiraiMasterLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Make Payment</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+           $(document).ready(function () {
+               $("#nonseamless").submit();
+           });
+    </script>
+</head>
+<body>
+    <form id="nonseamless" method="post" name="redirect" action="@ViewBag.ccavenueUrl">
+        <input type="hidden" id="encRequest" name="encRequest" value="@ViewBag.ccaRequest" />
+        <input type="hidden" name="access_code" id="Hidden1" value="@ViewBag.accesCode" />
+    </form>
+</body>
+</html>

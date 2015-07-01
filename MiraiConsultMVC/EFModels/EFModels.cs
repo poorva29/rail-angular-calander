@@ -12,6 +12,7 @@ namespace MiraiConsultMVC.EFModels
         public virtual DbSet<answer> answers { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
         public virtual DbSet<appointmenttype> appointmenttypes { get; set; }
+        public virtual DbSet<cca_payment> cca_payments { get; set; }
         public virtual DbSet<city> cities { get; set; }
         public virtual DbSet<country> countries { get; set; }
         public virtual DbSet<degree> degrees { get; set; }
@@ -53,20 +54,104 @@ namespace MiraiConsultMVC.EFModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<answer>()
-                .Property(e => e.title)
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.order_id)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<answer>()
-                .Property(e => e.answertext)
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.currency)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<answer>()
-                .Property(e => e.image)
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.card_name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<answer>()
-                .Property(e => e.deviceid)
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.payment_mode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.bank_ref_no)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.tracking_id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.order_status)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.failure_message)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.status_message)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_address)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_city)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_state)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_zip)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_country)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_tel)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.billing_email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_address)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_city)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_state)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_zip)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_country)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.delivery_tel)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<cca_payment>()
+                .Property(e => e.status_code)
                 .IsUnicode(false);
 
             modelBuilder.Entity<appointment>()

@@ -80,8 +80,16 @@
                         <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.doclocation.telephone</div>
                     </div>
                     <div class="span10 doc-div-min-height margin-null">
-                        <div class="left loc-label doc-div-min-height span2">Fees:</div>
+                        <div class="left loc-label doc-div-min-height span2">Doctor Fees:</div>
                         <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.prepayamount</div>
+                    </div>
+                    <div class="span10 doc-div-min-height margin-null">
+                        <div class="left loc-label doc-div-min-height span2">Booking Charges:</div>
+                        <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.booking_charges()</div>
+                    </div>
+                    <div class="span10 doc-div-min-height margin-null">
+                        <div class="left loc-label doc-div-min-height span2">Total:</div>
+                        <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.cca_amount</div>
                     </div>
                     <div class="span10 doc-div-min-height margin-null">
                         <div class="left loc-label doc-div-min-height span2">Pay By:</div>

@@ -694,7 +694,6 @@
     <Content Include="Views\appointments\Edit.cshtml" />
     <Content Include="Views\appointments\Index.cshtml" />
     <Content Include="Views\appointments\Prepay.cshtml" />
-    <Content Include="Views\cca_payment\InitiatePayment.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -711,6 +710,7 @@
     <Folder Include="Content\image\answerImages\" />
     <Folder Include="Content\image\DoctorPhotos\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
+    <Folder Include="Views\cca_payment\" />
     <Folder Include="Views\Home\obj\Debug\" />
   </ItemGroup>
   <ItemGroup>

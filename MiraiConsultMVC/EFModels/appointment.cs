@@ -92,5 +92,10 @@ namespace MiraiConsultMVC.EFModels
         public doctorlocation doclocation { get; set; }
 
         public int? notification_status { get; set; }
+
+        public decimal booking_charges()
+        {
+            return cca_amount.GetValueOrDefault() - prepayamount.GetValueOrDefault();
+        }
     }
 }

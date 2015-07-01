@@ -17,30 +17,8 @@ namespace MiraiConsultMVC.Controllers
         private EFModelContext db = new EFModelContext();
         private CCACrypto ccaCrypto = new CCACrypto();
 
-        // GET: make_payment
-        public ActionResult InitiatePayment()
-        {
-            string merchantid = ConfigurationManager.AppSettings["MerchantId"].ToString();
-            string workingKey = ConfigurationManager.AppSettings["WorkingKey"].ToString();
-            ViewBag.accessCode = ConfigurationManager.AppSettings["AccessCode"].ToString();// put the access key in the quotes provided here.
-            ViewBag.ccavenueUrl = ConfigurationManager.AppSettings["CcavenueUrl"].ToString();
-
-            decimal amount = Convert.ToDecimal(Session[CCAParams.AMOUNT_PAYABLE]);
-            string orderid = Session[CCAParams.ORDER_ID].ToString();
-            string redirect_url = Session[CCAParams.REDIRECT_URL].ToString();
-            string cancel_url = Session[CCAParams.CANCEL_URL].ToString();
-            if (amount <= 0 || String.IsNullOrEmpty(orderid) || String.IsNullOrEmpty(redirect_url ) ||
-                String.IsNullOrEmpty(cancel_url))
-                return Content("INVALID REQUEST!");
-
-            string ccaRequest = "merchant_id=" + merchantid + "&order_id=" + orderid + "&amount=" + amount +
-                             "&currency=INR&redirect_url=" + redirect_url + "&cancel_url=" + cancel_url;
-            ViewBag.ccaRequest = ccaCrypto.Encrypt(ccaRequest, workingKey);
-            return View();
-        }
-
         // Get: complete_payment
-        public ActionResult CompletePayment()
+        public ActionResult CompletePayment(cca_payment payment)
         {
             return View();
         }

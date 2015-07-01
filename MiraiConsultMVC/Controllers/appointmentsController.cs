@@ -35,9 +35,8 @@ namespace MiraiConsultMVC.Controllers
             UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
             string success_url = u.Action("complete_payment", "cca_payment", null);
             string cancel_url = u.Action("Details", appointment.appointmentid);
-            Session[CCAParams.REDIRECT_URL] = success_url;
-            Session[CCAParams.CANCEL_URL] = cancel_url;
-            Session[CCAParams.ORDER_ID] = "APPT-" + appointment.appointmentid;
+            ViewBag.formDetails = CCAvenueHelper.getFormDetails("APPT-" + appointment.appointmentid,
+                success_url, cancel_url, appointment.cca_amount.GetValueOrDefault());
             return View(appointment);
         }
 

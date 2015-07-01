@@ -38,9 +38,13 @@
             <div class="row-fluid">
                 <div class="span1"></div>
                 <div class="span11">
-                    <a href="/make_payment" class="book_appt_button pad10">Pay now</a>
+                    <a href="#" onclick="document.getElementById('cca_payment').submit();" class="book_appt_button pad10">Pay now</a>
                 </div>
             </div>
+            <form id="cca_payment" method="post" name="redirect" action="@ViewBag.formDetails.cca_url">
+                <input type="hidden" id="encRequest" name="encRequest" value="@ViewBag.formDetails.cca_request" />
+                <input type="hidden" name="access_code" id="Hidden1" value="@ViewBag.formDetails.cca_accessCode" />
+            </form>
         }
             <div class="row-fluid">
                 <div class="span1"></div>
@@ -90,7 +94,7 @@
                 <div class="row-fluid">
                     <div class="span1"></div>
                     <div class="span11">
-                        <a href="/make_payment" class="book_appt_button pad10">Pay now</a>
+                        <a href="#" onclick="document.getElementById('cca_payment').submit();" class="book_appt_button pad10">Pay now</a>
                     </div>
                 </div>
             }

@@ -310,6 +310,10 @@
     <Compile Include="Migrations\201507010913404_AllowNullIn_notification_statuscolumns.Designer.cs">
       <DependentUpon>201507010913404_AllowNullIn_notification_statuscolumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507011202187_create_cca_payments.cs" />
+    <Compile Include="Migrations\201507011202187_create_cca_payments.Designer.cs">
+      <DependentUpon>201507011202187_create_cca_payments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomDateModelBinder.cs" />
@@ -755,6 +759,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507010913404_AllowNullIn_notification_statuscolumns.resx">
       <DependentUpon>201507010913404_AllowNullIn_notification_statuscolumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507011202187_create_cca_payments.resx">
+      <DependentUpon>201507011202187_create_cca_payments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

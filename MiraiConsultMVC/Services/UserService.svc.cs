@@ -386,9 +386,9 @@ namespace Services
                 {
                     DateTime utcDate = DateTime.UtcNow.AddHours(13);
                     var appointment = (from a in context.appointments
-                                       where a.prepay_by <= utcDate && a.ispaid == false && 
+                                       where a.status == 1 && a.prepay_by <= utcDate && a.ispaid == false && 
                                        (a.prepayamount != null || a.prepayamount != 0) && 
-                                       a.notification_status != Convert.ToInt32(NotificationStatus.Reminder) && a.notification_status != Convert.ToInt32(NotificationStatus.Cancel)
+                                       a.notification_status != 2 && a.notification_status != 3
                                        select a).ToList();
                     if (appointment != null && appointment.Count > 0)
                     {
@@ -463,9 +463,9 @@ namespace Services
                 {
                     DateTime utcDate = DateTime.UtcNow;
                     var appointment = (from a in context.appointments
-                                       where a.prepay_by != null && a.prepay_by <= utcDate && a.ispaid == false &&
+                                       where a.status == 1 && a.prepay_by != null && a.prepay_by <= utcDate && a.ispaid == false &&
                                        (a.prepayamount != null || a.prepayamount != 0) &&
-                                       a.notification_status != Convert.ToInt32(NotificationStatus.Cancel)
+                                       a.notification_status != 3
                                        select a).ToList();
                     
                     if (appointment != null && appointment.Count > 0)
@@ -474,7 +474,7 @@ namespace Services
                         {
                             appointment appt = context.appointments.FirstOrDefault(x=> x.appointmentid == a.appointmentid);
                             appt.status = 0;
-                            appt.status = Convert.ToInt32(NotificationStatus.Cancel);
+                            appt.notification_status = Convert.ToInt32(NotificationStatus.Cancel);
                             context.SaveChanges();
                             string emailbody = null;
                             string Logoimage = null;

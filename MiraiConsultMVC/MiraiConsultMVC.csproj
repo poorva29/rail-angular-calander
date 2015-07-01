@@ -51,6 +51,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Git Lab Project\careapplibrary\bin\DAL.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
       <Private>True</Private>
@@ -102,6 +106,10 @@
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.3\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Git Lab Project\careapplibrary\bin\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -287,6 +295,14 @@
     <Compile Include="Migrations\201506260644148_appointmentDescriptionOptional.cs" />
     <Compile Include="Migrations\201506260644148_appointmentDescriptionOptional.Designer.cs">
       <DependentUpon>201506260644148_appointmentDescriptionOptional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507010822398_notification_status2Appointments.cs" />
+    <Compile Include="Migrations\201507010822398_notification_status2Appointments.Designer.cs">
+      <DependentUpon>201507010822398_notification_status2Appointments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507010913404_AllowNullIn_notification_statuscolumns.cs" />
+    <Compile Include="Migrations\201507010913404_AllowNullIn_notification_statuscolumns.Designer.cs">
+      <DependentUpon>201507010913404_AllowNullIn_notification_statuscolumns.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -725,16 +741,12 @@
     <EmbeddedResource Include="Migrations\201506260644148_appointmentDescriptionOptional.resx">
       <DependentUpon>201506260644148_appointmentDescriptionOptional.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\careapplibrary\DAL\DAL.csproj">
-      <Project>{b8478b44-d979-434d-aced-309c5c3a4873}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\careapplibrary\Model\Model.csproj">
-      <Project>{17bddee3-1112-4459-9fb2-9cc69431bb90}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201507010822398_notification_status2Appointments.resx">
+      <DependentUpon>201507010822398_notification_status2Appointments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010913404_AllowNullIn_notification_statuscolumns.resx">
+      <DependentUpon>201507010913404_AllowNullIn_notification_statuscolumns.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -346,7 +346,29 @@ namespace MiraiConsultMVC
                                     "<br>" +
                                     "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
                                     "<br>" + "<br>" + "<br>" +
-                                    "<img src=cid:doctorImage>" +
+                                    "<img src=cid:logoImage>" +
+                                    "</form></body></html>";
+            return strBodyContent;
+        }
+
+        public static string SendCancellationNotificationForPaidAppointments(string date, string time, string docFullName)
+        {
+            string msg = "";
+            msg += "<p align=left><font size=2 face=verdana>Hello</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Your appointment with Dr. " + docFullName + " on " + date + " at " + time + " has been cancelled as payment was not received in time.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Please call (not SMS) on " + ConfigurationManager.AppSettings["phoneNumber"].ToString() + " to book another appointment. Mirai Health (service@miraihealth.com)</font></p>";
+            string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
+                                    msg +
+                                    "<br>" +
+                                    "<font size=2 face=verdana> Regards,</font>" +
+                                    "<br>" +
+                                    "<font size=2 face=verdana>Mirai Health Team</font>" +
+                                    "<br>" +
+                                    "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
+                                    "<br>" +
+                                    "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                    "<br>" + "<br>" + "<br>" +
+                                    "<img src=cid:logoImage>" +
                                     "</form></body></html>";
             return strBodyContent;
         }

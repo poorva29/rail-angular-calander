@@ -36,4 +36,11 @@
         assignQuestion,//assignquestion.aspx
         DoctorFeed//DoctorFeed
   }
+    public static class NotificationStatus
+    {
+        public const int Insert = 0;
+        public const int Update = 1;
+        public const int Reminder = 2;
+        public const int Cancel = 3;
+    }
 }

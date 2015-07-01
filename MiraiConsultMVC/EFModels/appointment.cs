@@ -90,5 +90,7 @@ namespace MiraiConsultMVC.EFModels
 
         [ForeignKey("doclocationid")]
         public doctorlocation doclocation { get; set; }
+
+        public int? notification_status { get; set; }
     }
 }

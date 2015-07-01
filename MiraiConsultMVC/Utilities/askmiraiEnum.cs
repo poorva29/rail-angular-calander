@@ -36,11 +36,11 @@
         assignQuestion,//assignquestion.aspx
         DoctorFeed//DoctorFeed
   }
-    public enum NotificationStatus
+    public static class NotificationStatus
     {
-        Insert, //0
-        Update,//1
-        Reminder,//2
-        Cancel//3
+        public const int Insert = 0;
+        public const int Update = 1;
+        public const int Reminder = 2;
+        public const int Cancel = 3;
     }
 }

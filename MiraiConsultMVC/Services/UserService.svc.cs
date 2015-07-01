@@ -386,16 +386,16 @@ namespace Services
                 {
                     DateTime utcDate = DateTime.UtcNow.AddHours(13);
                     var appointment = (from a in context.appointments
-                                       where a.status == 1 && a.prepay_by <= utcDate && a.ispaid == false && 
-                                       (a.prepayamount != null || a.prepayamount != 0) && 
-                                       a.notification_status != 2 && a.notification_status != 3
+                                       where a.status == 1 && a.prepay_by <= utcDate && a.ispaid == false &&
+                                       (a.prepayamount != null || a.prepayamount != 0) &&
+                                       a.notification_status != NotificationStatus.Reminder && a.notification_status != NotificationStatus.Cancel
                                        select a).ToList();
                     if (appointment != null && appointment.Count > 0)
                     {
                         foreach (var a in appointment)
                         {
-                            appointment appt = context.appointments.FirstOrDefault(x => x.appointmentid == a.appointmentid);
-                            appt.notification_status = Convert.ToInt32(NotificationStatus.Reminder);
+                            appointment appt = context.appointments.Find(a.appointmentid);
+                            appt.notification_status = NotificationStatus.Reminder;
                             context.SaveChanges();
                             string emailbody = null;
                             string Logoimage = null;
@@ -451,7 +451,7 @@ namespace Services
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                  "Stack trace: " + e.StackTrace + Environment.NewLine;
-                logfile.Error("Web Service >>> App Crash >>> \n" + message);
+                logfile.Error("Web Service >>> Web service Crash >>> \n" + message);
             }
         }
 
@@ -465,16 +465,16 @@ namespace Services
                     var appointment = (from a in context.appointments
                                        where a.status == 1 && a.prepay_by != null && a.prepay_by <= utcDate && a.ispaid == false &&
                                        (a.prepayamount != null || a.prepayamount != 0) &&
-                                       a.notification_status != 3
+                                       a.notification_status != NotificationStatus.Cancel
                                        select a).ToList();
                     
                     if (appointment != null && appointment.Count > 0)
                     {
                         foreach (var a in appointment)
                         {
-                            appointment appt = context.appointments.FirstOrDefault(x=> x.appointmentid == a.appointmentid);
+                            appointment appt = context.appointments.Find(a.appointmentid);
                             appt.status = 0;
-                            appt.notification_status = Convert.ToInt32(NotificationStatus.Cancel);
+                            appt.notification_status = NotificationStatus.Cancel;
                             context.SaveChanges();
                             string emailbody = null;
                             string Logoimage = null;
@@ -529,7 +529,7 @@ namespace Services
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                  "Stack trace: " + e.StackTrace + Environment.NewLine;
-                logfile.Error("Web Service >>> App Crash >>> \n" + message);
+                logfile.Error("Web Service >>> Web Service Crash >>> \n" + message);
             }
         }
     }

@@ -36,4 +36,11 @@
         assignQuestion,//assignquestion.aspx
         DoctorFeed//DoctorFeed
   }
+    public enum NotificationStatus
+    {
+        Insert, //0
+        Update,//1
+        Reminder,//2
+        Cancel//3
+    }
 }

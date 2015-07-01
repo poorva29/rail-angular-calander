@@ -31,6 +31,13 @@ namespace MiraiConsultMVC.Controllers
             {
                 ViewBag.doc = db.users.Find(appointment.doctorid);
             }
+            Session[CCAParams.AMOUNT_PAYABLE] = appointment.cca_amount;
+            UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
+            string success_url = u.Action("complete_payment", "cca_payment", null);
+            string cancel_url = u.Action("Details", appointment.appointmentid);
+            Session[CCAParams.REDIRECT_URL] = success_url;
+            Session[CCAParams.CANCEL_URL] = cancel_url;
+            Session[CCAParams.ORDER_ID] = "APPT-" + appointment.appointmentid;
             return View(appointment);
         }
 

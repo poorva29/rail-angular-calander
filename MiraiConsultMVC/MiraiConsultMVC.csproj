@@ -86,6 +86,10 @@
     <Reference Include="log4net">
       <HintPath>..\..\miraiconsult\askmirai\bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MCPG.CCA.Util, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3d7072b2634875da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MCPG.CCA.Util.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -208,12 +212,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\appointmentsController.cs" />
+    <Compile Include="Controllers\cca_paymentController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="EFModels\cca_payment.cs" />
     <Compile Include="EFModels\answer.cs" />
     <Compile Include="EFModels\appointment.cs" />
     <Compile Include="EFModels\appointmenttype.cs" />
@@ -332,6 +338,7 @@
     <Compile Include="Utilities\CustomActionAttribute.cs" />
     <Compile Include="Utilities\EmailTemplates.cs" />
     <Compile Include="Utilities\Mail.cs" />
+    <Compile Include="Utilities\MiraiConstants.cs" />
     <Compile Include="Utilities\SMS.cs" />
     <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
@@ -501,6 +508,7 @@
     <Content Include="Content\less\bootstrap-tokenfield.less" />
     <Content Include="Content\less\datepicker.less" />
     <Content Include="Content\less\tokenfield-typeahead.less" />
+    <Content Include="MCPG.CCA.Util.dll" />
     <Content Include="Models\_dbAskMirai.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>_dbAskMirai1.designer.cs</LastGenOutput>
@@ -665,6 +673,7 @@
     <Content Include="Views\appointments\Edit.cshtml" />
     <Content Include="Views\appointments\Index.cshtml" />
     <Content Include="Views\appointments\Prepay.cshtml" />
+    <Content Include="Views\cca_payment\InitiatePayment.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -61,6 +61,10 @@ namespace Services
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/sendReminderNotiForPrepaidAppointment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void sendReminderNotiForPrepaidAppointment();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/cancelUnpaidAppointment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void cancelUnpaidAppointment();
         #endregion GET
 
         #region POST

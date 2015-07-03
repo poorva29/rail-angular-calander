@@ -688,11 +688,6 @@
     <Content Include="Views\Doctors\doctorsPublicProfile.cshtml" />
     <Content Include="Views\Home\AskDoctor.cshtml" />
     <Content Include="Views\Home\TagCloud.cshtml" />
-    <Content Include="Views\appointments\Create.cshtml" />
-    <Content Include="Views\appointments\Delete.cshtml" />
-    <Content Include="Views\appointments\Details.cshtml" />
-    <Content Include="Views\appointments\Edit.cshtml" />
-    <Content Include="Views\appointments\Index.cshtml" />
     <Content Include="Views\appointments\Prepay.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>

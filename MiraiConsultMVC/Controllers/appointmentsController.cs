@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MiraiConsultMVC.EFModels;
+using System.Configuration;
 
 namespace MiraiConsultMVC.Controllers
 {
@@ -26,9 +27,11 @@ namespace MiraiConsultMVC.Controllers
         public ActionResult prepay(string code)
         {
             //Return short URLs to full ones.
-            if(Request.Url.Host.Contains("mrai.co"))
+            string shortHost = ConfigurationManager.AppSettings["websiteShortUrl"];
+            if (Request.Url.Host.Contains(shortHost))
             {
-                string redirectUrl = Request.Url.ToString().Replace("mrai.co", "consult.miraihealth.com");
+                string fullHost = ConfigurationManager.AppSettings["websiteUrl"];
+                string redirectUrl = Request.Url.ToString().Replace(shortHost, fullHost);
                 return Redirect(redirectUrl);
             }
             appointment appointment = db.appointments.Where(a => a.txncode == code).
@@ -39,10 +42,13 @@ namespace MiraiConsultMVC.Controllers
             }
             Session[CCAParams.AMOUNT_PAYABLE] = appointment.cca_amount;
             UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
-            string success_url = u.Action("complete_payment", "cca_payment", null);
-            string cancel_url = u.Action("Details", appointment.appointmentid);
-            ViewBag.formDetails = CCAvenueHelper.getFormDetails("APPT-" + appointment.appointmentid,
-                success_url, cancel_url, appointment.cca_amount.GetValueOrDefault());
+            string success_url = Url.RouteUrl("complete_payment", null);
+            string cancel_url = Url.RouteUrl("appt_prepay", new { code = appointment.txncode });
+            if (appointment.ispaid == false)
+            {
+                ViewBag.formDetails = CCAvenueHelper.getFormDetails("APPT-" + appointment.appointmentid,
+                    success_url, cancel_url, appointment.cca_amount.GetValueOrDefault());
+            }
             return View(appointment);
         }
 

@@ -22,9 +22,9 @@ public static class CCAvenueHelper
         string workingKey = ConfigurationManager.AppSettings["WorkingKey"].ToString();
         details.cca_accessCode = ConfigurationManager.AppSettings["AccessCode"].ToString();
         details.cca_url = ConfigurationManager.AppSettings["CcavenueUrl"].ToString();
-
+        string redirectSiteUrl = ConfigurationManager.AppSettings["redirectSiteUrl"];       
         string ccaRequest = "merchant_id=" + merchantId + "&order_id=" + orderId + "&amount=" + amount +
-                        "&currency=INR&redirect_url=" + "http://consult.s.miraihealth.com/complete_payment" + "&cancel_url=" + cancelUrl;
+                        "&currency=INR&redirect_url=" + redirectSiteUrl + successUrl + "&cancel_url=" + redirectSiteUrl + cancelUrl;
         details.cca_request = ccaCrypto.Encrypt(ccaRequest, workingKey);
         return details;
     }

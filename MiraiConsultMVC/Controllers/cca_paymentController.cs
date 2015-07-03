@@ -78,6 +78,7 @@ namespace MiraiConsultMVC.Controllers
                     if (appointment != null)
                     {
                         appointment.cca_order = Convert.ToString(Params["order_id"]);
+                        appointment.ispaid = true;
                         context.SaveChanges();
                     }
                 }
@@ -88,8 +89,7 @@ namespace MiraiConsultMVC.Controllers
             }
             else
             {
-                UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
-                return Redirect(u.Action("paid", "appointments", appointmentId));
+                return Redirect(Url.RouteUrl("appt_paid", new { id = appointmentId }));
             }
         }
     }

@@ -17,17 +17,19 @@ namespace MiraiConsultMVC
                 defaults: new { controller = "cca_payment", action="InitiatePayment" }
                 );
 
-            routes.MapRoute(
-                name: "complete_payment",
-                url: "complete_payment",
-                defaults: new { controller = "cca_payment", action = "CompletePayment" }
-                );
+          
 
             routes.MapRoute(
                 name: "appt_prepay", 
                 url: "a/{code}",
                 defaults: new { controller = "appointments", action= "prepay", code = UrlParameter.Optional}
                 );
+
+            routes.MapRoute(
+              name: "complete_payment",
+              url: "complete_payment",
+              defaults: new { controller = "cca_payment", action = "CompletePayment" }
+              );
 
             routes.MapRoute(
                 name: "appt_paid",

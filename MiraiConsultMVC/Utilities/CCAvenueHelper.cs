@@ -24,7 +24,7 @@ public static class CCAvenueHelper
         details.cca_url = ConfigurationManager.AppSettings["CcavenueUrl"].ToString();
 
         string ccaRequest = "merchant_id=" + merchantId + "&order_id=" + orderId + "&amount=" + amount +
-                        "&currency=INR&redirect_url=" + successUrl + "&cancel_url=" + cancelUrl;
+                        "&currency=INR&redirect_url=" + "http://consult.s.miraihealth.com/complete_payment" + "&cancel_url=" + cancelUrl;
         details.cca_request = ccaCrypto.Encrypt(ccaRequest, workingKey);
         return details;
     }

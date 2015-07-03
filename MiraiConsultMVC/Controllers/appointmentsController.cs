@@ -28,7 +28,7 @@ namespace MiraiConsultMVC.Controllers
         {
             //Return short URLs to full ones.
             string shortHost = ConfigurationManager.AppSettings["websiteShortUrl"];
-            if (Request.Url.Host.Contains(shortHost))
+            if (Request.Url.ToString().Contains(shortHost))
             {
                 string fullHost = ConfigurationManager.AppSettings["websiteUrl"];
                 string redirectUrl = Request.Url.ToString().Replace(shortHost, fullHost);

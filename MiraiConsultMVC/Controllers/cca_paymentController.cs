@@ -39,6 +39,7 @@ namespace MiraiConsultMVC.Controllers
                     Params.Add(Key, Value);
                 }
             }
+            int appointmentId = 0;
             using (var context = new EFModelContext())
             {
                 cca_payment ccapayment = new cca_payment();
@@ -72,7 +73,7 @@ namespace MiraiConsultMVC.Controllers
                 context.SaveChanges();
                 if (Params["order_id"].Contains("APPT"))
                 {
-                    int appointmentId = Convert.ToInt32(Convert.ToString(Params["order_id"]).Split('-')[1]);
+                    appointmentId = Convert.ToInt32(Convert.ToString(Params["order_id"]).Split('-')[1]);
                     appointment appointment = context.appointments.Find(appointmentId);
                     if (appointment != null)
                     {
@@ -80,46 +81,16 @@ namespace MiraiConsultMVC.Controllers
                         context.SaveChanges();
                     }
                 }
-            }            
-            return View();
-        }
-
-        // GET: cca_payment/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cca_payment cca_payment = db.cca_payments.Find(id);
-            if (cca_payment == null)
+            if (appointmentId == 0)
             {
-                return HttpNotFound();
+                return Content("INVALID REQUEST!!");
             }
-            return View(cca_payment);
-        }
-
-        // GET: cca_payment/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: cca_payment/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,amount,order_id,currency,card_name,payment_mode,bank_ref_no,tracking_id,order_status,failure_message,status_message,billing_name,billing_address,billing_city,billing_state,billing_zip,billing_country,billing_tel,billing_email,delivery_name,delivery_address,delivery_city,delivery_state,delivery_zip,delivery_country,delivery_tel,status_code,answerid,questionid,userid,title,answertext,createdate,image,deviceid")] cca_payment cca_payment)
-        {
-            if (ModelState.IsValid)
+            else
             {
-                db.cca_payments.Add(cca_payment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
+                return Redirect(u.Action("paid", "appointments", appointmentId));
             }
-
-            return View(cca_payment);
         }
     }
 }

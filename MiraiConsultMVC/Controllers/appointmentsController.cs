@@ -25,6 +25,12 @@ namespace MiraiConsultMVC.Controllers
         [AllowAnonymous]
         public ActionResult prepay(string code)
         {
+            //Return short URLs to full ones.
+            if(Request.Url.Host.Contains("mrai.co"))
+            {
+                string redirectUrl = Request.Url.ToString().Replace("mrai.co", "consult.miraihealth.com");
+                return Redirect(redirectUrl);
+            }
             appointment appointment = db.appointments.Where(a => a.txncode == code).
                 Include(a => a.doclocation).FirstOrDefault();
             if (appointment != null)
@@ -54,8 +60,6 @@ namespace MiraiConsultMVC.Controllers
             {
                 ViewBag.doc = db.users.Find(appointment.doctorid);
             }
-            appointment.ispaid = true;
-            db.SaveChanges();
             return View("prepay", appointment);
         }
 

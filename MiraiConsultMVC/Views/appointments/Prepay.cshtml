@@ -91,9 +91,10 @@
                         <div class="left loc-label doc-div-min-height span2">Total:</div>
                         <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.cca_amount</div>
                     </div>
+                    @{var istDate = TimeZoneInfo.ConvertTimeFromUtc(@Model.prepay_by.GetValueOrDefault(), TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));}
                     <div class="span10 doc-div-min-height margin-null">
                         <div class="left loc-label doc-div-min-height span2">Pay By:</div>
-                        <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.prepay_by.GetValueOrDefault().ToString("MMMM dd, yyyy hh:mm tt")</div>
+                        <div class="span6 doc-div-min-height left doc-detail-word-break">@istDate.ToString("MMMM dd, yyyy hh:mm tt")</div>
                     </div>
                 </div>
             </div>

@@ -422,7 +422,7 @@ namespace Services
                                 else if (a.patientid != 0)
                                 {
                                     patients = (from u in context.users
-                                                join app in context.appointments on u.userid equals app.unregpatientid
+                                                join app in context.appointments on u.userid equals app.patientid
                                                 where app.appointmentid == a.appointmentid
                                                 select new { email = u.email, mobileno = u.mobileno }).FirstOrDefault();
                                 }
@@ -501,7 +501,7 @@ namespace Services
                                 else if (a.patientid != 0)
                                 {
                                     patients = (from u in context.users
-                                                join app in context.appointments on u.userid equals app.unregpatientid
+                                                join app in context.appointments on u.userid equals app.patientid
                                                 where app.appointmentid == a.appointmentid
                                                 select new { email = u.email, mobileno = u.mobileno }).FirstOrDefault();
                                 }
@@ -513,8 +513,8 @@ namespace Services
 
                                     textMsg = ConfigurationManager.AppSettings["PrepaidApptCancellationNotification"].ToString();
                                     textMsg = textMsg.Replace("@doctor", doctorFullName);
-                                    textMsg = textMsg.Replace("@date", dateArray[0]);
-                                    textMsg = textMsg.Replace("@time", dateArray[1]);
+                                    textMsg = textMsg.Replace("@date", Utilities.GetDisplayDate(Convert.ToDateTime(dateArray[0])));
+                                    textMsg = textMsg.Replace("@time", Utilities.GetDisplayTime(dateArray[1]));
                                     textMsg = textMsg.Replace("@number", ConfigurationManager.AppSettings["phoneNumber"].ToString());
                                     SMS.SendSMS(patients.mobileno, textMsg);
                                 }

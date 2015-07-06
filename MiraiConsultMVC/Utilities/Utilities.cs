@@ -183,5 +183,42 @@ namespace MiraiConsultMVC
             }
             return isAccessible;
         }
+        public static string GetDisplayDate(DateTime dateTime)
+        {
+            //dateTime = GetClientDateTime(dateTime);
+            string[] months = { "dummyMonth", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+            string displayDate = dateTime.Day.ToString() + " " +
+            months[dateTime.Month] + " " +
+            dateTime.Year.ToString();
+
+            return displayDate;
+        }
+
+        public static string GetDisplayDate(Nullable<DateTime> date)
+        {
+            string displayDate = "";
+            if (date.HasValue)
+            {
+                DateTime dateTime = date.Value;
+
+                //dateTime = GetClientDateTime(dateTime);
+                string[] months = { "dummyMonth", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+                displayDate = dateTime.Day.ToString() + " " +
+                months[dateTime.Month] + " " +
+                dateTime.Year.ToString();
+            }
+            return displayDate;
+        }
+
+        public static string GetDisplayTime(string time)
+        {
+            string displayTime = "";
+            if (!string.IsNullOrEmpty(time))
+                displayTime = String.Format("{0:h:mm tt}", Convert.ToDateTime(time));
+
+            return displayTime;
+        }
     }
 }

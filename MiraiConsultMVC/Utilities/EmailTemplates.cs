@@ -331,10 +331,11 @@ namespace MiraiConsultMVC
         public static string SendEmailNotificationToPatientForPaidAppointments(string date, string time, string docFullName, DateTime prepayBy, string token)
         {
             string msg = "";
+            string[] prepayByDateTime = Convert.ToString(prepayBy).Split(' ');
             msg += "<p align=left><font size=2 face=verdana>Hello</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Your appointment with Dr. " + docFullName + " on " + date + " at " + time + " has been blocked.Your doctor requests a pre-pay to confirm the appointment.</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Click on this link to pay and confirm the appointment:" + ConfigurationManager.AppSettings["prePayUrl"].ToString() + token + ".</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Please pay by " + prepayBy + " to avoid cancellation.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Your appointment with Dr. " + docFullName + " on " + Utilities.GetDisplayDate(Convert.ToDateTime(date)) + " at " + Utilities.GetDisplayTime(time) + " has been blocked.Your doctor requests a pre-pay to confirm the appointment.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Click on this link to pay and confirm the appointment: <a href='" + ConfigurationManager.AppSettings["prePayUrl"].ToString() + token + "'>" + ConfigurationManager.AppSettings["prePayUrl"].ToString() + token + "</a>.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Please pay by " + Utilities.GetDisplayDate(Convert.ToDateTime(prepayByDateTime[0])) + " " + Utilities.GetDisplayTime(prepayByDateTime[1]) + " to avoid cancellation.</font></p>";
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
                                     msg +
                                     "<br>" +
@@ -355,8 +356,35 @@ namespace MiraiConsultMVC
         {
             string msg = "";
             msg += "<p align=left><font size=2 face=verdana>Hello</font></p>";
-            msg += "<p align=left><font size=2 face=verdana>Your appointment with Dr. " + docFullName + " on " + date + " at " + time + " has been cancelled as payment was not received in time.</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Your appointment with Dr. " + docFullName + " on " + Utilities.GetDisplayDate(Convert.ToDateTime(date)) + " at " + Utilities.GetDisplayTime(time) + " has been cancelled as payment was not received in time.</font></p>";
             msg += "<p align=left><font size=2 face=verdana>Please call (not SMS) on " + ConfigurationManager.AppSettings["phoneNumber"].ToString() + " to book another appointment. Mirai Health (service@miraihealth.com)</font></p>";
+            string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
+                                    msg +
+                                    "<br>" +
+                                    "<font size=2 face=verdana> Regards,</font>" +
+                                    "<br>" +
+                                    "<font size=2 face=verdana>Mirai Health Team</font>" +
+                                    "<br>" +
+                                    "<b><font size=2 face=verdana color=#69728B !important > " + ConfigurationManager.AppSettings["FromEmail"].ToString() + "</font></b>" +
+                                    "<br>" +
+                                    "<b><font  face=Verdana size=2  color='#69728B' !important>" + ConfigurationManager.AppSettings["WebsiteUrl"].ToString() + "</font></b>" +
+                                    "<br>" + "<br>" + "<br>" +
+                                    "<img src=cid:logoImage>" +
+                                    "</form></body></html>";
+            return strBodyContent;
+        }
+
+        public static string SendSuccessfulNotificationToDoctorForPrepaidAppt (string docFullName, string patientName, DateTime date, string time, string clinicName, string city)
+        {
+            string msg = "";
+            msg += "<p align=left><font size=2 face=verdana>Dear Dr. " + docFullName + ", </font></p>";
+            msg += "<p align=left><font size=2 face=verdana>We have received payment for your appointment with patient " + patientName + " has been received. </font></p>";
+            msg += "<p align=left><font size=2 face=verdana>The appointment details are</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Patient Name: " + patientName + "</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Appointment Date,Time: " + Utilities.GetDisplayDate(date) + " ," + Utilities.GetDisplayTime(time) + "</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Clinic: " + clinicName + "</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>City: " + city + "</font></p>";
+            msg += "<p align=left><font size=2 face=verdana>Please feel free to contact us for any questions.</font></p>";
             string strBodyContent = "<html><body> <form name=frmMessage method=post>" +
                                     msg +
                                     "<br>" +

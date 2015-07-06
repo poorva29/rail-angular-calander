@@ -71,6 +71,8 @@ namespace MiraiConsultMVC.Controllers
                 ccapayment.status_code = Convert.ToString(Params["status_code"]);
                 context.cca_payments.Add(ccapayment);
                 context.SaveChanges();
+                int doctorId;
+
                 if (Params["order_id"].Contains("APPT"))
                 {
                     appointmentId = Convert.ToInt32(Convert.ToString(Params["order_id"]).Split('-')[1]);
@@ -81,6 +83,47 @@ namespace MiraiConsultMVC.Controllers
                         appointment.ispaid = true;
                         context.SaveChanges();
                     }
+                    doctorId = appointment.doctorid;
+                    var patients = new
+                        {
+                            name = string.Empty
+                        };
+                    if(appointment.patientid != -1)
+                    {                       
+                        if (appointment.patientid == 0)
+                        {
+                            patients = (from un in context.unregpatients
+                                        join app in context.appointments on un.id equals app.unregpatientid
+                                        where app.appointmentid == appointment.appointmentid
+                                        select new { name = un.name }).FirstOrDefault();
+                        }
+                        else if (appointment.patientid != 0)
+                        {
+                            patients = (from u in context.users
+                                        join app in context.appointments on u.userid equals app.unregpatientid
+                                        where app.appointmentid == appointment.appointmentid
+                                        select new { name = u.firstname + " " + u.lastname }).FirstOrDefault();
+                        }
+                    }
+                    user docDetail = context.users.Find(appointment.doctorid);
+                    string doctorFullName = docDetail.firstname + " " + docDetail.lastname;
+                    string[] dateArray = Convert.ToString(appointment.starttime).Split(' ');                   
+                    doctorlocation docLocation = context.doctorlocations.Find(appointment.doclocationid);
+                    city city = context.cities.Find(docLocation.cityid);
+                   
+                    string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
+                    string subject = "Mirai Health - Successful payment for pre-paid appoinment";
+                    string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
+                    string body = EmailTemplates.SendSuccessfulNotificationToDoctorForPrepaidAppt(doctorFullName, patients.name, Convert.ToDateTime(dateArray[0]), dateArray[1], docLocation.clinicname, city.name);
+                    Mail.SendHTMLMailWithImage(fromEmail, docDetail.email, subject, body, Logoimage);   
+                    
+                    string textMsg = ConfigurationManager.AppSettings["SuccessfulPaymentNotificationToDoctor"].ToString();                    
+                    textMsg = textMsg.Replace("@doctor", doctorFullName);
+                    textMsg = textMsg.Replace("@patientname", patients.name);
+                    textMsg = textMsg.Replace("@date", Utilities.GetDisplayDate(Convert.ToDateTime(dateArray[0])));
+                    textMsg = textMsg.Replace("@time", Utilities.GetDisplayTime(dateArray[1]));
+                    textMsg = textMsg.Replace("@clinicName", docLocation.clinicname + ", " + city.name);
+                    SMS.SendSMS(docDetail.mobileno, textMsg);
                 }
             }
             if (appointmentId == 0)

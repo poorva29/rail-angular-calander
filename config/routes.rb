@@ -1,4 +1,7 @@
 Training::Application.routes.draw do
+
+  get 'ui_angular' => 'posts#index'
+
   resources :posts
 
   # get '/' => 'pages#index'

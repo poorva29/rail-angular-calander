@@ -1,6 +1,6 @@
 Training::Application.routes.draw do
 
-  get 'ui_angular' => 'posts#index'
+  get 'ui_calendar' => 'posts#index'
 
   resources :posts
 

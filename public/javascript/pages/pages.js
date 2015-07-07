@@ -2,17 +2,18 @@ var app = angular.module('main', ['daypilot']).controller('DemoCtrl', function($
 
     var dp = new DayPilot.Calendar("dp");
 
+    dp.viewType = "Week";
+    dp.allDayEventHeight = 25;
+    dp.initScrollPos = 9 * 40;
+    dp.moveBy = 'Full';
+    dp.timeHeaderCellDuration = 30;
+    dp.cellHeight = 40;
+    dp.theme = "custom_theme";
+
     $http.get('jsons/appointments.json').success(function (data){
         var appointments = data;
 
         dp.startDate = new DayPilot.Date(appointments.start);  // or just dp.startDate = "2013-03-25";
-        dp.viewType = "Week";
-        dp.allDayEventHeight = 25;
-        dp.initScrollPos = 9 * 40;
-        dp.moveBy = 'Full';
-        dp.timeHeaderCellDuration = 30;
-        dp.cellHeight = 40;
-        dp.theme = "custom_theme";
 
         $scope.startOfWeek = dp.startDate.firstDayOfWeek().toString("MMMM dd");
         $scope.endOfWeek = dp.startDate.firstDayOfWeek().addDays(6).toString("MMMM dd");

@@ -1,13 +1,43 @@
-var app = angular.module('main', ['daypilot']).controller('DemoCtrl', function($scope) {
+var app = angular.module('main', ['daypilot']).controller('DemoCtrl', function($scope, $http) {
 
     var dp = new DayPilot.Calendar("dp");
 
-    // view
-    dp.startDate = "2013-03-25";  // or just dp.startDate = "2013-03-25";
-    dp.viewType = "Week";
-    dp.allDayEventHeight = 25;
-    dp.initScrollPos = 9 * 40;
-    dp.moveBy = 'Full';
+    $http.get('jsons/appointments.json').success(function (data){
+        var appointments = data;
+
+        dp.startDate = new DayPilot.Date(appointments.start);  // or just dp.startDate = "2013-03-25";
+        dp.viewType = "Week";
+        dp.allDayEventHeight = 25;
+        dp.initScrollPos = 9 * 40;
+        dp.moveBy = 'Full';
+        dp.timeHeaderCellDuration = 30;
+        dp.cellHeight = 40;
+        dp.theme = "custom_theme";
+
+        $scope.startOfWeek = dp.startDate.firstDayOfWeek().toString("MMMM dd");
+        $scope.endOfWeek = dp.startDate.firstDayOfWeek().addDays(6).toString("MMMM dd");
+
+        angular.forEach(appointments.events, function(app){
+            app.start = new DayPilot.Date(app.start);
+            app.end = new DayPilot.Date(app.end);
+            dp.events.add(new DayPilot.Event(app));
+        });
+        $scope.startDate = dp.startDate.addDays(-7);
+    });
+
+    $scope.prev = function(){
+        dp.startDate = dp.startDate.addDays(-7);
+        $scope.startOfWeek = dp.startDate.firstDayOfWeek().toString("MMMM dd");
+        $scope.endOfWeek = dp.startDate.firstDayOfWeek().addDays(6).toString("MMMM dd");
+        dp.update();
+    }
+
+    $scope.next = function(){
+        dp.startDate = dp.startDate.addDays(7);
+        $scope.startOfWeek = dp.startDate.firstDayOfWeek().toString("MMMM dd");
+        $scope.endOfWeek = dp.startDate.firstDayOfWeek().addDays(6).toString("MMMM dd");
+        dp.update();
+    }
 
     // bubble, with async loading
     dp.bubble = new DayPilot.Bubble({
@@ -61,21 +91,4 @@ var app = angular.module('main', ['daypilot']).controller('DemoCtrl', function($
     };
 
     dp.init();
-
-    var e = new DayPilot.Event({
-        start: new DayPilot.Date("2013-03-25T12:00:00"),
-        end: new DayPilot.Date("2013-03-25T12:00:00").addHours(3),
-        id: DayPilot.guid(),
-        text: "Special event"
-    });
-    dp.events.add(e);
-
-    var e = new DayPilot.Event({
-        start: new DayPilot.Date("2013-03-25T15:00:00"),
-        end: new DayPilot.Date("2013-03-25T17:00:00"),
-        id: DayPilot.guid(),
-        text: "Event"
-    });
-    dp.events.add(e);
-
 });

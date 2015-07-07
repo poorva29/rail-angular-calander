@@ -10,8 +10,19 @@
 
 <script src="javascript/calender/daypilot-all.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="javascript/pages/pages.js"></script>
+<link type="text/css" rel="stylesheet" href="css/calender/custom_theme.css" />
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
-<div ng-app="main" ng-controller="DemoCtrl" >
-  <daypilot-calendar id="dp"></daypilot-calendar>
+<div ng-app="main" ng-controller="DemoCtrl">
+  <div class="space">
+      <span class="glyphicon glyphicon-chevron-left" ng-click="prev();"></span>
+      <span class="margin-left">{{startOfWeek}} - {{endOfWeek}}</span>
+      <span class="glyphicon glyphicon-chevron-right pull-right" ng-click="next();"></span>
+  </div>
+  <br>
+  <div>
+    <daypilot-calendar id="dp"></daypilot-calendar>
+  </div>
 </div>
+
 

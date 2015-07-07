@@ -12,26 +12,6 @@
 <script type="text/javascript" src="javascript/pages/pages.js"></script>
 
 <div ng-app="main" ng-controller="DemoCtrl" >
-  <daypilot-calendar id="dp" daypilot-config="config" daypilot-events="events" ></daypilot-calendar>
-  <div>
-      New event:
-      <button ng-click="add()">Add</button>
-  </div>
-  <div>
-      First event:
-      <button ng-click="move()">Move</button>
-      <button ng-click="rename()">Rename</button>
-  </div>
-  <div>
-      Object:
-      <button ng-click="message()">Show Message</button>
-  </div>
-  <div>
-      Events array (debug):
-      <div ng-repeat="item in events">
-          {{item}}
-      </div>
-
-  </div>
+  <daypilot-calendar id="dp"></daypilot-calendar>
 </div>
 

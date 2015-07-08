@@ -385,9 +385,9 @@ namespace Services
                 using (var context = new EFModelContext())
                 {
                     DateTime utcDate = DateTime.UtcNow.AddHours(13);
-                    var appointment = (from a in context.appointments
+                    var appointment = (from a in context.appointments.Include(a => a.doclocation)
                                        where a.status == 1 && a.prepay_by <= utcDate && a.ispaid == false &&
-                                       (a.prepayamount != null || a.prepayamount != 0) &&
+                                       (a.prepayamount != null && a.prepayamount != 0) &&
                                        a.notification_status != NotificationStatus.Reminder && a.notification_status != NotificationStatus.Cancel
                                        select a).ToList();
                     if (appointment != null && appointment.Count > 0)
@@ -462,10 +462,10 @@ namespace Services
                 using (var context = new EFModelContext())
                 {
                     DateTime utcDate = DateTime.UtcNow;
-                    var appointment = (from a in context.appointments
+                    var appointment = (from a in context.appointments.Include(a => a.doclocation)
                                        where a.status == 1 && a.prepay_by != null && a.prepay_by <= utcDate && a.ispaid == false &&
-                                       (a.prepayamount != null || a.prepayamount != 0) &&
-                                       a.notification_status != NotificationStatus.Cancel
+                                       (a.prepayamount != null && a.prepayamount != 0 ) &&
+                                       a.notification_status != NotificationStatus.Cancel 
                                        select a).ToList();
                     
                     if (appointment != null && appointment.Count > 0)

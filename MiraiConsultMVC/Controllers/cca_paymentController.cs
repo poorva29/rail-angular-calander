@@ -81,6 +81,7 @@ namespace MiraiConsultMVC.Controllers
                     {
                         appointment.cca_order = Convert.ToString(Params["order_id"]);
                         appointment.ispaid = true;
+                        appointment.cca_paid_on = System.DateTime.Now;
                         context.SaveChanges();
                     }
                     doctorId = appointment.doctorid;
@@ -114,7 +115,8 @@ namespace MiraiConsultMVC.Controllers
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string subject = "Mirai Health - Successful payment for pre-paid appoinment";
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    string body = EmailTemplates.SendSuccessfulNotificationToDoctorForPrepaidAppt(doctorFullName, patients.name, Convert.ToDateTime(dateArray[0]), dateArray[1], docLocation.clinicname, city.name);
+                    string body = EmailTemplates.SendSuccessfulNotificationToDoctorForPrepaidAppt(doctorFullName, patients.name, Convert.ToDateTime(dateArray[0]), dateArray[1], docLocation.clinicname, city.name, Convert.ToDecimal(appointment.prepayamount));
+                    if(appointment.txncode != null)
                     Mail.SendHTMLMailWithImage(fromEmail, docDetail.email, subject, body, Logoimage);   
                     
                     string textMsg = ConfigurationManager.AppSettings["SuccessfulPaymentNotificationToDoctor"].ToString();                    
@@ -123,6 +125,7 @@ namespace MiraiConsultMVC.Controllers
                     textMsg = textMsg.Replace("@date", Utilities.GetDisplayDate(Convert.ToDateTime(dateArray[0])));
                     textMsg = textMsg.Replace("@time", Utilities.GetDisplayTime(dateArray[1]));
                     textMsg = textMsg.Replace("@clinicName", docLocation.clinicname + ", " + city.name);
+                    if (appointment.txncode != null)
                     SMS.SendSMS(docDetail.mobileno, textMsg);
                 }
             }

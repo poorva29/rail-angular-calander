@@ -7,29 +7,31 @@
 
 <html lang="en" ng-app="calendarDemoApp" id="top">
   <div id="directives-calendar" ng-controller="CalendarCtrl">
-    <button
-      class="btn btn-primary"
-      mwl-date-modifier
-      date="calendarDay"
-      decrement="calendarView">
-      Previous
-    </button>
+    <div id="calendar-butons">
+      <button
+        class="btn btn-primary"
+        mwl-date-modifier
+        date="calendarDay"
+        decrement="calendarView">
+        Previous
+      </button>
 
-    <button
-      class="btn btn-default"
-      mwl-date-modifier
-      date="calendarDay"
-      set-to-today>
-      Today
-    </button>
+      <button
+        class="btn btn-default"
+        mwl-date-modifier
+        date="calendarDay"
+        set-to-today>
+        Today
+      </button>
 
-    <button
-      class="btn btn-primary"
-      mwl-date-modifier
-      date="calendarDay"
-      increment="calendarView">
-      Next
-    </button>
+      <button
+        class="btn btn-primary"
+        mwl-date-modifier
+        date="calendarDay"
+        increment="calendarView">
+        Next
+      </button>
+    </div>
     <mwl-calendar
       view="calendarView"
       current-day="calendarDay"

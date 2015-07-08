@@ -23,7 +23,7 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap']).controller('Ca
   $scope.uiConfig = {
       calendar:{
         defaultView: 'agendaWeek',
-        height: 550,
+        height: 500,
         editable: true,
         header:{
           left: 'agendaDay agendaWeek',

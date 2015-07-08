@@ -25,7 +25,7 @@
                 </div>
             </div>
         }
-        else
+        else if(@Model.status == 1)
         {
             <div class="row-fluid">
                 <div class="span12">
@@ -46,6 +46,20 @@
                 <input type="hidden" name="access_code" id="Hidden1" value="@ViewBag.formDetails.cca_accessCode" />
             </form>
         }
+        if (@Model.status != 1)
+        {
+            <div class="wrapper-bordered">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10 alert-error alert" id="errorMessageDiv">
+                        <label id="lblErrorMessage" class="error_message_color msg_font font-bold">This link has expired.</label>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        }
+        else
+        {
             <div class="row-fluid">
                 <div class="span1"></div>
                 <div class="span11 left doc-clinic-container">
@@ -61,7 +75,7 @@
                     </div>
                     <div class="span10 doc-div-min-height margin-null">
                         <div class="left loc-label doc-div-min-height span2">Time:</div>
-                        <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.starttime.ToString("HH:mm tt") to @Model.endtime.ToString("hh:mm tt")</div>
+                        <div class="span6 doc-div-min-height left doc-detail-word-break">@Model.starttime.ToString("hh:mm tt") to @Model.endtime.ToString("hh:mm tt")</div>
                     </div>
                     <div class="span10 doc-div-min-height margin-null">
                         <div class="left loc-label doc-div-min-height span2">Subject:</div>
@@ -98,7 +112,8 @@
                     </div>
                 </div>
             </div>
-            if (!paid)
+    }
+            if (!paid && @Model.status == 1)
             {
                 <div class="row-fluid">
                     <div class="span1"></div>

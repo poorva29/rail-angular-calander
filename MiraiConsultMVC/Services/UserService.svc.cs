@@ -384,7 +384,7 @@ namespace Services
             {
                 using (var context = new EFModelContext())
                 {
-                    DateTime utcDate = DateTime.UtcNow.AddHours(13);
+                    DateTime utcDate = DateTime.UtcNow.AddHours(12);
                     var appointment = (from a in context.appointments.Include(a => a.doclocation)
                                        where a.status == 1 && a.prepay_by <= utcDate && a.ispaid == false &&
                                        (a.prepayamount != null && a.prepayamount != 0) &&
@@ -428,17 +428,23 @@ namespace Services
                                 }
                                 if (patients != null)
                                 {
-                                    emailbody = EmailTemplates.SendEmailNotificationToPatientForPaidAppointments(dateArray[0], dateArray[1], doctorFullName, istdate, a.txncode);
-                                    Logoimage = HttpContext.Current.Server.MapPath(@"~/Content/image/LogoForMail.png");
-                                    Mail.SendHTMLMailWithImage(fromEmail, patients.email, "Mirai Health - Prepaid Reminder Notification", emailbody, Logoimage);
+                                    if (a.starttime.Subtract(istdate).TotalHours >= 12)
+                                    {
+                                        if (istdate.Subtract(DateTime.Now).TotalHours == 12)
+                                        {
+                                            emailbody = EmailTemplates.SendEmailNotificationToPatientForPaidAppointments(a.starttime, doctorFullName, istdate, a.txncode);
+                                            Logoimage = HttpContext.Current.Server.MapPath(@"~/Content/image/LogoForMail.png");
+                                            Mail.SendHTMLMailWithImage(fromEmail, patients.email, "Mirai Health - Prepaid Reminder Notification", emailbody, Logoimage);
 
-                                    textMsg = ConfigurationManager.AppSettings["prepaidApptReminderNotification"].ToString();
-                                    textMsg = textMsg.Replace("@doctor", doctorFullName);
-                                    textMsg = textMsg.Replace("@date", dateArray[0]);
-                                    textMsg = textMsg.Replace("@time", dateArray[1]);
-                                    textMsg = textMsg.Replace("@url", ConfigurationManager.AppSettings["prePayUrl"].ToString() + a.txncode);
-                                    textMsg = textMsg.Replace("@prepayby", Convert.ToString(istdate));
-                                    SMS.SendSMS(patients.mobileno, textMsg);
+                                            textMsg = ConfigurationManager.AppSettings["prepaidApptReminderNotification"].ToString();
+                                            textMsg = textMsg.Replace("@doctor", doctorFullName);
+                                            textMsg = textMsg.Replace("@date", a.starttime.ToString("MMMM dd, yyyy"));
+                                            textMsg = textMsg.Replace("@time", a.starttime.ToString("hh:mm tt"));
+                                            textMsg = textMsg.Replace("@url", ConfigurationManager.AppSettings["prePayUrl"].ToString() + a.txncode);
+                                            textMsg = textMsg.Replace("@prepayby", istdate.ToString("MMMM dd, yyyy")  + " " + istdate.ToString("hh:mm tt"));
+                                            SMS.SendSMS(patients.mobileno, textMsg);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -480,7 +486,6 @@ namespace Services
                             string Logoimage = null;
                             string textMsg = "";
                             string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
-                            string[] dateArray = Convert.ToString(a.starttime).Split(' ');
                             var users = context.users.Find(a.doctorid);
                             string doctorFullName = users.firstname + " " + users.lastname;
                             var istdate = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(a.prepay_by), TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
@@ -507,14 +512,14 @@ namespace Services
                                 }
                                 if (patients != null)
                                 {
-                                    emailbody = EmailTemplates.SendCancellationNotificationForPaidAppointments(dateArray[0], dateArray[1], doctorFullName);
+                                    emailbody = EmailTemplates.SendCancellationNotificationForPaidAppointments(a.starttime, doctorFullName);
                                     Logoimage = HttpContext.Current.Server.MapPath(@"~/Content/image/LogoForMail.png");
                                     Mail.SendHTMLMailWithImage(fromEmail, patients.email, "Mirai Health - Prepaid Appointment Cancellation Notification", emailbody, Logoimage);
 
                                     textMsg = ConfigurationManager.AppSettings["PrepaidApptCancellationNotification"].ToString();
                                     textMsg = textMsg.Replace("@doctor", doctorFullName);
-                                    textMsg = textMsg.Replace("@date", Utilities.GetDisplayDate(Convert.ToDateTime(dateArray[0])));
-                                    textMsg = textMsg.Replace("@time", Utilities.GetDisplayTime(dateArray[1]));
+                                    textMsg = textMsg.Replace("@date", a.starttime.ToString("MMMM dd, yyyy"));
+                                    textMsg = textMsg.Replace("@time", a.starttime.ToString("hh:mm tt"));
                                     textMsg = textMsg.Replace("@number", ConfigurationManager.AppSettings["phoneNumber"].ToString());
                                     SMS.SendSMS(patients.mobileno, textMsg);
                                 }

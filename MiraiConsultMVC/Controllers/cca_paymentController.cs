@@ -115,7 +115,7 @@ namespace MiraiConsultMVC.Controllers
                     string fromEmail = ConfigurationManager.AppSettings["FromEmail"].ToString();
                     string subject = "Mirai Health - Successful payment for pre-paid appoinment";
                     string Logoimage = Server.MapPath(@"~/Content/image/LogoForMail.png");
-                    string body = EmailTemplates.SendSuccessfulNotificationToDoctorForPrepaidAppt(doctorFullName, patients.name, Convert.ToDateTime(dateArray[0]), dateArray[1], docLocation.clinicname, city.name, Convert.ToDecimal(appointment.prepayamount));
+                    string body = EmailTemplates.SendSuccessfulNotificationToDoctorForPrepaidAppt(doctorFullName, patients.name, appointment.starttime, docLocation.clinicname, city.name, Convert.ToDecimal(appointment.prepayamount));
                     if(appointment.txncode != null)
                     Mail.SendHTMLMailWithImage(fromEmail, docDetail.email, subject, body, Logoimage);   
                     

@@ -1,0 +1,47 @@
+<!-- <script type="text/javascript" src="bower_components/angular/angular.min.js"></script> -->
+<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<link href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
+<script src="bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
+<script src="javascript/abc/abc.js" type="text/javascript"></script>
+
+<html lang="en" ng-app="calendarDemoApp" id="top">
+  <div id="directives-calendar" ng-controller="CalendarCtrl">
+    <button
+      class="btn btn-primary"
+      mwl-date-modifier
+      date="calendarDay"
+      decrement="calendarView">
+      Previous
+    </button>
+
+    <button
+      class="btn btn-default"
+      mwl-date-modifier
+      date="calendarDay"
+      set-to-today>
+      Today
+    </button>
+
+    <button
+      class="btn btn-primary"
+      mwl-date-modifier
+      date="calendarDay"
+      increment="calendarView">
+      Next
+    </button>
+    <mwl-calendar
+      view="calendarView"
+      current-day="calendarDay"
+      events="events"
+      view-title="calendarTitle"
+      on-event-click="eventClicked(calendarEvent)"
+      on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+      edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
+      delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
+      on-edit-event-click="eventEdited(calendarEvent)"
+      on-delete-event-click="eventDeleted(calendarEvent)"
+      auto-open="true">
+    </mwl-calendar>
+  </div>
+</html>

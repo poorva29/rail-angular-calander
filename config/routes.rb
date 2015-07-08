@@ -1,14 +1,15 @@
 Training::Application.routes.draw do
 
+  # get "abc/index"
+  root :to => 'abc#index'
   get 'ui_calendar' => 'posts#index'
-
   resources :posts
 
   # get '/' => 'pages#index'
   # root :to => 'pages#index'
 
   get "about", :to => 'pages#about'
-  root :to => 'pages#index'
+  # root :to => 'pages#index'
 
   # get "pages/index"
   # get "pages/about"

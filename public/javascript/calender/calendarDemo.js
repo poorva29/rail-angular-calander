@@ -21,8 +21,7 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
-      console.log(start);
-      $scope.open();
+      $scope.open(start, end, jsEvent, view, '');
     }
 
     $scope.events = [
@@ -58,11 +57,11 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 
     // Modal specific changes !
 
-    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.items = [];
 
     $scope.animationsEnabled = true;
 
-    $scope.open = function (size) {
+    $scope.open = function (start, end, jsEvent, view, size) {
 
       var modalInstance = $modal.open({
         animation: $scope.animationsEnabled,
@@ -71,6 +70,12 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
         size: size,
         resolve: {
           items: function () {
+            $scope.items = {
+              'start': start,
+              'end': end,
+              'jsEvent': jsEvent,
+              'view': view
+            };
             return $scope.items;
           }
         }
@@ -78,7 +83,12 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 
       modalInstance.result.then(function (selectedItem) {
         $scope.selected = selectedItem;
-        console.log(selectedItem);
+        $scope.events.push({
+          title: 'Open Sesame',
+          start: selectedItem.start,
+          end: selectedItem.end,
+          className: ['openSesame']
+        });
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
@@ -97,12 +107,8 @@ angular.module('calendarDemoApp')
   .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
     $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
-
     $scope.ok = function () {
-      $modalInstance.close($scope.selected.item);
+      $modalInstance.close($scope.items);
     };
 
     $scope.cancel = function () {

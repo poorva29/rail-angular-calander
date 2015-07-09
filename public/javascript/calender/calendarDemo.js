@@ -85,8 +85,8 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
         $scope.selected = selectedItem;
         $scope.events.push({
           title: 'Open Sesame',
-          start: selectedItem.start,
-          end: selectedItem.end,
+          start: $scope.selected.start,
+          end: $scope.selected.end,
           className: ['openSesame']
         });
       }, function () {
@@ -105,10 +105,9 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 
 angular.module('calendarDemoApp')
   .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-    $scope.items = items;
+    $scope.selected = items;
     $scope.ok = function () {
-      $modalInstance.close($scope.items);
+      $modalInstance.close($scope.selected);
     };
 
     $scope.cancel = function () {

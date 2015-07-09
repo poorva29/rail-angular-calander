@@ -1,4 +1,14 @@
-#calender-show {
-  width: 90%;
-  margin: 5%;
+.modal {
+    margin: auto;
+    bottom: inherit;;
+}
+
+.modal-dialog {
+  width: auto;
+  margin: 0px;
+  border: none;
+}
+
+.modal-backdrop {
+  bottom:0;
 }

@@ -430,7 +430,7 @@ namespace Services
                                 {
                                     if (a.starttime.Subtract(istdate).TotalHours >= 12)
                                     {
-                                        if (istdate.Subtract(DateTime.Now).TotalHours == 12)
+                                        if (istdate.Subtract(DateTime.Now).TotalHours >= 11 && istdate.Subtract(DateTime.Now).TotalHours < 13)
                                         {
                                             emailbody = EmailTemplates.SendEmailNotificationToPatientForPaidAppointments(a.starttime, doctorFullName, istdate, a.txncode);
                                             Logoimage = HttpContext.Current.Server.MapPath(@"~/Content/image/LogoForMail.png");

@@ -109,17 +109,13 @@ angular.module('BookAppointmentApp')
     $scope.selected_event = items;
     $scope.showPatient = true;
     $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
-    $scope.myOptions = [
+    $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
       { "id": 3, "label": "OPD"},
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
-
-    $scope.updatedObject = {
-      baseCurrencyCode: $scope.myOptions
-    };
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
@@ -135,23 +131,5 @@ angular.module('BookAppointmentApp')
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('BookAppointmentApp')
-.run(function($rootScope) {
-  $rootScope.model = { id: 2 };
-})
-  .directive('convertToNumber', function() {
-    return {
-      require: 'ngModel',
-      link: function(scope, element, attrs, ngModel) {
-        ngModel.$parsers.push(function(val) {
-          return parseInt(val, 10);
-        });
-        ngModel.$formatters.push(function(val) {
-          return '' + val;
-        });
-      }
     };
   });

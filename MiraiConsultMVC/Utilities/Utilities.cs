@@ -11,11 +11,13 @@ using CCA.Util;
 using System.Net;
 using System.IO;
 using System.Collections.Specialized;
+using log4net;
 
 namespace MiraiConsultMVC
 {
     public class Utilities
     {
+        private static readonly ILog logfile = LogManager.GetLogger(typeof(Utilities));
         #region Encrypted part
         private static string strKey = "3Fl9#esO#3NJ0hzj4fz$KnAsfl3W";
         private static string timeStamp = Convert.ToString((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
@@ -283,8 +285,7 @@ namespace MiraiConsultMVC
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type " + ex.GetType() + Environment.NewLine + "Exception message: " + ex.Message + Environment.NewLine +
                 "Stack trace: " + ex.StackTrace + Environment.NewLine;
-                HttpContext.Current.Response.Write("{\"error\":\"true\",\"msg\":\"Server Error\",\"errorLog\":\"" + HttpUtility.UrlEncode(message) + "\"}");
-               /// logfile.Error("Web Service >>> App Crash >>> \n" + message);
+                logfile.Error("Ccavenue Confirmation Failure \n" + message);
             }
             return dsConfirmationDetails;
         }
@@ -315,11 +316,10 @@ namespace MiraiConsultMVC
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write("{\"Error\":\"true\",\"Msg\":\"Server Error\"}");
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type " + ex.GetType() + Environment.NewLine + "Exception message: " + ex.Message + Environment.NewLine +
                 "Stack trace: " + ex.StackTrace + Environment.NewLine;
-                //logfile.Error("Web Service >>> App Crash >>> \n" + message);
+                logfile.Error("NamevalueCollection Failure \n" + message);
             }
             return Params;
         }

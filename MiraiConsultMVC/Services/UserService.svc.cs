@@ -457,11 +457,10 @@ namespace Services
             }
             catch (Exception e)
             {
-                HttpContext.Current.Response.Write("{'Error':'true','Msg':'Server Error'}");
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                  "Stack trace: " + e.StackTrace + Environment.NewLine;
-                logfile.Error("Web Service >>> Web service Crash >>> \n" + message);
+                logfile.Error("Prepaid Appointment Reminder Scheduled Job Failure" + message);
             }
         }
 
@@ -537,7 +536,7 @@ namespace Services
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                  "Stack trace: " + e.StackTrace + Environment.NewLine;
-                logfile.Error("Web Service >>> Web Service Crash >>> \n" + message);
+                logfile.Error("Appointment Cancellation Scheduled Job Failure\n" + message);
             }
         }
 
@@ -562,7 +561,8 @@ namespace Services
                     var pendingOrderDetails = (from ccap in context.cca_payments
                                         join a in context.appointments
                                         on ccap.order_id equals a.cca_order
-                                        where DbFunctions.DiffDays(a.cca_paid_on, paymentDate) == 0
+                                        where a.ispaid == true && DbFunctions.DiffDays(a.cca_paid_on, paymentDate) == 0 
+                                        && a.cca_status != 1 && a.cca_status != 2
                                         select new { order_id = ccap.order_id, tracking_id = ccap.tracking_id,
                                                      amount = ccap.amount,
                                                      orderdate = a.cca_paid_on,
@@ -578,11 +578,8 @@ namespace Services
                             request = "";
                             if (!string.IsNullOrEmpty(orderAmount) && !string.IsNullOrEmpty(trackingId))
                             {
-                                request = request + "{\"reference_no\":\"" + trackingId + "\",\"amount\": \"" + orderAmount + "\" }";
-                            }
-                            if (!string.IsNullOrEmpty(request))
-                            {
-                                request = "{\"order_List\":[ " + request + " ]}";
+                                var orderRequest = new { order_List = new[] { new { reference_no = trackingId, amount = orderAmount } } };
+                                request = JsonConvert.SerializeObject(orderRequest);
                                 //call confirm API by passing request
                                 DataSet dsConfirmOrderDetails = Utilities.confirmAPI(request, "confirmOrder");
                                 //insert confirmation details to confirm table
@@ -623,7 +620,7 @@ namespace Services
             {
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                 "Stack trace: " + e.StackTrace + Environment.NewLine;
-                logfile.Error("Web Service >>> Web Service Crash >>> \n" + message);
+                logfile.Error("Appointment Confirmation Scheduled Job Failure\n" + message);
             }
         }
     }

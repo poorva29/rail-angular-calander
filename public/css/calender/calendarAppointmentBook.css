@@ -1,6 +1,6 @@
 .modal {
-    margin: auto;
-    bottom: inherit;;
+  margin: auto;
+  bottom: inherit;;
 }
 
 .modal-dialog {
@@ -11,4 +11,24 @@
 
 .modal-backdrop {
   bottom:0;
+}
+
+.modal-header {
+  padding: 1%;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.form-control {
+  height: 5% !important;
+}
+
+.pay-amount {
+  width: 15%;
+}
+
+.pay-amount-by {
+  width: 70%;
 }

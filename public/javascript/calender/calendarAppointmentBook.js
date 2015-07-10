@@ -1,6 +1,8 @@
 angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
   .controller('BookAppointmentCtrl',function($scope, $modal, $log) {
-    // Calendar specific changes !
+    /* Calendar specific changes
+      This has calendar configurations and event binding for the calendar
+    */
 
     var date = new Date();
     var d = date.getDate();
@@ -55,7 +57,10 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
     };
     $scope.eventSources = [$scope.events];
 
-    // Modal specific changes !
+    /* Modal specific changes
+      This has modal implementation and value assignment for the input fields
+      in the modal with data fetching
+    */
 
     $scope.items = [];
 
@@ -87,17 +92,13 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
           title: 'Open Sesame',
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
-          className: ['openSesame']
+          className: ['openSesame'],
+          stick: true
         });
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
-
-    $scope.toggleAnimation = function () {
-      $scope.animationsEnabled = !$scope.animationsEnabled;
-    };
-
   });
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
@@ -106,11 +107,51 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
 angular.module('BookAppointmentApp')
   .controller('BookAppointmentModalInstanceCtrl', function ($scope, $modalInstance, items) {
     $scope.selected_event = items;
+    $scope.showPatient = true;
+    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    $scope.myOptions = [
+      { "id": 1, "label": "Conference Travel", "isDefault": true},
+      { "id": 2, "label": "IPD"},
+      { "id": 3, "label": "OPD"},
+      { "id": 4, "label": "OPT Schedule"},
+      { "id": 5, "label": "Inscheduled Emergencies"}
+    ];
+
+    $scope.updatedObject = {
+      baseCurrencyCode: $scope.myOptions
+    };
+
+    $scope.toggleView = function(){
+      $scope.showPatient = !$scope.showPatient;
+    }
+
+    $scope.changeType = function(){
+      $scope.toggleView();
+    }
+
     $scope.ok = function () {
       $modalInstance.close($scope.selected_event);
     };
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('BookAppointmentApp')
+.run(function($rootScope) {
+  $rootScope.model = { id: 2 };
+})
+  .directive('convertToNumber', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel) {
+        ngModel.$parsers.push(function(val) {
+          return parseInt(val, 10);
+        });
+        ngModel.$formatters.push(function(val) {
+          return '' + val;
+        });
+      }
     };
   });

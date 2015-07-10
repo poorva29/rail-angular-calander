@@ -1,5 +1,5 @@
-angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
-  .controller('CalendarCtrl',function($scope, $modal, $log) {
+angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
+  .controller('BookAppointmentCtrl',function($scope, $modal, $log) {
     // Calendar specific changes !
 
     var date = new Date();
@@ -65,8 +65,8 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 
       var modalInstance = $modal.open({
         animation: $scope.animationsEnabled,
-        templateUrl: 'myModalContent.html',
-        controller: 'ModalInstanceCtrl',
+        templateUrl: 'appointmentBooking.html',
+        controller: 'BookAppointmentModalInstanceCtrl',
         size: size,
         resolve: {
           items: function () {
@@ -82,11 +82,11 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
       });
 
       modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
+        $scope.selected_event = selectedItem;
         $scope.events.push({
           title: 'Open Sesame',
-          start: $scope.selected.start,
-          end: $scope.selected.end,
+          start: $scope.selected_event.start,
+          end: $scope.selected_event.end,
           className: ['openSesame']
         });
       }, function () {
@@ -103,11 +103,11 @@ angular.module('calendarDemoApp',['ui.calendar', 'ui.bootstrap'])
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-angular.module('calendarDemoApp')
-  .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-    $scope.selected = items;
+angular.module('BookAppointmentApp')
+  .controller('BookAppointmentModalInstanceCtrl', function ($scope, $modalInstance, items) {
+    $scope.selected_event = items;
     $scope.ok = function () {
-      $modalInstance.close($scope.selected);
+      $modalInstance.close($scope.selected_event);
     };
 
     $scope.cancel = function () {

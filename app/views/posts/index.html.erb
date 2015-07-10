@@ -1,12 +1,12 @@
-<html lang="en" ng-app="calendarDemoApp" id="top">
+<html lang="en" ng-app="BookAppointmentApp" id="top">
 <head>
   <title>AngularUI Calendar for AngularJS</title>
-  <div id="directives-calendar" ng-controller="CalendarCtrl">
+  <div id="directives-calendar" ng-controller="BookAppointmentCtrl">
     <div id="calender-show">
       <link rel="icon" href="img/favicon.ico" />
       <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.css" />
       <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
-      <link rel="stylesheet" href="css/calender/calendarDemo.css" />
+      <link rel="stylesheet" href="css/calender/calendarAppointmentBook.css" />
       <!-- jquery, moment, and angular have to get included before fullcalendar -->
       <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -14,10 +14,10 @@
       <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
       <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
       <script src="javascript/calender/calendar.js"></script>
-      <script src="javascript/calender/calendarDemo.js" type="text/javascript"></script>
-      <script type="text/ng-template" id="myModalContent.html">
+      <script src="javascript/calender/calendarAppointmentBook.js" type="text/javascript"></script>
+      <script type="text/ng-template" id="appointmentBooking.html">
         <div class="modal-header">
-          <h3 class="modal-title">Im a modal!</h3>
+          <h6 class="modal-title">Book Appointment!</h6>
         </div>
         <div class="modal-body">
           <!-- <ul>
@@ -25,7 +25,7 @@
               <a ng-click="selected.item = item">{{ item }}</a>
             </li>
           </ul> -->
-          Selected: <b>{{ selected.start }}</b>
+          Selected: <b>{{ selected_event.start }}</b>
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary" ng-click="ok()">OK</button>

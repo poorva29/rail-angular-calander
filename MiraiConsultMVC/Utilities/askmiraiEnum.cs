@@ -43,4 +43,11 @@
         public const int Reminder = 2;
         public const int Cancel = 3;
     }
+    public static class ConfirmOrderStatus
+    {
+        public const int Confirmed = 1;
+        public const int AlreadyConfirmed = 2;
+        public const int PendingRiskMitigation = 3;
+        public const int Invalid = 4;
+    }
 }

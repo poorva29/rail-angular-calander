@@ -12,6 +12,10 @@ using MiraiConsultMVC;
 using MiraiConsultMVC.EFModels;
 using System.Globalization;
 using System.Data.Entity;
+using CCA.Util;
+using System.IO;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace Services
 {
@@ -530,10 +534,95 @@ namespace Services
             }
             catch (Exception e)
             {
-                HttpContext.Current.Response.Write("{'Error':'true','Msg':'Server Error'}");
                 // Log Error details & Send Crash mail to support
                 string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
                  "Stack trace: " + e.StackTrace + Environment.NewLine;
+                logfile.Error("Web Service >>> Web Service Crash >>> \n" + message);
+            }
+        }
+
+        public void PaymentConfirmationOn2Days()
+        {
+            try
+            {
+                string orderAmount = string.Empty;
+                string trackingId = string.Empty;
+                string request = string.Empty;
+                DateTime paymentDate = System.DateTime.Now.AddDays(-2);
+                var ordDetails = new
+                {
+                    order_id = string.Empty,
+                    tracking_id = string.Empty,
+                    amount = 0.0,
+                    orderdate = "",
+                    appointmentid = 0
+                };
+                using(var context = new EFModelContext())
+                {
+                    var pendingOrderDetails = (from ccap in context.cca_payments
+                                        join a in context.appointments
+                                        on ccap.order_id equals a.cca_order
+                                        where DbFunctions.DiffDays(a.cca_paid_on, paymentDate) == 0
+                                        select new { order_id = ccap.order_id, tracking_id = ccap.tracking_id,
+                                                     amount = ccap.amount,
+                                                     orderdate = a.cca_paid_on,
+                                                     appointmentid = a.appointmentid
+                                        }).ToList();
+                    if(pendingOrderDetails != null && pendingOrderDetails.Count > 0)
+                    {
+                        foreach (var pendingOrder in pendingOrderDetails)
+                        {
+                            orderAmount = Convert.ToString(pendingOrder.amount);
+                            trackingId = pendingOrder.tracking_id;
+                            //create json request for orders
+                            request = "";
+                            if (!string.IsNullOrEmpty(orderAmount) && !string.IsNullOrEmpty(trackingId))
+                            {
+                                request = request + "{\"reference_no\":\"" + trackingId + "\",\"amount\": \"" + orderAmount + "\" }";
+                            }
+                            if (!string.IsNullOrEmpty(request))
+                            {
+                                request = "{\"order_List\":[ " + request + " ]}";
+                                //call confirm API by passing request
+                                DataSet dsConfirmOrderDetails = Utilities.confirmAPI(request, "confirmOrder");
+                                //insert confirmation details to confirm table
+                                if (dsConfirmOrderDetails != null && dsConfirmOrderDetails.Tables.Count > 0)
+                                {
+                                    DataTable dtOrderResult = dsConfirmOrderDetails.Tables["Order_Result"];
+                                    if (!(dtOrderResult.Rows[0]["success_count"] is DBNull) && !string.IsNullOrEmpty(dtOrderResult.Rows[0]["success_count"].ToString()) && Convert.ToInt32(dtOrderResult.Rows[0]["success_count"]) != 0)
+                                    {
+                                        appointment appt = context.appointments.Find(pendingOrder.appointmentid);
+                                        appt.cca_status = ConfirmOrderStatus.Confirmed;
+                                        context.SaveChanges();
+                                    }
+                                }
+                                if (dsConfirmOrderDetails.Tables.Contains("Failed_Order"))
+                                {
+                                    appointment appt = context.appointments.Find(pendingOrder.appointmentid);
+                                    DataTable dtFailedOrder = dsConfirmOrderDetails.Tables["Failed_Order"];
+                                    if (Convert.ToString(dtFailedOrder.Rows[0]["reason"]) == "Order is already confirmed" || Convert.ToString(dtFailedOrder.Rows[0]["reason"]) == ".Order is already confirmed")//if payment is already confirmed
+                                    {
+                                        appt.cca_status = ConfirmOrderStatus.AlreadyConfirmed;
+                                    }
+                                    else if (Convert.ToString(dtFailedOrder.Rows[0]["reason"]) == "Pending Risk Mitigation" || Convert.ToString(dtFailedOrder.Rows[0]["reason"]) == ".Pending Risk Mitigation")//if orderdate is equal to confirmation date
+                                    {
+                                        appt.cca_status = ConfirmOrderStatus.PendingRiskMitigation;
+                                    }
+                                    else//if tracking id is invalid
+                                    {
+                                        appt.cca_status = ConfirmOrderStatus.Invalid;
+                                    }
+                                    context.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                string message = "Exception type: " + e.GetType() + Environment.NewLine + "Exception message: " + e.Message + Environment.NewLine +
+                "Stack trace: " + e.StackTrace + Environment.NewLine;
                 logfile.Error("Web Service >>> Web Service Crash >>> \n" + message);
             }
         }

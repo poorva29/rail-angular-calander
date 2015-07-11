@@ -1,0 +1,6 @@
+{
+  "name": "MiraiConsultMVC",
+  "dependencies": {
+    "angular-bootstrap-calendar": "latest"
+  }
+}

@@ -1,4 +1,4 @@
-angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
+angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore'])
   .controller('BookAppointmentCtrl',function($scope, $modal, $log) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
@@ -10,6 +10,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
     var y = date.getFullYear();
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
+      $scope.openEdit(event, jsEvent, view, '');
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
     /* alert on Drop */
@@ -27,7 +28,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
     }
 
     $scope.events = [
-      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 0),stick: true},
+      {id: 1, title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 0),stick: true},
     ];
 
     $scope.uiConfig = {
@@ -99,6 +100,37 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
+
+    $scope.openEdit = function (event, jsEvent, view, size) {
+
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'appointmentBookingEdit.html',
+        controller: 'BookAppointmentEditModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            $scope.items = {
+              'event': event,
+              'start': event.start,
+              'end': event.end,
+              'jsEvent': jsEvent,
+              'view': view,
+              'changeCloseType': false // default type for modalInstance.result is ok() which is considered as 'true'
+            };
+            return $scope.items;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected_event = selectedItem;
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
+
   });
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
@@ -126,6 +158,41 @@ angular.module('BookAppointmentApp')
     }
 
     $scope.ok = function () {
+      $modalInstance.close($scope.selected_event);
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('BookAppointmentApp')
+  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items) {
+    $scope.selected_event = items;
+    $scope.showPatient = false; // set the showPatient = true to see patient view
+    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    $scope.appointmentTypes = [
+      { "id": 1, "label": "Conference Travel", "isDefault": true},
+      { "id": 2, "label": "IPD"},
+      { "id": 3, "label": "OPD"},
+      { "id": 4, "label": "OPT Schedule"},
+      { "id": 5, "label": "Inscheduled Emergencies"}
+    ];
+
+    $scope.toggleView = function(){
+      $scope.showPatient = !$scope.showPatient;
+    }
+
+    $scope.changeType = function(){
+      $scope.toggleView();
+    }
+
+    $scope.ok = function () {
+      $modalInstance.close($scope.selected_event);
+    };
+
+    $scope.delete = function () {
+      $scope.selected_event.changeCloseType = true;
       $modalInstance.close($scope.selected_event);
     };
 

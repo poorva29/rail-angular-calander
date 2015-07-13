@@ -9,6 +9,25 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     var m = date.getMonth();
     var y = date.getFullYear();
 
+    $scope.showAlert = function (type, message) {
+      Flash.create(type, message);
+    };
+
+    $scope.appointmentUpdated = function(){
+      var message = '<strong> Booked !</strong>  Appointment Updated Successfully.';
+      $scope.showAlert('success', message);
+    };
+
+    $scope.appointmentNotUpdated = function(){
+      var message = '<strong> Not Booked !</strong>  Appointment Booked For Selected Time.';
+      $scope.showAlert('danger', message);
+    };
+
+    $scope.appointmentBooked = function(){
+      var message = '<strong> Booked !</strong>  Appointment Created Successfully.';
+      $scope.showAlert('success', message);
+    };
+
     $scope.alertOnEventClick = function(event, jsEvent, view){
       $scope.openEdit(event, jsEvent, view, '');
       // $scope.alertMessage = (event.title + ' was clicked ');
@@ -16,30 +35,34 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     /* alert on Drop */
     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
       // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+      if($scope.stopEventOverloap(event.start, event.end, event.id)){
+        $scope.appointmentNotUpdated();
+        revertFunc();
+      }else{
+         $scope.appointmentUpdated();
+      }
     };
     /* alert on Resize */
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
       // $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
     };
 
-    $scope.stopEventOverloap = function(start, end){
+    $scope.stopEventOverloap = function(start, end, event_id){
+      event_id = typeof event_id !== 'undefined' ? event_id : 0;
       for(i in $scope.events){
-        if (end > $scope.events[i].start && start < $scope.events[i].end){
-          return true;
+        if(event_id != $scope.events[i].id){
+          if (end > $scope.events[i].start && start < $scope.events[i].end){
+            return true;
+          }
         }
       }
       return false;
     };
 
-    $scope.showAlert = function (type, message) {
-      Flash.create(type, message);
-    }
-
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
         if($scope.stopEventOverloap(start, end)){
-          var message = '<strong> Not Booked !</strong>  Appointment Booked For Selected Time.';
-          $scope.showAlert('danger', message);
+          $scope.appointmentNotUpdated();
           $('#appointmentBookingCalendar').fullCalendar('unselect');
         }else{
           $scope.open(start, end, jsEvent, view, '');
@@ -131,8 +154,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
         $scope.addEvent();
-        var message = '<strong> Booked !</strong>  Appointment Created Successfully.';
-        $scope.showAlert('success', message);
+        $scope.appointmentBooked();
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

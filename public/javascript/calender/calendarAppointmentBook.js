@@ -25,10 +25,20 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
       $scope.open(start, end, jsEvent, view, '');
-    }
+    };
+
+    $scope.generateUniqueEventId = function(start_date){
+      return parseInt(start_date.format('MDDYYYY')+ '' + Math.floor(Math.random() * 10000) + 1);
+    };
 
     $scope.events = [
-      {id: 1, title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 0),stick: true},
+      {
+        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
+        title: 'Birthday Party',
+        start: new Date(y, m, d + 1, 19, 0),
+        end: new Date(y, m, d + 1, 22, 0),
+        stick: true
+      },
     ];
 
     $scope.uiConfig = {
@@ -90,6 +100,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
         $scope.events.push({
+          id: $scope.generateUniqueEventId(selectedItem.start),
           title: 'Open Sesame',
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
@@ -125,6 +136,9 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
 
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
+        if($scope.selected_event.changeCloseType){
+          $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+        }
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

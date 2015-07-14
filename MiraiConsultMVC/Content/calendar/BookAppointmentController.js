@@ -1,4 +1,4 @@
-angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
+angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore'])
   .controller('BookAppointmentCtrl',function($scope, $modal, $log) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
@@ -10,6 +10,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
     var y = date.getFullYear();
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
+      $scope.openEdit(event, jsEvent, view, '');
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
     /* alert on Drop */
@@ -24,10 +25,20 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
       $scope.open(start, end, jsEvent, view, '');
-    }
+    };
+
+    $scope.generateUniqueEventId = function(start_date){
+      return parseInt(start_date.format('MDDYYYY')+ '' + Math.floor(Math.random() * 10000) + 1);
+    };
 
     $scope.events = [
-      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 0),stick: true},
+      {
+        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
+        title: 'Birthday Party',
+        start: new Date(y, m, d + 1, 19, 0),
+        end: new Date(y, m, d + 1, 22, 0),
+        stick: true
+      },
     ];
 
     $scope.uiConfig = {
@@ -89,6 +100,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
         $scope.events.push({
+          id: $scope.generateUniqueEventId(selectedItem.start),
           title: 'Open Sesame',
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
@@ -99,59 +111,38 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap'])
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
-  });
 
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
+    $scope.openEdit = function (event, jsEvent, view, size) {
 
-angular.module('BookAppointmentApp')
-  .controller('BookAppointmentModalInstanceCtrl', function ($scope, $modalInstance, items) {
-    $scope.selected_event = items;
-    $scope.showPatient = true;
-    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
-    $scope.myOptions = [
-      { "id": 1, "label": "Conference Travel", "isDefault": true},
-      { "id": 2, "label": "IPD"},
-      { "id": 3, "label": "OPD"},
-      { "id": 4, "label": "OPT Schedule"},
-      { "id": 5, "label": "Inscheduled Emergencies"}
-    ];
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'appointmentBookingEdit.html',
+        controller: 'BookAppointmentEditModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            $scope.items = {
+              'event': event,
+              'start': event.start,
+              'end': event.end,
+              'jsEvent': jsEvent,
+              'view': view,
+              'changeCloseType': false // default type for modalInstance.result is ok() which is considered as 'true'
+            };
+            return $scope.items;
+          }
+        }
+      });
 
-    $scope.updatedObject = {
-      baseCurrencyCode: $scope.myOptions
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected_event = selectedItem;
+        if($scope.selected_event.changeCloseType){
+          $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+        }
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
     };
 
-    $scope.toggleView = function(){
-      $scope.showPatient = !$scope.showPatient;
-    }
 
-    $scope.changeType = function(){
-      $scope.toggleView();
-    }
-
-    $scope.ok = function () {
-      $modalInstance.close($scope.selected_event);
-    };
-
-    $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
-    };
-  });
-
-angular.module('BookAppointmentApp')
-.run(function($rootScope) {
-  $rootScope.model = { id: 2 };
-})
-  .directive('convertToNumber', function() {
-    return {
-      require: 'ngModel',
-      link: function(scope, element, attrs, ngModel) {
-        ngModel.$parsers.push(function(val) {
-          return parseInt(val, 10);
-        });
-        ngModel.$formatters.push(function(val) {
-          return '' + val;
-        });
-      }
-    };
   });

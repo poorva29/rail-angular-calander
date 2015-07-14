@@ -410,6 +410,11 @@
     <Content Include="Bower\components\angular-bootstrap-calendar\src\templates\calendarYearView.html" />
     <Content Include="Bower\components\angular-bootstrap-calendar\webpack.config.build.js" />
     <Content Include="Bower\components\angular-bootstrap-calendar\webpack.config.js" />
+    <Content Include="Bower\components\angular-bootstrap\ui-bootstrap-csp.css" />
+    <Content Include="Bower\components\angular-bootstrap\ui-bootstrap-tpls.js" />
+    <Content Include="Bower\components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
+    <Content Include="Bower\components\angular-bootstrap\ui-bootstrap.js" />
+    <Content Include="Bower\components\angular-bootstrap\ui-bootstrap.min.js" />
     <Content Include="Bower\components\angular-ui-calendar\src\calendar.js" />
     <Content Include="Bower\components\angular\angular-csp.css" />
     <Content Include="Bower\components\angular\angular.js" />
@@ -1164,6 +1169,8 @@
     <Content Include="Bower\components\bootstrap\README.md" />
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
+    <Content Include="Bower\components\angular-bootstrap\.bower.json" />
+    <Content Include="Bower\components\angular-bootstrap\bower.json" />
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToFileSystem.pubxml" />
     <None Include="Properties\PublishProfiles\dev.pubxml" />

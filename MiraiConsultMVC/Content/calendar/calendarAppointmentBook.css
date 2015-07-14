@@ -1,7 +1,6 @@
 .modal {
   margin: auto;
-  bottom: inherit;
-  width: 60%;
+  bottom: inherit;;
 }
 
 .modal-dialog {
@@ -22,14 +21,18 @@
   text-align: center;
 }
 
+.form-control {
+  height: 5% !important;
+}
+
 .pay-amount {
-  padding: 0;
+  width: 15%;
 }
 
 .pay-amount-by {
-  padding: 0;
+  width: 70%;
 }
 
-.margin-top-8 {
-    margin-top: 8px;
+#directives-calendar {
+    padding:50px;
 }

@@ -78,17 +78,22 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       {
         id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
         title: 'Birthday Party',
-        start: moment.utc(new Date(y, m, d + 1, 19, 30)),
-        end: moment.utc(new Date(y, m, d + 1, 22, 30)),
+        start: moment.utc(new Date(y, m, d + 2, 11, 30)),
+        end: moment.utc(new Date(y, m, d + 2, 13, 30)),
         stick: true
       },
+      {
+        start: moment.utc(new Date(y, m, d + 2, 16, 30)),
+        end: moment.utc(new Date(y, m, d + 2, 18, 30)),
+        rendering: 'background',
+      }
     ];
 
     $scope.uiConfig = {
       calendar:{
+        firstDay: new Date().getDay(),
         defaultView: 'agendaWeek',
         height: 550,
-        editable: true,
         header:{
           left: 'agendaDay agendaWeek month',
           center: 'title',

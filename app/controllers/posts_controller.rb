@@ -61,6 +61,32 @@ class PostsController < ApplicationController
     end
   end
 
+  def events
+    events_json = {
+      calendar: {
+        slot_duration: '00:45:01'
+      },
+      events: [
+        {
+          title: 'Birthday Party',
+          start:  DateTime.new(2015, 07, 17, 10, 30, 00),
+          end: DateTime.new(2015, 07, 17, 15, 30, 00) + 1.hours
+        },
+        {
+          title: 'Special Event',
+          start:  DateTime.new(2015, 07, 18, 12, 30, 00),
+          end: DateTime.new(2015, 07, 16, 18, 30, 00) + 1.hours
+        },
+        {
+          start: DateTime.now + 3.hours,
+          end: DateTime.now + 5.hours,
+          rendering: 'background'
+        }
+      ]
+    }
+    render json: events_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

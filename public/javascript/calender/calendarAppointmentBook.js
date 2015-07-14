@@ -1,5 +1,5 @@
 angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  .controller('BookAppointmentCtrl',function($scope, $modal, $log, Flash) {
+  .controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -8,6 +8,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    $scope.events = [];
 
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
@@ -74,20 +75,17 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       return parseInt(start_date.format('MDDYYYY')+ '' + Math.floor(Math.random() * 10000) + 1);
     };
 
-    $scope.events = [
-      {
-        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
-        title: 'Birthday Party',
-        start: moment.utc(new Date(y, m, d + 1, 19, 30)),
-        end: moment.utc(new Date(y, m, d + 1, 22, 30)),
+    $scope.eventsF = function (start, end, timezone, callback) {
+      var m = new Date(start).getMonth();
+      var events = [{
+        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 3))),
+        title: 'Feed Me ' + m,
+        start: moment(new Date(y, m, d + 3, 19, 30)),
+        end: moment(new Date(y, m, d + 3, 22, 30)),
         stick: true
-      },
-      {
-        start: moment.utc(new Date(y, m, d + 2, 16, 30)),
-        end: moment.utc(new Date(y, m, d + 2, 18, 30)),
-        rendering: 'background',
-      }
-    ];
+      }];
+      callback(events);
+    };
 
     $scope.uiConfig = {
       calendar:{
@@ -114,15 +112,26 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
         eventRender: $scope.eventRender,
         select: $scope.slotSelected,
         editable: true,
-        businessHours: {
-          start: '00:00', // a start time (10am)
-          end: '24:00', // an end time (12pm)
-          dow: [ 1,2,3,4,5 ] // days of week
-        },
-        selectConstraint: "businessHours",
-        eventConstraint: "businessHours"
+        timezone: 'local'
       }
     };
+
+    $scope.getInitialDate = function(){
+      $http.get("/events")
+        .success(function (response) {
+          $scope.each(response.events, function(event){
+            $scope.events.push($scope.extend(event,
+                                         {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
+                                          stick: true,
+                                          start: moment(event.start),
+                                          end: moment(event.end)
+                                         }));
+            // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+        });
+      });
+    }
+    $scope.getInitialDate();
+
     $scope.eventSources = [$scope.events];
 
     /* Modal specific changes

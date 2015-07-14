@@ -93,9 +93,9 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
 
     $scope.uiConfig = {
       calendar:{
+        firstDay: new Date().getDay(),
         defaultView: 'agendaWeek',
         height: 550,
-        editable: true,
         header:{
           left: 'agendaDay agendaWeek month',
           center: 'title',
@@ -115,7 +115,14 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
         eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRender,
         select: $scope.slotSelected,
-        editable: true
+        editable: true,
+        businessHours: {
+          start: '00:00', // a start time (10am)
+          end: '24:00', // an end time (12pm)
+          dow: [ 1,2,3,4,5 ] // days of week
+        },
+        selectConstraint: "businessHours",
+        eventConstraint: "businessHours"
       }
     };
 

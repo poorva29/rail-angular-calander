@@ -23,6 +23,12 @@ namespace MiraiConsultMVC
                 );
 
             routes.MapRoute(
+                name: "PracticeAsstHome",
+                url: "pa/",
+                defaults: new { controller = "PA", action = "Index" }
+            );
+
+            routes.MapRoute(
               name: "complete_payment",
               url: "complete_payment",
               defaults: new { controller = "cca_payment", action = "CompletePayment" }
@@ -299,12 +305,12 @@ namespace MiraiConsultMVC
               url: "{seoQuestionText}",
               defaults: new { controller = "Patients", action = "seoQuestionDetails" }
               );
-
             routes.MapRoute(
                name: "Default",
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
            );
+        
         }
     }
 }

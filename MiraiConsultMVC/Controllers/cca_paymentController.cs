@@ -82,6 +82,7 @@ namespace MiraiConsultMVC.Controllers
                         appointment.cca_order = Convert.ToString(Params["order_id"]);
                         appointment.ispaid = true;
                         appointment.cca_paid_on = System.DateTime.Now;
+                        appointment.lastmodifiedat = System.DateTime.Now;
                         context.SaveChanges();
                     }
                     doctorId = appointment.doctorid;

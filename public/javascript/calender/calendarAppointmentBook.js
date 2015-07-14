@@ -78,8 +78,8 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       {
         id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
         title: 'Birthday Party',
-        start: moment.utc(new Date(y, m, d + 2, 11, 30)),
-        end: moment.utc(new Date(y, m, d + 2, 13, 30)),
+        start: moment.utc(new Date(y, m, d + 1, 19, 30)),
+        end: moment.utc(new Date(y, m, d + 1, 22, 30)),
         stick: true
       },
       {
@@ -113,7 +113,14 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
         eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRender,
         select: $scope.slotSelected,
-        editable: true
+        editable: true,
+        businessHours: {
+          start: '00:00', // a start time (10am)
+          end: '24:00', // an end time (12pm)
+          dow: [ 1,2,3,4,5 ] // days of week
+        },
+        selectConstraint: "businessHours",
+        eventConstraint: "businessHours"
       }
     };
     $scope.eventSources = [$scope.events];

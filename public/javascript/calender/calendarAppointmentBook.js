@@ -33,18 +33,19 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
     /* alert on Drop */
-    $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+    $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
       // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
       if($scope.stopEventOverloap(event.start, event.end, event.id)){
         $scope.appointmentNotUpdated();
         revertFunc();
       }else{
-         $scope.appointmentUpdated();
+        $scope.appointmentUpdated();
+        var eventInSource = $scope.findWhere($scope.events, {id: event.id});
+        if(eventInSource){
+          eventInSource.start = event.start;
+          eventInSource.end = event.end;
+        }
       }
-    };
-    /* alert on Resize */
-    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
-      // $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
     };
 
     $scope.stopEventOverloap = function(start, end, event_id){
@@ -103,10 +104,11 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
         selectable: true,
         selectOverlap: false,
         eventClick: $scope.alertOnEventClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize,
+        eventDrop: $scope.alertOnDropOrResize,
+        eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRender,
-        select: $scope.slotSelected
+        select: $scope.slotSelected,
+        editable: true
       }
     };
     $scope.eventSources = [$scope.events];

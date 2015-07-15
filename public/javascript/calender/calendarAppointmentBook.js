@@ -116,16 +116,25 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       }
     };
 
+    $scope.formatEvent = function(event){
+      $scope.extend(event,{
+                            stick: true,
+                            start: moment(event.start),
+                            end: moment(event.end)
+                          });
+      if(event.event_type == 'booking'){
+        $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
+      }else{
+        $scope.extend(event,{rendering: 'background'});
+      }
+      return event;
+    };
+
     $scope.getInitialDate = function(){
       $http.get("/events")
         .success(function (response) {
           $scope.each(response.events, function(event){
-            $scope.events.push($scope.extend(event,
-                                         {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1))),
-                                          stick: true,
-                                          start: moment(event.start),
-                                          end: moment(event.end)
-                                         }));
+            $scope.events.push($scope.formatEvent(event));
             // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
         });
       });

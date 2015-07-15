@@ -5,7 +5,9 @@ Training::Application.routes.draw do
   get 'ui_calendar' => 'posts#index'
   resources :posts
   root :to => 'posts#index'
+
   get 'events' => 'posts#events'
+  get 'doctor_locations' => 'posts#doctor_locations'
   # get '/' => 'pages#index'
   # root :to => 'pages#index'
 

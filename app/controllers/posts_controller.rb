@@ -61,39 +61,96 @@ class PostsController < ApplicationController
     end
   end
 
-  def events
-    events_json = {
-      calendar: {
-        slot_duration: '00:45:00'
+  def doctor_locations
+    docloc_json = [
+      {
+        id: '1',
+        name: 'Poorva Mahajan',
+        locations: [
+          { id: 3, name: 'Akurdi' },
+          { id: 4, name: 'Kalyani Nagar' }
+        ]
       },
-      events: [
-        {
-          start:  DateTime.new(2015, 07, 17, 10, 30, 00),
-          end: DateTime.new(2015, 07, 17, 15, 30, 00) + 1.hours,
-          event_type: 'blocked',
-          event_details: {
-            blocked_for: 'OPD',
-            subject: 'foo'
-          }
+      {
+        id: '2',
+        name: 'Rutuja Khanpekar',
+        locations: [
+          { id: 5, name: 'Swargate' },
+          { id: 6, name: 'Dahanukar' }
+        ]
+      }
+    ]
+    render json: docloc_json
+  end
+
+  def events
+    if params[:location].eql?('3') || params[:location].eql?('5')
+      events_json = {
+        calendar: {
+          slot_duration: '00:45:00'
         },
-        {
-          start:  DateTime.new(2015, 07, 18, 12, 30, 00),
-          end: DateTime.new(2015, 07, 18, 14, 30, 00) + 1.hours,
-          event_type: 'booking',
-          event_details: {
-            first_name: 'Poorva',
-            last_name: 'Mahajan',
-            subject: 'boo'
+        events: [
+          {
+            start:  DateTime.new(2015, 07, 18, 10, 30, 00),
+            end: DateTime.new(2015, 07, 18, 15, 30, 00) + 1.hours,
+            event_type: 'blocked',
+            event_details: {
+              blocked_for: 'OPD',
+              subject: 'foo'
+            }
+          },
+          {
+            start:  DateTime.new(2015, 07, 19, 12, 30, 00),
+            end: DateTime.new(2015, 07, 19, 14, 30, 00) + 1.hours,
+            event_type: 'booking',
+            event_details: {
+              first_name: 'Poorva',
+              last_name: 'Mahajan',
+              subject: 'boo'
+            }
+          },
+          {
+            start: DateTime.now + 1.hours,
+            end: DateTime.now + 4.hours,
+            event_type: 'non-working',
+            event_details: {}
           }
+        ]
+      }
+    else
+      events_json = {
+        calendar: {
+          slot_duration: '00:45:00'
         },
-        {
-          start: DateTime.now + 3.hours,
-          end: DateTime.now + 5.hours,
-          event_type: 'non-working',
-          event_details: {}
-        }
-      ]
-    }
+        events: [
+          {
+            start:  DateTime.new(2015, 07, 17, 10, 30, 00),
+            end: DateTime.new(2015, 07, 17, 15, 30, 00) + 1.hours,
+            event_type: 'blocked',
+            event_details: {
+              blocked_for: 'OPD',
+              subject: 'foo'
+            }
+          },
+          {
+            start:  DateTime.new(2015, 07, 18, 12, 30, 00),
+            end: DateTime.new(2015, 07, 18, 14, 30, 00) + 1.hours,
+            event_type: 'booking',
+            event_details: {
+              first_name: 'Rutuja',
+              last_name: 'Khanpekar',
+              subject: 'boo'
+            }
+          },
+          {
+            start: DateTime.now + 1.hours,
+            end: DateTime.now + 3.hours,
+            event_type: 'non-working',
+            event_details: {}
+          }
+        ]
+      }
+    end
     render json: events_json
   end
 

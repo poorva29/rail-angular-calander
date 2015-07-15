@@ -1,5 +1,6 @@
-angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  .controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
+var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash']);
+// angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -9,6 +10,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     var m = date.getMonth();
     var y = date.getFullYear();
     $scope.events = [];
+    $scope.showCalendar = false;
 
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
@@ -154,9 +156,11 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       return event;
     };
 
-    $scope.getInitialDate = function(){
-      $http.get("/events")
+    $scope.getInitialData = function(locationId){
+      $http.get('/events', {params: {location: locationId}})
         .success(function (response) {
+          $('appointmentBookingCalendar').fullCalendar( 'removeEvents');
+          $scope.events.splice(0,$scope.events.length)
           $scope.each(response.events, function(event){
             $scope.events.push($scope.formatEvent(event));
             // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
@@ -164,7 +168,14 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       });
     };
 
-    $scope.getInitialDate();
+    $scope.$on("doctorLocation", function (event, args) {
+      if(args.locationId){
+        $scope.getInitialData(args.locationId);
+        $scope.showCalendar = true;
+      }else{
+        $scope.showCalendar = false;
+      }
+    });
 
     $scope.eventSources = [$scope.events];
 

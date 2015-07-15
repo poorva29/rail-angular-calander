@@ -32,3 +32,13 @@
 .pay-amount-by {
   width: 70%;
 }
+
+.doctor-location-label {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+.doctor-location-select{
+  min-width: 160px;
+}

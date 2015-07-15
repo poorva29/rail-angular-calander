@@ -57,12 +57,12 @@ angular.module('BookAppointmentApp')
     }
 
     $scope.ok = function () {
-      $scope.startTime.setDate($scope.dt.getDate());
-      $scope.startTime.setMonth($scope.dt.getMonth());
-      $scope.startTime.setFullYear($scope.dt.getFullYear());
-      $scope.endTime.setDate($scope.dt.getDate());
-      $scope.endTime.setMonth($scope.dt.getMonth());
-      $scope.endTime.setFullYear($scope.dt.getFullYear());
+      $scope.startTime.setDate($scope.current_date.getDate());
+      $scope.startTime.setMonth($scope.current_date.getMonth());
+      $scope.startTime.setFullYear($scope.current_date.getFullYear());
+      $scope.endTime.setDate($scope.current_date.getDate());
+      $scope.endTime.setMonth($scope.current_date.getMonth());
+      $scope.endTime.setFullYear($scope.current_date.getFullYear());
 
       $scope.selected_event.event.start = $scope.startTime;
       $scope.selected_event.event.end = $scope.endTime;
@@ -79,12 +79,12 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.currentDay = function() {
-      $scope.dt = new Date($scope.selected_event.start);
+      $scope.current_date = new Date($scope.selected_event.start);
     };
     $scope.currentDay();
 
     $scope.clear = function () {
-      $scope.dt = null;
+      $scope.current_date = null;
     };
 
     $scope.open = function($event) {

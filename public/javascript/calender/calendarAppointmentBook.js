@@ -39,12 +39,12 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     /* alert on Drop */
     $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
       // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
-      if($scope.stopEventOverloap(event.start, event.end, event.event_id)){
+      if($scope.stopEventOverloap(event.start, event.end, event.id)){
         $scope.appointmentNotUpdated();
         revertFunc();
       }else{
         $scope.appointmentUpdated();
-        var eventInSource = $scope.findWhere($scope.events, {event_id: event.event_id});
+        var eventInSource = $scope.findWhere($scope.events, {id: event.id});
         if(eventInSource){
           eventInSource.start = event.start;
           eventInSource.end = event.end;
@@ -52,10 +52,10 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       }
     };
 
-    $scope.stopEventOverloap = function(start, end, event_id){
-      event_id = typeof event_id !== 'undefined' ? event_id : 0;
+    $scope.stopEventOverloap = function(start, end, id){
+      id = typeof id !== 'undefined' ? id : 0;
       for(i in $scope.events){
-        if(event_id != $scope.events[i].event_id){
+        if(id != $scope.events[i].id){
           if (end > $scope.events[i].start && start < $scope.events[i].end){
             return true;
           }
@@ -78,18 +78,17 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       return parseInt(start_date.format('MDDYYYY')+ '' + Math.floor(Math.random() * 10000) + 1);
     };
 
-    $http.get('jsons/appointments.json').success(function (data){
-      var appointments = data;
-
-      angular.forEach(appointments.events, function(app){
-          app.event_id = $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)));
-          app.start = new Date(app.start);
-          app.end = new Date(app.end);
-          app.stick = true;
-          // app.constraint= 'available_hours';
-          $scope.events.push(app);
-      });
-    });
+    $scope.eventsF = function (start, end, timezone, callback) {
+      var m = new Date(start).getMonth();
+      var events = [{
+        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 3))),
+        title: 'Feed Me ' + m,
+        start: moment(new Date(y, m, d + 3, 19, 30)),
+        end: moment(new Date(y, m, d + 3, 22, 30)),
+        stick: true
+      }];
+      callback(events);
+    };
 
     $scope.uiConfig = {
       calendar:{
@@ -116,13 +115,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
         eventRender: $scope.eventRender,
         select: $scope.slotSelected,
         editable: true,
-        businessHours: {
-          start: '00:00', // a start time (10am)
-          end: '24:00', // an end time (12pm)
-          dow: [ 1,2,3,4,5 ] // days of week
-        },
-        selectConstraint: "businessHours",
-        eventConstraint: "businessHours"
+        timezone: 'local'
       }
     };
 
@@ -131,6 +124,32 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
     slotArr[1] = slotArr[1];
     slotArr[2] = slotArr[2] != "00" ? Math.floor(slotArr[2] / 60) : 00;
     $rootScope.slot = (parseInt(slotArr[0]) + parseInt(slotArr[1]) + parseInt(slotArr[2]));
+
+    $scope.formatEvent = function(event){
+      $scope.extend(event,{
+                            stick: true,
+                            start: moment(event.start),
+                            end: moment(event.end)
+                          });
+      if(event.event_type == 'booking'){
+        $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
+      }else{
+        $scope.extend(event,{rendering: 'background'});
+      }
+      return event;
+    };
+
+    $scope.getInitialDate = function(){
+      $http.get("/events")
+        .success(function (response) {
+          $scope.each(response.events, function(event){
+            $scope.events.push($scope.formatEvent(event));
+            // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+        });
+      });
+    }
+    $scope.getInitialDate();
+
     $scope.eventSources = [$scope.events];
 
     /* Modal specific changes
@@ -164,7 +183,7 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
 
       $scope.addEvent= function(){
         $scope.events.push({
-          event_id: $scope.generateUniqueEventId($scope.selected_event.start),
+          id: $scope.generateUniqueEventId($scope.selected_event.start),
           title: 'Open Sesame',
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
@@ -208,9 +227,9 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
         if($scope.selected_event.changeCloseType){
-          $scope.events.splice($scope.findIndex($scope.events, {event_id: selectedItem.event.event_id}),1);
+          $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
         }else{
-          currentEvent = _.find($scope.events, {event_id: $scope.selected_event.event.event_id});
+          currentEvent = _.find($scope.events, {id: $scope.selected_event.event.id});
           currentEvent.start = $scope.selected_event.event.start;
           currentEvent.end = $scope.selected_event.event.end;
         }

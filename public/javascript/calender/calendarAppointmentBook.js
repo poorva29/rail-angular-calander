@@ -116,10 +116,18 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
       }
     };
 
-    $scope.addEventAttributes = function(event){
+    $scope.addPatientAttributes = function(event){
       var details = event.event_details;
       return {
         title: details.first_name + ' ' + details.last_name,
+        subject: details.subject
+      };
+    };
+
+    $scope.addDoctorAttributes = function(event){
+      var details = event.event_details;
+      return {
+        title: details.blocked_for,
         subject: details.subject
       };
     };
@@ -130,11 +138,18 @@ angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-und
                             start: moment(event.start),
                             end: moment(event.end)
                           });
-      if(event.event_type == 'booking'){
-        $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
-        $scope.extend(event, $scope.addEventAttributes(event));
-      }else{
-        $scope.extend(event,{rendering: 'background'});
+      switch(event.event_type){
+        case 'booking':
+                      $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
+                      $scope.extend(event, $scope.addPatientAttributes(event));
+                      break;
+        case 'blocked':
+                      $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
+                      $scope.extend(event, $scope.addDoctorAttributes(event));
+                      break;
+        default:
+                $scope.extend(event,{rendering: 'background'});
+
       }
       return event;
     };

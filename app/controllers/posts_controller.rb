@@ -64,16 +64,15 @@ class PostsController < ApplicationController
   def events
     events_json = {
       calendar: {
-        slot_duration: '00:45:01'
+        slot_duration: '00:45:00'
       },
       events: [
         {
           start:  DateTime.new(2015, 07, 17, 10, 30, 00),
           end: DateTime.new(2015, 07, 17, 15, 30, 00) + 1.hours,
-          event_type: 'booking',
+          event_type: 'blocked',
           event_details: {
-            first_name: 'Rutuja',
-            last_name: 'Khandpekar',
+            blocked_for: 'OPD',
             subject: 'foo'
           }
         },

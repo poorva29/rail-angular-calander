@@ -280,6 +280,10 @@ namespace MiraiConsultMVC.Controllers
                         {
                             doctorlocation.Address = locations.Address;
                         }
+                        if(!string.IsNullOrEmpty(locations.Url))
+                        {
+                            doctorlocation.Url = locations.Url;
+                        }
                         doctorDetail.locations.Add(doctorlocation);
                     }
                 }
@@ -290,7 +294,7 @@ namespace MiraiConsultMVC.Controllers
                         DoctorsDetails doctordetails = new DoctorsDetails();
                         if (!String.IsNullOrEmpty(Convert.ToString(detail.DocDetailsId)))
                         {
-                            doctordetails.DocDetailsId = Convert.ToInt32(detail.DocDetailsId);
+                            doctordetails.DocDetailsId = Convert.ToInt32(detail.DoctorDetailsId);
                         }
 
                         if (!String.IsNullOrEmpty(Convert.ToString(detail.UserId)))

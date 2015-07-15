@@ -44,5 +44,7 @@ namespace MiraiConsultMVC.EFModels
         public int? modified_by { get; set; }
 
         public DateTime? modified_on { get; set; }
+
+        public string url { get; set; }
     }
 }

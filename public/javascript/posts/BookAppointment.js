@@ -31,6 +31,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('success', message);
     };
 
+    $scope.appointmentPastDate = function(){
+      var message = '<strong> Not Booked !</strong>  Please do not select past date or time.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.alertOnEventClick = function(event, jsEvent, view){
       $scope.openEdit(event, jsEvent, view, '');
       // $scope.alertMessage = (event.title + ' was clicked ');
@@ -63,14 +68,22 @@ var app = angular.module('BookAppointmentApp');
       return false;
     };
 
+    $scope.checkValidTime = function(start_date){
+      return moment(new Date()).isAfter(start_date);
+    };
+
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
+      if($scope.checkValidTime(start)){
+        $scope.appointmentPastDate();
+      }else{
         if($scope.stopEventOverloap(start, end)){
           $scope.appointmentNotUpdated();
           $('#appointmentBookingCalendar').fullCalendar('unselect');
         }else{
           $scope.open(start, end, jsEvent, view, '');
         }
+      }
     };
 
     $scope.generateUniqueEventId = function(start_date){

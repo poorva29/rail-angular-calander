@@ -13,16 +13,7 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
-    $scope.subjectSelected = "";
-    $scope.updatedObject = "";
-    $scope.radioAppointment = "";
-    $scope.patientName = "";
-    $scope.patientNumber = "";
-    $scope.patientEmail = "";
-    $scope.paymentSelected = false;
-    $scope.prepayAmount = "";
-    $scope.prepayAmountBy = "";
-
+    
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     }

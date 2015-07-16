@@ -11,31 +11,9 @@ var app = angular.module('BookAppointmentApp');
     $scope.events = [];
     $scope.showCalendar = false;
 
-    $scope.doctor_event_info = {
-      doctor_id: '',
-      location_id: '',
-      start: '',
-      end: '',
-      subject: '',
-      appointment_type: '',
-      event_type: ''
-    };
+    $scope.doctor_event_info = {};
 
-    $scope.patient_event_info = {
-      doctor_id: '',
-      location_id: '',
-      first_name: '',
-      last_name: '',
-      mobile_number: '',
-      email: '',
-      start: '',
-      end: '',
-      subject: '',
-      prepay_amount: '',
-      prepay_date: '',
-      prepay_time: '',
-      event_type: ''
-    };
+    $scope.patient_event_info = {};
 
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
@@ -53,6 +31,11 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.appointmentBooked = function(){
       var message = '<strong> Booked !</strong>  Appointment Created Successfully.';
+      $scope.showAlert('success', message);
+    };
+
+    $scope.appointmentNotBooked = function(){
+      var message = '<strong> Not Booked !</strong> Appointment Can Not Be Created.';
       $scope.showAlert('success', message);
     };
 
@@ -245,22 +228,25 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
+      $scope.bookAppointment = function(url_to_post, event_hash){
+        $http.post(url_to_post, event_hash).success(function(response){
+          if(response.IsSuccess){
+            $scope.addEvent();
+            $scope.appointmentBooked();
+          }else{
+            $scope.appointmentNotBooked();
+          }
+        });
+      };
+
       $scope.sendDoctorInfo = function(){
         $scope.extend($scope.doctor_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-
-        $http.post('/create_doc',$scope.doctor_event_info).success(function(response){
-          $scope.addEvent();
-          $scope.appointmentBooked();
-        });
+        $scope.bookAppointment('/create_doc', $scope.doctor_event_info);
       };
 
       $scope.sendPatientInfo = function(){
         $scope.extend($scope.patient_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-
-        $http.post('/create_patient',$scope.patient_event_info).success(function(response){
-          $scope.addEvent();
-          $scope.appointmentBooked();
-        });
+        $scope.bookAppointment('/create_patient', $scope.patient_event_info);
       };
 
       modalInstance.result.then(function (selectedItem) {

@@ -155,11 +155,21 @@ class PostsController < ApplicationController
   end
 
   def create_doc
-    render :text => "Doc created"
+    doc_response = {
+      IsSuccess: true,
+      Msg: 'add success',
+      Data: '0'
+    }
+    render json: doc_response
   end
 
   def create_patient
-    render :text => "patient created"
+    patient_response = {
+      IsSuccess: true,
+      Msg: 'add success',
+      Data: '0'
+    }
+    render json: patient_response
   end
 
   private

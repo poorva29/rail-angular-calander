@@ -40,6 +40,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('success', message);
     };
 
+    $scope.appointmentPastEvent = function(){
+      var message = '<strong> Past Event !</strong> Cannot Be Updated.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
@@ -54,24 +59,28 @@ var app = angular.module('BookAppointmentApp');
     };
     /* alert on Drop */
     $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
-      if($scope.checkNotValidTime(event.start)){
-        $scope.appointmentPastDate();
+      var eventInSource = $scope.findWhere($scope.events, {id: event.id});
+      if($scope.checkNotValidTime(eventInSource.start)){
+        $scope.appointmentPastEvent();
         revertFunc();
       }else{
-        // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
-        if($scope.stopEventOverloap(event.start, event.end, event.id)){
-          $scope.appointmentNotUpdated();
+        if($scope.checkNotValidTime(event.start)){
+          $scope.appointmentPastDate();
           revertFunc();
         }else{
-          $scope.appointmentUpdated();
-          var eventInSource = $scope.findWhere($scope.events, {id: event.id});
-          if(eventInSource){
-            eventInSource.start = event.start;
-            eventInSource.end = event.end;
+          // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+          if($scope.stopEventOverloap(event.start, event.end, event.id)){
+            $scope.appointmentNotUpdated();
+            revertFunc();
+          }else{
+            $scope.appointmentUpdated();
+            if(eventInSource){
+              eventInSource.start = event.start;
+              eventInSource.end = event.end;
+            }
           }
         }
       }
-
     };
 
     $scope.stopEventOverloap = function(start, end, event_id){

@@ -31,7 +31,7 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.addPatientInfo = function(){
-      var name = $scope.patientName.split(' ');
+      var name = $scope.patientName ? $scope.patientName.split(' '): '';
       $scope.selected_event.doctor_id = 1;
       $scope.selected_event.location_id = 2;
       $scope.selected_event.first_name = name[0];

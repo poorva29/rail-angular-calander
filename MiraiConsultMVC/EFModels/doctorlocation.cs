@@ -46,6 +46,8 @@ namespace MiraiConsultMVC.EFModels
 
         public DateTime? modified_on { get; set; }
 
+        public string url { get; set; }
+
         [ForeignKey("doctorid")]
         public user Doctor { get; set; }
     }

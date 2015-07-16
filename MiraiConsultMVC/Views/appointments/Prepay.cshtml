@@ -5,11 +5,6 @@
 }
 <div class="main row-fluid">
     <div class="span12 main-outter-padding">
-        <div class="row-fluid">
-            <div class="span12 cust-header-name-text">
-                <h5 class="title cust-header-main-text-title">Prepay for appointment</h5>
-            </div>
-        </div>
         @if (Model != null)
         {
             bool paid = Model.prepayamount > 0 && Model.ispaid.GetValueOrDefault();
@@ -29,15 +24,13 @@
             {
                 <div class="row-fluid">
                     <div class="span12">
-                        <div class=" main-outter-padding toppaddingHome finddoc-title">
+                        <div class=" main-outter-padding toppaddingHome finddoc-title cust-padding-bw-row">
                             Appointment For @Model.patientname On @Model.starttime.ToString("MMMM dd, yyyy")
                         </div>
-                        <div class="span1">&nbsp;</div>
                     </div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span1"></div>
-                    <div class="span11">
+                    <div class="span12 offset3 cust-padding-bw-row">
                         <a href="#" onclick="document.getElementById('cca_payment').submit();" class="book_appt_button pad10">Pay now</a>
                     </div>
                 </div>
@@ -223,8 +216,7 @@
             if (!paid && @Model.status == 1)
             {
                 <div class="row-fluid">
-                    <div class="span1"></div>
-                    <div class="span11">
+                    <div class="span12 offset3">
                         <a href="#" onclick="document.getElementById('cca_payment').submit();" class="book_appt_button pad10">Pay now</a>
                     </div>
                 </div>

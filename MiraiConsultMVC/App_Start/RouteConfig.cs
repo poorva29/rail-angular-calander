@@ -29,6 +29,12 @@ namespace MiraiConsultMVC
             );
 
             routes.MapRoute(
+                name: "Error",
+                url: "error",
+                defaults: new { controller = "Home", action = "Error" }
+            );
+
+            routes.MapRoute(
               name: "complete_payment",
               url: "complete_payment",
               defaults: new { controller = "cca_payment", action = "CompletePayment" }

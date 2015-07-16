@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  
+
   # GET /posts
   # GET /posts.json
   def index
@@ -154,22 +154,13 @@ class PostsController < ApplicationController
     render json: events_json
   end
 
-  def create_doc
+  def book_appointment
     doc_response = {
       IsSuccess: true,
       Msg: 'add success',
       Data: '0'
     }
     render json: doc_response
-  end
-
-  def create_patient
-    patient_response = {
-      IsSuccess: true,
-      Msg: 'add success',
-      Data: '0'
-    }
-    render json: patient_response
   end
 
   private

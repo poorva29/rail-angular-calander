@@ -13,7 +13,7 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
-    
+
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     }

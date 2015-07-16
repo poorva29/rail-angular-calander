@@ -65,6 +65,10 @@ namespace Services
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/cancelUnpaidAppointment", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void cancelUnpaidAppointment();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "/PaymentConfirmationOn2Days", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void PaymentConfirmationOn2Days();
         #endregion GET
 
         #region POST

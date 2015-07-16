@@ -1,4 +1,4 @@
-var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash']);
+var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
   app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
     /* Calendar specific changes

@@ -7,7 +7,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     $scope.doctorsLocations = null;
     $scope.disableLocation = true;
 
-    $http.get("/doctor_locations")
+    $http.get("/api/calendar/doclocations")
       .success(function (response) {
         $scope.doctorsLocations = response;
         $scope.each($scope.doctorsLocations, function(doc_loc){

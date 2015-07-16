@@ -86,7 +86,7 @@ class PostsController < ApplicationController
   end
 
   def events
-    if params[:location].eql?('3') || params[:location].eql?('5')
+    if params[:location].eql?('3') || params[:location].eql?('6')
       events_json = {
         calendar: {
           slot_duration: '01:00:00'
@@ -108,6 +108,16 @@ class PostsController < ApplicationController
             event_details: {
               firstname: 'Poorva',
               lastname: 'Mahajan',
+              subject: 'boo'
+            }
+          },
+          {
+            start:  '16/07/2015 09:00',
+            end: '16/07/2015 11:00',
+            event_type: 'booking',
+            event_details: {
+              firstname: 'Test',
+              lastname: 'User',
               subject: 'boo'
             }
           },
@@ -145,6 +155,16 @@ class PostsController < ApplicationController
             }
           },
           {
+            start:  '16/07/2015 09:00',
+            end: '16/07/2015 11:00',
+            event_type: 'booking',
+            event_details: {
+              firstname: 'Test',
+              lastname: 'User',
+              subject: 'boo'
+            }
+          },
+          {
             start: '18/07/2015 08:00',
             end: '18/07/2015 10:00',
             event_type: 'non-working',
@@ -155,6 +175,25 @@ class PostsController < ApplicationController
     end
     render json: events_json
   end
+
+  def create_doc
+    doc_response = {
+      IsSuccess: true,
+      Msg: 'add success',
+      Data: '0'
+    }
+    render json: doc_response
+  end
+
+  def create_patient
+    patient_response = {
+      IsSuccess: true,
+      Msg: 'add success',
+      Data: '0'
+    }
+    render json: patient_response
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

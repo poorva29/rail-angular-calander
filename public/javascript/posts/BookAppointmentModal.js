@@ -13,7 +13,7 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
-
+    
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     }
@@ -22,7 +22,38 @@ angular.module('BookAppointmentApp')
       $scope.toggleView();
     }
 
+    $scope.addDoctorInfo = function(){
+      $scope.selected_event.doctor_id = 1;
+      $scope.selected_event.location_id = 2;
+      $scope.selected_event.subject = $scope.subjectSelected;
+      $scope.selected_event.appointment_type = $scope.updatedObject;
+      $scope.selected_event.event_type = 'blocked';
+    };
+
+    $scope.addPatientInfo = function(){
+      var name = $scope.patientName.split(' ');
+      $scope.selected_event.doctor_id = 1;
+      $scope.selected_event.location_id = 2;
+      $scope.selected_event.first_name = name[0];
+      $scope.selected_event.last_name = name[1];
+      $scope.selected_event.email = $scope.patientEmail;
+      $scope.selected_event.mobile_number = $scope.patientNumber;
+      $scope.selected_event.subject = $scope.subjectSelected;
+      $scope.selected_event.event_type = 'booking';
+      $scope.selected_event.prepay_amount = $scope.prepayAmount;
+      $scope.selected_event.prepay_date = $scope.prepayAmountBy;
+      $scope.selected_event.prepay_time = '';
+    };
+
     $scope.ok = function () {
+      switch($scope.radioAppointment.selected_type){
+        case 1:
+                $scope.addDoctorInfo();
+                break;
+        case 2:
+                $scope.addPatientInfo();
+                break;
+      }
       $modalInstance.close($scope.selected_event);
     };
 

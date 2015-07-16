@@ -31,7 +31,7 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.addPatientInfo = function(){
-      var name = $scope.patientName.split(' ');
+      var name = $scope.patientName ? $scope.patientName.split(' '): '';
       $scope.selected_event.doctor_id = 1;
       $scope.selected_event.location_id = 2;
       $scope.selected_event.first_name = name[0];
@@ -90,6 +90,49 @@ angular.module('BookAppointmentApp')
     $scope.delete = function () {
       $scope.selected_event.changeCloseType = true;
       $modalInstance.close($scope.selected_event);
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  });
+
+angular.module('BookAppointmentApp')
+  .controller('pastTimeModalInstanceCtrl', function ($scope, $modalInstance, items) {
+    $scope.selected_event = items;
+    $scope.showPatient = false; // set the showPatient = true to see patient view
+    $scope.dateSelectedToEdit = "-";
+    $scope.fromTimeEdit = '-';
+    $scope.toTimeEdit = '-';
+    $scope.subjectSelected  = '-';
+    $scope.patientName = '-';
+    $scope.patientNumber = '-';
+    $scope.patientEmail = '-';
+    $scope.dateSelectedToEdit = '-';
+    $scope.fromTimeEdit = '-';
+    $scope.toTimeEdit = '-';
+    $scope.subjectSelected = '-';
+    $scope.prepayAmount = '-';
+    $scope.prepayAmountBy = '-';
+    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    $scope.appointmentTypes = [
+      { "id": 1, "label": "Conference Travel", "isDefault": true},
+      { "id": 2, "label": "IPD"},
+      { "id": 3, "label": "OPD"},
+      { "id": 4, "label": "OPT Schedule"},
+      { "id": 5, "label": "Inscheduled Emergencies"}
+    ];
+
+    $scope.toggleView = function(){
+      $scope.showPatient = !$scope.showPatient;
+    }
+
+    $scope.changeType = function(){
+      $scope.toggleView();
+    }
+
+    $scope.ok = function () {
+      $modalInstance.close();
     };
 
     $scope.cancel = function () {

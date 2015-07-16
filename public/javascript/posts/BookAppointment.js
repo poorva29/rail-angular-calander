@@ -11,10 +11,6 @@ var app = angular.module('BookAppointmentApp');
     $scope.events = [];
     $scope.showCalendar = false;
 
-    $scope.doctor_event_info = {};
-
-    $scope.patient_event_info = {};
-
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
     };
@@ -34,27 +30,55 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('success', message);
     };
 
+    $scope.appointmentPastDate = function(){
+      var message = '<strong> Not Booked !</strong>  Please do not select past date or time.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.appointmentNotBooked = function(){
       var message = '<strong> Not Booked !</strong> Appointment Can Not Be Created.';
       $scope.showAlert('success', message);
     };
 
+    $scope.appointmentPastEvent = function(){
+      var message = '<strong> Past Event !</strong> Cannot Be Updated.';
+      $scope.showAlert('danger', message);
+    };
+
+    $scope.checkNotValidTime = function(start_date){
+      return moment(new Date()).isAfter(start_date);
+    };
+
     $scope.alertOnEventClick = function(event, jsEvent, view){
-      $scope.openEdit(event, jsEvent, view, '');
+      if($scope.checkNotValidTime(event.start)){
+        $scope.openPastTime(event, jsEvent, view, '');
+      }else{
+        $scope.openEdit(event, jsEvent, view, '');
+      }
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
     /* alert on Drop */
     $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
-      // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
-      if($scope.stopEventOverloap(event.start, event.end, event.id)){
-        $scope.appointmentNotUpdated();
+      var eventInSource = $scope.findWhere($scope.events, {id: event.id});
+      if($scope.checkNotValidTime(eventInSource.start)){
+        $scope.appointmentPastEvent();
         revertFunc();
       }else{
-        $scope.appointmentUpdated();
-        var eventInSource = $scope.findWhere($scope.events, {id: event.id});
-        if(eventInSource){
-          eventInSource.start = event.start;
-          eventInSource.end = event.end;
+        if($scope.checkNotValidTime(event.start)){
+          $scope.appointmentPastDate();
+          revertFunc();
+        }else{
+          // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+          if($scope.stopEventOverloap(event.start, event.end, event.id)){
+            $scope.appointmentNotUpdated();
+            revertFunc();
+          }else{
+            $scope.appointmentUpdated();
+            if(eventInSource){
+              eventInSource.start = event.start;
+              eventInSource.end = event.end;
+            }
+          }
         }
       }
     };
@@ -73,12 +97,17 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
+      if($scope.checkNotValidTime(start)){
+        $scope.appointmentPastDate();
+        $('#appointmentBookingCalendar').fullCalendar('unselect');
+      }else{
         if($scope.stopEventOverloap(start, end)){
           $scope.appointmentNotUpdated();
           $('#appointmentBookingCalendar').fullCalendar('unselect');
         }else{
           $scope.open(start, end, jsEvent, view, '');
         }
+      }
     };
 
     $scope.generateUniqueEventId = function(start_date){
@@ -129,7 +158,7 @@ var app = angular.module('BookAppointmentApp');
     $scope.addPatientAttributes = function(event){
       var details = event.event_details;
       return {
-        title: details.first_name + ' ' + details.last_name,
+        title: details.firstname + ' ' + details.lastname,
         subject: details.subject
       };
     };
@@ -239,27 +268,11 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
-      $scope.sendDoctorInfo = function(){
-        $scope.extend($scope.doctor_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment($scope.doctor_event_info);
-      };
-
-      $scope.sendPatientInfo = function(){
-        $scope.extend($scope.patient_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment($scope.patient_event_info);
-      };
-
       modalInstance.result.then(function (selectedItem) {
+        var event_hash = {};
         $scope.selected_event = selectedItem;
-
-        switch($scope.selected_event.event_type){
-          case 'blocked':
-                        $scope.sendDoctorInfo();
-                        break;
-          case 'booking':
-                        $scope.sendPatientInfo();
-                        break;
-        };
+        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+        $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
@@ -292,6 +305,34 @@ var app = angular.module('BookAppointmentApp');
         if($scope.selected_event.changeCloseType){
           $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
         }
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
+    $scope.openPastTime = function (event, jsEvent, view, size) {
+
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'appointmentBookingPastTime.html',
+        controller: 'pastTimeModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            $scope.items = {
+              'event': event,
+              'start': event.start,
+              'end': event.end,
+              'jsEvent': jsEvent,
+              'view': view,
+            };
+            return $scope.items;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected_event = selectedItem;
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

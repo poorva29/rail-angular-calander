@@ -66,7 +66,7 @@ namespace MiraiConsultMVC.EFModels
 
         public int? status { get; set; }
 
-        public int? usertype { get; set; }
+        public int usertype { get; set; }
 
         [StringLength(256)]
         public string photopath { get; set; }
@@ -159,5 +159,7 @@ namespace MiraiConsultMVC.EFModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hospital_admin> hospital_admin { get; set; }
+
+        public virtual ICollection<doctorlocation> doclocations { get; set; }
     }
 }

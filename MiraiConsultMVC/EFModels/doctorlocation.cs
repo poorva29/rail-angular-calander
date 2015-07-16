@@ -2,6 +2,7 @@ namespace MiraiConsultMVC.EFModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class doctorlocation
     {
@@ -44,5 +45,8 @@ namespace MiraiConsultMVC.EFModels
         public int? modified_by { get; set; }
 
         public DateTime? modified_on { get; set; }
+
+        [ForeignKey("doctorid")]
+        public user Doctor { get; set; }
     }
 }

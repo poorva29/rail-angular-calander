@@ -51,10 +51,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Git Lab Project\careapplibrary\bin\DAL.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
       <Private>True</Private>
@@ -220,6 +216,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\appointmentsController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\cca_paymentController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
@@ -315,6 +312,14 @@
     <Compile Include="Migrations\201507011202187_create_cca_payments.Designer.cs">
       <DependentUpon>201507011202187_create_cca_payments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507150946170_doclocationlink.cs" />
+    <Compile Include="Migrations\201507150946170_doclocationlink.Designer.cs">
+      <DependentUpon>201507150946170_doclocationlink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507151026117_enforce_usertype_in_users.cs" />
+    <Compile Include="Migrations\201507151026117_enforce_usertype_in_users.Designer.cs">
+      <DependentUpon>201507151026117_enforce_usertype_in_users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CustomDateModelBinder.cs" />
@@ -360,6 +365,7 @@
     <Compile Include="Utilities\CustomActionAttribute.cs" />
     <Compile Include="Utilities\EmailTemplates.cs" />
     <Compile Include="Utilities\Mail.cs" />
+    <Compile Include="Utilities\MiraiAuthorize.cs" />
     <Compile Include="Utilities\MiraiConstants.cs" />
     <Compile Include="Utilities\SMS.cs" />
     <Compile Include="Utilities\Utilities.cs" />
@@ -860,6 +866,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar\BookAppointmentController.js" />
+    <Content Include="Content\calendar\calendarAppointmentBookModal.js" />
     <Content Include="Content\chosen\chosen-sprite%402x.png" />
     <Content Include="Content\chosen\chosen-sprite.png" />
     <Content Include="Content\chosen\chosen.css" />
@@ -944,6 +951,7 @@
     <Content Include="Content\image\ua-question.png" />
     <Content Include="Content\image\UnAssignQ.jpg" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\js\angular-underscore.min.js" />
     <Content Include="Content\js\autocomplete.js" />
     <Content Include="Content\js\bootstrap-alert.js" />
     <Content Include="Content\js\bootstrap-button.js" />
@@ -972,6 +980,7 @@
     <Content Include="Content\js\jquery.dataTables.js" />
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\js\jquery.placeholder.js" />
+    <Content Include="Content\js\underscore-min.js" />
     <Content Include="Content\js\utility.js" />
     <Content Include="Content\navigation.css" />
     <Content Include="Content\TagClasses.css" />
@@ -1171,6 +1180,7 @@
     <Content Include="bower.json" />
     <Content Include="Bower\components\angular-bootstrap\.bower.json" />
     <Content Include="Bower\components\angular-bootstrap\bower.json" />
+    <Content Include="Content\js\underscore-min.map" />
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToFileSystem.pubxml" />
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -2123,6 +2133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\" />
     <Folder Include="Content\image\answerImages\" />
     <Folder Include="Content\image\DoctorPhotos\" />
     <Folder Include="Scripts\google-code-prettify\obj\Debug\" />
@@ -2180,6 +2191,18 @@
     <EmbeddedResource Include="Migrations\201507011202187_create_cca_payments.resx">
       <DependentUpon>201507011202187_create_cca_payments.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507150946170_doclocationlink.resx">
+      <DependentUpon>201507150946170_doclocationlink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507151026117_enforce_usertype_in_users.resx">
+      <DependentUpon>201507151026117_enforce_usertype_in_users.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\careapplibrary\DAL\DAL.csproj">
+      <Project>{b8478b44-d979-434d-aced-309c5c3a4873}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

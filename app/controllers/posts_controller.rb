@@ -87,12 +87,12 @@ class PostsController < ApplicationController
     if params[:location].eql?('3') || params[:location].eql?('5')
       events_json = {
         calendar: {
-          slot_duration: '00:45:00'
+          slot_duration: '01:00:00'
         },
         events: [
           {
-            start:  DateTime.new(2015, 07, 18, 10, 30, 00),
-            end: DateTime.new(2015, 07, 18, 15, 30, 00) + 1.hours,
+            start: '18/07/2015 15:00',
+            end: '18/07/2015 18:00',
             event_type: 'blocked',
             event_details: {
               blocked_for: 'OPD',
@@ -100,8 +100,8 @@ class PostsController < ApplicationController
             }
           },
           {
-            start:  DateTime.new(2015, 07, 19, 12, 30, 00),
-            end: DateTime.new(2015, 07, 19, 14, 30, 00) + 1.hours,
+            start:  '19/07/2015 11:00',
+            end: '19/07/2015 13:00',
             event_type: 'booking',
             event_details: {
               first_name: 'Poorva',
@@ -110,8 +110,8 @@ class PostsController < ApplicationController
             }
           },
           {
-            start: DateTime.now + 1.hours,
-            end: DateTime.now + 4.hours,
+            start: '20/07/2015 19:00',
+            end: '20/07/2015 21:00',
             event_type: 'non-working',
             event_details: {}
           }
@@ -120,12 +120,12 @@ class PostsController < ApplicationController
     else
       events_json = {
         calendar: {
-          slot_duration: '00:45:00'
+          slot_duration: '00:01:00'
         },
         events: [
           {
-            start:  DateTime.new(2015, 07, 17, 10, 30, 00),
-            end: DateTime.new(2015, 07, 17, 15, 30, 00) + 1.hours,
+            start:  '18/07/2015 19:00',
+            end: '18/07/2015 22:00',
             event_type: 'blocked',
             event_details: {
               blocked_for: 'OPD',
@@ -133,8 +133,8 @@ class PostsController < ApplicationController
             }
           },
           {
-            start:  DateTime.new(2015, 07, 18, 12, 30, 00),
-            end: DateTime.new(2015, 07, 18, 14, 30, 00) + 1.hours,
+            start:  '19/07/2015 13:00',
+            end: '19/07/2015 15:00',
             event_type: 'booking',
             event_details: {
               first_name: 'Rutuja',
@@ -143,8 +143,8 @@ class PostsController < ApplicationController
             }
           },
           {
-            start: DateTime.now + 1.hours,
-            end: DateTime.now + 3.hours,
+            start: '18/07/2015 08:00',
+            end: '18/07/2015 10:00',
             event_type: 'non-working',
             event_details: {}
           }

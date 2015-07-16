@@ -130,15 +130,16 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       var details = event.event_details;
       return {
         title: details.blocked_for,
-        subject: details.subject
+        subject: details.subject,
+        backgroundColor: '#58BBEC'
       };
     };
 
     $scope.formatEvent = function(event){
       $scope.extend(event,{
                             stick: true,
-                            start: moment(event.start),
-                            end: moment(event.end)
+                            start: moment(event.start, 'DD/MM/YYYY hh:mm'),
+                            end: moment(event.end, 'DD/MM/YYYY hh:mm')
                           });
       switch(event.event_type){
         case 'booking':

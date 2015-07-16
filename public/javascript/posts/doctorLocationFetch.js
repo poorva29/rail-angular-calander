@@ -25,7 +25,6 @@ var app = angular.module('BookAppointmentApp');
         if(doctorDetails){
           $scope.disableLocation = false;
           $scope.locations = doctorDetails.locations;
-          // if()
           $scope.locationId = $scope.locations[0].id;
           $scope.fetchCalenderForDoctorLocation($scope.locations[0].id);
         }

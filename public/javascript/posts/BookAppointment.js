@@ -4,13 +4,38 @@ var app = angular.module('BookAppointmentApp');
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
-
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
     $scope.events = [];
     $scope.showCalendar = false;
+
+    $scope.doctor_event_info = {
+      doctor_id: '',
+      location_id: '',
+      start: '',
+      end: '',
+      subject: '',
+      appointment_type: '',
+      event_type: ''
+    };
+
+    $scope.patient_event_info = {
+      doctor_id: '',
+      location_id: '',
+      first_name: '',
+      last_name: '',
+      mobile_number: '',
+      email: '',
+      start: '',
+      end: '',
+      subject: '',
+      prepay_amount: '',
+      prepay_date: '',
+      prepay_time: '',
+      event_type: ''
+    };
 
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
@@ -220,10 +245,35 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
+      $scope.sendDoctorInfo = function(){
+        $scope.extend($scope.doctor_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+
+        $http.post('/create_doc',$scope.doctor_event_info).success(function(response){
+          $scope.addEvent();
+          $scope.appointmentBooked();
+        });
+      };
+
+      $scope.sendPatientInfo = function(){
+        $scope.extend($scope.patient_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+
+        $http.post('/create_patient',$scope.patient_event_info).success(function(response){
+          $scope.addEvent();
+          $scope.appointmentBooked();
+        });
+      };
+
       modalInstance.result.then(function (selectedItem) {
         $scope.selected_event = selectedItem;
-        $scope.addEvent();
-        $scope.appointmentBooked();
+
+        switch($scope.selected_event.event_type){
+          case 'blocked':
+                        $scope.sendDoctorInfo();
+                        break;
+          case 'booking':
+                        $scope.sendPatientInfo();
+                        break;
+        };
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  protect_from_forgery :except => [:create_doc, :create_patient]
   # GET /posts
   # GET /posts.json
   def index
@@ -152,6 +152,14 @@ class PostsController < ApplicationController
       }
     end
     render json: events_json
+  end
+
+  def create_doc
+    render :text => "Doc created"
+  end
+
+  def create_patient
+    render :text => "patient created"
   end
 
   private

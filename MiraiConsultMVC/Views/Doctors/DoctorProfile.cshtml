@@ -1420,7 +1420,7 @@
                         var regex = /(<([^>]+)>)/ig
                        , body = telphoneno
                        , result = body.replace(regex, "");
-                        document.getElementById("txtTelephoneNo").value = result;
+                        document.getElementById("txtTelephoneNo").value = aData[11];
                         document.getElementById("txtAddress").value = aData[8];
                         document.getElementById("hdnDocLocationId").value = aData[0];
                         document.getElementById("hiddenCountryId").value = aData[2];

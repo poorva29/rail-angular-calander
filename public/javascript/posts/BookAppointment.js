@@ -134,7 +134,7 @@ var app = angular.module('BookAppointmentApp');
     $scope.addPatientAttributes = function(event){
       var details = event.event_details;
       return {
-        title: details.first_name + ' ' + details.last_name,
+        title: details.firstname + ' ' + details.lastname,
         subject: details.subject
       };
     };

@@ -65,7 +65,8 @@ class PostsController < ApplicationController
     docloc_json = [
       {
         id: '1',
-        name: 'Poorva Mahajan',
+        firstname: 'Poorva',
+        lastname: 'Mahajan',
         locations: [
           { id: 3, name: 'Akurdi' },
           { id: 4, name: 'Kalyani Nagar' }
@@ -73,7 +74,8 @@ class PostsController < ApplicationController
       },
       {
         id: '2',
-        name: 'Rutuja Khanpekar',
+        firstname: 'Rutuja',
+        lastname: 'Khanpekar',
         locations: [
           { id: 5, name: 'Swargate' },
           { id: 6, name: 'Dahanukar' }
@@ -104,8 +106,8 @@ class PostsController < ApplicationController
             end: '19/07/2015 13:00',
             event_type: 'booking',
             event_details: {
-              first_name: 'Poorva',
-              last_name: 'Mahajan',
+              firstname: 'Poorva',
+              lastname: 'Mahajan',
               subject: 'boo'
             }
           },
@@ -137,8 +139,8 @@ class PostsController < ApplicationController
             end: '19/07/2015 15:00',
             event_type: 'booking',
             event_details: {
-              first_name: 'Rutuja',
-              last_name: 'Khanpekar',
+              firstname: 'Rutuja',
+              lastname: 'Khanpekar',
               subject: 'boo'
             }
           },

@@ -1,7 +1,7 @@
 var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash']);
   app.controller('doctorLocationFetchCtrl',function($scope, $modal, $log, $http, Flash) {
     $scope.locationId = null;
-    $scope.doctors = [{id: 0, name: '----- Select -----'}];
+    $scope.doctors = [{id: 0, firstname: '----- Select -----', lastname: ''}];
     $scope.doctorId = $scope.doctors[0].id;
     $scope.locations = [];
     $scope.doctorsLocations = null;
@@ -11,7 +11,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       .success(function (response) {
         $scope.doctorsLocations = response;
         $scope.each($scope.doctorsLocations, function(doc_loc){
-          $scope.doctors.push($scope.pick(doc_loc, 'id', 'name'));
+          $scope.doctors.push($scope.pick(doc_loc, 'id', 'firstname', 'lastname'));
         });
     });
 

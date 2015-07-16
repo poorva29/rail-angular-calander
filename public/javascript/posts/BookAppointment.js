@@ -11,10 +11,6 @@ var app = angular.module('BookAppointmentApp');
     $scope.events = [];
     $scope.showCalendar = false;
 
-    $scope.doctor_event_info = {};
-
-    $scope.patient_event_info = {};
-
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
     };
@@ -252,8 +248,8 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
-      $scope.bookAppointment = function(url_to_post, event_hash){
-        $http.post(url_to_post, event_hash).success(function(response){
+      $scope.bookAppointment = function(event_hash){
+        $http.post('/book_appointment', event_hash).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent();
             $scope.appointmentBooked();
@@ -263,27 +259,11 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
-      $scope.sendDoctorInfo = function(){
-        $scope.extend($scope.doctor_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment('/create_doc', $scope.doctor_event_info);
-      };
-
-      $scope.sendPatientInfo = function(){
-        $scope.extend($scope.patient_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment('/create_patient', $scope.patient_event_info);
-      };
-
       modalInstance.result.then(function (selectedItem) {
+        var event_hash = {};
         $scope.selected_event = selectedItem;
-
-        switch($scope.selected_event.event_type){
-          case 'blocked':
-                        $scope.sendDoctorInfo();
-                        break;
-          case 'booking':
-                        $scope.sendPatientInfo();
-                        break;
-        };
+        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+        $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

@@ -176,7 +176,7 @@ class PostsController < ApplicationController
     render json: events_json
   end
 
-  def create_doc
+  def book_appointment
     doc_response = {
       IsSuccess: true,
       Msg: 'add success',
@@ -184,16 +184,6 @@ class PostsController < ApplicationController
     }
     render json: doc_response
   end
-
-  def create_patient
-    patient_response = {
-      IsSuccess: true,
-      Msg: 'add success',
-      Data: '0'
-    }
-    render json: patient_response
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

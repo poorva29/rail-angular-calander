@@ -1,6 +1,6 @@
-var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash']);
+var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker']);
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash, $rootScope) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -9,6 +9,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    var slotArr = [];
     $scope.events = [];
     $scope.showCalendar = false;
 
@@ -117,6 +118,12 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         timezone: 'local'
       }
     };
+
+    slotArr = $scope.uiConfig.calendar.slotDuration.split(':');
+    slotArr[0] = slotArr[0] != "00" ? Math.floor(slotArr[0] * 60) : 00;
+    slotArr[1] = slotArr[1];
+    slotArr[2] = slotArr[2] != "00" ? Math.floor(slotArr[2] / 60) : 00;
+    $rootScope.slot = (parseInt(slotArr[0]) + parseInt(slotArr[1]) + parseInt(slotArr[2]));
 
     $scope.addPatientAttributes = function(event){
       var details = event.event_details;
@@ -255,6 +262,10 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         $scope.selected_event = selectedItem;
         if($scope.selected_event.changeCloseType){
           $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+        }else{
+          currentEvent = _.find($scope.events, {id: $scope.selected_event.event.id});
+          currentEvent.start = $scope.selected_event.event.start;
+          currentEvent.end = $scope.selected_event.event.end;
         }
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());

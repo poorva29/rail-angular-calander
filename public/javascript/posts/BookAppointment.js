@@ -228,8 +228,8 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
-      $scope.bookAppointment = function(url_to_post, event_hash){
-        $http.post(url_to_post, event_hash).success(function(response){
+      $scope.bookAppointment = function(event_hash){
+        $http.post('/book_appointment', event_hash).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent();
             $scope.appointmentBooked();
@@ -241,12 +241,12 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.sendDoctorInfo = function(){
         $scope.extend($scope.doctor_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment('/create_doc', $scope.doctor_event_info);
+        $scope.bookAppointment($scope.doctor_event_info);
       };
 
       $scope.sendPatientInfo = function(){
         $scope.extend($scope.patient_event_info, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment('/create_patient', $scope.patient_event_info);
+        $scope.bookAppointment($scope.patient_event_info);
       };
 
       modalInstance.result.then(function (selectedItem) {

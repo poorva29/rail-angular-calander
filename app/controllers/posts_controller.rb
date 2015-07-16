@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  protect_from_forgery :except => [:create_doc, :create_patient]
+  
   # GET /posts
   # GET /posts.json
   def index

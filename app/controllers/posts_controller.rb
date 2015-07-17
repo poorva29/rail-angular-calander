@@ -216,7 +216,7 @@ class PostsController < ApplicationController
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
         subject: event[:subject],
-        appointment_type: 1,
+        appointment_type: 3,
         event_type: 'blocked'
       }
     end

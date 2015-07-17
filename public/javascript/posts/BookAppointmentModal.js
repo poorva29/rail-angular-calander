@@ -5,7 +5,7 @@ angular.module('BookAppointmentApp')
   .controller('BookAppointmentModalInstanceCtrl', function ($scope, $modalInstance, items) {
     $scope.selected_event = items;
     $scope.showPatient = true;
-    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    $scope.dateSelected = $scope.selected_event.start.format('DD MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
@@ -60,13 +60,27 @@ angular.module('BookAppointmentApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-  });
+  })
 
 angular.module('BookAppointmentApp')
-  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items) {
+  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
     $scope.selected_event = items;
     $scope.showPatient = $scope.selected_event.event_type == 'booking' ? true : false; // set the showPatient = true to see patient view
-    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    eventDetails.selecteEventSet($scope.selected_event);
+    $scope.dateSelectedToEdit = eventDetails.dateSelectedToEdit();
+    $scope.fromTimeEdit = eventDetails.fromTimeEdit();
+    $scope.toTimeEdit = eventDetails.toTimeEdit();
+    $scope.subjectSelected = eventDetails.subjectSelected();
+    if($scope.showPatient){
+      $scope.patientName = eventDetails.patientName();
+      $scope.patientNumber = eventDetails.patientNumber();
+      $scope.patientEmail = eventDetails.patientEmail();
+      $scope.paymentSelected = eventDetails.paymentSelected();
+      $scope.prepayAmount = eventDetails.prepayAmount();
+      $scope.prepayAmountBy = eventDetails.prepayAmountBy();
+    }else{
+      $scope.updatedObject = eventDetails.updatedObject();
+    }
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
@@ -77,11 +91,11 @@ angular.module('BookAppointmentApp')
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
-    }
+    };
 
     $scope.changeType = function(){
       $scope.toggleView();
-    }
+    };
 
     $scope.ok = function () {
       $modalInstance.close($scope.selected_event);
@@ -95,26 +109,79 @@ angular.module('BookAppointmentApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-  });
+  })
+  .factory('eventDetails', ['$window', function(win) {
+    var selected_event = null;
+    return {
+      selecteEventSet: function(event_hash){
+        selected_event = event_hash;
+      },
+
+      dateSelectedToEdit: function() {
+        return selected_event.start.format('DD MMM YYYY');
+      },
+
+      fromTimeEdit: function(){
+        return selected_event.start.format('hh:mm t');
+      },
+
+      toTimeEdit: function(){
+        return selected_event.end.format('hh:mm t');
+      },
+
+      subjectSelected: function(){
+        return selected_event.subject || ' - ';
+      },
+
+      patientName: function(){
+        return selected_event.firstname + ' ' + selected_event.lastname || ' - ';
+      },
+
+      patientNumber: function(){
+        return parseInt(selected_event.mobile_number || ' - ');
+      },
+
+      patientEmail: function(){
+        return selected_event.email || ' - ';
+      },
+
+      paymentSelected: function(){
+        return true;
+      },
+
+      prepayAmount: function(){
+        return selected_event.prepay_amount || ' - ';
+      },
+
+      prepayAmountBy: function(){
+        return selected_event.prepay_date + ' - ' + selected_event.prepay_time || ' - ';
+      },
+
+      updatedObject: function(){
+        return selected_event.appointment_type || 1;
+      }
+    };
+  }]);
 
 angular.module('BookAppointmentApp')
-  .controller('pastTimeModalInstanceCtrl', function ($scope, $modalInstance, items) {
+  .controller('pastTimeModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
     $scope.selected_event = items;
     $scope.showPatient = $scope.selected_event.event_type == 'booking' ? true : false; // set the showPatient = true to see patient view
-    $scope.dateSelectedToEdit = "-";
-    $scope.fromTimeEdit = '-';
-    $scope.toTimeEdit = '-';
-    $scope.subjectSelected  = '-';
-    $scope.patientName = '-';
-    $scope.patientNumber = '-';
-    $scope.patientEmail = '-';
-    $scope.dateSelectedToEdit = '-';
-    $scope.fromTimeEdit = '-';
-    $scope.toTimeEdit = '-';
-    $scope.subjectSelected = '-';
-    $scope.prepayAmount = '-';
-    $scope.prepayAmountBy = '-';
-    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    eventDetails.selecteEventSet($scope.selected_event);
+    $scope.dateSelectedToEdit = eventDetails.dateSelectedToEdit();
+    $scope.fromTimeEdit = eventDetails.fromTimeEdit();
+    $scope.toTimeEdit = eventDetails.toTimeEdit();
+    $scope.subjectSelected = eventDetails.subjectSelected();
+    if($scope.showPatient){
+      $scope.patientName = eventDetails.patientName();
+      $scope.patientNumber = eventDetails.patientNumber();
+      $scope.patientEmail = eventDetails.patientEmail();
+      $scope.paymentSelected = eventDetails.paymentSelected();
+      $scope.prepayAmount = eventDetails.prepayAmount();
+      $scope.prepayAmountBy = eventDetails.prepayAmountBy();
+    }else{
+      $scope.updatedObject = eventDetails.updatedObject();
+    }
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
@@ -125,11 +192,11 @@ angular.module('BookAppointmentApp')
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
-    }
+    };
 
     $scope.changeType = function(){
       $scope.toggleView();
-    }
+    };
 
     $scope.ok = function () {
       $modalInstance.close();

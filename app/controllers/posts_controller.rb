@@ -181,6 +181,7 @@ class PostsController < ApplicationController
   end
 
   def get_event_data
+    event = params[:event]
     if event[:event_type].eql?('booking')
       events_json = {
         id: event[:id],

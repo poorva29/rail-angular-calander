@@ -151,14 +151,14 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.addPatientAttributes = function(event){
       return {
-        title: event.firstname + ' ' + event.lastname,
+        title: event.patient_name,
         subject: event.subject
       };
     };
 
     $scope.addDoctorAttributes = function(event){
       return {
-        title: event.blocked_for,
+        title: event.appointment_type,
         subject: event.subject,
         backgroundColor: '#58BBEC'
       };
@@ -190,8 +190,10 @@ var app = angular.module('BookAppointmentApp');
           $('appointmentBookingCalendar').fullCalendar( 'removeEvents');
           $scope.events.splice(0,$scope.events.length)
           $scope.each(response.events, function(event){
-            $scope.events.push($scope.formatEvent(event));
-            // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+          $scope.events.push($scope.formatEvent(event));
+          // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+          // $scope.uiConfig.calendar.minTime = response.calendar.minTime;
+          // $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
         });
       });
     };
@@ -269,7 +271,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event,'firstname', 'lastname', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({
@@ -308,7 +310,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openPastTime = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event,'firstname', 'lastname', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({

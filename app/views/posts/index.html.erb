@@ -214,7 +214,7 @@
                   <div class="form-group">
                     <label class="control-label col-lg-2" for="name">Appointment Type*</label>
                     <div class="col-lg-8">
-                      <select ng-init="updatedObject = appointmentTypes[0].id" class="form-control" ng-model="updatedObject" ng-options="value.id as value.label group by value.group for value in appointmentTypes" convert-to-number>
+                      <select class="form-control" ng-model="updatedObject" ng-options="value.id as value.label group by value.group for value in appointmentTypes" convert-to-number>
                       </select>
                     </div>
                   </div>

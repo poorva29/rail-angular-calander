@@ -243,7 +243,8 @@ var app = angular.module('BookAppointmentApp');
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
           className: ['openSesame'],
-          stick: true
+          stick: true,
+          backgroundColor: $scope.selected_event.event_type == 'blocked' ? '#58BBEC' : ''
         });
       };
 

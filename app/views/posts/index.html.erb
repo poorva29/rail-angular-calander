@@ -50,9 +50,10 @@
           <script type="text/ng-template" id="appointmentBooking.html">
             <div class="modal-header">
               <div class="modal-title">Book Appointment</div>
+              <center class="error validation-msg-color" ng-show="submitted">Please Enter All Required Fields !</center>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" role="form">
+              <form name="appointmentForm" class="form-horizontal" role="form" novalidate>
                 <div class="form-group">
                   <label class="col-sm-4 control-label">Appointment For:</label>
                   <div class="col-sm-8">
@@ -64,19 +65,23 @@
                   <div class="form-group">
                     <label class="control-label col-lg-1" for="name">Patient Name: *</label>
                     <div class="col-lg-8">
-                      <input type="text" class="form-control" id="patientName" ng-model="patientName" placeholder="Name">
+                      <input type="text" class="form-control" name="name" ng-click="submitted = false" id="patientName" ng-model="patientName" placeholder="Name" required>
+                        <span class="error validation-msg-color" ng-show="appointmentForm.name.$error.required" ng-if='appointmentForm.name.$dirty'>Please Enter Patient Name !</span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-lg-1" for="number">Monile Number: *</label>
+                    <label class="control-label col-lg-1" for="number">Mobile Number: *</label>
                     <div class="col-lg-8">
-                      <input type="number" class="form-control" id="patientNumber" ng-model="patientNumber" placeholder="1234">
+                      <input type="number" class="form-control" name="mobile_number" ng-click="submitted = false" id="patientNumber" ng-model="patientNumber" placeholder="1234" required>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.required" ng-if='appointmentForm.mobile_number.$dirty'>Please Enter Mobile Number !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.number">Please Enter Valid Mobile Number !</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-1" for="email">Email: </label>
                     <div class="col-sm-8">
-                      <input type="email" class="form-control" id="patientEmail"  ng-model="patientEmail" placeholder="my.email@mirai.com">
+                      <input type="email" name="email" class="form-control" id="patientEmail"  ng-model="patientEmail" placeholder="my.email@mirai.com">
+                      <span class="error validation-msg-color" ng-show="appointmentForm.email.$error.email">Please Enter Valid Email !</span>
                     </div>
                   </div>
                   <div class="form-group">

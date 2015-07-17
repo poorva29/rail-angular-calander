@@ -65,7 +65,7 @@ angular.module('BookAppointmentApp')
 angular.module('BookAppointmentApp')
   .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items) {
     $scope.selected_event = items;
-    $scope.showPatient = false; // set the showPatient = true to see patient view
+    $scope.showPatient = $scope.selected_event.event_type == 'booking' ? true : false; // set the showPatient = true to see patient view
     $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
@@ -100,7 +100,7 @@ angular.module('BookAppointmentApp')
 angular.module('BookAppointmentApp')
   .controller('pastTimeModalInstanceCtrl', function ($scope, $modalInstance, items) {
     $scope.selected_event = items;
-    $scope.showPatient = false; // set the showPatient = true to see patient view
+    $scope.showPatient = $scope.selected_event.event_type == 'booking' ? true : false; // set the showPatient = true to see patient view
     $scope.dateSelectedToEdit = "-";
     $scope.fromTimeEdit = '-';
     $scope.toTimeEdit = '-';

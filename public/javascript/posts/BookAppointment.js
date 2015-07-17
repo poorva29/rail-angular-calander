@@ -45,6 +45,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('danger', message);
     };
 
+    $scope.eventCreateFailure = function(){
+      var message = '<strong> Event Creation Failure !</strong> Cannot Be Created.';
+      $scope.showAlert('danger', message);
+    }
+
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
@@ -110,20 +115,9 @@ var app = angular.module('BookAppointmentApp');
       }
     };
 
-    $scope.generateUniqueEventId = function(start_date){
-      return parseInt(start_date.format('MDDYYYY')+ '' + Math.floor(Math.random() * 10000) + 1);
-    };
-
-    $scope.eventsF = function (start, end, timezone, callback) {
-      var m = new Date(start).getMonth();
-      var events = [{
-        id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 3))),
-        title: 'Feed Me ' + m,
-        start: moment(new Date(y, m, d + 3, 19, 30)),
-        end: moment(new Date(y, m, d + 3, 22, 30)),
-        stick: true
-      }];
-      callback(events);
+    $scope.eventRenderContent = function(event, element, view){
+      if(event.subject)
+        element.find('.fc-title').append(" - " + event.subject);
     };
 
     $scope.uiConfig = {
@@ -148,7 +142,7 @@ var app = angular.module('BookAppointmentApp');
         eventClick: $scope.alertOnEventClick,
         eventDrop: $scope.alertOnDropOrResize,
         eventResize: $scope.alertOnDropOrResize,
-        eventRender: $scope.eventRender,
+        eventRender: $scope.eventRenderContent,
         select: $scope.slotSelected,
         editable: true,
         timezone: 'local'
@@ -156,18 +150,16 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.addPatientAttributes = function(event){
-      var details = event.event_details;
       return {
-        title: details.firstname + ' ' + details.lastname,
-        subject: details.subject
+        title: event.firstname + ' ' + event.lastname,
+        subject: event.subject
       };
     };
 
     $scope.addDoctorAttributes = function(event){
-      var details = event.event_details;
       return {
-        title: details.blocked_for,
-        subject: details.subject,
+        title: event.blocked_for,
+        subject: event.subject,
         backgroundColor: '#58BBEC'
       };
     };
@@ -175,16 +167,14 @@ var app = angular.module('BookAppointmentApp');
     $scope.formatEvent = function(event){
       $scope.extend(event,{
                             stick: true,
-                            start: moment(event.start, 'DD/MM/YYYY hh:mm'),
-                            end: moment(event.end, 'DD/MM/YYYY hh:mm')
+                            start: moment(event.start, 'YYYY-MM-DDThh:mm'),
+                            end: moment(event.end, 'YYYY-MM-DDThh:mm')
                           });
       switch(event.event_type){
         case 'booking':
-                      $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
                       $scope.extend(event, $scope.addPatientAttributes(event));
                       break;
         case 'blocked':
-                      $scope.extend(event, {id: $scope.generateUniqueEventId(moment(new Date(y, m, d + 1)))});
                       $scope.extend(event, $scope.addDoctorAttributes(event));
                       break;
         default:
@@ -246,9 +236,9 @@ var app = angular.module('BookAppointmentApp');
         }
       });
 
-      $scope.addEvent= function(){
+      $scope.addEvent= function(event_id){
         $scope.events.push({
-          id: $scope.generateUniqueEventId($scope.selected_event.start),
+          id: event_id,
           title: 'Open Sesame',
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
@@ -260,7 +250,7 @@ var app = angular.module('BookAppointmentApp');
       $scope.bookAppointment = function(event_hash){
         $http.post('/book_appointment', event_hash).success(function(response){
           if(response.IsSuccess){
-            $scope.addEvent();
+            $scope.addEvent(response.event_id);
             $scope.appointmentBooked();
           }else{
             $scope.appointmentNotBooked();
@@ -279,62 +269,74 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event,'firstname', 'lastname', 'subject', 'id', 'event_type')})
+        .success(function (response) {
+          if(response){
+            var modalInstance = $modal.open({
+              animation: $scope.animationsEnabled,
+              templateUrl: 'appointmentBookingEdit.html',
+              controller: 'BookAppointmentEditModalInstanceCtrl',
+              size: size,
+              resolve: {
+                items: function () {
+                  $scope.items = {
+                    'event': event,
+                    'start': event.start,
+                    'end': event.end,
+                    'jsEvent': jsEvent,
+                    'view': view,
+                    'changeCloseType': false // default type for modalInstance.result is ok() which is considered as 'true'
+                  };
+                  $scope.extend($scope.items, response);
+                  return $scope.items;
+                }
+              }
+            });
 
-      var modalInstance = $modal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'appointmentBookingEdit.html',
-        controller: 'BookAppointmentEditModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            $scope.items = {
-              'event': event,
-              'start': event.start,
-              'end': event.end,
-              'jsEvent': jsEvent,
-              'view': view,
-              'changeCloseType': false // default type for modalInstance.result is ok() which is considered as 'true'
-            };
-            return $scope.items;
+            modalInstance.result.then(function (selectedItem) {
+              $scope.selected_event = selectedItem;
+              if($scope.selected_event.changeCloseType){
+                $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+              }
+            }, function () {
+              $log.info('Modal dismissed at: ' + new Date());
+            });
+          }else{
+            $scope.eventCreateFailure();
           }
-        }
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected_event = selectedItem;
-        if($scope.selected_event.changeCloseType){
-          $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
-        }
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
+        });
     };
 
     $scope.openPastTime = function (event, jsEvent, view, size) {
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event,'firstname', 'lastname', 'subject', 'id', 'event_type')})
+        .success(function (response) {
+          if(response){
+            var modalInstance = $modal.open({
+              animation: $scope.animationsEnabled,
+              templateUrl: 'appointmentBookingPastTime.html',
+              controller: 'pastTimeModalInstanceCtrl',
+              size: size,
+              resolve: {
+                items: function () {
+                  $scope.items = {
+                    'event': event,
+                    'start': event.start,
+                    'end': event.end,
+                    'jsEvent': jsEvent,
+                    'view': view,
+                  };
+                  $scope.extend($scope.items, response);
+                  return $scope.items;
+                }
+              }
+            });
 
-      var modalInstance = $modal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'appointmentBookingPastTime.html',
-        controller: 'pastTimeModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            $scope.items = {
-              'event': event,
-              'start': event.start,
-              'end': event.end,
-              'jsEvent': jsEvent,
-              'view': view,
-            };
-            return $scope.items;
+            modalInstance.result.then(function (selectedItem) {
+              $scope.selected_event = selectedItem;
+            }, function () {
+              $log.info('Modal dismissed at: ' + new Date());
+            });
           }
-        }
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected_event = selectedItem;
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
+        })
     };
   });

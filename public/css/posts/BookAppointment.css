@@ -46,3 +46,7 @@
 .doctor-location-select{
   min-width: 160px;
 }
+
+.validation-msg-color {
+  color: red;
+}

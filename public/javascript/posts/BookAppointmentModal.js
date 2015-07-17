@@ -13,6 +13,7 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
+    $scope.submitted = false;
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
@@ -46,15 +47,23 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.ok = function () {
-      switch($scope.radioAppointment.selected_type){
-        case 1:
-                $scope.addDoctorInfo();
-                break;
-        case 2:
-                $scope.addPatientInfo();
-                break;
+      if($scope.showPatient && $scope.appointmentForm.$invalid){
+        $scope.submitted = true;
+      }else{
+        $scope.submitted = false;
       }
-      $modalInstance.close($scope.selected_event);
+
+      if(!$scope.submitted){
+        switch($scope.radioAppointment.selected_type){
+          case 1:
+                  $scope.addDoctorInfo();
+                  break;
+          case 2:
+                  $scope.addPatientInfo();
+                  break;
+        }
+        $modalInstance.close($scope.selected_event);
+      }
     };
 
     $scope.cancel = function () {

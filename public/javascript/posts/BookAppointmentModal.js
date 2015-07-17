@@ -134,7 +134,7 @@ angular.module('BookAppointmentApp')
       },
 
       patientName: function(){
-        return selected_event.firstname + ' ' + selected_event.lastname || ' - ';
+        return selected_event.patient_name || ' - ';
       },
 
       patientNumber: function(){

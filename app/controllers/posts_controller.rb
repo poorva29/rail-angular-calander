@@ -89,7 +89,9 @@ class PostsController < ApplicationController
     if params[:location].eql?('3') || params[:location].eql?('6')
       events_json = {
         calendar: {
-          slot_duration: '01:00:00'
+          slot_duration: '01:00:00',
+          minTime: '07:00:00',
+          maxTime: '23:00:00',
         },
         events: [
           {
@@ -97,7 +99,8 @@ class PostsController < ApplicationController
             start: '2015-07-18T15:00',
             end: '2015-07-18T18:00',
             event_type: 'blocked',
-            blocked_for: 'OPD',
+            appointment_type: 'OPD',
+            patient_name: '',
             subject: 'foo'
           },
           {
@@ -105,8 +108,8 @@ class PostsController < ApplicationController
             start:  '2015-07-19T11:00',
             end: '2015-07-19T13:00',
             event_type: 'booking',
-            firstname: 'Poorva',
-            lastname: 'Mahajan',
+            patient_name: 'Poorva Mahajan',
+            appointment_type: '',
             subject: 'boo'
           },
           {
@@ -114,22 +117,26 @@ class PostsController < ApplicationController
             start:  '2015-07-17T09:00',
             end: '2015-07-17T11:00',
             event_type: 'booking',
-            firstname: 'Test',
-            lastname: 'User',
+            patient_name: 'Test User',
+            appointment_type: '',
             subject: 'boo'
           },
           {
             id: 4,
             start: '2015-07-20T19:00',
             end: '2015-07-20T21:00',
-            event_type: 'non-working'
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
           }
         ]
       }
     else
       events_json = {
         calendar: {
-          slot_duration: '00:01:00'
+          slot_duration: '00:01:00',
+          minTime: '07:00:00',
+          maxTime: '23:00:00'
         },
         events: [
           {
@@ -137,7 +144,8 @@ class PostsController < ApplicationController
             start:  '2015-07-18T19:00',
             end: '2015-07-18T22:00',
             event_type: 'blocked',
-            blocked_for: 'OPD',
+            appointment_type: 'OPD',
+            patient_name: '',
             subject: 'foo'
           },
           {
@@ -145,8 +153,8 @@ class PostsController < ApplicationController
             start:  '2015-07-19T13:00',
             end: '2015-07-19T15:00',
             event_type: 'booking',
-            firstname: 'Rutuja',
-            lastname: 'Khanpekar',
+            appointment_type: '',
+            patient_name: 'Rutuja Khanpekar',
             subject: 'boo'
           },
           {
@@ -154,15 +162,17 @@ class PostsController < ApplicationController
             start:  '2015-07-17T09:00',
             end: '2015-07-17T11:00',
             event_type: 'booking',
-            firstname: 'Test',
-            lastname: 'User',
+            appointment_type: '',
+            patient_name: 'Test User',
             subject: 'boo'
           },
           {
             id: 4,
             start: '2015-07-18T08:00',
             end: '2015-07-18T10:00',
-            event_type: 'non-working'
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
           }
         ]
       }
@@ -187,8 +197,7 @@ class PostsController < ApplicationController
         id: event[:id],
         doctor_id: 1,
         location_id: 1,
-        firstname: event[:firstname],
-        lastname: event[:lastname],
+        patient_name: event[:patient_name],
         mobile_number: '9878866543',
         email: 'foo@boo.com',
         # start: 'yymmdd hh:mm:ss',

@@ -96,8 +96,8 @@ class PostsController < ApplicationController
         events: [
           {
             id: 1,
-            start: '2015-07-18T15:00',
-            end: '2015-07-18T18:00',
+            start: '2015-07-26T15:00',
+            end: '2015-07-26T18:00',
             event_type: 'blocked',
             appointment_type: 'OPD',
             patient_name: '',
@@ -105,8 +105,8 @@ class PostsController < ApplicationController
           },
           {
             id: 2,
-            start:  '2015-07-19T11:00',
-            end: '2015-07-19T13:00',
+            start:  '2015-07-25T11:00',
+            end: '2015-07-25T13:00',
             event_type: 'booking',
             patient_name: 'Poorva Mahajan',
             appointment_type: '',
@@ -114,17 +114,25 @@ class PostsController < ApplicationController
           },
           {
             id: 3,
-            start:  '2015-07-17T09:00',
-            end: '2015-07-17T11:00',
+            start:  '2015-07-24T09:00',
+            end: '2015-07-24T11:00',
             event_type: 'booking',
             patient_name: 'Test User',
             appointment_type: '',
             subject: 'boo'
           },
           {
-            id: 4,
-            start: '2015-07-20T19:00',
-            end: '2015-07-20T21:00',
+            id: -1,
+            start: '2015-07-23T19:00',
+            end: '2015-07-23T21:00',
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
+          },
+          {
+            id: -1,
+            start: '2015-07-23T8:00',
+            end: '2015-07-23T10:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
@@ -141,8 +149,8 @@ class PostsController < ApplicationController
         events: [
           {
             id: 1,
-            start:  '2015-07-18T19:00',
-            end: '2015-07-18T22:00',
+            start:  '2015-07-26T19:00',
+            end: '2015-07-26T22:00',
             event_type: 'blocked',
             appointment_type: 'OPD',
             patient_name: '',
@@ -150,8 +158,8 @@ class PostsController < ApplicationController
           },
           {
             id: 2,
-            start:  '2015-07-19T13:00',
-            end: '2015-07-19T15:00',
+            start:  '2015-07-25T13:00',
+            end: '2015-07-25T15:00',
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Rutuja Khanpekar',
@@ -159,17 +167,25 @@ class PostsController < ApplicationController
           },
           {
             id: 3,
-            start:  '2015-07-17T09:00',
-            end: '2015-07-17T11:00',
+            start:  '2015-07-24T09:00',
+            end: '2015-07-24T11:00',
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Test User',
             subject: 'boo'
           },
           {
-            id: 4,
-            start: '2015-07-18T08:00',
-            end: '2015-07-18T10:00',
+            id: -1,
+            start: '2015-07-123T08:00',
+            end: '2015-07-23T10:00',
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
+          },
+          {
+            id: -1,
+            start: '2015-07-123T12:00',
+            end: '2015-07-23T14:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''

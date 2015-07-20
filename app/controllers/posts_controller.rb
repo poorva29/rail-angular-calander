@@ -91,7 +91,7 @@ class PostsController < ApplicationController
         calendar: {
           slot_duration: '01:00:00',
           minTime: '07:00:00',
-          maxTime: '23:00:00',
+          maxTime: '23:00:00'
         },
         events: [
           {
@@ -142,7 +142,7 @@ class PostsController < ApplicationController
     else
       events_json = {
         calendar: {
-          slot_duration: '00:01:00',
+          slot_duration: '01:00:00',
           minTime: '07:00:00',
           maxTime: '23:00:00'
         },
@@ -176,7 +176,7 @@ class PostsController < ApplicationController
           },
           {
             id: -1,
-            start: '2015-07-123T08:00',
+            start: '2015-07-23T08:00',
             end: '2015-07-23T10:00',
             event_type: 'non-working',
             patient_name: '',
@@ -184,7 +184,7 @@ class PostsController < ApplicationController
           },
           {
             id: -1,
-            start: '2015-07-123T12:00',
+            start: '2015-07-23T12:00',
             end: '2015-07-23T14:00',
             event_type: 'non-working',
             patient_name: '',

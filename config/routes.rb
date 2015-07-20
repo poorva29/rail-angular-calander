@@ -6,7 +6,7 @@ Training::Application.routes.draw do
   resources :posts
   root :to => 'posts#index'
 
-  get 'events' => 'posts#events'
+  get 'api/calendar/calendar_details' => 'posts#events'
   get 'api/calendar/doclocations' => 'posts#doctor_locations'
   post 'book_appointment' => 'posts#book_appointment'
   post 'get_event_data' => 'posts#get_event_data'

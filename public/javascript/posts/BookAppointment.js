@@ -11,6 +11,13 @@ var app = angular.module('BookAppointmentApp');
     $scope.events = [];
     $scope.showCalendar = false;
 
+    $scope.viewRenderWeekAgenda = function(view, element){
+      $scope.viewStartDate = view.start.format('MM-DD-YYYY');
+      $scope.viewEndDate = view.end.format('MM-DD-YYYY');
+      if($scope.locationId)
+        $scope.getInitialData()
+    }
+
     $scope.showAlert = function (type, message) {
       Flash.create(type, message);
     };
@@ -144,6 +151,7 @@ var app = angular.module('BookAppointmentApp');
         eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRenderContent,
         select: $scope.slotSelected,
+        viewRender: $scope.viewRenderWeekAgenda,
         editable: true,
         timezone: 'local'
       }
@@ -184,23 +192,27 @@ var app = angular.module('BookAppointmentApp');
       return event;
     };
 
-    $scope.getInitialData = function(locationId){
-      $http.get('/events', {params: {location: locationId}})
+    $scope.getInitialData = function(){
+      $http.get('/api/calendar/calendar_details', {params:
+        {location: $scope.locationId,
+         start: $scope.viewStartDate,
+         end: $scope.viewEndDate
+        }})
         .success(function (response) {
-          $('appointmentBookingCalendar').fullCalendar( 'removeEvents');
           $scope.events.splice(0,$scope.events.length)
           $scope.each(response.events, function(event){
-          $scope.events.push($scope.formatEvent(event));
-          // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
-          // $scope.uiConfig.calendar.minTime = response.calendar.minTime;
-          // $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
+            $scope.events.push($scope.formatEvent(event));
+            // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+            // $scope.uiConfig.calendar.minTime = response.calendar.minTime;
+            // $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
         });
       });
     };
 
     $scope.$on("doctorLocation", function (event, args) {
-      if(args.locationId){
-        $scope.getInitialData(args.locationId);
+      $scope.locationId = args.locationId;
+      if($scope.locationId){
+        $scope.getInitialData();
         $scope.showCalendar = true;
       }else{
         $scope.showCalendar = false;

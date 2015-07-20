@@ -7,7 +7,7 @@ namespace MiraiConsultMVC.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.doctorlocations", "url", c => c.String());
+           // AddColumn("dbo.doctorlocations", "url", c => c.String());
         }
         
         public override void Down()

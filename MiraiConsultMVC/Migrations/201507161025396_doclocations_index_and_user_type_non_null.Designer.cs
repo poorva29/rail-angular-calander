@@ -7,13 +7,13 @@ namespace MiraiConsultMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class enforce_usertype_in_users : IMigrationMetadata
+    public sealed partial class doclocations_index_and_user_type_non_null : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(enforce_usertype_in_users));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(doclocations_index_and_user_type_non_null));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507151026117_enforce_usertype_in_users"; }
+            get { return "201507161025396_doclocations_index_and_user_type_non_null"; }
         }
         
         string IMigrationMetadata.Source

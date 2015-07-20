@@ -7,13 +7,13 @@ namespace MiraiConsultMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class doclocationlink : IMigrationMetadata
+    public sealed partial class appointment_type_constraint : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(doclocationlink));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(appointment_type_constraint));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507150946170_doclocationlink"; }
+            get { return "201507161218124_appointment_type_constraint"; }
         }
         
         string IMigrationMetadata.Source

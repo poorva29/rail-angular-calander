@@ -39,5 +39,51 @@ namespace MiraiConsultMVC.EFModels
         public int? modified_by { get; set; }
 
         public DateTime? modified_on { get; set; }
+
+        public int fromtimeFor(DayOfWeek day)
+        {
+            switch(day)
+            {
+                case DayOfWeek.Monday:
+                    return Monday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Tuesday:
+                    return Tuesday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Wednesday:
+                    return Wednesday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Thursday:
+                    return Thursday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Friday:
+                    return Friday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Saturday:
+                    return Saturday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                case DayOfWeek.Sunday:
+                    return Sunday.GetValueOrDefault() ? Int32.Parse(fromtime) : -1;
+                default:
+                    return -1;
+            }
+        }
+
+        public int totimeFor(DayOfWeek day)
+        {
+            switch (day)
+            {
+                case DayOfWeek.Monday:
+                    return Monday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Tuesday:
+                    return Tuesday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Wednesday:
+                    return Wednesday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Thursday:
+                    return Thursday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Friday:
+                    return Friday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Saturday:
+                    return Saturday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                case DayOfWeek.Sunday:
+                    return Sunday.GetValueOrDefault() ? Int32.Parse(totime) : -1;
+                default:
+                    return -1;
+            }
+        }
     }
 }

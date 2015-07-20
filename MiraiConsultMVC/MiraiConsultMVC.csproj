@@ -115,10 +115,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.3\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Git Lab Project\careapplibrary\bin\Model.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -224,7 +220,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\appointmentsController.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\api\CalendarController.cs" />
     <Compile Include="Controllers\cca_paymentController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
@@ -324,13 +320,13 @@
     <Compile Include="Migrations\201507151150341_add_url_in_doctorlocation.Designer.cs">
       <DependentUpon>201507151150341_add_url_in_doctorlocation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507150946170_doclocationlink.cs" />
-    <Compile Include="Migrations\201507150946170_doclocationlink.Designer.cs">
-      <DependentUpon>201507150946170_doclocationlink.cs</DependentUpon>
+    <Compile Include="Migrations\201507161025396_doclocations_index_and_user_type_non_null.cs" />
+    <Compile Include="Migrations\201507161025396_doclocations_index_and_user_type_non_null.Designer.cs">
+      <DependentUpon>201507161025396_doclocations_index_and_user_type_non_null.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507151026117_enforce_usertype_in_users.cs" />
-    <Compile Include="Migrations\201507151026117_enforce_usertype_in_users.Designer.cs">
-      <DependentUpon>201507151026117_enforce_usertype_in_users.cs</DependentUpon>
+    <Compile Include="Migrations\201507161218124_appointment_type_constraint.cs" />
+    <Compile Include="Migrations\201507161218124_appointment_type_constraint.Designer.cs">
+      <DependentUpon>201507161218124_appointment_type_constraint.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -433,6 +429,16 @@
     <Content Include="Bower\components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="Bower\components\angular-bootstrap\ui-bootstrap.js" />
     <Content Include="Bower\components\angular-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Bower\components\angular-flash-alert\.gitignore" />
+    <Content Include="Bower\components\angular-flash-alert\dist\angular-flash.css" />
+    <Content Include="Bower\components\angular-flash-alert\dist\angular-flash.js" />
+    <Content Include="Bower\components\angular-flash-alert\dist\angular-flash.min.css" />
+    <Content Include="Bower\components\angular-flash-alert\dist\angular-flash.min.js" />
+    <Content Include="Bower\components\angular-flash-alert\Gruntfile.js" />
+    <Content Include="Bower\components\angular-flash-alert\src\angular-flash.css" />
+    <Content Include="Bower\components\angular-flash-alert\src\angular-flash.js" />
+    <Content Include="Bower\components\angular-flash-alert\test\angular-flash.html" />
+    <Content Include="Bower\components\angular-flash-alert\test\angular-flash_test.js" />
     <Content Include="Bower\components\angular-ui-calendar\src\calendar.js" />
     <Content Include="Bower\components\angular\angular-csp.css" />
     <Content Include="Bower\components\angular\angular.js" />
@@ -877,8 +883,10 @@
     <Content Include="Content\bootstrap-tokenfield.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\calendar\BookAppointmentController.js" />
-    <Content Include="Content\calendar\calendarAppointmentBookModal.js" />
+    <Content Include="Content\calendar\BookAppointment.css" />
+    <Content Include="Content\calendar\BookAppointment.js" />
+    <Content Include="Content\calendar\BookAppointmentModal.js" />
+    <Content Include="Content\calendar\doctorLocationFetch.js" />
     <Content Include="Content\chosen\chosen-sprite%402x.png" />
     <Content Include="Content\chosen\chosen-sprite.png" />
     <Content Include="Content\chosen\chosen.css" />
@@ -1193,6 +1201,16 @@
     <Content Include="Bower\components\angular-bootstrap\.bower.json" />
     <Content Include="Bower\components\angular-bootstrap\bower.json" />
     <Content Include="Content\js\underscore-min.map" />
+    <Content Include="Bower\components\angular-flash-alert\.bower.json" />
+    <Content Include="Bower\components\angular-flash-alert\.editorconfig" />
+    <Content Include="Bower\components\angular-flash-alert\.jshintrc" />
+    <Content Include="Bower\components\angular-flash-alert\.travis.yml" />
+    <Content Include="Bower\components\angular-flash-alert\bower.json" />
+    <Content Include="Bower\components\angular-flash-alert\contributing.md" />
+    <Content Include="Bower\components\angular-flash-alert\LICENSE" />
+    <Content Include="Bower\components\angular-flash-alert\package.json" />
+    <Content Include="Bower\components\angular-flash-alert\src\.jshintrc" />
+    <Content Include="Bower\components\angular-flash-alert\test\.jshintrc" />
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToFileSystem.pubxml" />
     <None Include="Properties\PublishProfiles\dev.pubxml" />
@@ -1200,7 +1218,6 @@
     <None Include="Properties\PublishProfiles\prod-test.pubxml" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Properties\PublishProfiles\staging.pubxml" />
-    <Content Include="Content\calendar\calendarAppointmentBook.css" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-alert.js" />
     <Content Include="Scripts\bootstrap-button.js" />
@@ -1350,6 +1367,10 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web.dev_on_7.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Prod-test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1422,17 +1443,21 @@
     <EmbeddedResource Include="Migrations\201507151150341_add_url_in_doctorlocation.resx">
       <DependentUpon>201507151150341_add_url_in_doctorlocation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507150946170_doclocationlink.resx">
-      <DependentUpon>201507150946170_doclocationlink.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507161025396_doclocations_index_and_user_type_non_null.resx">
+      <DependentUpon>201507161025396_doclocations_index_and_user_type_non_null.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507151026117_enforce_usertype_in_users.resx">
-      <DependentUpon>201507151026117_enforce_usertype_in_users.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507161218124_appointment_type_constraint.resx">
+      <DependentUpon>201507161218124_appointment_type_constraint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\careapplibrary\DAL\DAL.csproj">
       <Project>{b8478b44-d979-434d-aced-309c5c3a4873}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\careapplibrary\Model\Model.csproj">
+      <Project>{17bddee3-1112-4459-9fb2-9cc69431bb90}</Project>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -1458,6 +1483,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-test|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dev_on_7|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>

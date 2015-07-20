@@ -97,5 +97,8 @@ namespace MiraiConsultMVC.EFModels
         {
             return cca_amount.GetValueOrDefault() - prepayamount.GetValueOrDefault();
         }
+
+        [ForeignKey("appointmenttypeid")]
+        public virtual appointmenttype appointmenttype { get; set; }
     }
 }

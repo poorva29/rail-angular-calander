@@ -1,0 +1,65 @@
+.modal {
+  margin: auto;
+  bottom: inherit;;
+}
+
+.modal-dialog {
+  width: auto;
+  margin: 0px;
+  border: none;
+}
+
+.modal-backdrop {
+  bottom:0;
+}
+
+.modal-header {
+  padding: 1%;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.form-control {
+  height: 5% !important;
+}
+
+.pay-amount {
+  width: 15%;
+}
+
+.pay-amount-by {
+  width: 70%;
+}
+
+.pay-amount-by-non-edit {
+  width: 69%;
+}
+
+.doctor-location-label {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+.doctor-location-select{
+  min-width: 160px;
+}
+
+.validation-msg-color {
+  color: red;
+}
+
+#directives-calendar {
+  width: 90%;
+  margin: 5%;
+}
+
+#doctor-location {
+  margin: 2%;
+}
+
+#calendar-butons {
+  marigin-bottom: 2%;
+}

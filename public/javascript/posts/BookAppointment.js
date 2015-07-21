@@ -136,7 +136,7 @@ var app = angular.module('BookAppointmentApp');
       calendar:{
         firstDay: new Date().getDay(),
         defaultView: 'agendaWeek',
-        height: 550,
+        height: 'auto',
         header:{
           left: 'agendaDay agendaWeek month',
           center: 'title',
@@ -144,7 +144,7 @@ var app = angular.module('BookAppointmentApp');
         },
         views: {
           agendaWeek: {
-            titleFormat: 'YYYY, MM, DD',
+            titleFormat: 'DD, MMMM YYYY',
           }
         },
         slotDuration: '01:00:00',
@@ -207,9 +207,9 @@ var app = angular.module('BookAppointmentApp');
           $scope.events.splice(0,$scope.events.length)
           $scope.each(response.events, function(event){
             $scope.events.push($scope.formatEvent(event));
-            // $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
-            // $scope.uiConfig.calendar.minTime = response.calendar.minTime;
-            // $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
+            $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+            $scope.uiConfig.calendar.minTime = response.calendar.minTime;
+            $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
         });
       });
     };

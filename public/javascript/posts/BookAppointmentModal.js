@@ -6,8 +6,8 @@ angular.module('BookAppointmentApp')
     $scope.selected_event = items;
     $scope.showPatient = true;
     $scope.dateSelected = $scope.selected_event.start.format('DD MMM YYYY, hh:mm t') + ' - ' +$scope.selected_event.end.format('hh:mm t');
+    $scope.updatedObject = [{ "id": 1, "label": "Conference Travel", "isDefault": true}]; //show default value in appointmentType dropdown
     $scope.appointmentTypes = [
-      { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
       { "id": 3, "label": "OPD"},
       { "id": 4, "label": "OPT Schedule"},
@@ -32,11 +32,9 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.addPatientInfo = function(){
-      var name = $scope.patientName ? $scope.patientName.split(' '): '';
       $scope.selected_event.doctor_id = 1;
       $scope.selected_event.location_id = 2;
-      $scope.selected_event.first_name = name[0];
-      $scope.selected_event.last_name = name[1];
+      $scope.selected_event.patient_name = $scope.patientName;
       $scope.selected_event.email = $scope.patientEmail;
       $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.subject = $scope.subjectSelected;
@@ -97,6 +95,15 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
+
+    var current_appointment_type = "";
+    $scope.subjectSelected = $scope.selected_event.subject;
+    
+    if($scope.selected_event.appointment_type){
+      current_appointment_type = $scope.findWhere($scope.appointmentTypes, {"id": $scope.selected_event.appointment_type});
+      $scope.updatedObject = current_appointment_type.label;
+      $scope.appointmentTypes = $scope.without($scope.appointmentTypes, current_appointment_type);
+    }
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;

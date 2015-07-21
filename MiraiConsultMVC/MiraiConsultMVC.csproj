@@ -1214,6 +1214,7 @@
     <None Include="Properties\PublishProfiles\consult.pubxml" />
     <None Include="Properties\PublishProfiles\ConsultToFileSystem.pubxml" />
     <None Include="Properties\PublishProfiles\dev.pubxml" />
+    <None Include="Properties\PublishProfiles\dev_on_7.pubxml" />
     <None Include="Properties\PublishProfiles\Mvc-consult.pubxml" />
     <None Include="Properties\PublishProfiles\prod-test.pubxml" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />

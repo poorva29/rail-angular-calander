@@ -16,6 +16,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		dev_on_7|Any CPU = dev_on_7|Any CPU
 		dev|Any CPU = dev|Any CPU
 		Release|Any CPU = Release|Any CPU
 		staging|Any CPU = staging|Any CPU
@@ -23,6 +24,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.dev_on_7|Any CPU.ActiveCfg = dev_on_7|Any CPU
+		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.dev_on_7|Any CPU.Build.0 = dev_on_7|Any CPU
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.dev|Any CPU.ActiveCfg = dev|Any CPU
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.dev|Any CPU.Build.0 = dev|Any CPU
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,6 +34,8 @@ Global
 		{DC4E57AB-2DD8-43AD-9C85-75DACDFB802F}.staging|Any CPU.Build.0 = staging|Any CPU
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev_on_7|Any CPU.ActiveCfg = dev_on_7|Any CPU
+		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev_on_7|Any CPU.Build.0 = dev_on_7|Any CPU
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev|Any CPU.ActiveCfg = dev|Any CPU
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.dev|Any CPU.Build.0 = dev|Any CPU
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +44,8 @@ Global
 		{B8478B44-D979-434D-ACED-309C5C3A4873}.staging|Any CPU.Build.0 = Staging|Any CPU
 		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev_on_7|Any CPU.ActiveCfg = dev_on_7|Any CPU
+		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev_on_7|Any CPU.Build.0 = dev_on_7|Any CPU
 		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev|Any CPU.ActiveCfg = dev|Any CPU
 		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.dev|Any CPU.Build.0 = dev|Any CPU
 		{17BDDEE3-1112-4459-9FB2-9CC69431BB90}.Release|Any CPU.ActiveCfg = Release|Any CPU

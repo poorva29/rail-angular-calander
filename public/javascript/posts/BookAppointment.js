@@ -62,6 +62,11 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
+      if($scope.selected_event.appointmentType){
+        event.appointmentType = $scope.selected_event.appointmentType.label;
+      }
+      event.patname = $scope.selected_event.patname;
+      event.appointmentTitle = $scope.selected_event.appointmentTitle;
       if($scope.checkNotValidTime(event.start)){
         $scope.openPastTime(event, jsEvent, view, '');
       }else{
@@ -230,6 +235,17 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.animationsEnabled = true;
 
+    $scope.bookAppointment = function(url_to_post, event_hash){
+      $http.post(url_to_post, event_hash).success(function(response){
+        if(response.IsSuccess){
+          $scope.addEvent(response.event_id);
+          $scope.appointmentBooked();
+        }else{
+          $scope.appointmentNotBooked();
+        }
+      });
+    };
+
     $scope.open = function (start, end, jsEvent, view, size) {
 
       var modalInstance = $modal.open({
@@ -251,40 +267,40 @@ var app = angular.module('BookAppointmentApp');
       });
 
       $scope.addEvent= function(event_id){
+        var title = "";
+        if($scope.selected_event.appointmentType){
+          title = $scope.selected_event.appointmentType.label;
+        }else{
+          title = $scope.selected_event.patname;
+        }
         $scope.events.push({
           id: event_id,
-          title: 'Open Sesame',
+          title: title,
+          subject: $scope.selected_event.appointmentTitle ? $scope.selected_event.appointmentTitle : "",
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
           className: ['openSesame'],
           stick: true,
-          backgroundColor: $scope.selected_event.event_type == 'blocked' ? '#58BBEC' : ''
-        });
-      };
-
-      $scope.bookAppointment = function(event_hash){
-        $http.post('/book_appointment', event_hash).success(function(response){
-          if(response.IsSuccess){
-            $scope.addEvent(response.event_id);
-            $scope.appointmentBooked();
-          }else{
-            $scope.appointmentNotBooked();
-          }
+          backgroundColor: $scope.selected_event.appointmentType ? '#58BBEC' : ''
         });
       };
 
       modalInstance.result.then(function (selectedItem) {
         var event_hash = {};
+        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
         $scope.selected_event = selectedItem;
-        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        $scope.bookAppointment(event_hash);
+        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view', 'start', 'end'));
+        if(event_hash.appointment_type){
+          event_hash.appointment_type = event_hash.appointment_type.id;
+        }
+        $scope.bookAppointment(url_to_post, event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patname', 'appointmentTitle', 'id', 'appointmentType')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({

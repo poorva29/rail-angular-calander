@@ -62,11 +62,13 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
-      if($scope.selected_event.appointmentType){
-        event.appointmentType = $scope.selected_event.appointmentType.label;
+      if($scope.selected_event){
+        if($scope.selected_event.appointmentType){
+          event.appointmentType = $scope.selected_event.appointmentType.label;
+        }
+        event.patname = $scope.selected_event.patname;
+        event.appointmentTitle = $scope.selected_event.appointmentTitle;
       }
-      event.patname = $scope.selected_event.patname;
-      event.appointmentTitle = $scope.selected_event.appointmentTitle;
       if($scope.checkNotValidTime(event.start)){
         $scope.openPastTime(event, jsEvent, view, '');
       }else{
@@ -192,7 +194,6 @@ var app = angular.module('BookAppointmentApp');
                       break;
         default:
                 $scope.extend(event,{rendering: 'background'});
-
       }
       return event;
     };

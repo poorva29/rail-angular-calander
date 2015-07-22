@@ -146,7 +146,7 @@ var app = angular.module('BookAppointmentApp');
         },
         views: {
           agendaWeek: {
-            titleFormat: 'DD, MMMM YYYY',
+            titleFormat: 'MMMM DD, YYYY',
           }
         },
         slotDuration: '01:00:00',

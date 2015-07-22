@@ -9,6 +9,7 @@
   <!-- jquery, moment, and angular have to get included before fullcalendar -->
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/bootstrap/js/tooltip.js"></script>
   <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
   <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
   <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
@@ -330,6 +331,7 @@
               <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
           </script>
+          <div id="showToolTip"></div>
           <div flash-message="5000" ></div>
           <!-- <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar"></div> -->
           <!-- <div class="alert-success" ng-show="alertMessage != undefined && alertMessage != ''">

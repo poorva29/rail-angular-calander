@@ -127,6 +127,18 @@ var app = angular.module('BookAppointmentApp');
         element.find('.fc-title').append(" - " + event.subject);
     };
 
+    $scope.nonWorkingSlot = function(date, jsEvent, view) {
+      if (jsEvent.target.classList.contains('fc-bgevent')) {
+        $('#showToolTip').tooltip({
+              html:true,
+              title:'Non-Working Slot !',
+              placement: 'top',
+              container:'body'
+        }).tooltip("show");
+        setTimeout(function(){$('#showToolTip').tooltip('hide')},2000);
+      }
+    }
+
     $scope.uiConfig = {
       calendar:{
         firstDay: new Date().getDay(),
@@ -153,7 +165,8 @@ var app = angular.module('BookAppointmentApp');
         select: $scope.slotSelected,
         viewRender: $scope.viewRenderWeekAgenda,
         editable: true,
-        timezone: 'local'
+        timezone: 'local',
+        dayClick: $scope.nonWorkingSlot
       }
     };
 
@@ -266,7 +279,7 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.addEvent= function(event_id){
         var title = '', event_type = $scope.selected_event.event_type,
-            backgroundColor = '';
+        backgroundColor = '';
         if(event_type == 'blocked'){
           title = $scope.selected_event.appointment_type.label;
           backgroundColor = '#58BBEC'

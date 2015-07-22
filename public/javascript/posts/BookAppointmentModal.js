@@ -92,6 +92,15 @@ angular.module('BookAppointmentApp')
       $scope.appointmentTypes = $scope.without($scope.appointmentTypes, current_appointment_type);
     }
 
+    var current_appointment_type = "";
+    $scope.subjectSelected = $scope.selected_event.subject;
+
+    if($scope.selected_event.appointment_type){
+      current_appointment_type = $scope.findWhere($scope.appointmentTypes, {"id": $scope.selected_event.appointment_type});
+      $scope.updatedObject = current_appointment_type.label;
+      $scope.appointmentTypes = $scope.without($scope.appointmentTypes, current_appointment_type);
+    }
+
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     };

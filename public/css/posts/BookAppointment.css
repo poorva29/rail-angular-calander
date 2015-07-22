@@ -50,3 +50,18 @@
 .validation-msg-color {
   color: red;
 }
+
+.tooltip-inner {
+  background-color: #FD7676;
+  height: 35px;
+  padding-top: 10px;
+}
+
+.tooltip-arrow {
+  display: none !important;
+}
+
+.tooltip.top {
+  margin-top: 45px;
+  margin-left: 299px;
+}

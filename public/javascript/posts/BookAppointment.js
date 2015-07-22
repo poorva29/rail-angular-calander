@@ -313,6 +313,8 @@ var app = angular.module('BookAppointmentApp');
                   break;
             case 'cretaed_date':
                   hash['cretaedDate'] = value;
+            case 'created_by':
+                  hash['createdby'] = value;
           }
           if(event_hash.event_type == 'booking'){
               switch(key){
@@ -344,7 +346,6 @@ var app = angular.module('BookAppointmentApp');
             }
           }
         });
-        hash['createdby'] = -1;
         return hash;
       };
 

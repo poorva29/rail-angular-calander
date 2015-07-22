@@ -286,10 +286,84 @@ var app = angular.module('BookAppointmentApp');
         });
       };
 
+      $scope.getDataToSend = function(event_hash){
+        var hash = {};
+        $scope.each(event_hash, function(value, key){
+          switch(key){
+            case 'doctor_id':
+                  hash['doctorId'] = value;
+                  break;
+            case 'location_id':
+                  hash['doctorlocationId'] = value;
+                  break;
+            case 'start':
+                  hash['appointmentStartTime'] = value;
+                  break;
+            case 'end':
+                  hash['appointmentEndTime'] = value;
+                  break;
+            case 'subject':
+                  hash['appointmentTitle'] = value;
+                  break;
+            case 'cancel_overlapped_event':
+                  hash['cancelOverlapped'] = value;
+                  break;
+            case 'is_all_day_event':
+                  hash['isAllDayEvent'] = value;
+                  break;
+            case 'cretaed_date':
+                  hash['cretaedDate'] = value;
+          }
+          if(event_hash.event_type == 'booking'){
+              switch(key){
+                case 'patient_name':
+                      hash['patname'] = value;
+                      break;
+                case 'mobile_number':
+                      hash['mobileno'] = value;
+                      break;
+                case 'prepay_amount':
+                      hash['prepayAmount'] = value;
+                      break;
+                case 'prepay_by':
+                      hash['prepayBy'] = value;
+                      break;
+                case 'email':
+                    hash['email'] = value;
+                    break;
+                case 'patient_type':
+                    hash['patienttype'] = value;
+                    break;
+              }
+              hash['patientId'] = "114";
+          }else if(event_hash.event_type == 'blocked'){
+            switch(key){
+              case 'appointment_type':
+                  hash['appointmentType'] = value;
+                  break;
+            }
+          }
+        });
+        hash['createdby'] = -1;
+        return hash;
+      };
+
+      $scope.bookAppointment = function(event_hash){
+        var data = $scope.getDataToSend(event_hash);
+        $http.post('/book_appointment', data).success(function(response){
+          if(response.IsSuccess){
+            $scope.addEvent(response.event_id);
+            $scope.appointmentBooked();
+          }else{
+            $scope.appointmentNotBooked();
+          }
+        });
+      };
+
       modalInstance.result.then(function (selectedItem) {
         var event_hash = {};
         $scope.selected_event = selectedItem;
-        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view', 'start', 'end'));
+        $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
         if(event_hash.appointment_type){
           event_hash.appointment_type = event_hash.appointment_type.id;
         }

@@ -312,8 +312,9 @@ var app = angular.module('BookAppointmentApp');
         return hash;
       };
 
-      $scope.bookAppointment = function(url_to_post, event_hash){
+      $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
+        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
         $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);
@@ -326,13 +327,12 @@ var app = angular.module('BookAppointmentApp');
 
       modalInstance.result.then(function (selectedItem) {
         var event_hash = {};
-        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
         if(event_hash.appointment_type){
           event_hash.appointment_type = event_hash.appointment_type.id;
         }
-        $scope.bookAppointment(url_to_post, event_hash);
+        $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

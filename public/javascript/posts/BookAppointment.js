@@ -205,12 +205,14 @@ var app = angular.module('BookAppointmentApp');
          end: $scope.viewEndDate
         }})
         .success(function (response) {
+          var minTime = response.calendar.minTime,
+          maxTime = response.calendar.maxTime;
           $scope.events.splice(0,$scope.events.length)
           $scope.each(response.events, function(event){
             $scope.events.push($scope.formatEvent(event));
             $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
-            $scope.uiConfig.calendar.minTime = response.calendar.minTime;
-            $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
+            $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
+            $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
         });
       });
     };

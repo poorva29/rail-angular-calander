@@ -251,9 +251,16 @@ var app = angular.module('BookAppointmentApp');
       });
 
       $scope.addEvent= function(event_id){
+        var title = "";
+        if($scope.selected_event.appointment_type){
+          title = $scope.selected_event.appointment_type.label;
+        }else{
+          title = $scope.selected_event.firstname + " " + ($scope.selected_event.lastname ? $scope.selected_event.lastname : "");
+        }
         $scope.events.push({
           id: event_id,
-          title: 'Open Sesame',
+          title: title,
+          subject: $scope.selected_event.subject ? $scope.selected_event.subject : "",
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
           className: ['openSesame'],
@@ -277,6 +284,9 @@ var app = angular.module('BookAppointmentApp');
         var event_hash = {};
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+        if(event_hash.appointment_type){
+          event_hash.appointment_type = event_hash.appointment_type.id;
+        }
         $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());

@@ -62,13 +62,6 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
-      if($scope.selected_event){
-        if($scope.selected_event.appointmentType){
-          event.appointmentType = $scope.selected_event.appointmentType.label;
-        }
-        event.patname = $scope.selected_event.patname;
-        event.appointmentTitle = $scope.selected_event.appointmentTitle;
-      }
       if($scope.checkNotValidTime(event.start)){
         $scope.openPastTime(event, jsEvent, view, '');
       }else{
@@ -272,9 +265,11 @@ var app = angular.module('BookAppointmentApp');
       });
 
       $scope.addEvent= function(event_id){
-        var title = "";
-        if($scope.selected_event.appointment_for == '1'){
+        var title = '', event_type = $scope.selected_event.event_type,
+            backgroundColor = '';
+        if(event_type == 'blocked'){
           title = $scope.selected_event.appointment_type.label;
+          backgroundColor = '#58BBEC'
         }else{
           title = $scope.selected_event.patient_name;
         }
@@ -286,7 +281,8 @@ var app = angular.module('BookAppointmentApp');
           end: $scope.selected_event.end,
           className: ['openSesame'],
           stick: true,
-          backgroundColor: $scope.selected_event.appointment_for == '1' ? '#58BBEC' : ''
+          backgroundColor: backgroundColor,
+          event_type: event_type
         });
       };
 
@@ -304,7 +300,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patname', 'appointmentTitle', 'id', 'appointmentType')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({
@@ -343,7 +339,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openPastTime = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({

@@ -208,31 +208,31 @@ class PostsController < ApplicationController
 
   def get_event_data
     event = params[:event]
-    if !event[:appointmentType]
+    if event[:event_type].eql?('booking')
       events_json = {
-        id: event[:id],
-        doctorId: 1,
-        doctorlocationId: 1,
-        patname: event[:patname],
-        mobileno: '9878866543',
-        email: 'foo@boo.com',
+        id: params[:id],
+        doctor_id: 1,
+        location_id: 1,
+        patient_name: event[:patient_name] || 'Just Created',
+        mobile_number: '9987766554',
+        email: 'foo@boo',
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
-        appointmentTitle: event[:appointmentTitle],
-        prepayAmount: 1234,
-        prepayBy: '2015-07-19',
+        subject: event[:subject],
+        prepay_amount: 1234,
+        prepay_date: '2015-07-19',
         prepay_time: '11:00:00',
         event_type: 'booking'
       }
     else
       events_json = {
-        id: event[:id],
-        doctorId: 1,
-        doctorlocationId: 1,
+        id: params[:id],
+        doctor_id: 1,
+        location_id: 1,
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
-        appointmentTitle: event[:appointmentTitle],
-        appointmentType: 3,
+        subject: event[:subject],
+        appointment_type: 'OPD',
         event_type: 'blocked'
       }
     end

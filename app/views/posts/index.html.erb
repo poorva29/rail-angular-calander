@@ -125,7 +125,7 @@
                     <label class="control-label col-lg-2" for="name">Appointment Type*</label>
                     <div class="col-lg-8">
                       <select ng-init="updatedObject = updatedObject[0]" class="form-control" ng-model="updatedObject" ng-options="value as value.label group by value.group for value in appointmentTypes" convert-to-number>
-  +                      <option value="" ng-model="updatedObject">{{updatedObject.label}}</option>
+                        <option value="" ng-model="updatedObject">{{updatedObject.label}}</option>
                       </select>
                     </div>
                   </div>
@@ -222,8 +222,8 @@
                     <label class="control-label col-lg-2" for="name">Appointment Type*</label>
                     <div class="col-lg-8">
                       <select class="form-control" ng-model="updatedObject" ng-options="value as value.label group by value.group for value in appointmentTypes" convert-to-number>
-  +                        <option value="" ng-model="updatedObject">{{updatedObject}}</option>
-                       </select>
+                        <option value="" ng-model="updatedObject">{{updatedObject}}</option>
+                      </select>
                     </div>
                   </div>
                 </div>

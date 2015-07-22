@@ -89,9 +89,9 @@ class PostsController < ApplicationController
     if params[:location].eql?('3') || params[:location].eql?('6')
       events_json = {
         calendar: {
-          slot_duration: '01:00:00',
-          minTime: '07:00:00',
-          maxTime: '23:00:00',
+          slot_duration: '00:15:00',
+          minTime: '1030',
+          maxTime: '2000'
         },
         events: [
           {
@@ -114,8 +114,8 @@ class PostsController < ApplicationController
           },
           {
             id: 3,
-            start:  '2015-07-24T09:00',
-            end: '2015-07-24T11:00',
+            start:  '2015-07-24T11:00',
+            end: '2015-07-24T12:00',
             event_type: 'booking',
             patient_name: 'Test User',
             appointment_type: '',
@@ -123,16 +123,16 @@ class PostsController < ApplicationController
           },
           {
             id: -1,
-            start: '2015-07-23T19:00',
-            end: '2015-07-23T21:00',
+            start: '2015-07-23T17:00',
+            end: '2015-07-23T19:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
           },
           {
             id: -1,
-            start: '2015-07-23T8:00',
-            end: '2015-07-23T10:00',
+            start: '2015-07-23T12:00',
+            end: '2015-07-23T14:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
@@ -142,15 +142,15 @@ class PostsController < ApplicationController
     else
       events_json = {
         calendar: {
-          slot_duration: '00:01:00',
-          minTime: '07:00:00',
-          maxTime: '23:00:00'
+          slot_duration: '00:15:00',
+          minTime: '900',
+          maxTime: '1830'
         },
         events: [
           {
             id: 1,
-            start:  '2015-07-26T19:00',
-            end: '2015-07-26T22:00',
+            start:  '2015-07-26T15:00',
+            end: '2015-07-26T17:00',
             event_type: 'blocked',
             appointment_type: 'OPD',
             patient_name: '',
@@ -167,7 +167,7 @@ class PostsController < ApplicationController
           },
           {
             id: 3,
-            start:  '2015-07-24T09:00',
+            start:  '2015-07-24T10:00',
             end: '2015-07-24T11:00',
             event_type: 'booking',
             appointment_type: '',
@@ -176,16 +176,16 @@ class PostsController < ApplicationController
           },
           {
             id: -1,
-            start: '2015-07-123T08:00',
-            end: '2015-07-23T10:00',
+            start: '2015-07-23T10:00',
+            end: '2015-07-23T12:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
           },
           {
             id: -1,
-            start: '2015-07-123T12:00',
-            end: '2015-07-23T14:00',
+            start: '2015-07-23T13:00',
+            end: '2015-07-23T15:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
@@ -210,12 +210,12 @@ class PostsController < ApplicationController
     event = params[:event]
     if event[:event_type].eql?('booking')
       events_json = {
-        id: event[:id],
+        id: params[:id],
         doctor_id: 1,
         location_id: 1,
-        patient_name: event[:patient_name],
-        mobile_number: '9878866543',
-        email: 'foo@boo.com',
+        patient_name: event[:patient_name] || 'Just Created',
+        mobile_number: '9987766554',
+        email: 'foo@boo',
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
         subject: event[:subject],
@@ -226,13 +226,13 @@ class PostsController < ApplicationController
       }
     else
       events_json = {
-        id: event[:id],
+        id: params[:id],
         doctor_id: 1,
         location_id: 1,
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
         subject: event[:subject],
-        appointment_type: 3,
+        appointment_type: 'OPD',
         event_type: 'blocked'
       }
     end

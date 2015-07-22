@@ -25,23 +25,23 @@ angular.module('BookAppointmentApp')
     }
 
     $scope.addInfo = function(){
-      $scope.patientId = "114";
-      $scope.selected_event.doctorId = 1;
-      $scope.selected_event.doctorlocationId = 2;
-      $scope.selected_event.cretaedDate = new Date(); //the date on which appointment is booked
-      $scope.selected_event.createdby = 1; //doctor / patient / assistant id who is creating an appointment
-      $scope.selected_event.appointmentTitle = $scope.subjectSelected;
-      $scope.selected_event.appointmentStartTime = $scope.selected_event.start;
-      $scope.selected_event.appointmentEndTime = $scope.selected_event.end;
-      $scope.selected_event.isAllDayEvent = false;
-      $scope.selected_event.appointmentType = $scope.radioAppointment.selected_type=='1' ? $scope.updatedObject : '';
-      $scope.selected_event.cancelOverlapped = false;
-      $scope.selected_event.patienttype = "unregpatient";
-      $scope.selected_event.patname = $scope.patientName;
-      $scope.selected_event.mobileno = $scope.patientNumber;
+      $scope.selected_event.doctor_id = 1;
+      $scope.selected_event.location_id = 2;
+      $scope.selected_event.cretaed_date = new Date(); //the date on which appointment is booked
+      $scope.selected_event.created_by = 1; //(doctor or patient or assistant) id who is creating an appointment
+      $scope.selected_event.subject = $scope.subjectSelected;
+      $scope.selected_event.start = $scope.selected_event.start;
+      $scope.selected_event.end = $scope.selected_event.end;
+      $scope.selected_event.is_all_day_event = false;
+      $scope.selected_event.appointment_type = $scope.updatedObject;
+      $scope.selected_event.appointment_for = $scope.radioAppointment.selected_type; // the event is created for doctor or patient
+      $scope.selected_event.cancel_overlapped_event = false;
+      $scope.selected_event.patient_type = "unregpatient";
+      $scope.selected_event.patient_name = $scope.patientName;
+      $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.email = $scope.patientEmail;
-      $scope.selected_event.prepayAmount = $scope.prepayAmount;
-      $scope.selected_event.prepayBy = $scope.prepayAmountBy;
+      $scope.selected_event.prepay_amount = $scope.prepayAmount;
+      $scope.selected_event.prepay_by = $scope.prepayAmountBy;
     }
 
     $scope.ok = function () {

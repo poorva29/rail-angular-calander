@@ -238,7 +238,9 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.animationsEnabled = true;
 
-    $scope.bookAppointment = function(url_to_post, event_hash){
+    $scope.bookAppointment = function(event_hash){
+      // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+      var url_to_post = '/book_appointment'
       $http.post(url_to_post, event_hash).success(function(response){
         if(response.IsSuccess){
           $scope.addEvent(response.event_id);
@@ -271,32 +273,31 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.addEvent= function(event_id){
         var title = "";
-        if($scope.selected_event.appointmentType){
-          title = $scope.selected_event.appointmentType.label;
+        if($scope.selected_event.appointment_for == '1'){
+          title = $scope.selected_event.appointment_type.label;
         }else{
-          title = $scope.selected_event.patname;
+          title = $scope.selected_event.patient_name;
         }
         $scope.events.push({
           id: event_id,
           title: title,
-          subject: $scope.selected_event.appointmentTitle ? $scope.selected_event.appointmentTitle : "",
+          subject: $scope.selected_event.subject ? $scope.selected_event.subject : "",
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
           className: ['openSesame'],
           stick: true,
-          backgroundColor: $scope.selected_event.appointmentType ? '#58BBEC' : ''
+          backgroundColor: $scope.selected_event.appointment_for == '1' ? '#58BBEC' : ''
         });
       };
 
       modalInstance.result.then(function (selectedItem) {
         var event_hash = {};
-        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view', 'start', 'end'));
         if(event_hash.appointment_type){
           event_hash.appointment_type = event_hash.appointment_type.id;
         }
-        $scope.bookAppointment(url_to_post, event_hash);
+        $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

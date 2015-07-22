@@ -288,70 +288,33 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.getDataToSend = function(event_hash){
         var hash = {};
-        $scope.each(event_hash, function(value, key){
-          switch(key){
-            case 'doctor_id':
-                  hash['doctorId'] = value;
-                  break;
-            case 'location_id':
-                  hash['doctorlocationId'] = value;
-                  break;
-            case 'start':
-                  hash['appointmentStartTime'] = value;
-                  break;
-            case 'end':
-                  hash['appointmentEndTime'] = value;
-                  break;
-            case 'subject':
-                  hash['appointmentTitle'] = value;
-                  break;
-            case 'cancel_overlapped_event':
-                  hash['cancelOverlapped'] = value;
-                  break;
-            case 'is_all_day_event':
-                  hash['isAllDayEvent'] = value;
-                  break;
-            case 'cretaed_date':
-                  hash['cretaedDate'] = value;
-            case 'created_by':
-                  hash['createdby'] = value;
-          }
-          if(event_hash.event_type == 'booking'){
-              switch(key){
-                case 'patient_name':
-                      hash['patname'] = value;
-                      break;
-                case 'mobile_number':
-                      hash['mobileno'] = value;
-                      break;
-                case 'prepay_amount':
-                      hash['prepayAmount'] = value;
-                      break;
-                case 'prepay_by':
-                      hash['prepayBy'] = value;
-                      break;
-                case 'email':
-                    hash['email'] = value;
-                    break;
-                case 'patient_type':
-                    hash['patienttype'] = value;
-                    break;
-              }
-              hash['patientId'] = "114";
-          }else if(event_hash.event_type == 'blocked'){
-            switch(key){
-              case 'appointment_type':
-                  hash['appointmentType'] = value;
-                  break;
-            }
-          }
-        });
+        hash['doctorId'] = event_hash.doctor_id;
+        hash['doctorlocationId'] = event_hash.location_id;
+        hash['appointmentStartTime'] = event_hash.start;
+        hash['appointmentEndTime'] = event_hash.end;
+        hash['appointmentTitle'] = event_hash.subject;
+        hash['cancelOverlapped'] = event_hash.cancel_overlapped_event;
+        hash['isAllDayEvent'] = event_hash.is_all_day_event;
+        hash['cretaedDate'] = event_hash.cretaed_date;
+        hash['createdby'] = event_hash.created_by;
+
+        if(event_hash.event_type == 'booking'){
+          hash['patname'] = event_hash.patient_name;
+          hash['mobileno'] = event_hash.mobile_number;
+          hash['prepayAmount'] = event_hash.prepay_amount;
+          hash['prepayBy'] = event_hash.prepay_by;
+          hash['email'] = event_hash.email;
+          hash['patienttype'] = event_hash.patient_type;
+          hash['patientId'] = "114";
+        }else if(event_hash.event_type == 'blocked'){
+          hash['appointmentType'] = event_hash.appointment_type;
+        }
         return hash;
       };
 
-      $scope.bookAppointment = function(event_hash){
+      $scope.bookAppointment = function(url_to_post, event_hash){
         var data = $scope.getDataToSend(event_hash);
-        $http.post('/book_appointment', data).success(function(response){
+        $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);
             $scope.appointmentBooked();
@@ -363,12 +326,13 @@ var app = angular.module('BookAppointmentApp');
 
       modalInstance.result.then(function (selectedItem) {
         var event_hash = {};
+        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
         if(event_hash.appointment_type){
           event_hash.appointment_type = event_hash.appointment_type.id;
         }
-        $scope.bookAppointment(event_hash);
+        $scope.bookAppointment(url_to_post, event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });

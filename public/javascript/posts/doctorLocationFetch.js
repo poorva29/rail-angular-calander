@@ -27,21 +27,22 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
           $scope.locations = doctorDetails.locations;
           if($scope.locations.length > 0){
             $scope.locationId = $scope.locations[0].id;
-            $scope.fetchCalenderForDoctorLocation($scope.locationId, doctorId);
+            $scope.doctorId = doctorId;
+            $scope.fetchCalenderForDoctorLocation($scope.locationId);
           }
         }
       }
     };
 
-    $scope.fetchCalenderForDoctorLocation = function(locationId, doctorId){
+    $scope.fetchCalenderForDoctorLocation = function(locationId){
       if(locationId)
-        $scope.initRestId(locationId, doctorId);
+        $scope.initRestId(locationId);
     }
 
-    $scope.initRestId = function(locationId, doctorId){
+    $scope.initRestId = function(locationId){
       $scope.$root.$broadcast("doctorLocation",{
           locationId: locationId,
-          doctorId: doctorId
+          doctorId: $scope.doctorId
         });
     };
   });

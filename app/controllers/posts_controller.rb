@@ -239,6 +239,16 @@ class PostsController < ApplicationController
     render json: events_json
   end
 
+  def post_event_data
+    doc_response = {
+      IsSuccess: true,
+      Msg: 'edit success',
+      Data: '0',
+      event_id: params[:id]
+    }
+    render json: doc_response
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

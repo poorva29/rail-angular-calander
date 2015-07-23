@@ -212,6 +212,7 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.$on("doctorLocation", function (event, args) {
       $scope.locationId = args.locationId;
+      $scope.doctorId = args.doctorId;
       if($scope.locationId){
         $scope.getInitialData();
         $scope.showCalendar = true;
@@ -363,10 +364,37 @@ var app = angular.module('BookAppointmentApp');
               }
             });
 
+            $scope.getEditedData = function(selectedItem){
+              return {
+                  'appointmentId': selectedItem.id,
+                  'appointmentTitle': selectedItem.subject,
+                  'appointmentStartTime': selectedItem.start.format('DD/MM/YYYY hh:mm'),
+                  'appointmentEndTime': selectedItem.end.format('DD/MM/YYYY hh:mm'),
+                  'isAllDayEvent':'0',
+                  'doctorId': $scope.doctorId,
+                  'doctorlocationId': $scope.locationId,
+                  "appointmentType": selectedItem.appointment_type ? selectedItem.appointment_type : '0' ,
+                  "prepayAmount": selectedItem.prepay_amount,
+                  "prepayBy": selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : '',
+                  'id': selectedItem.id
+                };
+            };
+
+            $scope.postEditedData = function(selectedItem){
+              // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/Update';
+              var url_to_post = '/post_edited_data';
+              $http.post('/post_event_data', $scope.getEditedData(selectedItem))
+                .success(function (response) {
+                  console.log('Data Posted !');
+                });
+            };
+
             modalInstance.result.then(function (selectedItem) {
               $scope.selected_event = selectedItem;
               if($scope.selected_event.changeCloseType){
                 $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+              }else{
+                $scope.postEditedData(selectedItem);
               }
             }, function () {
               $log.info('Modal dismissed at: ' + new Date());

@@ -131,7 +131,7 @@ var app = angular.module('BookAppointmentApp');
       calendar:{
         firstDay: new Date().getDay(),
         defaultView: 'agendaWeek',
-        height: 550,
+        height: 'auto',
         header:{
           left: 'agendaDay agendaWeek month',
           center: 'title',
@@ -139,7 +139,7 @@ var app = angular.module('BookAppointmentApp');
         },
         views: {
           agendaWeek: {
-            titleFormat: 'YYYY, MM, DD',
+            titleFormat: 'MMMM DD, YYYY',
           }
         },
         slotDuration: '01:00:00',
@@ -186,31 +186,33 @@ var app = angular.module('BookAppointmentApp');
                       $scope.extend(event, $scope.addDoctorAttributes(event));
                       break;
         default:
-                $scope.extend(event,{rendering: 'background'});
-
+                $scope.extend(event,{rendering: 'background', backgroundColor: '#646464'});
       }
       return event;
     };
 
     $scope.getInitialData = function(){
-      $http.get('/api/calendar/calendar_details', {params:
+      $http.get('../api/calendar/calendar_details', {params:
         {doclocation_id: $scope.locationId,
          start: $scope.viewStartDate,
          end: $scope.viewEndDate
         }})
         .success(function (response) {
-          $scope.events.splice(0,$scope.events.length)
+          var minTime = response.calendar.min.toString(),
+          maxTime = response.calendar.max.toString();
+          $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+          $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
+          $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
+          $scope.events.splice(0,$scope.events.length);
           $scope.each(response.events, function(event){
             $scope.events.push($scope.formatEvent(event));
-            $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
-            $scope.uiConfig.calendar.minTime = response.calendar.minTime;
-            $scope.uiConfig.calendar.maxTime = response.calendar.maxTime;
         });
       });
     };
 
     $scope.$on("doctorLocation", function (event, args) {
       $scope.locationId = args.locationId;
+      $scope.doctorId = args.doctorId;
       if($scope.locationId){
         $scope.getInitialData();
         $scope.showCalendar = true;
@@ -229,6 +231,19 @@ var app = angular.module('BookAppointmentApp');
     $scope.items = [];
 
     $scope.animationsEnabled = true;
+
+    $scope.bookAppointment = function(event_hash){
+      // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+      var url_to_post = '/book_appointment'
+      $http.post(url_to_post, event_hash).success(function(response){
+        if(response.IsSuccess){
+          $scope.addEvent(response.event_id);
+          $scope.appointmentBooked();
+        }else{
+          $scope.appointmentNotBooked();
+        }
+      });
+    };
 
     $scope.open = function (start, end, jsEvent, view, size) {
 
@@ -251,19 +266,57 @@ var app = angular.module('BookAppointmentApp');
       });
 
       $scope.addEvent= function(event_id){
+        var title = '', event_type = $scope.selected_event.event_type,
+            backgroundColor = '';
+        if(event_type == 'blocked'){
+          title = $scope.selected_event.appointment_type.label;
+          backgroundColor = '#58BBEC'
+        }else{
+          title = $scope.selected_event.patient_name;
+        }
         $scope.events.push({
           id: event_id,
-          title: 'Open Sesame',
+          title: title,
+          subject: $scope.selected_event.subject ? $scope.selected_event.subject : "",
           start: $scope.selected_event.start,
           end: $scope.selected_event.end,
           className: ['openSesame'],
           stick: true,
-          backgroundColor: $scope.selected_event.event_type == 'blocked' ? '#58BBEC' : ''
+          backgroundColor: backgroundColor,
+          event_type: event_type
         });
       };
 
+      $scope.getDataToSend = function(event_hash){
+        var hash = {};
+        hash['doctorId'] = event_hash.doctor_id;
+        hash['doctorlocationId'] = event_hash.location_id;
+        hash['appointmentStartTime'] = event_hash.start;
+        hash['appointmentEndTime'] = event_hash.end;
+        hash['appointmentTitle'] = event_hash.subject;
+        hash['cancelOverlapped'] = event_hash.cancel_overlapped_event;
+        hash['isAllDayEvent'] = event_hash.is_all_day_event;
+        hash['cretaedDate'] = event_hash.cretaed_date;
+        hash['createdby'] = event_hash.created_by;
+
+        if(event_hash.event_type == 'booking'){
+          hash['patname'] = event_hash.patient_name;
+          hash['mobileno'] = event_hash.mobile_number;
+          hash['prepayAmount'] = event_hash.prepay_amount;
+          hash['prepayBy'] = event_hash.prepay_by;
+          hash['email'] = event_hash.email;
+          hash['patienttype'] = event_hash.patient_type;
+          hash['patientId'] = "114";
+        }else if(event_hash.event_type == 'blocked'){
+          hash['appointmentType'] = event_hash.appointment_type;
+        }
+        return hash;
+      };
+
       $scope.bookAppointment = function(event_hash){
-        $http.post('/book_appointment', event_hash).success(function(response){
+        var data = $scope.getDataToSend(event_hash);
+        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+        $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);
             $scope.appointmentBooked();
@@ -277,6 +330,9 @@ var app = angular.module('BookAppointmentApp');
         var event_hash = {};
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
+        if(event_hash.appointment_type){
+          event_hash.appointment_type = event_hash.appointment_type.id;
+        }
         $scope.bookAppointment(event_hash);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
@@ -284,7 +340,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({
@@ -308,10 +364,37 @@ var app = angular.module('BookAppointmentApp');
               }
             });
 
+            $scope.getEditedData = function(selectedItem){
+              return {
+                  'appointmentId': selectedItem.id,
+                  'appointmentTitle': selectedItem.subject,
+                  'appointmentStartTime': selectedItem.start.format('DD/MM/YYYY hh:mm'),
+                  'appointmentEndTime': selectedItem.end.format('DD/MM/YYYY hh:mm'),
+                  'isAllDayEvent':'0',
+                  'doctorId': $scope.doctorId,
+                  'doctorlocationId': $scope.locationId,
+                  "appointmentType": selectedItem.appointment_type ? selectedItem.appointment_type : '0' ,
+                  "prepayAmount": selectedItem.prepay_amount,
+                  "prepayBy": selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : '',
+                  'id': selectedItem.id
+                };
+            };
+
+            $scope.postEditedData = function(selectedItem){
+              // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/Update';
+              var url_to_post = '/post_edited_data';
+              $http.post('/post_event_data', $scope.getEditedData(selectedItem))
+                .success(function (response) {
+                  console.log('Data Posted !');
+                });
+            };
+
             modalInstance.result.then(function (selectedItem) {
               $scope.selected_event = selectedItem;
               if($scope.selected_event.changeCloseType){
                 $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+              }else{
+                $scope.postEditedData(selectedItem);
               }
             }, function () {
               $log.info('Modal dismissed at: ' + new Date());
@@ -323,7 +406,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openPastTime = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'id', 'event_type')})
+      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({

@@ -232,19 +232,6 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.animationsEnabled = true;
 
-    $scope.bookAppointment = function(event_hash){
-      // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
-      var url_to_post = '/book_appointment'
-      $http.post(url_to_post, event_hash).success(function(response){
-        if(response.IsSuccess){
-          $scope.addEvent(response.event_id);
-          $scope.appointmentBooked();
-        }else{
-          $scope.appointmentNotBooked();
-        }
-      });
-    };
-
     $scope.open = function (start, end, jsEvent, view, size) {
 
       var modalInstance = $modal.open({
@@ -289,8 +276,8 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.getDataToSend = function(event_hash){
         var hash = {};
-        hash['doctorId'] = event_hash.doctor_id;
-        hash['doctorlocationId'] = event_hash.location_id;
+        hash['doctorId'] = $scope.doctorId;
+        hash['doctorlocationId'] = $scope.locationId;
         hash['appointmentStartTime'] = event_hash.start;
         hash['appointmentEndTime'] = event_hash.end;
         hash['appointmentTitle'] = event_hash.subject;

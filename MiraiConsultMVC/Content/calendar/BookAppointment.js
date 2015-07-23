@@ -289,8 +289,8 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.getDataToSend = function(event_hash){
         var hash = {};
-        hash['doctorId'] = event_hash.doctor_id;
-        hash['doctorlocationId'] = event_hash.location_id;
+        hash['doctorId'] = $scope.doctorId;
+        hash['doctorlocationId'] = $scope.locationId;
         hash['appointmentStartTime'] = event_hash.start;
         hash['appointmentEndTime'] = event_hash.end;
         hash['appointmentTitle'] = event_hash.subject;

@@ -48,6 +48,22 @@
   min-width: 160px;
 }
 
+.date-time-picker-size {
+  width: 158px !important;
+  height: 30px !important;
+}
+
 .validation-msg-color {
   color: red;
 }
+
+.prepay-date-size {
+  width: 142px !important;
+  height: 30px !important;
+}
+
+.prepay-time-size {
+  width: 91px !important;
+  height: 30px !important;
+}
+

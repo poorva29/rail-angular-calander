@@ -1,6 +1,6 @@
 var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash, $rootScope) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -8,6 +8,7 @@ var app = angular.module('BookAppointmentApp');
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    var slotArr = [];
     $scope.events = [];
     $scope.showCalendar = false;
 
@@ -157,6 +158,12 @@ var app = angular.module('BookAppointmentApp');
       }
     };
 
+    slotArr = $scope.uiConfig.calendar.slotDuration.split(':');
+    slotArr[0] = slotArr[0] != "00" ? Math.floor(slotArr[0] * 60) : 00;
+    slotArr[1] = slotArr[1];
+    slotArr[2] = slotArr[2] != "00" ? Math.floor(slotArr[2] / 60) : 00;
+    $rootScope.slot = (parseInt(slotArr[0]) + parseInt(slotArr[1]) + parseInt(slotArr[2]));
+
     $scope.addPatientAttributes = function(event){
       return {
         title: event.patient_name,
@@ -303,7 +310,7 @@ var app = angular.module('BookAppointmentApp');
       $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
         var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
-        $http.post(url_to_post, data).success(function(response){
+        $http.post('url_to_post', data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);
             $scope.appointmentBooked();

@@ -16,6 +16,7 @@ angular.module('BookAppointmentApp')
     ];
     $scope.submitted = false;
 
+
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     }
@@ -25,6 +26,7 @@ angular.module('BookAppointmentApp')
     }
 
     $scope.addInfo = function(){
+      $scope.prepayAmountBy = $scope.prepay_date + ' - ' + $scope.prepay_time || ' - ';
       $scope.selected_event.doctor_id = 1;
       $scope.selected_event.location_id = 2;
       $scope.selected_event.cretaed_date = new Date(); //the date on which appointment is booked
@@ -60,11 +62,27 @@ angular.module('BookAppointmentApp')
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
+
+    $scope.currentDay = function() {
+      $scope.prepay_date = new Date();
+    };
+    $scope.currentDay();
+
+    $scope.clear = function () {
+      $scope.current_date = null;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
   })
 
 angular.module('BookAppointmentApp')
   .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
     $scope.selected_event = items;
+    // $scope.showPatient = false; // set the showPatient = true to see patient view
+    $scope.dateSelected = $scope.selected_event.start.format('d MMM YYYY, hh:mm t') + ' - ' + $scope.selected_event.end.format('hh:mm t');
     $scope.showPatient = $scope.selected_event.event_type == 'booking' ? true : false;
     eventDetails.selecteEventSet($scope.selected_event);
     $scope.dateSelectedToEdit = eventDetails.dateSelectedToEdit();
@@ -92,6 +110,9 @@ angular.module('BookAppointmentApp')
       $scope.appointmentTypes = $scope.without($scope.appointmentTypes, current_appointment_type);
     }
 
+    $scope.startTime = new Date($scope.selected_event.start);
+    $scope.endTime = new Date($scope.selected_event.end);
+
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     };
@@ -111,6 +132,21 @@ angular.module('BookAppointmentApp')
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
+    };
+
+    $scope.currentDay = function() {
+      $scope.current_date = new Date($scope.selected_event.start);
+      $scope.prepay_date = new Date();
+    };
+    $scope.currentDay();
+
+    $scope.clear = function () {
+      $scope.current_date = null;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
     };
   })
   .factory('eventDetails', ['$window', function(win) {
@@ -182,6 +218,9 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
+    $scope.startTime = new Date($scope.selected_event.start);
+    $scope.endTime = new Date($scope.selected_event.end);
+
     if($scope.showPatient){
       $scope.patientName = eventDetails.patientName();
       $scope.patientNumber = eventDetails.patientNumber();
@@ -210,5 +249,19 @@ angular.module('BookAppointmentApp')
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
+    };
+
+    $scope.currentDay = function() {
+      $scope.current_date = new Date($scope.selected_event.start);
+    };
+    $scope.currentDay();
+
+    $scope.clear = function () {
+      $scope.current_date = null;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
     };
   });

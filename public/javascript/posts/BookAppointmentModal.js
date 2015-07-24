@@ -137,7 +137,7 @@ angular.module('BookAppointmentApp')
       },
 
       patientName: function(){
-        return selected_event.patient_name || ' - ';
+        return selected_event.name || selected_event.patient_name || ' - ';
       },
 
       patientNumber: function(){
@@ -157,7 +157,7 @@ angular.module('BookAppointmentApp')
       },
 
       prepayAmountBy: function(){
-        return selected_event.prepay_date + ' - ' + selected_event.prepay_time || ' - ';
+        return selected_event.prepay_by || (selected_event.prepay_date + ' - ' + selected_event.prepay_time) || ' - ';
       },
 
       updatedObject: function(){

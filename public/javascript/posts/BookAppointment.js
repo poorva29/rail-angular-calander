@@ -345,7 +345,7 @@ var app = angular.module('BookAppointmentApp');
                     'view': view,
                     'changeCloseType': false // default type for modalInstance.result is ok() which is considered as 'true'
                   };
-                  $scope.extend($scope.items, response);
+                  $scope.extend($scope.items, $scope.omit(response, 'start', 'end'));
                   return $scope.items;
                 }
               }

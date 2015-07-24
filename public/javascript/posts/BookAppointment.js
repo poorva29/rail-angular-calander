@@ -125,8 +125,7 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
-
-      if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking'){
+      if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking' && event.prepay_amount > 0){
         if(event.is_booked){
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
         }else{
@@ -278,7 +277,9 @@ var app = angular.module('BookAppointmentApp');
           className: ['openSesame'],
           stick: true,
           backgroundColor: backgroundColor,
-          event_type: event_type
+          event_type: event_type,
+          prepay_amount: $scope.selected_event.prepay_amount,
+          is_booked: $scope.selected_event.paymentSelected ? true : false
         });
       };
 

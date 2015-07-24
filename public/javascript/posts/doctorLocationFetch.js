@@ -1,17 +1,17 @@
-var app = angular.module('BookAppointmentApp');
+var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker']);
   app.controller('doctorLocationFetchCtrl',function($scope, $modal, $log, $http, Flash) {
     $scope.locationId = null;
-    $scope.doctors = [{id: 0, name: '----- Select -----'}];
+    $scope.doctors = [{id: 0, firstname: '----- Select -----', lastname: ''}];
     $scope.doctorId = $scope.doctors[0].id;
     $scope.locations = [];
     $scope.doctorsLocations = null;
     $scope.disableLocation = true;
 
-    $http.get("/doctor_locations")
+    $http.get("api/calendar/doclocations")
       .success(function (response) {
         $scope.doctorsLocations = response;
         $scope.each($scope.doctorsLocations, function(doc_loc){
-          $scope.doctors.push($scope.pick(doc_loc, 'id', 'name'));
+          $scope.doctors.push($scope.pick(doc_loc, 'id', 'firstname', 'lastname'));
         });
     });
 
@@ -25,8 +25,11 @@ var app = angular.module('BookAppointmentApp');
         if(doctorDetails){
           $scope.disableLocation = false;
           $scope.locations = doctorDetails.locations;
-          $scope.locationId = $scope.locations[0].id;
-          $scope.fetchCalenderForDoctorLocation($scope.locations[0].id);
+          if($scope.locations.length > 0){
+            $scope.locationId = $scope.locations[0].id;
+            $scope.doctorId = doctorId;
+            $scope.fetchCalenderForDoctorLocation($scope.locationId);
+          }
         }
       }
     };
@@ -38,7 +41,8 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.initRestId = function(locationId){
       $scope.$root.$broadcast("doctorLocation",{
-          locationId: locationId
+          locationId: locationId,
+          doctorId: $scope.doctorId
         });
     };
   });

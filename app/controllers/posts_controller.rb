@@ -65,7 +65,8 @@ class PostsController < ApplicationController
     docloc_json = [
       {
         id: '1',
-        name: 'Poorva Mahajan',
+        firstname: 'Poorva',
+        lastname: 'Mahajan',
         locations: [
           { id: 3, name: 'Akurdi' },
           { id: 4, name: 'Kalyani Nagar' }
@@ -73,7 +74,8 @@ class PostsController < ApplicationController
       },
       {
         id: '2',
-        name: 'Rutuja Khanpekar',
+        firstname: 'Rutuja',
+        lastname: 'Khanpekar',
         locations: [
           { id: 5, name: 'Swargate' },
           { id: 6, name: 'Dahanukar' }
@@ -84,74 +86,167 @@ class PostsController < ApplicationController
   end
 
   def events
-    if params[:location].eql?('3') || params[:location].eql?('5')
+    if params[:location].eql?('3') || params[:location].eql?('6')
       events_json = {
         calendar: {
-          slot_duration: '01:00:00'
+          slot_duration: '00:15:00',
+          minTime: '1030',
+          maxTime: '2000'
         },
         events: [
           {
-            start: '18/07/2015 15:00',
-            end: '18/07/2015 18:00',
+            id: 1,
+            start: '2015-07-26T15:00',
+            end: '2015-07-26T18:00',
             event_type: 'blocked',
-            event_details: {
-              blocked_for: 'OPD',
-              subject: 'foo'
-            }
+            appointment_type: 'OPD',
+            patient_name: '',
+            subject: 'foo'
           },
           {
-            start:  '19/07/2015 11:00',
-            end: '19/07/2015 13:00',
+            id: 2,
+            start:  '2015-07-25T11:00',
+            end: '2015-07-25T13:00',
             event_type: 'booking',
-            event_details: {
-              first_name: 'Poorva',
-              last_name: 'Mahajan',
-              subject: 'boo'
-            }
+            patient_name: 'Poorva Mahajan',
+            appointment_type: '',
+            subject: 'boo'
           },
           {
-            start: '20/07/2015 19:00',
-            end: '20/07/2015 21:00',
+            id: 3,
+            start:  '2015-07-24T11:00',
+            end: '2015-07-24T12:00',
+            event_type: 'booking',
+            patient_name: 'Test User',
+            appointment_type: '',
+            subject: 'boo'
+          },
+          {
+            id: -1,
+            start: '2015-07-23T17:00',
+            end: '2015-07-23T19:00',
             event_type: 'non-working',
-            event_details: {}
+            patient_name: '',
+            appointment_type: ''
+          },
+          {
+            id: -1,
+            start: '2015-07-23T12:00',
+            end: '2015-07-23T14:00',
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
           }
         ]
       }
     else
       events_json = {
         calendar: {
-          slot_duration: '00:01:00'
+          slot_duration: '00:15:00',
+          minTime: '900',
+          maxTime: '1830'
         },
         events: [
           {
-            start:  '18/07/2015 19:00',
-            end: '18/07/2015 22:00',
+            id: 1,
+            start:  '2015-07-26T15:00',
+            end: '2015-07-26T17:00',
             event_type: 'blocked',
-            event_details: {
-              blocked_for: 'OPD',
-              subject: 'foo'
-            }
+            appointment_type: 'OPD',
+            patient_name: '',
+            subject: 'foo'
           },
           {
-            start:  '19/07/2015 13:00',
-            end: '19/07/2015 15:00',
+            id: 2,
+            start:  '2015-07-25T13:00',
+            end: '2015-07-25T15:00',
             event_type: 'booking',
-            event_details: {
-              first_name: 'Rutuja',
-              last_name: 'Khanpekar',
-              subject: 'boo'
-            }
+            appointment_type: '',
+            patient_name: 'Rutuja Khanpekar',
+            subject: 'boo'
           },
           {
-            start: '18/07/2015 08:00',
-            end: '18/07/2015 10:00',
+            id: 3,
+            start:  '2015-07-24T10:00',
+            end: '2015-07-24T11:00',
+            event_type: 'booking',
+            appointment_type: '',
+            patient_name: 'Test User',
+            subject: 'boo'
+          },
+          {
+            id: -1,
+            start: '2015-07-23T10:00',
+            end: '2015-07-23T12:00',
             event_type: 'non-working',
-            event_details: {}
+            patient_name: '',
+            appointment_type: ''
+          },
+          {
+            id: -1,
+            start: '2015-07-23T13:00',
+            end: '2015-07-23T15:00',
+            event_type: 'non-working',
+            patient_name: '',
+            appointment_type: ''
           }
         ]
       }
     end
     render json: events_json
+  end
+
+  def book_appointment
+    doc_response = {
+      IsSuccess: true,
+      Msg: 'add success',
+      Data: '0',
+      event_id: [*5..100].sample
+    }
+    render json: doc_response
+  end
+
+  def get_event_data
+    event = params[:event]
+    if event[:event_type].eql?('booking')
+      events_json = {
+        id: params[:id],
+        doctor_id: 1,
+        location_id: 1,
+        patient_name: event[:patient_name] || 'Just Created',
+        mobile_number: '9987766554',
+        email: 'foo@boo',
+        # start: 'yymmdd hh:mm:ss',
+        # end: 'yymmdd hh:mm:ss',
+        subject: event[:subject],
+        prepay_amount: 1234,
+        prepay_date: '2015-07-19',
+        prepay_time: '11:00:00',
+        event_type: 'booking'
+      }
+    else
+      events_json = {
+        id: params[:id],
+        doctor_id: 1,
+        location_id: 1,
+        # start: 'yymmdd hh:mm:ss',
+        # end: 'yymmdd hh:mm:ss',
+        subject: event[:subject],
+        appointment_type: 'OPD',
+        event_type: 'blocked'
+      }
+    end
+    render json: events_json
+  end
+
+  def post_event_data
+    doc_response = {
+      IsSuccess: true,
+      Msg: 'edit success',
+      Data: '0',
+      event_id: params[:id]
+    }
+    render json: doc_response
   end
 
   private

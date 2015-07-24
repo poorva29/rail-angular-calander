@@ -15,177 +15,204 @@
   <script src="javascript/calender/calendar.js"></script>
   <script type="text/javascript" src="javascript/lib/underscore-min.js"></script>
   <script type="text/javascript" src="javascript/lib/angular-underscore.min.js"></script>
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
   <script src="bower_components/angular-dateparser/dist/angular-dateparser.js"></script>
   <script src="bower_components/angular-timepicker/src/angular-timepicker.js"></script>
+  <script src="javascript/posts/doctorLocationFetch.js" type="text/javascript"></script>
   <script src="javascript/posts/BookAppointment.js" type="text/javascript"></script>
   <script src="javascript/posts/BookAppointmentModal.js" type="text/javascript"></script>
-  <script src="javascript/posts/doctorLocationFetch.js" type="text/javascript"></script>
   <script src="javascript/lib/angular-flash.min.js"></script>
-  <div id='doctor-location' ng-controller="doctorLocationFetchCtrl">
-    <div class="col-sm-9 col-sm-offset-3">
-      <form class="form-inline" role="form">
-        <div class="form-group">
-          <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
-          <select ng-model="doctorId" ng-options="value.id as value.name group by value.group for value in doctors" convert-to-number ng-change="getLocations(doctorId)">
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="emptyLabel"></label>
-          <!-- <button ng-click="initRestId()">Show 1</button> -->
-        </div>
-        <div class="form-group">
-          <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
-          <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(locationId)" ng-disabled="disableLocation">
-          </select>
-        </div>
-      </form>
+</head>
+<body>
+  <div class="row-fluid">
+    <div id='doctor-location' ng-controller="doctorLocationFetchCtrl">
+      <div class="col-sm-9 col-sm-offset-3">
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
+            <select ng-model="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(doctorId)">
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="emptyLabel"></label>
+            <!-- <button ng-click="initRestId()">Show 1</button> -->
+          </div>
+          <div class="form-group">
+            <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
+            <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(locationId)" ng-disabled="disableLocation">
+            </select>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  <div id="directives-calendar" ng-controller="BookAppointmentCtrl">
-    <div ng-show="showCalendar">
-      <div id="calender-show">
-        <!-- <link href="css/calender/font-awesome.css" rel="stylesheet"> -->
-        <script type="text/ng-template" id="appointmentBooking.html">
-          <div class="modal-header">
-            <div class="modal-title">Book Appointment</div>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <label class="col-sm-4 control-label">Appointment For:</label>
-                <div class="col-sm-8">
-                  <label class="radio-inline"> <input type="radio" ng-model="radioAppointment.selected_type" ng-value=1 ng-change="changeType()"> Doctor </label>
-                  <label class="radio-inline"> <input type="radio" ng-model="radioAppointment.selected_type" ng-init="radioAppointment.selected_type = 2" ng-value=2 ng-change="changeType()"> Patient </label>
-                </div>
-              </div>
-              <div ng-show="showPatient">
+    <div id="directives-calendar" ng-controller="BookAppointmentCtrl">
+      <div ng-show="showCalendar">
+        <div id="calender-show">
+          <!-- <link href="css/calender/font-awesome.css" rel="stylesheet"> -->
+          <script type="text/ng-template" id="appointmentBooking.html">
+            <div class="modal-header">
+              <div class="modal-title">Book Appointment</div>
+              <center class="error validation-msg-color" ng-show="submitted">Please Enter All Required Fields !</center>
+            </div>
+            <div class="modal-body">
+              <form name="appointmentForm" class="form-horizontal" role="form" novalidate>
                 <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Patient Name: *</label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="patientName" ng-model="patientName" placeholder="Name">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="number">Monile Number: *</label>
-                  <div class="col-lg-8">
-                    <input type="number" class="form-control" id="patientNumber" ng-model="patientNumber" placeholder="1234">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-1" for="email">Email: </label>
+                  <label class="col-sm-4 control-label">Appointment For:</label>
                   <div class="col-sm-8">
-                    <input type="email" class="form-control" id="patientEmail"  ng-model="patientEmail" placeholder="my.email@mirai.com">
+                    <label class="radio-inline"> <input type="radio" ng-model="radioAppointment.selected_type" ng-value=1 ng-change="changeType()"> Doctor </label>
+                    <label class="radio-inline"> <input type="radio" ng-model="radioAppointment.selected_type" ng-init="radioAppointment.selected_type = 2" ng-value=2 ng-change="changeType()"> Patient </label>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="date">Date Selected: </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" ng-model="dateSelected" ng-disabled=true>
+                <div ng-show="showPatient">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Patient Name: *</label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" name="name" ng-click="submitted = false" id="patientName" ng-model="patientName" placeholder="Name" required>
+                        <span class="error validation-msg-color" ng-show="appointmentForm.name.$error.required" ng-if='appointmentForm.name.$dirty'>Please Enter Patient Name !</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="number">Mobile Number: *</label>
+                    <div class="col-lg-8">
+                      <input type="number" class="form-control" name="mobile_number" ng-click="submitted = false" id="patientNumber" ng-model="patientNumber" placeholder="1234" required>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.required" ng-if='appointmentForm.mobile_number.$dirty'>Please Enter Mobile Number !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.number">Please Enter Valid Mobile Number !</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-1" for="email">Email: </label>
+                    <div class="col-sm-8">
+                      <input type="email" name="email" class="form-control" id="patientEmail"  ng-model="patientEmail" placeholder="my.email@mirai.com">
+                      <span class="error validation-msg-color" ng-show="appointmentForm.email.$error.email">Please Enter Valid Email !</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="date">Date Selected: </label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" ng-model="dateSelected" ng-disabled=true>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Subject: </label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Pre-pay: </label>
+                    <div class="col-lg-8">
+                      <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
+                      <i class="fa fa-inr"></i>
+                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
+                      <input type="date" class="form-control prepay-date-size" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date"
+                      datepicker-options="dateOptions" ng-required="true" />
+                      <input type="text" class="prepay-time-size" placeholder="Time" =id="fromTimeEdit" dn-timepicker ng-model="prepay_time" step="{{slot}}" />
+                      <!--<input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">-->
+                    </div>
+                  </div>
+                  <!-- Patient div ends here -->
+                </div>
+                <div ng-show="!showPatient">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="date">Date Selected: </label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" ng-model="dateSelected" ng-disabled=true>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Subject: </label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-2" for="name">Appointment Type*</label>
+                    <div class="col-lg-8">
+                      <select ng-init="updatedObject = updatedObject[0]" class="form-control" ng-model="updatedObject" ng-options="value as value.label group by value.group for value in appointmentTypes" convert-to-number>
+                        <option value="" ng-model="updatedObject">{{updatedObject.label}}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Subject: </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Pre-pay: </label>
-                  <div class="col-lg-8">
-                    <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
-                    <i class="fa fa-inr"></i>
-                    <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
-                    <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
-                  </div>
-                </div>
-                <!-- Patient div ends here -->
-              </div>
-              <div ng-show="!showPatient">
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="date">Date Selected: </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" ng-model="dateSelected" ng-disabled=true>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Subject: </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-2" for="name">Appointment Type*</label>
-                  <div class="col-lg-8">
-                    <select ng-init="updatedObject = appointmentTypes[0].id" class="form-control" ng-model="updatedObject" ng-options="value.id as value.label group by value.group for value in appointmentTypes" convert-to-number>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <!-- Selected: <b>{{ selected_event.start }}</b> -->
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-          </div>
-        </script>
+              </form>
+              <!-- Selected: <b>{{ selected_event.start }}</b> -->
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="ok()">OK</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+          </script>
 
-        <script type="text/ng-template" id="appointmentBookingEdit.html">
-          <div class="modal-header">
-            <div class="modal-title">Book Appointment</div>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
-              <div ng-show="showPatient">
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Patient Name: *</label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="patientName" ng-model="patientName" ng-disabled="true">
+          <script type="text/ng-template" id="appointmentBookingEdit.html">
+            <div class="modal-header">
+              <div class="modal-title">Edit Booked Appointment</div>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" role="form">
+                <div ng-show="showPatient">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Patient Name: *</label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="patientName" ng-model="patientName" ng-disabled="true">
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="number">Monile Number: *</label>
-                  <div class="col-lg-8">
-                    <input type="number" class="form-control" id="patientNumber" ng-model="patientNumber" ng-disabled="true">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="number">Mobile Number: *</label>
+                    <div class="col-lg-8">
+                      <input type="number" class="form-control" id="patientNumber" ng-model="patientNumber" ng-disabled="true">
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-1" for="email">Email: </label>
-                  <div class="col-sm-8">
-                    <input type="email" class="form-control" id="patientEmail"  ng-model="patientEmail" ng-disabled="true">
+                  <div class="form-group">
+                    <label class="control-label col-sm-1" for="email">Email: </label>
+                    <div class="col-sm-8">
+                      <input type="email" class="form-control" id="patientEmail"  ng-model="patientEmail" ng-disabled="true">
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Date: *</label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="dateSelectedToEdit" ng-model="dateSelectedToEdit" placeholder="12 July">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Date: *</label>
+                    <div class="col-lg-8">
+                      <div class="row">
+                        <div class="col-lg-6">
+                            <p class="input-group">
+                              <input type="date" class="form-control date-time-picker-size" id="dateSelectedToEdit" datepicker-popup
+                              ng-model="current_date" datepicker-options="dateOptions" ng-required="true" />
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                  <!--  <div class="col-lg-8">
+                      <input type="text" class="form-control" id="dateSelectedToEdit" ng-model="dateSelectedToEdit" placeholder="12 July">
+                    </div> -->
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Time: *</label>
-                  <div class="col-lg-4">
-                    <input type="text" class="form-control" id="fromTimeEdit" ng-model="fromTimeEdit" placeholder="from 00:00">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Time: *</label>
+                    <div class="col-lg-4">
+                      <!--<input type="text" class="form-control" id="fromTimeEdit" ng-model="fromTimeEdit" placeholder="from 00:00">-->
+                      <input type="text" class="date-time-picker-size" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" />
+                    </div>
+                    <div class="col-lg-4">
+                      <!--<input type="text" class="form-control" id="toTimeEdit" ng-model="toTimeEdit" placeholder="to 00:00">-->
+                      <input type="text" class="date-time-picker-size" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" />
+                    </div>
                   </div>
-                  <div class="col-lg-4">
-                    <input type="text" class="form-control" id="toTimeEdit" ng-model="toTimeEdit" placeholder="to 00:00">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Subject: </label>
+                    <div class="col-lg-8">
+                      <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Subject: </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Pre-pay: </label>
+                    <div class="col-lg-8">
+                      <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
+                      <i class="fa fa-inr"></i>
+                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
+                      <input type="date" class="form-control prepay-date-size" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date"
+                      datepicker-options="dateOptions" ng-required="true" />
+                      <input type="text" class="prepay-time-size" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" step="{{slot}}" />
+                      <!--<input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">-->
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-lg-1" for="name">Pre-pay: </label>
-                  <div class="col-lg-8">
-                    <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
-                    <i class="fa fa-inr"></i>
-                    <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
-                    <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
-                  </div>
-                </div>
                 <!-- Patient div ends here -->
               </div>
               <div ng-show="!showPatient">
@@ -195,7 +222,8 @@
                     <div class="row">
                       <div class="col-lg-6">
                           <p class="input-group">
-                            <input type="date" class="form-control" datepicker-popup ng-model="current_date" is-open="opened" datepicker-options="dateOptions" ng-required="true" />
+                            <input type="date" class="form-control date-time-picker-size" id="dateSelectedToEdit" datepicker-popup ng-model="current_date"
+                            datepicker-options="dateOptions" ng-required="true" />
                           </p>
                       </div>
                     </div>
@@ -204,10 +232,10 @@
                 <div class="form-group">
                   <label class="control-label col-lg-1" for="name">Time: *</label>
                   <div class="col-lg-4">
-                    <input type="text" class="time-picker-size" dn-timepicker ng-model="startTime" step="{{slot}}" />
+                    <input type="text" class="date-time-picker-size" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" />
                   </div>
                   <div class="col-lg-4">
-                    <input type="text" class="time-picker-size" dn-timepicker ng-model="endTime" step="{{slot}}" />
+                    <input type="text" class="date-time-picker-size" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -219,27 +247,125 @@
                 <div class="form-group">
                   <label class="control-label col-lg-2" for="name">Appointment Type*</label>
                   <div class="col-lg-8">
-                    <select ng-init="updatedObject = appointmentTypes[0].id" class="form-control" ng-model="updatedObject" ng-options="value.id as value.label group by value.group for value in appointmentTypes" convert-to-number>
+                    <select class="form-control" ng-model="updatedObject" ng-options="value as value.label group by value.group for value in appointmentTypes" convert-to-number>
+                      <option value="" ng-model="updatedObject">{{updatedObject}}</option>
                     </select>
                   </div>
                 </div>
               </div>
             </form>
-            <!-- Selected: <b>{{ selected_event.start }}</b> -->
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            <button class="btn btn-danger" ng-click="delete()">Delete</button>
-          </div>
-        </script>
-        <div flash-message="5000" ></div>
-        <!-- <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar"></div> -->
-        <!-- <div class="alert-success" ng-show="alertMessage != undefined && alertMessage != ''">
-          <h4>{{alertMessage}}</h4>
-        </div> -->
-        <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="appointmentBookingCalendar" id="appointmentBookingCalendar"></div>
+              <!-- Selected: <b>{{ selected_event.start }}</b> -->
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="ok()">OK</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+              <button class="btn btn-danger" ng-click="delete()">Delete</button>
+            </div>
+          </script>
+          <script type="text/ng-template" id="appointmentBookingPastTime.html">
+            <div class="modal-header">
+              <div class="modal-title">Past Date Appointment</div>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" role="form">
+                <div ng-show="showPatient">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Patient Name: *</label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="patientName" ng-model="patientName">{{patientName}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="number">Mobile Number: *</label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="patientNumber" ng-model="patientNumber">{{patientNumber}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-1" for="email">Email: </label>
+                    <div class="col-sm-8">
+                      <div class="form-control" id="patientEmail"  ng-model="patientEmail">{{patientEmail}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Date: *</label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="dateSelectedToEdit" ng-model="dateSelectedToEdit">{{dateSelectedToEdit}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Time: *</label>
+                    <div class="col-lg-4">
+                      <div class="form-control" id="fromTimeEdit" ng-model="fromTimeEdit">{{fromTimeEdit}}</div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-control" id="toTimeEdit" ng-model="toTimeEdit">{{toTimeEdit}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Subject: </label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="subjectSelected" ng-model="subjectSelected">{{subjectSelected}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Pre-pay: </label>
+                    <div class="col-lg-8">
+                      <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected" ng-disabled="true">
+                      <i class="fa fa-inr"></i>
+                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="true"> by
+                      <input type="text" class="form-control pay-amount-by-non-edit" ng-model="prepayAmountBy" ng-disabled="true">
+                    </div>
+                  </div>
+                  <!-- Patient div ends here -->
+                </div>
+                <div ng-show="!showPatient">
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Date: *</label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="dateSelectedToEdit">{{dateSelectedToEdit}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Time: *</label>
+                    <div class="col-lg-4">
+                      <div class="form-control" id="fromTimeEdit" ng-model="fromTimeEdit">{{fromTimeEdit}}</div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-control" id="toTimeEdit" ng-model="toTimeEdit">{{toTimeEdit}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-1" for="name">Subject: </label>
+                    <div class="col-lg-8">
+                      <div class="form-control" id="subjectSelected" ng-model="subjectSelected">{{subjectSelected}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-lg-2" for="name">Appointment Type*</label>
+                    <div class="col-lg-8">
+                      <select ng-init="updatedObject = appointmentTypes[0].id" class="form-control" ng-model="updatedObject" ng-options="value.id as value.label group by value.group for value in appointmentTypes" convert-to-number ng-disabled="true">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- Selected: <b>{{ selected_event.start }}</b> -->
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="ok()">OK</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+          </script>
+          <div flash-message="5000" ></div>
+          <!-- <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar"></div> -->
+          <!-- <div class="alert-success" ng-show="alertMessage != undefined && alertMessage != ''">
+            <h4>{{alertMessage}}</h4>
+          </div> -->
+          <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="appointmentBookingCalendar" id="appointmentBookingCalendar"></div>
+        </div>
       </div>
     </div>
   </div>
-</head>
+</body>
+</html>

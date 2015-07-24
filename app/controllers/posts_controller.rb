@@ -213,15 +213,16 @@ class PostsController < ApplicationController
         id: params[:id],
         doctor_id: 1,
         location_id: 1,
-        patient_name: event[:patient_name] || 'Just Created',
+        name: event[:patient_name] || 'Just Created',
         mobile_number: '9987766554',
         email: 'foo@boo',
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
         subject: event[:subject],
         prepay_amount: 1234,
-        prepay_date: '2015-07-19',
-        prepay_time: '11:00:00',
+        # prepay_date: '2015-07-19',
+        # prepay_time: '11:00:00',
+        prepay_by: '2015-07-19T11:00:00',
         event_type: 'booking'
       }
     else

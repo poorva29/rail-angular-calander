@@ -1,6 +1,6 @@
 /**
- * @license AngularJS v1.2.28
- * (c) 2010-2014 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.4.3
+ * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, document, undefined) {'use strict';
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.28/' +
+    message += '\nhttp://errors.angularjs.org/1.4.3/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1901,74 +1901,90 @@ function setupModuleLoader(window) {
   $LocaleProvider,
   $CompileProvider,
 
-    htmlAnchorDirective,
-    inputDirective,
-    inputDirective,
-    formDirective,
-    scriptDirective,
-    selectDirective,
-    styleDirective,
-    optionDirective,
-    ngBindDirective,
-    ngBindHtmlDirective,
-    ngBindTemplateDirective,
-    ngClassDirective,
-    ngClassEvenDirective,
-    ngClassOddDirective,
-    ngCspDirective,
-    ngCloakDirective,
-    ngControllerDirective,
-    ngFormDirective,
-    ngHideDirective,
-    ngIfDirective,
-    ngIncludeDirective,
-    ngIncludeFillContentDirective,
-    ngInitDirective,
-    ngNonBindableDirective,
-    ngPluralizeDirective,
-    ngRepeatDirective,
-    ngShowDirective,
-    ngStyleDirective,
-    ngSwitchDirective,
-    ngSwitchWhenDirective,
-    ngSwitchDefaultDirective,
-    ngOptionsDirective,
-    ngTranscludeDirective,
-    ngModelDirective,
-    ngListDirective,
-    ngChangeDirective,
-    requiredDirective,
-    requiredDirective,
-    ngValueDirective,
-    ngAttributeAliasDirectives,
-    ngEventDirectives,
+  htmlAnchorDirective,
+  inputDirective,
+  inputDirective,
+  formDirective,
+  scriptDirective,
+  selectDirective,
+  styleDirective,
+  optionDirective,
+  ngBindDirective,
+  ngBindHtmlDirective,
+  ngBindTemplateDirective,
+  ngClassDirective,
+  ngClassEvenDirective,
+  ngClassOddDirective,
+  ngCspDirective,
+  ngCloakDirective,
+  ngControllerDirective,
+  ngFormDirective,
+  ngHideDirective,
+  ngIfDirective,
+  ngIncludeDirective,
+  ngIncludeFillContentDirective,
+  ngInitDirective,
+  ngNonBindableDirective,
+  ngPluralizeDirective,
+  ngRepeatDirective,
+  ngShowDirective,
+  ngStyleDirective,
+  ngSwitchDirective,
+  ngSwitchWhenDirective,
+  ngSwitchDefaultDirective,
+  ngOptionsDirective,
+  ngTranscludeDirective,
+  ngModelDirective,
+  ngListDirective,
+  ngChangeDirective,
+  patternDirective,
+  patternDirective,
+  requiredDirective,
+  requiredDirective,
+  minlengthDirective,
+  minlengthDirective,
+  maxlengthDirective,
+  maxlengthDirective,
+  ngValueDirective,
+  ngModelOptionsDirective,
+  ngAttributeAliasDirectives,
+  ngEventDirectives,
 
-    $AnchorScrollProvider,
-    $AnimateProvider,
-    $BrowserProvider,
-    $CacheFactoryProvider,
-    $ControllerProvider,
-    $DocumentProvider,
-    $ExceptionHandlerProvider,
-    $FilterProvider,
-    $InterpolateProvider,
-    $IntervalProvider,
-    $HttpProvider,
-    $HttpBackendProvider,
-    $LocationProvider,
-    $LogProvider,
-    $ParseProvider,
-    $RootScopeProvider,
-    $QProvider,
-    $$SanitizeUriProvider,
-    $SceProvider,
-    $SceDelegateProvider,
-    $SnifferProvider,
-    $TemplateCacheProvider,
-    $TimeoutProvider,
-    $$RAFProvider,
-    $$AsyncCallbackProvider,
-    $WindowProvider
+  $AnchorScrollProvider,
+  $AnimateProvider,
+  $$CoreAnimateQueueProvider,
+  $$CoreAnimateRunnerProvider,
+  $BrowserProvider,
+  $CacheFactoryProvider,
+  $ControllerProvider,
+  $DocumentProvider,
+  $ExceptionHandlerProvider,
+  $FilterProvider,
+  $InterpolateProvider,
+  $IntervalProvider,
+  $$HashMapProvider,
+  $HttpProvider,
+  $HttpParamSerializerProvider,
+  $HttpParamSerializerJQLikeProvider,
+  $HttpBackendProvider,
+  $LocationProvider,
+  $LogProvider,
+  $ParseProvider,
+  $RootScopeProvider,
+  $QProvider,
+  $$QProvider,
+  $$SanitizeUriProvider,
+  $SceProvider,
+  $SceDelegateProvider,
+  $SnifferProvider,
+  $TemplateCacheProvider,
+  $TemplateRequestProvider,
+  $$TestabilityProvider,
+  $TimeoutProvider,
+  $$RAFProvider,
+  $WindowProvider,
+  $$jqLiteProvider,
+  $$CookieReaderProvider
 */
 
 
@@ -1987,11 +2003,11 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.28',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.4.3',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
-  minor: 2,
-  dot: 28,
-  codeName: 'finnish-disembarkation'
+  minor: 4,
+  dot: 3,
+  codeName: 'foam-acceleration'
 };
 
 
@@ -2109,7 +2125,9 @@ function publishExternalAPI(angular){
         $timeout: $TimeoutProvider,
         $window: $WindowProvider,
         $$rAF: $$RAFProvider,
-        $$asyncCallback : $$AsyncCallbackProvider
+        $$jqLite: $$jqLiteProvider,
+        $$HashMap: $$HashMapProvider,
+        $$cookieReader: $$CookieReaderProvider
       });
     }
   ]);
@@ -22151,4 +22169,4 @@ var styleDirective = valueFn({
 
 })(window, document);
 
-!window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}.ng-hide-add-active,.ng-hide-remove{display:block!important;}</style>');
+!window.angular.$$csp() && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');

@@ -51,3 +51,11 @@
 .validation-msg-color {
   color: red;
 }
+
+.prepay-symbol-red {
+  color: red;
+}
+
+.prepay-symbol-green {
+  color: rgb(8, 153, 8);
+}

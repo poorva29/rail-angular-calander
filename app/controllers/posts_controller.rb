@@ -110,7 +110,8 @@ class PostsController < ApplicationController
             event_type: 'booking',
             patient_name: 'Poorva Mahajan',
             appointment_type: '',
-            subject: 'boo'
+            subject: 'boo',
+            is_booked: true
           },
           {
             id: 3,
@@ -119,7 +120,8 @@ class PostsController < ApplicationController
             event_type: 'booking',
             patient_name: 'Test User',
             appointment_type: '',
-            subject: 'boo'
+            subject: 'boo',
+            is_booked: false
           },
           {
             id: -1,
@@ -163,7 +165,8 @@ class PostsController < ApplicationController
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Rutuja Khanpekar',
-            subject: 'boo'
+            subject: 'boo',
+            is_booked: false
           },
           {
             id: 3,
@@ -172,7 +175,8 @@ class PostsController < ApplicationController
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Test User',
-            subject: 'boo'
+            subject: 'boo',
+            is_booked: false
           },
           {
             id: -1,

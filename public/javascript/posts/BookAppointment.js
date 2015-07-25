@@ -1,6 +1,6 @@
 var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -125,7 +125,21 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
+      if(event.event_type == 'non-working'){
+        element.attr({'tooltip': 'Closed Slot',
+                      'tooltip-append-to-body': true,
+                      'tooltip-trigger':"click"});
+        $compile(element)($scope);
+      }
     };
+
+    $scope.dayEvent = function(date, jsEvent, view) {
+      if (jsEvent.target.classList.contains('fc-bgevent')) {
+        $timeout( function(){
+          $(jsEvent.target).trigger('click');
+        }, 2000);
+      }
+    }
 
     $scope.uiConfig = {
       calendar:{
@@ -150,6 +164,7 @@ var app = angular.module('BookAppointmentApp');
         eventDrop: $scope.alertOnDropOrResize,
         eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRenderContent,
+        dayClick: $scope.dayEvent,
         select: $scope.slotSelected,
         viewRender: $scope.viewRenderWeekAgenda,
         editable: true,

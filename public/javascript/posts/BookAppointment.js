@@ -317,7 +317,8 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
-        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+        // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+        var url_to_post = '/book_appointment';
         $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);

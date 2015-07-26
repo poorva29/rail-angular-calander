@@ -27,7 +27,7 @@
         <form class="form-inline" role="form">
           <div class="form-group">
             <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
-            <select ng-model="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(doctorId)">
+            <select ng-model="doctorId" id="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(this, doctorId)">
             </select>
           </div>
           <div class="form-group">
@@ -36,7 +36,7 @@
           </div>
           <div class="form-group">
             <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
-            <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(locationId)" ng-disabled="disableLocation">
+            <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(this, locationId)" ng-disabled="disableLocation">
             </select>
           </div>
         </form>

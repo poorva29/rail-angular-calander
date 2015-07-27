@@ -193,16 +193,17 @@ var app = angular.module('BookAppointmentApp');
                             start: moment(event.start, 'YYYY-MM-DDThh:mm'),
                             end: moment(event.end, 'YYYY-MM-DDThh:mm')
                           });
-      switch(event.event_type){
-        case 'booking':
-                      $scope.extend(event, $scope.addPatientAttributes(event));
-                      break;
-        case 'blocked':
-                      $scope.extend(event, $scope.addDoctorAttributes(event));
-                      break;
-        default:
-                $scope.extend(event,{rendering: 'background', backgroundColor: '#646464'});
-      }
+        switch(event.event_type){
+          case 'booking':
+                        if(event.appointment_type){
+                          $scope.extend(event, $scope.addDoctorAttributes(event));
+                        }else{
+                          $scope.extend(event, $scope.addPatientAttributes(event));
+                        }
+                        break;
+          default:
+                  $scope.extend(event,{rendering: 'background', backgroundColor: '#646464'});
+        }
       return event;
     };
 

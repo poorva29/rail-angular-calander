@@ -98,7 +98,7 @@ class PostsController < ApplicationController
             id: 1,
             start: '2015-08-01T15:00',
             end: '2015-08-01T18:00',
-            event_type: 'blocked',
+            event_type: 'booking',
             appointment_type: 'OPD',
             patient_name: '',
             subject: 'foo'
@@ -151,7 +151,7 @@ class PostsController < ApplicationController
             id: 1,
             start:  '2015-07-26T15:00',
             end: '2015-07-26T17:00',
-            event_type: 'blocked',
+            event_type: 'booking',
             appointment_type: 'OPD',
             patient_name: '',
             subject: 'foo'

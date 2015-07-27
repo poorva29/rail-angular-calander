@@ -81,13 +81,7 @@ angular.module('BookAppointmentApp')
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
     if($scope.selected_event.event_type == 'booking' && $scope.selected_event.prepay_amount > 0){
-      if($scope.selected_event.is_booked){
-        $scope.show_green = true;
-        $scope.show_red = false;
-      }else{
-        $scope.show_green = false;
-        $scope.show_red = true;
-      }
+      $scope.show_green = $scope.selected_event.is_paid ? true : false;
     }
 
     if($scope.showPatient){
@@ -161,12 +155,7 @@ angular.module('BookAppointmentApp')
       },
 
       paymentSelected: function(){
-        if(selected_event.prepay_amount > 0){
-          return true;
-        }else{
-          return false;
-        }
-
+        return selected_event.prepay_amount > 0 ? true : false
       },
 
       prepayAmount: function(){

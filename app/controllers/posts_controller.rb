@@ -96,8 +96,8 @@ class PostsController < ApplicationController
         events: [
           {
             id: 1,
-            start: '2015-07-26T15:00',
-            end: '2015-07-26T18:00',
+            start: '2015-08-01T15:00',
+            end: '2015-08-01T18:00',
             event_type: 'blocked',
             appointment_type: 'OPD',
             patient_name: '',
@@ -105,38 +105,38 @@ class PostsController < ApplicationController
           },
           {
             id: 2,
-            start:  '2015-07-25T11:00',
-            end: '2015-07-25T13:00',
+            start:  '2015-07-31T11:00',
+            end: '2015-07-31T13:00',
             event_type: 'booking',
             patient_name: 'Poorva Mahajan',
             appointment_type: '',
             subject: 'boo',
             prepay_amount: 10,
-            is_booked: true
+            is_paid: true
           },
           {
             id: 3,
-            start:  '2015-07-24T11:00',
-            end: '2015-07-24T12:00',
+            start:  '2015-07-30T11:00',
+            end: '2015-07-30T12:00',
             event_type: 'booking',
             patient_name: 'Test User',
             appointment_type: '',
             subject: 'boo',
             prepay_amount: 20,
-            is_booked: false
+            is_paid: false
           },
           {
             id: -1,
-            start: '2015-07-23T17:00',
-            end: '2015-07-23T19:00',
+            start: '2015-07-31T17:00',
+            end: '2015-07-31T19:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
           },
           {
             id: -1,
-            start: '2015-07-23T12:00',
-            end: '2015-07-23T14:00',
+            start: '2015-08-01T12:00',
+            end: '2015-08-01T14:00',
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
@@ -169,7 +169,7 @@ class PostsController < ApplicationController
             patient_name: 'Rutuja Khanpekar',
             subject: 'boo',
             prepay_amount: 0,
-            is_booked: false
+            is_paid: false
           },
           {
             id: 3,
@@ -180,7 +180,7 @@ class PostsController < ApplicationController
             patient_name: 'Test User',
             subject: 'boo',
             prepay_amount: 10,
-            is_booked: false
+            is_paid: false
           },
           {
             id: -1,
@@ -232,7 +232,7 @@ class PostsController < ApplicationController
         # prepay_time: '11:00:00',
         prepay_by: '2015-07-19T11:00:00',
         event_type: 'booking',
-        is_booked: true
+        is_paid: false
       }
     else
       events_json = {

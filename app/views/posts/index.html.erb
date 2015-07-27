@@ -27,7 +27,7 @@
         <form class="form-inline" role="form">
           <div class="form-group">
             <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
-            <select ng-model="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(doctorId)">
+            <select ng-model="doctorId" id="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(this, doctorId)">
             </select>
           </div>
           <div class="form-group">
@@ -36,7 +36,7 @@
           </div>
           <div class="form-group">
             <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
-            <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(locationId)" ng-disabled="disableLocation">
+            <select ng-model="locationId" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(this, locationId)" ng-disabled="disableLocation">
             </select>
           </div>
         </form>
@@ -71,9 +71,10 @@
                   <div class="form-group">
                     <label class="control-label col-lg-1" for="number">Mobile Number: *</label>
                     <div class="col-lg-8">
-                      <input type="number" class="form-control" name="mobile_number" ng-click="submitted = false" id="patientNumber" ng-model="patientNumber" placeholder="1234" required>
+                      <input type="number" class="form-control" name="mobile_number" ng-click="submitted = false" id="patientNumber" ng-model="patientNumber" placeholder="1234" required ng-minlength=8 ng-maxlength=10>
                       <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.required" ng-if='appointmentForm.mobile_number.$dirty'>Please Enter Mobile Number !</span>
                       <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.number">Please Enter Valid Mobile Number !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.mobile_number.$error.minlength || appointmentForm.mobile_number.$error.maxlength">Mobile Number should be 8 to 10 number</span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -190,8 +191,7 @@
                     <div class="col-lg-8">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
                       <span ng-show="paymentSelected">
-                        <i class="fa fa-inr prepay-symbol-green" ng-show="show_green"></i>
-                        <i class="fa fa-inr prepay-symbol-red" ng-show="show_red"></i>
+                        <i class="fa fa-inr" ng-class="{'prepay-symbol-green': show_green, 'prepay-symbol-red': !show_green}"></i>
                         <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
                         <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
                       </span>

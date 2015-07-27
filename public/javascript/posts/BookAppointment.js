@@ -1,6 +1,6 @@
 var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, Flash) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -125,14 +125,30 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
+
       if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking' && event.prepay_amount > 0){
-        if(event.is_booked){
+        if(event.is_paid){
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
         }else{
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-red"></i></span>');
         }
       }
+
+      if(event.event_type == 'non-working'){
+        element.attr({'tooltip': 'Closed Slot',
+                      'tooltip-append-to-body': true,
+                      'tooltip-trigger':"click"});
+        $compile(element)($scope);
+      }
     };
+
+    $scope.dayEvent = function(date, jsEvent, view) {
+      if (jsEvent.target.classList.contains('fc-bgevent')) {
+        $timeout( function(){
+          $(jsEvent.target).trigger('click');
+        }, 2000);
+      }
+    }
 
     $scope.uiConfig = {
       calendar:{
@@ -157,6 +173,7 @@ var app = angular.module('BookAppointmentApp');
         eventDrop: $scope.alertOnDropOrResize,
         eventResize: $scope.alertOnDropOrResize,
         eventRender: $scope.eventRenderContent,
+        dayClick: $scope.dayEvent,
         select: $scope.slotSelected,
         viewRender: $scope.viewRenderWeekAgenda,
         editable: true,
@@ -279,7 +296,7 @@ var app = angular.module('BookAppointmentApp');
           backgroundColor: backgroundColor,
           event_type: event_type,
           prepay_amount: $scope.selected_event.prepay_amount,
-          is_booked: $scope.selected_event.paymentSelected ? true : false
+          is_paid: $scope.selected_event.paymentSelected ? true : false
         });
       };
 
@@ -311,7 +328,8 @@ var app = angular.module('BookAppointmentApp');
 
       $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
-        var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+        // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
+        var url_to_post = '/book_appointment';
         $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
             $scope.addEvent(response.event_id);

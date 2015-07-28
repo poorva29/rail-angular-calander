@@ -52,6 +52,14 @@
   color: red;
 }
 
+.prepay-symbol-red {
+  color: red;
+}
+
+.prepay-symbol-green {
+  color: rgb(8, 153, 8);
+}
+
 /*.fc-agendaWeek-view tr {
     height: 40px;
 }

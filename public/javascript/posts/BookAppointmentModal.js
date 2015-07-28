@@ -15,6 +15,7 @@ angular.module('BookAppointmentApp')
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
     $scope.submitted = false;
+    $scope.prepayAmount = 0;
 
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
@@ -42,6 +43,7 @@ angular.module('BookAppointmentApp')
       $scope.selected_event.email = $scope.patientEmail;
       $scope.selected_event.prepay_amount = $scope.prepayAmount;
       $scope.selected_event.prepay_by = $scope.prepayAmountBy;
+      $scope.selected_event.paymentSelected = $scope.paymentSelected;
     }
 
     $scope.ok = function () {
@@ -78,6 +80,10 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OPT Schedule"},
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
+    if($scope.selected_event.event_type == 'booking' && $scope.selected_event.prepay_amount > 0){
+      $scope.check_if_paid = $scope.selected_event.is_paid ? 'prepay-symbol-green' : 'prepay-symbol-red';
+    }
+
     if($scope.showPatient){
       $scope.patientName = eventDetails.patientName();
       $scope.patientNumber = eventDetails.patientNumber();
@@ -149,7 +155,7 @@ angular.module('BookAppointmentApp')
       },
 
       paymentSelected: function(){
-        return true;
+        return selected_event.prepay_amount > 0 ? true : false
       },
 
       prepayAmount: function(){

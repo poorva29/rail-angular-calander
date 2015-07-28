@@ -125,6 +125,15 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
+
+      if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking' && event.prepay_amount > 0){
+        if(event.is_paid){
+          element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
+        }else{
+          element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-red"></i></span>');
+        }
+      }
+
       if(event.event_type == 'non-working'){
         element.attr({'tooltip': 'Closed Slot',
                       'tooltip-append-to-body': true,
@@ -285,7 +294,9 @@ var app = angular.module('BookAppointmentApp');
           className: ['openSesame'],
           stick: true,
           backgroundColor: backgroundColor,
-          event_type: event_type
+          event_type: event_type,
+          prepay_amount: $scope.selected_event.prepay_amount,
+          is_paid: $scope.selected_event.paymentSelected ? true : false
         });
       };
 

@@ -57,6 +57,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('danger', message);
     }
 
+    $scope.appointmentDeleted = function(){
+      var message = '<strong> Deleted !</strong> Appointment Deleted Successfully.';
+      $scope.showAlert('danger', message);
+    }
+
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
@@ -407,6 +412,7 @@ var app = angular.module('BookAppointmentApp');
               $scope.selected_event = selectedItem;
               if($scope.selected_event.changeCloseType){
                 $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+                $scope.appointmentDeleted();
               }else{
                 $scope.postEditedData(selectedItem);
               }

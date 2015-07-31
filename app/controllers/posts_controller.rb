@@ -249,7 +249,50 @@ class PostsController < ApplicationController
     }
     render json: doc_response
   end
-
+=begin
+  def get_patient_data
+    render json: [
+      {
+        "patientid": 95,"patientname": "test kets",
+        "patientemail":"kkalgaonkar+testpatient@gmail.com",
+        "patientmobile":"9850648380","patienttype":"unregpatient"
+      },
+      {
+        "patientid":99,"patientname":"abc","patientemail":"abc@gmail.com",
+        "patientmobile":"9762780567","patienttype":"unregpatient"
+      },
+      {
+        "patientid":79,"patientname":"Arif Alam",
+        "patientemail":"arifjica@yahoo.inlocal","patientmobile":"9960439495",
+        "patienttype":"regpatient"
+      },
+      {
+        "patientid":94,"patientname":"ketaki",
+        "patientemail":"foo@mailinator.com",
+        "patientmobile":"97598757987","patienttype":"unregpatient"
+      },
+      {
+        "patientid":114,"patientname":"priyanka",
+        "patientemail":"priyanka.p@vertisinfotech.com",
+        "patientmobile":"56666566666","patienttype":"unregpatient"
+      },
+      {
+        "patientid":98,"patientname":"test",
+        "patientemail":"priyanka.p@vertisinfotech.com",
+        "patientmobile":"9762780567","patienttype":"unregpatient"
+      },
+      {
+        "patientid":79,"patientname":"test kets",
+        "patientemail":"kkalgaonkar+testpatient@gmail.com",
+        "patientmobile":"9850648380","patienttype":"unregpatient"
+      },
+      {
+        "patientid":17409,"patientname":"test kets",
+        "patientemail":"kkalgaonkar+testpatient@gmail.com",
+        "patientmobile":"9850648380","patienttype":"regpatient"
+      }]
+  end
+=end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

@@ -183,7 +183,7 @@ angular.module('BookAppointmentApp')
       { "id": 5, "label": "Inscheduled Emergencies"}
     ];
     if($scope.showPatient){
-      $scope.patientName = eventDetails.patientName();
+      $scope.event.patientName = eventDetails.patientName();
       $scope.patientNumber = eventDetails.patientNumber();
       $scope.patientEmail = eventDetails.patientEmail();
       $scope.paymentSelected = eventDetails.paymentSelected();

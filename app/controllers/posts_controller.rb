@@ -110,7 +110,9 @@ class PostsController < ApplicationController
             event_type: 'booking',
             patient_name: 'Poorva Mahajan',
             appointment_type: '',
-            subject: 'boo'
+            subject: 'boo',
+            prepay_amount: 10,
+            is_paid: true
           },
           {
             id: 3,
@@ -119,7 +121,9 @@ class PostsController < ApplicationController
             event_type: 'booking',
             patient_name: 'Test User',
             appointment_type: '',
-            subject: 'boo'
+            subject: 'boo',
+            prepay_amount: 20,
+            is_paid: false
           },
           {
             id: -1,
@@ -163,7 +167,9 @@ class PostsController < ApplicationController
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Rutuja Khanpekar',
-            subject: 'boo'
+            subject: 'boo',
+            prepay_amount: 0,
+            is_paid: false
           },
           {
             id: 3,
@@ -172,7 +178,9 @@ class PostsController < ApplicationController
             event_type: 'booking',
             appointment_type: '',
             patient_name: 'Test User',
-            subject: 'boo'
+            subject: 'boo',
+            prepay_amount: 10,
+            is_paid: false
           },
           {
             id: -1,
@@ -223,7 +231,8 @@ class PostsController < ApplicationController
         # prepay_date: '2015-07-19',
         # prepay_time: '11:00:00',
         prepay_by: '2015-07-19T11:00:00',
-        event_type: 'booking'
+        event_type: 'booking',
+        is_paid: false
       }
     else
       events_json = {

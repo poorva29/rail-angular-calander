@@ -102,9 +102,11 @@
                     <label class="control-label col-lg-3" for="name">Pre-pay: </label>
                     <div class="col-lg-8">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
-                      <i class="fa fa-inr"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
-                      <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
+                      <span ng-show="paymentSelected">
+                        <i class="fa fa-inr"></i>
+                        <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
+                        <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
+                      </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -190,9 +192,11 @@
                     <label class="control-label col-lg-3" for="name">Pre-pay: </label>
                     <div class="col-lg-8">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
-                      <i class="fa fa-inr"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
-                      <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
+                      <span ng-show="paymentSelected">
+                        <i class="fa fa-inr" ng-class="check_if_paid"></i>
+                        <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
+                        <input type="text" class="form-control pay-amount-by" ng-model="prepayAmountBy">
+                      </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->

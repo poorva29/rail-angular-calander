@@ -1,6 +1,6 @@
 var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash, $rootScope) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -10,6 +10,13 @@ var app = angular.module('BookAppointmentApp');
     var y = date.getFullYear();
     $scope.events = [];
     $scope.showCalendar = false;
+    $scope.appointmentTypes = [
+      { "id": 1, "label": "Conference Travel", "isDefault": true},
+      { "id": 2, "label": "IPD"},
+      { "id": 3, "label": "OPD"},
+      { "id": 4, "label": "OT Schedule"},
+      { "id": 5, "label": "Unscheduled Emergencies"}
+    ];
 
     $scope.viewRenderWeekAgenda = function(view, element){
       $scope.viewStartDate = view.start.format('MM-DD-YYYY');
@@ -44,7 +51,7 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.appointmentNotBooked = function(){
       var message = '<strong> Not Booked !</strong> Appointment Can Not Be Created.';
-      $scope.showAlert('success', message);
+      $scope.showAlert('danger', message);
     };
 
     $scope.appointmentPastEvent = function(){
@@ -125,7 +132,6 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
-
       if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking' && event.prepay_amount > 0){
         if(event.is_paid){
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
@@ -133,7 +139,6 @@ var app = angular.module('BookAppointmentApp');
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-red"></i></span>');
         }
       }
-
       if(event.event_type == 'non-working'){
         element.attr({'tooltip': 'Closed Slot',
                       'tooltip-append-to-body': true,
@@ -148,7 +153,7 @@ var app = angular.module('BookAppointmentApp');
           $(jsEvent.target).trigger('click');
         }, 2000);
       }
-    }
+    };
 
     $scope.uiConfig = {
       calendar:{
@@ -181,6 +186,13 @@ var app = angular.module('BookAppointmentApp');
       }
     };
 
+    slotArr = $scope.uiConfig.calendar.slotDuration.split(':');
+    slotArr[0] = slotArr[0] != "00" ? Math.floor(slotArr[0] * 60) : 00;
+    slotArr[1] = slotArr[1];
+    slotArr[2] = slotArr[2] != "00" ? Math.floor(slotArr[2] / 60) : 00;
+    $rootScope.slot = (parseInt(slotArr[0]) + parseInt(slotArr[1]) + parseInt(slotArr[2]));
+
+
     $scope.addPatientAttributes = function(event){
       return {
         title: event.patient_name,
@@ -204,10 +216,10 @@ var app = angular.module('BookAppointmentApp');
                           });
       switch(event.event_type){
         case 'booking':
-                      $scope.extend(event, $scope.addPatientAttributes(event));
-                      break;
-        case 'blocked':
-                      $scope.extend(event, $scope.addDoctorAttributes(event));
+                      if(event.appointment_type == "Patient Appointment")
+                        $scope.extend(event, $scope.addPatientAttributes(event));
+                      else
+                        $scope.extend(event, $scope.addDoctorAttributes(event));
                       break;
         default:
                 $scope.extend(event,{rendering: 'background', backgroundColor: '#646464'});
@@ -216,14 +228,14 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.getInitialData = function(){
-      $http.get('/api/calendar/calendar_details', {params:
-        {location: $scope.locationId,
+      $http.get('../api/calendar/calendar_details', {params:
+        {doclocation_id: $scope.locationId,
          start: $scope.viewStartDate,
          end: $scope.viewEndDate
         }})
         .success(function (response) {
-          var minTime = response.calendar.minTime.toString(),
-          maxTime = response.calendar.maxTime.toString();
+          var minTime = response.calendar.min.toString(),
+          maxTime = response.calendar.max.toString();
           $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
           $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
           $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
@@ -269,7 +281,8 @@ var app = angular.module('BookAppointmentApp');
               'start': start,
               'end': end,
               'jsEvent': jsEvent,
-              'view': view
+              'view': view,
+              'doctorId': $scope.doctorId
             };
             return $scope.items;
           }
@@ -277,13 +290,14 @@ var app = angular.module('BookAppointmentApp');
       });
 
       $scope.addEvent= function(event_id){
-        var title = '', event_type = $scope.selected_event.event_type,
+        var title = '',current_appt_type = '', appointment_type = $scope.selected_event.appointment_type,
             backgroundColor = '';
-        if(event_type == 'blocked'){
-          title = $scope.selected_event.appointment_type.label;
-          backgroundColor = '#58BBEC'
-        }else{
+        if(appointment_type == 'Patient Appointment'){
           title = $scope.selected_event.patient_name;
+        }else{
+          current_appt_type = $scope.findWhere($scope.appointmentTypes, {"id": $scope.selected_event.appointment_type});
+          title = current_appt_type.label;
+          backgroundColor = '#58BBEC'
         }
         $scope.events.push({
           id: event_id,
@@ -294,7 +308,7 @@ var app = angular.module('BookAppointmentApp');
           className: ['openSesame'],
           stick: true,
           backgroundColor: backgroundColor,
-          event_type: event_type,
+          event_type: 'booking',
           prepay_amount: $scope.selected_event.prepay_amount,
           is_paid: $scope.selected_event.paymentSelected ? true : false
         });
@@ -304,35 +318,35 @@ var app = angular.module('BookAppointmentApp');
         var hash = {};
         hash['doctorId'] = $scope.doctorId;
         hash['doctorlocationId'] = $scope.locationId;
-        hash['appointmentStartTime'] = event_hash.start;
-        hash['appointmentEndTime'] = event_hash.end;
-        hash['appointmentTitle'] = event_hash.subject;
+        hash['appointmentStartTime'] = event_hash.start.format('MM/DD/YYYY HH:mm');
+        hash['appointmentEndTime'] = event_hash.end.format('MM/DD/YYYY HH:mm');
+        hash['appointmentTitle'] = event_hash.subject || '';
         hash['cancelOverlapped'] = event_hash.cancel_overlapped_event;
         hash['isAllDayEvent'] = event_hash.is_all_day_event;
-        hash['cretaedDate'] = event_hash.cretaed_date;
+        hash['createdDate'] = moment(new Date()).format('MM/DD/YYYY HH:mm');
         hash['createdby'] = event_hash.created_by;
-
-        if(event_hash.event_type == 'booking'){
-          hash['patname'] = event_hash.patient_name;
-          hash['mobileno'] = event_hash.mobile_number;
-          hash['prepayAmount'] = event_hash.prepay_amount;
-          hash['prepayBy'] = event_hash.prepay_by;
-          hash['email'] = event_hash.email;
-          hash['patienttype'] = event_hash.patient_type;
-          hash['patientId'] = "114";
-        }else if(event_hash.event_type == 'blocked'){
-          hash['appointmentType'] = event_hash.appointment_type;
+        hash['patname'] = event_hash.patient_name || '';
+        hash['patienttype'] = event_hash.patient_type || '';
+        hash['mobileno'] = event_hash.mobile_number || '';
+        hash['email'] = event_hash.email || '';
+        hash['prepayAmount'] = event_hash.prepay_amount || 0.0;
+        hash['prepayBy'] = event_hash.prepay_by || moment(new Date()).format('MM/DD/YYYY HH:mm');
+        if(event_hash.appointment_type == 'Patient Appointment'){
+          hash['patientId'] = '114';
+          hash['appointmentType'] = '0';
+        }else {
+          hash['patientId'] = null;
+          hash['appointmentType'] = event_hash.appointment_type || 1;
         }
         return hash;
       };
 
       $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
-        // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/AddAppointment';
-        var url_to_post = '/book_appointment';
+        var url_to_post = '../api/calendar/add_appointment';
         $http.post(url_to_post, data).success(function(response){
           if(response.IsSuccess){
-            $scope.addEvent(response.event_id);
+            $scope.addEvent(response.ApptId);
             $scope.appointmentBooked();
           }else{
             $scope.appointmentNotBooked();
@@ -344,8 +358,8 @@ var app = angular.module('BookAppointmentApp');
         var event_hash = {};
         $scope.selected_event = selectedItem;
         $scope.extend(event_hash, $scope.omit($scope.selected_event, 'jsEvent', 'view'));
-        if(event_hash.appointment_type){
-          event_hash.appointment_type = event_hash.appointment_type.id;
+        if(event_hash.appointment_type != 'Patient Appointment'){
+          event_hash.appointment_type = event_hash.appointment_type;
         }
         $scope.bookAppointment(event_hash);
       }, function () {
@@ -354,7 +368,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openEdit = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
+      $http.get('../api/calendar/appointment_details?appointment_id=' + event.id)
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({
@@ -380,33 +394,42 @@ var app = angular.module('BookAppointmentApp');
 
             $scope.getEditedData = function(selectedItem){
               return {
-                  'appointmentId': selectedItem.id,
+                  'id': selectedItem.event.id,
                   'appointmentTitle': selectedItem.subject,
-                  'appointmentStartTime': selectedItem.start.format('DD/MM/YYYY hh:mm'),
-                  'appointmentEndTime': selectedItem.end.format('DD/MM/YYYY hh:mm'),
-                  'isAllDayEvent':'0',
+                  'appointmentStartTime': selectedItem.start.format('MM/DD/YYYY HH:mm'),
+                  'appointmentEndTime': selectedItem.end.format('MM/DD/YYYY HH:mm'),
+                  'isAllDayEvent':'false',
                   'doctorId': $scope.doctorId,
-                  'doctorlocationId': $scope.locationId,
-                  "appointmentType": selectedItem.appointment_type ? selectedItem.appointment_type : '0' ,
-                  "prepayAmount": selectedItem.prepay_amount,
-                  "prepayBy": selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : '',
-                  'id': selectedItem.id
+                  'doctorLocationId': $scope.locationId,
+                  'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0' ,
+                  'prepayAmount': selectedItem.prepay_amount || '0',
+                  'cancelOverlapped': 'false',
+                  'email': selectedItem.email || '',
+                  'mobileno': selectedItem.mobile_number || '',
+                  'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : '12/12/2015 09:30:00'
                 };
             };
 
             $scope.postEditedData = function(selectedItem){
-              // var url_to_post = 'http://connect.s.miraihealth.com/CalendarService/CalendarService.svc/Update';
-              var url_to_post = '/post_edited_data';
-              $http.post('/post_event_data', $scope.getEditedData(selectedItem))
+              var url_to_post = '../api/calendar/update_appointment',
+              data = $scope.getEditedData(selectedItem);
+              $http.post(url_to_post, data)
                 .success(function (response) {
-                  console.log('Data Posted !');
+                  if(response.IsSuccess){
+                    $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
+                    $scope.appointmentUpdated();
+                  }
                 });
             };
 
             modalInstance.result.then(function (selectedItem) {
               $scope.selected_event = selectedItem;
               if($scope.selected_event.changeCloseType){
-                $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+                $http.get('../api/calendar/delete_appointment?appointmentId=' + selectedItem.event.id)
+                  .success(function (response) {
+                    if(response.IsSuccess == true)
+                      $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+                  });
               }else{
                 $scope.postEditedData(selectedItem);
               }
@@ -420,7 +443,7 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.openPastTime = function (event, jsEvent, view, size) {
-      $http.post('/get_event_data', {id: event.id, event: $scope.pick(event, 'patient_name', 'subject', 'event_type')})
+      $http.get('../api/calendar/appointment_details?appointment_id=' + event.id)
         .success(function (response) {
           if(response){
             var modalInstance = $modal.open({
@@ -435,9 +458,9 @@ var app = angular.module('BookAppointmentApp');
                     'start': event.start,
                     'end': event.end,
                     'jsEvent': jsEvent,
-                    'view': view,
+                    'view': view
                   };
-                  $scope.extend($scope.items, response);
+                  $scope.extend($scope.items, $scope.omit(response, 'start', 'end'));
                   return $scope.items;
                 }
               }

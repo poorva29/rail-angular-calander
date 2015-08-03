@@ -90,8 +90,8 @@ class PostsController < ApplicationController
       events_json = {
         calendar: {
           slot_duration: '00:15:00',
-          minTime: '1030',
-          maxTime: '2000'
+          min: '1030',
+          max: '2000'
         },
         events: [
           {
@@ -147,8 +147,8 @@ class PostsController < ApplicationController
       events_json = {
         calendar: {
           slot_duration: '00:15:00',
-          minTime: '900',
-          maxTime: '1830'
+          min: '900',
+          max: '1830'
         },
         events: [
           {
@@ -216,36 +216,37 @@ class PostsController < ApplicationController
 
   def get_event_data
     event = params[:event]
-    if event[:event_type].eql?('booking')
+    # if event[:event_type].eql?('booking')
       events_json = {
-        id: params[:id],
+        id: 1,
         doctor_id: 1,
         location_id: 1,
-        name: event[:patient_name] || 'Just Created',
+        name: 'Just Created',
         mobile_number: '9987766554',
         email: 'foo@boo',
         # start: 'yymmdd hh:mm:ss',
         # end: 'yymmdd hh:mm:ss',
-        subject: event[:subject],
+        subject: 'Some Subject',
         prepay_amount: 1234,
         # prepay_date: '2015-07-19',
         # prepay_time: '11:00:00',
         prepay_by: '2015-07-19T11:00:00',
         event_type: 'booking',
-        is_paid: false
+        is_paid: false,
+        appointment_type: 1
       }
-    else
-      events_json = {
-        id: params[:id],
-        doctor_id: 1,
-        location_id: 1,
-        # start: 'yymmdd hh:mm:ss',
-        # end: 'yymmdd hh:mm:ss',
-        subject: event[:subject],
-        appointment_type: 'OPD',
-        event_type: 'blocked'
-      }
-    end
+    # else
+    #   events_json = {
+    #     id: params[:id],
+    #     doctor_id: 1,
+    #     location_id: 1,
+    #     # start: 'yymmdd hh:mm:ss',
+    #     # end: 'yymmdd hh:mm:ss',
+    #     subject: event[:subject],
+    #     appointment_type: 'OPD',
+    #     event_type: 'blocked'
+    #   }
+    # end
     render json: events_json
   end
 
@@ -258,6 +259,17 @@ class PostsController < ApplicationController
     }
     render json: doc_response
   end
+
+  def get_patients
+    list = [{
+      email: 'nkalnad@gmail.comlocal',
+      id: 114,
+      mobile: '9960439495',
+      name: 'test test'
+    }]
+    render json: list
+  end
+
 =begin
   def get_patient_data
     render json: [

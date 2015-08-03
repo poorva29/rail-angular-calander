@@ -1,3 +1,7 @@
+.modal-title {
+  text-align: center;
+}
+
 .pay-amount {
   width: 15%;
   display: initial;
@@ -13,21 +17,21 @@
   display: initial;
 }
 
-#directives-calendar {
-  width: 90%;
-  margin: 5%;
-}
-
-#doctor-location {
-  margin: 1%;
+.doctor-location-select{
+  min-width: 160px;
 }
 
 .validation-msg-color {
   color: red;
 }
 
-.doctor-location-select{
-  min-width: 160px;
+#directives-calendar {
+  width: 98%;
+  margin: 1%;
+}
+
+#doctor-location {
+  margin: 1%;
 }
 
 .prepay-symbol-red {
@@ -38,10 +42,50 @@
   color: rgb(8, 153, 8);
 }
 
-/*.fc-agendaWeek-view tr {
-    height: 40px;
+.date-time-picker-size {
+  width: 158px !important;
+  height: 30px !important;
 }
 
-.fc-agendaDay-view tr {
-    height: 40px;
-}*/
+.time-picker-size
+{
+  width: 100px !important;
+  height: 30px !important;
+}
+
+.date-picker-left-margin {
+  left: 5px !important;
+}
+
+.prepay-date-size {
+  width: 142px !important;
+  height: 30px !important;
+}
+
+.prepay-time-size {
+  width: 158px !important;
+  height: 30px !important;
+}
+
+#pre-pay-size ul
+{
+    height: 85px !important;
+    overflow-y: auto !important;
+}
+
+.left-right-margin
+{
+  font-size: small;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.date-picker-text-indent
+{
+    text-indent: 4px;
+}
+
+.time-picker-text-indent
+{
+    text-indent: 10px;
+}

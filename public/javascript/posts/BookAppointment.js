@@ -132,7 +132,7 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
-      if(!$scope.checkNotValidTime(event.start) && event.event_type == 'booking' && event.prepay_amount > 0){
+      if(!$scope.checkNotValidTime(event.start) && event.appointment_type == "Patient Appointment"){
         if(event.is_paid){
           element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
         }else{
@@ -282,7 +282,8 @@ var app = angular.module('BookAppointmentApp');
               'end': end,
               'jsEvent': jsEvent,
               'view': view,
-              'doctorId': $scope.doctorId
+              'doctorId': $scope.doctorId,
+              'locationId': $scope.locationId
             };
             return $scope.items;
           }
@@ -310,7 +311,8 @@ var app = angular.module('BookAppointmentApp');
           backgroundColor: backgroundColor,
           event_type: 'booking',
           prepay_amount: $scope.selected_event.prepay_amount,
-          is_paid: $scope.selected_event.paymentSelected ? true : false
+          is_paid: $scope.selected_event.paymentSelected ? true : false,
+          appointment_type: appointment_type
         });
       };
 

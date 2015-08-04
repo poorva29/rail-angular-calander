@@ -38,6 +38,7 @@ app = angular.module('BookAppointmentApp');
     $scope.selected_event = {};
     $scope.selected_event = items;
     $scope.showPatient = true;
+    $scope.prepay_time = new Date();
     $scope.dateSelected = $scope.selected_event.start.format('DD MMM YYYY, hh:mm a') + ' - ' +$scope.selected_event.end.format('hh:mm a');
     $scope.updatedObject = [{ "id": 1, "label": "Conference Travel", "isDefault": true}]; //show default value in appointmentType dropdown
     $scope.appointmentTypes = [
@@ -54,7 +55,7 @@ app = angular.module('BookAppointmentApp');
     }
 
     $scope.patientsInfo = null;
-    var url_to_fetch = '/api/calendar/patients?doctor_id=' + $scope.selected_event.doctorId;
+    var url_to_fetch = '../api/calendar/patients?doctor_id=' + $scope.selected_event.doctorId + '&doclocation_id=' + $scope.selected_event.locationId;
     $http.get(url_to_fetch)
       .success(function (response) {
         $scope.patientsInfo = response;
@@ -102,7 +103,7 @@ app = angular.module('BookAppointmentApp');
       $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.email = $scope.patientEmail;
       $scope.selected_event.prepay_amount = $scope.prepayAmount;
-      $scope.selected_event.prepay_by = $scope.prepayAmountBy;
+      $scope.selected_event.prepay_by = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).format('HH:mm:ss');
     }
 
     $scope.ok = function () {
@@ -148,6 +149,7 @@ angular.module('BookAppointmentApp')
     $scope.fromTimeEdit = eventDetails.fromTimeEdit();
     $scope.toTimeEdit = eventDetails.toTimeEdit();
     $scope.subjectSelected = eventDetails.subjectSelected();
+    $scope.prepay_time = eventDetails.prepayTime();
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
@@ -155,9 +157,6 @@ angular.module('BookAppointmentApp')
       { "id": 4, "label": "OT Schedule"},
       { "id": 5, "label": "Unscheduled Emergencies"}
     ];
-    if($scope.selected_event.event_type == 'booking' && $scope.selected_event.prepay_amount > 0){
-      $scope.check_if_paid = $scope.selected_event.is_paid ? 'prepay-symbol-green' : 'prepay-symbol-red';
-    }
     if($scope.showPatient){
       $scope.patientName = eventDetails.patientName();
       $scope.patientNumber = eventDetails.patientNumber();
@@ -165,6 +164,8 @@ angular.module('BookAppointmentApp')
       $scope.paymentSelected = eventDetails.paymentSelected();
       $scope.prepayAmount = eventDetails.prepayAmount();
       $scope.prepayAmountBy = eventDetails.prepayAmountBy();
+      if($scope.selected_event.prepay_amount > 0)
+        $scope.check_if_paid = $scope.selected_event.is_paid ? 'prepay-symbol-green' : 'prepay-symbol-red';
     }else{
       var current_appointment_type = "";
       current_appointment_type = $scope.findWhere($scope.appointmentTypes, {"id": $scope.selected_event.appointment_type});
@@ -262,7 +263,7 @@ angular.module('BookAppointmentApp')
       },
 
       paymentSelected: function(){
-        return true;
+        return selected_event.prepay_amount > 0 ? true : false;
       },
 
       prepayAmount: function(){
@@ -275,6 +276,19 @@ angular.module('BookAppointmentApp')
 
       updatedObject: function(){
         return selected_event.appointment_type || 1;
+      },
+
+      prepayTime: function(){
+        var time = selected_event.prepay_by ? selected_event.prepay_by : new Date();
+        return moment(time).format('hh:mm A');
+      },
+
+      dateSelectedToEdit: function(){
+        return moment(selected_event.prepay_by).format('DD MMM YYYY')
+      },
+
+      fromTimeEdit: function(){
+        return moment(selected_event.prepay_by).format('hh:mm A');
       }
     };
   }]);
@@ -290,6 +304,7 @@ angular.module('BookAppointmentApp')
     $scope.fromTimeEdit = eventDetails.fromTimeEdit();
     $scope.toTimeEdit = eventDetails.toTimeEdit();
     $scope.subjectSelected = eventDetails.subjectSelected();
+    $scope.prepay_time = eventDetails.prepayTime();
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "IPD"},
@@ -304,6 +319,8 @@ angular.module('BookAppointmentApp')
       $scope.paymentSelected = eventDetails.paymentSelected();
       $scope.prepayAmount = eventDetails.prepayAmount();
       $scope.prepayAmountBy = eventDetails.prepayAmountBy();
+      $scope.dateSelectedToEdit = eventDetails.dateSelectedToEdit();
+      $scope.fromTimeEdit = eventDetails.fromTimeEdit();
     }else{
       var current_appointment_type = "";
       current_appointment_type = $scope.findWhere($scope.appointmentTypes, {"id": $scope.selected_event.appointment_type});

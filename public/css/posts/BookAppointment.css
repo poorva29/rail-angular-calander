@@ -44,7 +44,7 @@
 
 .date-time-picker-size {
   width: 158px !important;
-  height: 30px !important;
+  display: initial;
 }
 
 .time-picker-size
@@ -59,12 +59,12 @@
 
 .prepay-date-size {
   width: 142px !important;
-  height: 30px !important;
+  display: initial;
 }
 
 .prepay-time-size {
   width: 158px !important;
-  height: 30px !important;
+  display: initial;
 }
 
 #pre-pay-size ul
@@ -88,4 +88,23 @@
 .time-picker-text-indent
 {
     text-indent: 10px;
+}
+
+.search_box{
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.prepay-past-date-size{
+  width: 41%;
+}
+
+.prepay-past-time-size{
+  width: 30%;
 }

@@ -9,7 +9,7 @@ Training::Application.routes.draw do
   get 'api/calendar/calendar_details' => 'posts#events'
   get '/api/calendar/doclocations' => 'posts#doctor_locations'
   post 'book_appointment' => 'posts#book_appointment'
-  post '/api/calendar/update_appointment' => 'posts#get_event_data'
+  post '/api/calendar/update_appointment' => 'posts#book_appointment'
   get '/api/calendar/appointment_details' => 'posts#get_event_data'
   post 'api/calendar/add_appointment' => 'posts#post_event_data'
   post 'api/calendar/update_appointment' => 'posts#post_event_data'

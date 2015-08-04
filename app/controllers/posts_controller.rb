@@ -105,11 +105,11 @@ class PostsController < ApplicationController
           },
           {
             id: 2,
-            start:  '2015-07-31T11:00',
-            end: '2015-07-31T13:00',
+            start:  '2015-08-04T11:00',
+            end: '2015-08-04T13:00',
             event_type: 'booking',
             patient_name: 'Poorva Mahajan',
-            appointment_type: '',
+            appointment_type: 'Patient Appointment',
             subject: 'boo',
             prepay_amount: 10,
             is_paid: true
@@ -162,10 +162,10 @@ class PostsController < ApplicationController
           },
           {
             id: 2,
-            start:  '2015-07-25T13:00',
-            end: '2015-07-25T15:00',
+            start:  '2015-08-07T13:00',
+            end: '2015-08-0715:00',
             event_type: 'booking',
-            appointment_type: '',
+            appointment_type: 'Patient Appointment',
             patient_name: 'Rutuja Khanpekar',
             subject: 'boo',
             prepay_amount: 0,
@@ -233,7 +233,7 @@ class PostsController < ApplicationController
         prepay_by: '2015-07-19T11:00:00',
         event_type: 'booking',
         is_paid: false,
-        appointment_type: 1
+        appointment_type: 'Patient Appointment'
       }
     # else
     #   events_json = {
@@ -255,7 +255,7 @@ class PostsController < ApplicationController
       IsSuccess: true,
       Msg: 'edit success',
       Data: '0',
-      event_id: params[:id]
+      event_id: rand(1..100)
     }
     render json: doc_response
   end

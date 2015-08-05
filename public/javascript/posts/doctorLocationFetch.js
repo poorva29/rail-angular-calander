@@ -1,4 +1,4 @@
-var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker', 'ngSanitize', 'ui.select']);
+var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker', 'ngSanitize', 'ui.select', 'angular-bootbox']);
   app.controller('doctorLocationFetchCtrl', function($scope, $modal, $log, $http, Flash) {
     $scope.locationId = null;
     $scope.doctors = [{ id: 0, firstname: '----- Select -----', lastname: ''}];

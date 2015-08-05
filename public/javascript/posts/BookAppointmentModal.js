@@ -139,7 +139,7 @@ app = angular.module('BookAppointmentApp');
   });
 
 angular.module('BookAppointmentApp')
-  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
+  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails, bootbox) {
     $scope.selected_event = items;
     var appointment_type = $scope.selected_event.appointment_type;
     var appointment_type_check = (appointment_type == 'Patient Appointment' || appointment_type == 0 || appointment_type == -1);
@@ -210,7 +210,7 @@ angular.module('BookAppointmentApp')
         buttons: {
           cancel: {
             label: "Cancel",
-              className: "btn btn-warning pull-right"
+            className: "btn btn-warning pull-right"
           },
           confirm: {
             label: "OK",

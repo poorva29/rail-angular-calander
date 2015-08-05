@@ -116,7 +116,7 @@ input::-webkit-inner-spin-button {
 
 .bootbox .modal-body
 {
-  height: 70px !important;
+  height: 10vh;
 }
 
 .bootbox .btn-ok

@@ -145,9 +145,9 @@ var app = angular.module('BookAppointmentApp');
         element.find('.fc-title').append(" - " + event.subject);
       if(!$scope.checkNotValidTime(event.start) && event.appointment_type == "Patient Appointment"){
         if(event.is_paid){
-          element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-green"></i></span>');
+          element.find('.fc-title').append('&nbsp&nbsp<span><i class="fa fa-inr prepay-symbol-green"></i></span>');
         }else{
-          element.find('.fc-title').append('<sapn><i class="fa fa-inr pull-right prepay-symbol-red"></i></span>');
+          element.find('.fc-title').append('&nbsp&nbsp<span><i class="fa fa-inr prepay-symbol-red"></i></span>');
         }
       }
       if(event.event_type == 'non-working'){
@@ -202,13 +202,6 @@ var app = angular.module('BookAppointmentApp');
       }
     };
 
-    slotArr = $scope.uiConfig.calendar.slotDuration.split(':');
-    slotArr[0] = slotArr[0] != "00" ? Math.floor(slotArr[0] * 60) : 00;
-    slotArr[1] = slotArr[1];
-    slotArr[2] = slotArr[2] != "00" ? Math.floor(slotArr[2] / 60) : 00;
-    $rootScope.slot = (parseInt(slotArr[0]) + parseInt(slotArr[1]) + parseInt(slotArr[2]));
-
-
     $scope.addPatientAttributes = function(event){
       return {
         title: event.patient_name,
@@ -252,8 +245,11 @@ var app = angular.module('BookAppointmentApp');
         }})
         .success(function (response) {
           var minTime = response.calendar.min.toString(),
-          maxTime = response.calendar.max.toString();
-          $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+          maxTime = response.calendar.max.toString(), slot = null;
+          slot = response.calendar.slot_duration
+          $scope.uiConfig.calendar.slotDuration = slot;
+          slot = moment(slot, 'hh:mm:ss');
+          $rootScope.slot = (slot.hour() * 60) + slot.minutes();
           $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
           $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
           $scope.events.splice(0,$scope.events.length);
@@ -414,7 +410,7 @@ var app = angular.module('BookAppointmentApp');
            $scope.getEditedData = function(selectedItem){
               if($scope.checkNotValidTime(selectedItem.start)){
                 $scope.appointmentPastDate();
-              }else if($scope.stopEventOverloap(selectedItem.start.format("YYYY-MM-DDThh:mm"), selectedItem.end.format("YYYY-MM-DDThh:mm"), selectedItem.event.id)){
+              }else if($scope.stopEventOverloap(selectedItem.start, selectedItem.end, selectedItem.event.id)){
                   $scope.appointmentNotUpdated();
               }else{
                   selectedItem.event.start = selectedItem.start;

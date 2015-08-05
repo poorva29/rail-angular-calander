@@ -245,13 +245,18 @@ var app = angular.module('BookAppointmentApp');
         }})
         .success(function (response) {
           var minTime = response.calendar.min.toString(),
-          maxTime = response.calendar.max.toString(), slot = null;
+          maxTime = response.calendar.max.toString(), slot = null,
+          docMaxTime = null, docMinTime = null;
           slot = response.calendar.slot_duration
           $scope.uiConfig.calendar.slotDuration = slot;
           slot = moment(slot, 'hh:mm:ss');
           $rootScope.slot = (slot.hour() * 60) + slot.minutes();
-          $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
-          $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
+          docMinTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
+          docMaxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
+          $scope.uiConfig.calendar.minTime = docMinTime;
+          $scope.uiConfig.calendar.maxTime = docMaxTime;
+          $rootScope.minTime = moment(docMinTime, 'hh:mm').format('hh:mm a');
+          $rootScope.maxTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
           $scope.events.splice(0,$scope.events.length);
           $scope.each(response.events, function(event){
             $scope.events.push($scope.formatEvent(event));

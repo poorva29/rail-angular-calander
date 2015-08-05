@@ -12,8 +12,8 @@ var app = angular.module('BookAppointmentApp');
     $scope.showCalendar = false;
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
-      { "id": 2, "label": "IPD"},
-      { "id": 3, "label": "OPD"},
+      { "id": 2, "label": "OPD"},
+      { "id": 3, "label": "IPD"},
       { "id": 4, "label": "OT Schedule"},
       { "id": 5, "label": "Unscheduled Emergencies"}
     ];
@@ -62,17 +62,26 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventCreateFailure = function(){
       var message = '<strong> Event Creation Failure !</strong> Cannot Be Created.';
       $scope.showAlert('danger', message);
-    }
+    };
+
+    $scope.appointmentDeleted = function(){
+      var message = '<strong> Deleted !</strong>  Appointment Deleted Successfully.';
+      $scope.showAlert('success', message);
+    };
 
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
-      if($scope.checkNotValidTime(event.start)){
+      if(view.name == 'month'){
         $scope.openPastTime(event, jsEvent, view, '');
       }else{
-        $scope.openEdit(event, jsEvent, view, '');
+        if($scope.checkNotValidTime(event.start)){
+          $scope.openPastTime(event, jsEvent, view, '');
+        }else{
+          $scope.openEdit(event, jsEvent, view, '');
+        }
       }
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
@@ -116,6 +125,8 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.slotSelected = function(start, end, jsEvent, view){
       // start.format('hh:mm') , start.hours()
+      if(view.name == 'month')
+        return;
       if($scope.checkNotValidTime(start)){
         $scope.appointmentPastDate();
         $('#appointmentBookingCalendar').fullCalendar('unselect');
@@ -148,10 +159,15 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.dayEvent = function(date, jsEvent, view) {
-      if (jsEvent.target.classList.contains('fc-bgevent')) {
-        $timeout( function(){
-          $(jsEvent.target).trigger('click');
-        }, 2000);
+      if(view.name == 'month'){
+        $('#appointmentBookingCalendar').fullCalendar('gotoDate', date);
+        $('#appointmentBookingCalendar').fullCalendar('changeView', 'agendaWeek');
+      }else{
+        if (jsEvent.target.classList.contains('fc-bgevent')) {
+          $timeout( function(){
+            $(jsEvent.target).trigger('click');
+          }, 2000);
+        }
       }
     };
 
@@ -231,7 +247,8 @@ var app = angular.module('BookAppointmentApp');
       $http.get('../api/calendar/calendar_details', {params:
         {doclocation_id: $scope.locationId,
          start: $scope.viewStartDate,
-         end: $scope.viewEndDate
+         end: $scope.viewEndDate,
+         doctor_id: $scope.doctorId
         }})
         .success(function (response) {
           var minTime = response.calendar.min.toString(),
@@ -334,7 +351,7 @@ var app = angular.module('BookAppointmentApp');
         hash['prepayAmount'] = event_hash.prepay_amount || 0.0;
         hash['prepayBy'] = event_hash.prepay_by || moment(new Date()).format('MM/DD/YYYY HH:mm');
         if(event_hash.appointment_type == 'Patient Appointment'){
-          hash['patientId'] = '114';
+          hash['patientId'] = event_hash.patient_id;
           hash['appointmentType'] = '0';
         }else {
           hash['patientId'] = null;
@@ -394,8 +411,16 @@ var app = angular.module('BookAppointmentApp');
               }
             });
 
-            $scope.getEditedData = function(selectedItem){
-              return {
+           $scope.getEditedData = function(selectedItem){
+              if($scope.checkNotValidTime(selectedItem.start)){
+                $scope.appointmentPastDate();
+              }else if($scope.stopEventOverloap(selectedItem.start.format("YYYY-MM-DDThh:mm"), selectedItem.end.format("YYYY-MM-DDThh:mm"), selectedItem.event.id)){
+                  $scope.appointmentNotUpdated();
+              }else{
+                  selectedItem.event.start = selectedItem.start;
+                  selectedItem.event.end = selectedItem.end;
+                  $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
+                return {
                   'id': selectedItem.event.id,
                   'appointmentTitle': selectedItem.subject,
                   'appointmentStartTime': selectedItem.start.format('MM/DD/YYYY HH:mm'),
@@ -403,25 +428,28 @@ var app = angular.module('BookAppointmentApp');
                   'isAllDayEvent':'false',
                   'doctorId': $scope.doctorId,
                   'doctorLocationId': $scope.locationId,
-                  'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0' ,
+                  'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0',
                   'prepayAmount': selectedItem.prepay_amount || '0',
                   'cancelOverlapped': 'false',
                   'email': selectedItem.email || '',
                   'mobileno': selectedItem.mobile_number || '',
-                  'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : '12/12/2015 09:30:00'
+                  'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : selectedItem.prepay_by
                 };
+              }
             };
 
             $scope.postEditedData = function(selectedItem){
               var url_to_post = '../api/calendar/update_appointment',
               data = $scope.getEditedData(selectedItem);
-              $http.post(url_to_post, data)
-                .success(function (response) {
-                  if(response.IsSuccess){
-                    $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
-                    $scope.appointmentUpdated();
-                  }
+              if(data){
+                $http.post(url_to_post, data)
+                  .success(function (response) {
+                    if(response.IsSuccess){
+                      $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
+                      $scope.appointmentUpdated();
+                    }
                 });
+              }
             };
 
             modalInstance.result.then(function (selectedItem) {
@@ -431,6 +459,7 @@ var app = angular.module('BookAppointmentApp');
                   .success(function (response) {
                     if(response.IsSuccess == true)
                       $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
+                      $scope.appointmentDeleted();
                   });
               }else{
                 $scope.postEditedData(selectedItem);

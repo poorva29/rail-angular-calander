@@ -108,3 +108,18 @@ input::-webkit-inner-spin-button {
 .prepay-past-time-size{
   width: 30%;
 }
+
+.bootbox
+{
+  padding-top: 100px;
+}
+
+.bootbox .modal-body
+{
+  height: 10vh;
+}
+
+.bootbox .btn-ok
+{
+  margin-right: 5px;
+}

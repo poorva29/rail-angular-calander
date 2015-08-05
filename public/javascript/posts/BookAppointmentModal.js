@@ -140,7 +140,7 @@ app = angular.module('BookAppointmentApp');
   });
 
 angular.module('BookAppointmentApp')
-  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
+  .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails, bootbox) {
     $scope.selected_event = items;
     var appointment_type = $scope.selected_event.appointment_type;
     var appointment_type_check = (appointment_type == 'Patient Appointment' || appointment_type == 0 || appointment_type == -1);
@@ -224,8 +224,26 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.delete = function () {
-      $scope.selected_event.changeCloseType = true;
-      $modalInstance.close($scope.selected_event);
+      bootbox.confirm({
+        title: "",
+        message: "Do you want to delete the appointment?",
+        buttons: {
+          cancel: {
+            label: "Cancel",
+            className: "btn btn-warning pull-right"
+          },
+          confirm: {
+            label: "OK",
+            className: "btn btn-primary btn-ok"
+          }
+        },
+        callback: function(result) {
+          if(result){
+            $scope.selected_event.changeCloseType = true;
+            $modalInstance.close($scope.selected_event);
+          }
+        }
+      });
     };
 
     $scope.cancel = function () {

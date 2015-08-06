@@ -194,9 +194,9 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
+                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
+                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
                     </div>
                   </div>
                   <div class="form-group">
@@ -222,22 +222,18 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Date: *</label>
                     <div class="col-sm-9">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <p class="input-group">
-                          <input type="date" class="date-time-picker-size date-picker-left-margin date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="current_date"
-                          datepicker-options="dateOptions" ng-required="true" />
-                          </p>
-                        </div>
-                      </div>
+                      <p class="input-group">
+                      <input type="date" class="form-control date-picker-left-margin prepay-time-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="current_date"
+                      datepicker-options="dateOptions" ng-required="true" />
+                      </p>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
+                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}"/>
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
+                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}"/>
                     </div>
                   </div>
                   <div class="form-group">

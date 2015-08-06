@@ -85,6 +85,47 @@ var app = angular.module('BookAppointmentApp');
       }
       // $scope.alertMessage = (event.title + ' was clicked ');
     };
+
+    $scope.updateEventSource = function(event){
+      var eventInSource = $scope.findWhere($scope.events, {id: event.id});
+      if(eventInSource){
+        eventInSource.start = event.start;
+        eventInSource.end = event.end;
+      }
+    };
+
+    $scope.getUpdatedData = function(selectedItem){
+      return {
+        'id': selectedItem.id,
+        'appointmentTitle': selectedItem.subject,
+        'appointmentStartTime': selectedItem.start.format('MM/DD/YYYY HH:mm'),
+        'appointmentEndTime': selectedItem.end.format('MM/DD/YYYY HH:mm'),
+        'isAllDayEvent':'false',
+        'doctorId': $scope.doctorId,
+        'doctorLocationId': $scope.locationId,
+        'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0',
+        'prepayAmount': selectedItem.prepay_amount || '0',
+        'cancelOverlapped': 'false',
+        'email': selectedItem.email || '',
+        'mobileno': selectedItem.mobile_number || '',
+        'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : selectedItem.prepay_by
+      };
+    };
+
+    $scope.postUpdatedData = function(selectedItem){
+      var url_to_post = '../api/calendar/update_appointment',
+      data = $scope.getUpdatedData(selectedItem);
+      if(data){
+        $http.post(url_to_post, data)
+          .success(function (response) {
+            if(response.IsSuccess){
+              $scope.updateEventSource(selectedItem);
+              $scope.appointmentUpdated();
+            }
+        });
+      }
+    };
+
     /* alert on Drop */
     $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
       var eventInSource = $scope.findWhere($scope.events, {id: event.id});
@@ -101,11 +142,11 @@ var app = angular.module('BookAppointmentApp');
             $scope.appointmentNotUpdated();
             revertFunc();
           }else{
-            $scope.appointmentUpdated();
-            if(eventInSource){
-              eventInSource.start = event.start;
-              eventInSource.end = event.end;
-            }
+            $http.get('../api/calendar/appointment_details?appointment_id=' + event.id)
+              .success(function (response) {
+                $scope.extend(event, $scope.omit(response, 'start', 'end'));
+                $scope.postUpdatedData(event);
+              });
           }
         }
       }
@@ -446,6 +487,7 @@ var app = angular.module('BookAppointmentApp');
                 $http.post(url_to_post, data)
                   .success(function (response) {
                     if(response.IsSuccess){
+                      $scope.updateEventSource(selectedItem.event);
                       $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
                       $scope.appointmentUpdated();
                     }

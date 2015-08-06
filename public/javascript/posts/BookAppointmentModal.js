@@ -151,7 +151,6 @@ angular.module('BookAppointmentApp')
     $scope.toTimeEdit = eventDetails.toTimeEdit();
     $scope.subjectSelected = eventDetails.subjectSelected();
     $scope.prepay_time = eventDetails.prepayTime();
-    $scope.prepay_date = new Date(eventDetails.prepayDate());
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "OPD"},
@@ -252,7 +251,7 @@ angular.module('BookAppointmentApp')
 
     $scope.currentDay = function() {
       $scope.current_date = new Date($scope.selected_event.start);
-      $scope.prepay_date = new Date();
+      $scope.prepay_date = new Date(eventDetails.prepayDate());
     };
     $scope.currentDay();
 

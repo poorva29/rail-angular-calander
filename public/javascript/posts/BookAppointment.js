@@ -228,22 +228,29 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.getInitialData = function(){
-      $http.get('../api/calendar/calendar_details', {params:
-        {doclocation_id: $scope.locationId,
-         start: $scope.viewStartDate,
-         end: $scope.viewEndDate
-        }})
-        .success(function (response) {
-          var minTime = response.calendar.min.toString(),
-          maxTime = response.calendar.max.toString();
-          $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
-          $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
-          $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
-          $scope.events.splice(0,$scope.events.length);
-          $scope.each(response.events, function(event){
-            $scope.events.push($scope.formatEvent(event));
+      if($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate || 
+        $scope.changedLocationId !== $scope.locationId || $scope.changedDoctorId !== $scope.doctorId){
+        $scope.startDate = $scope.viewStartDate;
+        $scope.endDate = $scope.viewEndDate;
+        $scope.changedLocationId = $scope.locationId;
+        $scope.changedDoctorId = $scope.doctorId;
+        $http.get('../api/calendar/calendar_details', {params:
+          {doclocation_id: $scope.locationId,
+           start: $scope.viewStartDate,
+           end: $scope.viewEndDate
+          }})
+          .success(function (response) {
+            var minTime = response.calendar.min.toString(),
+            maxTime = response.calendar.max.toString();
+            $scope.uiConfig.calendar.slotDuration = response.calendar.slot_duration;
+            $scope.uiConfig.calendar.minTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
+            $scope.uiConfig.calendar.maxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
+            $scope.events.splice(0,$scope.events.length);
+            $scope.each(response.events, function(event){
+              $scope.events.push($scope.formatEvent(event));
+          });
         });
-      });
+      }
     };
 
     $scope.$on("doctorLocation", function (event, args) {

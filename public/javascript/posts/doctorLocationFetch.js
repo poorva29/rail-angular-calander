@@ -16,23 +16,23 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       });
 
     $scope.getLocations = function(doctorId) {
-        if (doctorId == 0) {
-          $scope.disableLocation = true;
-          $scope.locations = [];
-          $scope.initRestId(null);
-        } else {
-          var doctorDetails = $scope.findWhere($scope.doctorsLocations, { id: doctorId });
-          if (doctorDetails) {
-            $scope.disableLocation = false;
-            $scope.locations = doctorDetails.locations;
-            if ($scope.locations.length > 0) {
-              $scope.locations.push({ 'id': -1, 'name': 'All' });
-              $scope.locationId = $scope.locations[0].id;
-              $scope.doctorId = doctorId;
-              $scope.fetchCalenderForDoctorLocation($scope.locationId);
-            }
+      if (doctorId == 0) {
+        $scope.disableLocation = true;
+        $scope.locations = [];
+        $scope.initRestId(null);
+      } else {
+        var doctorDetails = $scope.findWhere($scope.doctorsLocations, { id: doctorId });
+        if (doctorDetails) {
+          $scope.disableLocation = false;
+          $scope.locations = doctorDetails.locations;
+          if ($scope.locations.length > 0) {
+            $scope.locations.push({ 'id': -1, 'name': 'All' });
+            $scope.locationId = $scope.locations[0].id;
+            $scope.doctorId = doctorId;
+            $scope.fetchCalenderForDoctorLocation($scope.locationId);
           }
         }
+      }
     };
 
     $scope.fetchCalenderForDoctorLocation = function(locationId) {
@@ -46,4 +46,4 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         doctorId: $scope.doctorId
       });
     };
-  });
+});

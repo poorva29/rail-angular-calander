@@ -25,13 +25,13 @@
   <script src="javascript/lib/angular-flash.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.js"></script>
-  <script src="bower_components/angular-dateparser/dist/angular-dateparser.js"></script>
-  <script src="bower_components/angular-timepicker/src/angular-timepicker.js"></script>
+  <script type="text/javascript" src="bower_components/angular-dateparser/dist/angular-dateparser.js"></script>
+  <script type="text/javascript" src="bower_components/angular-timepicker/src/angular-timepicker.js"></script>
   <script type="text/javascript" src="javascript/lib/bootbox.min.js"></script>
   <script type="text/javascript" src="javascript/lib/angular-bootbox.js"></script>
 </head>
 <body>
-  <div class="row">
+  <div class="row search_box">
     <div id='doctor-location' ng-controller="doctorLocationFetchCtrl">
       <div class="col-sm-9 col-sm-offset-3">
         <form class="form-inline" role="form">
@@ -53,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="row-fluid search_box">
+  <div class="row-fluid">
     <div id="directives-calendar" ng-controller="BookAppointmentCtrl">
       <div ng-show="showCalendar">
         <div id="calender-show">
@@ -119,9 +119,9 @@
                     <div class="col-sm-9" id="pre-pay-size">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
                       <i class="fa fa-inr"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
-                      <input type="date" class="prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date" datepicker-options="dateOptions" ng-required="true" />
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" step="{{slot}}" />
+                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected"> by
+                      <input type="date" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date" datepicker-options="dateOptions" ng-disabled="!paymentSelected" ng-required="true" />
+                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected" />
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -194,9 +194,9 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" />
+                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" />
+                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
                     </div>
                   </div>
                   <div class="form-group">
@@ -210,10 +210,10 @@
                     <div class="col-sm-9" id="pre-pay-size">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
                       <i class="fa fa-inr" ng-class="check_if_paid"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount"> by
+                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected"> by
                       <input type="date" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date"
-                      datepicker-options="dateOptions" ng-required="true" />
-                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" step="{{slot}}" />
+                      datepicker-options="dateOptions" ng-disabled="!paymentSelected" ng-required="true" />
+                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected" />
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -235,9 +235,9 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" />
+                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" />
+                      <input type="text" class="date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxTime}}" />
                     </div>
                   </div>
                   <div class="form-group">
@@ -316,8 +316,8 @@
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected" ng-disabled="true">
                       <i class="fa fa-inr"></i>
                       <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="true"> by
-                      <input type="text" class="form-control pay-amount-by-non-edit prepay-past-date-size" ng-model="dateSelectedToEdit" ng-disabled="true">
-                      <input type="text" class="form-control pay-amount-by-non-edit prepay-past-time-size" ng-model="fromTimeEdit" ng-disabled="true">
+                      <input type="text" class="form-control pay-amount-by-non-edit prepay-past-date-size" ng-model="prepaydateSelectedToEdit" ng-disabled="true">
+                      <input type="text" class="form-control pay-amount-by-non-edit prepay-past-time-size" ng-model="prepayTimeEdit" ng-disabled="true">
                     </div>
                   </div>
                   <!-- Patient div ends here -->

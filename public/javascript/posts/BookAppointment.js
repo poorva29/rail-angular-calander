@@ -327,6 +327,25 @@ var app = angular.module('BookAppointmentApp');
       return event;
     };
 
+    $scope.dateClicked = function(gotoDate){
+      var date = moment(gotoDate, 'DD/MM/YYYY');
+      $('#appointmentBookingCalendar').fullCalendar('gotoDate', date);
+      $('#appointmentBookingCalendar').fullCalendar('changeView', 'agendaDay');
+    };
+
+    $scope.dateClicable = function(){
+      var week_dates =$('.fc-agendaWeek-view .fc-widget-header .fc-day-header.fc-widget-header');
+      $scope.each(week_dates, function(day_td){
+        var attr = $(day_td).attr('ng-click');
+        if (typeof attr == typeof undefined || attr == false) {
+          date = $(day_td).text();
+          date = moment(date.substr(4,7), 'MM/DD').format('DD/MM/YYYY')
+          $(day_td).attr({'ng-click': "dateClicked('" + date + "')"});
+          $compile($(day_td))($scope);
+        }
+      });
+    };
+
     $scope.getInitialData = function(){
       if($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate ||
         $scope.changedLocationId !== $scope.locationId || $scope.changedDoctorId !== $scope.doctorId){
@@ -358,9 +377,10 @@ var app = angular.module('BookAppointmentApp');
             $scope.events.splice(0,$scope.events.length);
             $scope.each(response.events, function(event){
               $scope.events.push($scope.formatEvent(event));
-          });
+            });
         });
       }
+      $scope.dateClicable();
     };
 
     $scope.$on("doctorLocation", function (event, args) {

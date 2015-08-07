@@ -16,9 +16,11 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       });
 
     $scope.getLocations = function(doctorId) {
-      if (doctorId == 0) {
+      if (doctorId == 0 || typeof doctorId === 'undefined') {
         $scope.disableLocation = true;
         $scope.locations = [];
+        $scope.location.selected = undefined;
+        $scope.doctor.selected = undefined;
         $scope.initRestId(null);
       } else {
         var doctorDetails = $scope.findWhere($scope.doctorsLocations, { id: doctorId });
@@ -26,10 +28,11 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
           $scope.disableLocation = false;
           $scope.locations = doctorDetails.locations;
           if ($scope.locations.length > 0) {
-            $scope.locations.push({ 'id': -1, 'name': 'All' });
-            $scope.locationId = $scope.locations[0].id;
+            if($scope.locations[$scope.locations.length - 1]['id'] !== -1)
+              $scope.locations.push({ 'id': -1, 'name': 'All' });
+            $scope.location.selected = $scope.locations[0];
             $scope.doctorId = doctorId;
-            $scope.fetchCalenderForDoctorLocation($scope.locationId);
+            $scope.fetchCalenderForDoctorLocation($scope.location.selected);
           }
         }
       }
@@ -45,5 +48,19 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         locationId: locationId,
         doctorId: $scope.doctorId
       });
+    };
+
+    $scope.refreshDoctorNames = function(name){
+      console.log(name);
+    };
+
+    $scope.refreshLocationNames = function(name){
+      console.log(name);
+    };
+
+    $scope.doctor = {
+    };
+
+    $scope.location = {
     };
 });

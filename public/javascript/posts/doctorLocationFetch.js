@@ -28,7 +28,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
           $scope.disableLocation = false;
           $scope.locations = doctorDetails.locations;
           if ($scope.locations.length > 0) {
-            if($scope.locations[$scope.locations.length - 1]['id'] !== -1)
+            if($scope.findWhere($scope.locations, {id: -1}) === undefined)
               $scope.locations.push({ 'id': -1, 'name': 'All' });
             $scope.location.selected = $scope.locations[0];
             $scope.doctorId = doctorId;

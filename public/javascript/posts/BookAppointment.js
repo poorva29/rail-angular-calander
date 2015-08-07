@@ -1,6 +1,6 @@
 var app = angular.module('BookAppointmentApp');
 // angular.module('BookAppointmentApp',['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash'])
-  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash, $rootScope) {
+  app.controller('BookAppointmentCtrl',function($scope, $modal, $log, $http, $compile, $timeout, Flash, $rootScope, bootbox) {
     /* Calendar specific changes
       This has calendar configurations and event binding for the calendar
     */
@@ -69,12 +69,22 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('success', message);
     };
 
+    $scope.nonWorkingSlot = function(){
+      var message = '<strong> Non Working Slot !</strong> Appointment Cannot Be Updated.';
+      $scope.showAlert('danger', message);
+    };
+
+    $scope.appointmentNotBookedInMonthView = function(){
+      var message = '<strong> Not Booked !</strong> Appointment Cannot Be Updated In Month View.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
-      if(view.name == 'month'){
+      if(view.name == 'month' || $scope.locationId == -1){
         $scope.openPastTime(event, jsEvent, view, '');
       }else{
         if($scope.checkNotValidTime(event.start)){
@@ -112,7 +122,7 @@ var app = angular.module('BookAppointmentApp');
       };
     };
 
-    $scope.postUpdatedData = function(selectedItem){
+    $scope.postUpdatedData = function(selectedItem, revertFunc){
       var url_to_post = '../api/calendar/update_appointment',
       data = $scope.getUpdatedData(selectedItem);
       if(data){
@@ -121,6 +131,9 @@ var app = angular.module('BookAppointmentApp');
             if(response.IsSuccess){
               $scope.updateEventSource(selectedItem);
               $scope.appointmentUpdated();
+            }else{
+              $scope.nonWorkingSlot();
+              revertFunc();
             }
         });
       }
@@ -128,7 +141,19 @@ var app = angular.module('BookAppointmentApp');
 
     /* alert on Drop */
     $scope.alertOnDropOrResize = function(event, delta, revertFunc, jsEvent, ui, view){
-      var eventInSource = $scope.findWhere($scope.events, {id: event.id});
+      var eventInSource = $scope.findWhere($scope.events, {id: event.id}), data = {};
+      if(view.name == 'month'){
+        revertFunc();
+        $scope.appointmentNotBookedInMonthView();
+        return;
+      }
+      if($scope.locationId == -1){
+        revertFunc();
+        bootbox.alert("Please select a specific clinic / hospital to update appointment.", function() {
+          return true;
+        });
+        return;
+      }
       if($scope.checkNotValidTime(eventInSource.start)){
         $scope.appointmentPastEvent();
         revertFunc();
@@ -138,14 +163,19 @@ var app = angular.module('BookAppointmentApp');
           revertFunc();
         }else{
           // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
-          if($scope.stopEventOverloap(event.start, event.end, event.id)){
-            $scope.appointmentNotUpdated();
+          data = $scope.stopEventOverloap(event.start, event.end, event.id);
+          if(data.is_valid){
+            if(data.event_type == 'non-working'){
+              $scope.nonWorkingSlot();
+            }else{
+              $scope.appointmentNotUpdated();
+            }
             revertFunc();
           }else{
             $http.get('../api/calendar/appointment_details?appointment_id=' + event.id)
               .success(function (response) {
                 $scope.extend(event, $scope.omit(response, 'start', 'end'));
-                $scope.postUpdatedData(event);
+                $scope.postUpdatedData(event, revertFunc);
               });
           }
         }
@@ -153,30 +183,50 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.stopEventOverloap = function(start, end, event_id){
+      var data = {
+        'is_valid' : false,
+        'event_type': 'booking'
+      };
       event_id = typeof event_id !== 'undefined' ? event_id : 0;
       for(i in $scope.events){
         if(event_id != $scope.events[i].id){
           if (end > $scope.events[i].start && start < $scope.events[i].end){
-            return true;
+            data.event_type = $scope.events[i].event_type;
+            data.is_valid = true;
+            break;
+          }else{
+            data.is_valid = false;
           }
         }
       }
-      return false;
+      return data;
     };
 
     $scope.slotSelected = function(start, end, jsEvent, view){
+      var data = {};
       // start.format('hh:mm') , start.hours()
       if(view.name == 'month')
         return;
-      if($scope.checkNotValidTime(start)){
-        $scope.appointmentPastDate();
-        $('#appointmentBookingCalendar').fullCalendar('unselect');
+      if($scope.locationId == -1){
+        bootbox.alert("Please select a specific clinic / hospital to book appointment.", function() {
+          return true;
+        });
       }else{
-        if($scope.stopEventOverloap(start, end)){
-          $scope.appointmentNotUpdated();
+        if($scope.checkNotValidTime(start)){
+          $scope.appointmentPastDate();
           $('#appointmentBookingCalendar').fullCalendar('unselect');
         }else{
-          $scope.open(start, end, jsEvent, view, '');
+          data = $scope.stopEventOverloap(start, end);
+          if(data.is_valid){
+            if(data.event_type == 'non-working'){
+              $scope.nonWorkingSlot();
+            }else{
+              $scope.appointmentNotUpdated();
+            }
+            $('#appointmentBookingCalendar').fullCalendar('unselect');
+          }else{
+            $scope.open(start, end, jsEvent, view, '');
+          }
         }
       }
     };
@@ -184,11 +234,11 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function(event, element, view){
       if(event.subject)
         element.find('.fc-title').append(" - " + event.subject);
-      if(!$scope.checkNotValidTime(event.start) && event.appointment_type == "Patient Appointment"){
+      if(!$scope.checkNotValidTime(event.start) && event.appointment_type == "Patient Appointment" && event.prepay_amount > 0){
         if(event.is_paid){
-          element.find('.fc-title').append('&nbsp&nbsp<span><i class="fa fa-inr prepay-symbol-green"></i></span>');
+          element.find('.fc-content').append('<div class="rupee-sticker"><i class="fa fa-inr prepay-symbol-green"></i></div>');
         }else{
-          element.find('.fc-title').append('&nbsp&nbsp<span><i class="fa fa-inr prepay-symbol-red"></i></span>');
+          element.find('.fc-content').append('<div class="rupee-sticker"><i class="fa fa-inr prepay-symbol-red"></i></div>');
         }
       }
       if(event.event_type == 'non-working'){
@@ -277,8 +327,27 @@ var app = angular.module('BookAppointmentApp');
       return event;
     };
 
+    $scope.dateClicked = function(gotoDate){
+      var date = moment(gotoDate, 'DD/MM/YYYY');
+      $('#appointmentBookingCalendar').fullCalendar('gotoDate', date);
+      $('#appointmentBookingCalendar').fullCalendar('changeView', 'agendaDay');
+    };
+
+    $scope.dateClicable = function(){
+      var week_dates =$('.fc-agendaWeek-view .fc-widget-header .fc-day-header.fc-widget-header');
+      $scope.each(week_dates, function(day_td){
+        var attr = $(day_td).attr('ng-click');
+        if (typeof attr == typeof undefined || attr == false) {
+          date = $(day_td).text();
+          date = moment(date.substr(4,7), 'MM/DD').format('DD/MM/YYYY')
+          $(day_td).attr({'ng-click': "dateClicked('" + date + "')"});
+          $compile($(day_td))($scope);
+        }
+      });
+    };
+
     $scope.getInitialData = function(){
-      if($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate || 
+      if($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate ||
         $scope.changedLocationId !== $scope.locationId || $scope.changedDoctorId !== $scope.doctorId){
         $scope.startDate = $scope.viewStartDate;
         $scope.endDate = $scope.viewEndDate;
@@ -303,13 +372,15 @@ var app = angular.module('BookAppointmentApp');
             $scope.uiConfig.calendar.minTime = docMinTime;
             $scope.uiConfig.calendar.maxTime = docMaxTime;
             $rootScope.minTime = moment(docMinTime, 'hh:mm').format('hh:mm a');
-            $rootScope.maxTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
+            $rootScope.maxFromTime = moment(docMaxTime, 'hh:mm').subtract($rootScope.slot, 'minutes').format('hh:mm a');
+            $rootScope.maxToTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
             $scope.events.splice(0,$scope.events.length);
             $scope.each(response.events, function(event){
               $scope.events.push($scope.formatEvent(event));
           });
         });
       }
+      $scope.dateClicable();
     };
 
     $scope.$on("doctorLocation", function (event, args) {
@@ -461,29 +532,38 @@ var app = angular.module('BookAppointmentApp');
             });
 
            $scope.getEditedData = function(selectedItem){
+              var data = {};
               if($scope.checkNotValidTime(selectedItem.start)){
                 $scope.appointmentPastDate();
-              }else if($scope.stopEventOverloap(selectedItem.start, selectedItem.end, selectedItem.event.id)){
-                  $scope.appointmentNotUpdated();
               }else{
+                data = $scope.stopEventOverloap(selectedItem.start, selectedItem.end, selectedItem.event.id);
+                if(data.is_valid){
+                  if(data.event_type == 'non-working'){
+                    $scope.nonWorkingSlot();
+                  }else{
+                    $scope.appointmentNotUpdated();
+                  }
+                }else{
                   selectedItem.event.start = selectedItem.start;
                   selectedItem.event.end = selectedItem.end;
+                  selectedItem.event.prepay_amount = selectedItem.prepay_amount;
                   $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
-                return {
-                  'id': selectedItem.event.id,
-                  'appointmentTitle': selectedItem.subject,
-                  'appointmentStartTime': selectedItem.start.format('MM/DD/YYYY HH:mm'),
-                  'appointmentEndTime': selectedItem.end.format('MM/DD/YYYY HH:mm'),
-                  'isAllDayEvent':'false',
-                  'doctorId': $scope.doctorId,
-                  'doctorLocationId': $scope.locationId,
-                  'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0',
-                  'prepayAmount': selectedItem.prepay_amount || '0',
-                  'cancelOverlapped': 'false',
-                  'email': selectedItem.email || '',
-                  'mobileno': selectedItem.mobile_number || '',
-                  'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : selectedItem.prepay_by
-                };
+                  return {
+                    'id': selectedItem.event.id,
+                    'appointmentTitle': selectedItem.subject,
+                    'appointmentStartTime': selectedItem.start.format('MM/DD/YYYY HH:mm'),
+                    'appointmentEndTime': selectedItem.end.format('MM/DD/YYYY HH:mm'),
+                    'isAllDayEvent':'false',
+                    'doctorId': $scope.doctorId,
+                    'doctorLocationId': $scope.locationId,
+                    'appointmentType': selectedItem.appointment_type ? selectedItem.appointment_type : '0',
+                    'prepayAmount': selectedItem.prepay_amount || '0',
+                    'cancelOverlapped': 'false',
+                    'email': selectedItem.email || '',
+                    'mobileno': selectedItem.mobile_number || '',
+                    'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : selectedItem.prepay_by
+                  };
+                }
               }
             };
 

@@ -54,7 +54,7 @@
 }
 
 .date-picker-left-margin {
-  left: 5px !important;
+  left: 1%;
 }
 
 .prepay-date-size {
@@ -122,4 +122,14 @@ input::-webkit-inner-spin-button {
 .bootbox .btn-ok
 {
   margin-right: 5px;
+}
+
+.rupee-sticker {
+    float: right;
+    background-color: #fffff0;
+    padding: 2px 5px;
+    margin-right: 3px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    vertical-align: bottom;
 }

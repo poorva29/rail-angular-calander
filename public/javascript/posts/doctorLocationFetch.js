@@ -32,7 +32,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
               $scope.locations.push({ 'id': -1, 'name': 'All' });
             $scope.location.selected = $scope.locations[0];
             $scope.doctorId = doctorId;
-            $scope.fetchCalenderForDoctorLocation($scope.location.selected);
+            $scope.fetchCalenderForDoctorLocation($scope.location.selected.id);
           }
         }
       }

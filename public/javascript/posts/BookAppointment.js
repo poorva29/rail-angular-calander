@@ -149,7 +149,7 @@ var app = angular.module('BookAppointmentApp');
       }
       if($scope.locationId == -1){
         revertFunc();
-        bootbox.alert("Please select a specific clinic / hospital to book appointment.", function() {
+        bootbox.alert("Please select a specific clinic / hospital to update appointment.", function() {
           return true;
         });
         return;
@@ -377,7 +377,7 @@ var app = angular.module('BookAppointmentApp');
             $scope.events.splice(0,$scope.events.length);
             $scope.each(response.events, function(event){
               $scope.events.push($scope.formatEvent(event));
-            });
+          });
         });
       }
       $scope.dateClicable();
@@ -546,6 +546,7 @@ var app = angular.module('BookAppointmentApp');
                 }else{
                   selectedItem.event.start = selectedItem.start;
                   selectedItem.event.end = selectedItem.end;
+                  selectedItem.event.prepay_amount = selectedItem.prepay_amount;
                   $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
                   return {
                     'id': selectedItem.event.id,

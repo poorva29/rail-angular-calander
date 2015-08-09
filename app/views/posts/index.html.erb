@@ -37,8 +37,12 @@
         <form class="form-inline" role="form">
           <div class="form-group">
             <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
-            <select ng-model="doctorId" class="form-control" id="doctorId" ng-options="value.id as value.firstname + ' ' + value.lastname group by value.group for value in doctors" convert-to-number ng-change="getLocations(doctorId)">
-            </select>
+            <ui-select ng-model="doctor.selected" theme="bootstrap" ng-disabled="disabled" on-select="getLocations(doctor.selected.id)" reset-search-input="false" refresh="refreshDoctorNames($select.search)" refresh-delay="0" style="width:auto">
+            <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.firstname}}  {{$select.selected.lastname}}</ui-select-match>
+            <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}">
+              <div ng-bind-html="doctor.firstname + ' ' + doctor.lastname | highlight: $select.search"></div>
+            </ui-select-choices>
+            </ui-select>
           </div>
           <div class="form-group">
             <label for="emptyLabel"></label>
@@ -46,8 +50,12 @@
           </div>
           <div class="form-group">
             <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
-            <select ng-model="locationId" class="form-control doctor-location-select" ng-options="value.id as value.name group by value.group for value in locations" convert-to-number ng-change="fetchCalenderForDoctorLocation(locationId)" ng-disabled="disableLocation">
-            </select>
+            <ui-select ng-model="location.selected" theme="bootstrap" ng-disabled="disableLocation" on-select="fetchCalenderForDoctorLocation(location.selected.id)" reset-search-input="false" refresh="refreshLocationNames($select.search)" refresh-delay="0" style="width:auto">
+            <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="location in locations | propsFilter: {name: $select.search}">
+              <div ng-bind-html="location.name | highlight: $select.search"></div>
+            </ui-select-choices>
+            </ui-select>
           </div>
         </form>
       </div>

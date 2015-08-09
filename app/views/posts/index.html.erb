@@ -33,31 +33,37 @@
 <body>
   <div class="row search_box">
     <div id='doctor-location' ng-controller="doctorLocationFetchCtrl">
-      <div class="col-sm-9 col-sm-offset-3">
-        <form class="form-inline" role="form">
-          <div class="form-group">
-            <label for="doctorName" class="doctor-location-label">Doctor Name: *</label>
-            <ui-select ng-model="doctor.selected" theme="bootstrap" ng-disabled="disabled" on-select="getLocations(doctor.selected.id)" reset-search-input="false" refresh="refreshDoctorNames($select.search)" refresh-delay="0" style="width:auto">
-            <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.firstname}}  {{$select.selected.lastname}}</ui-select-match>
-            <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}">
-              <div ng-bind-html="doctor.firstname + ' ' + doctor.lastname | highlight: $select.search"></div>
-            </ui-select-choices>
-            </ui-select>
-          </div>
-          <div class="form-group">
-            <label for="emptyLabel"></label>
-            <!-- <button ng-click="initRestId()">Show 1</button> -->
-          </div>
-          <div class="form-group">
-            <label for="clinicName" class="doctor-location-label">Clinic Location: *</label>
-            <ui-select ng-model="location.selected" theme="bootstrap" ng-disabled="disableLocation" on-select="fetchCalenderForDoctorLocation(location.selected.id)" reset-search-input="false" refresh="refreshLocationNames($select.search)" refresh-delay="0" style="width:auto">
-            <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.name}}</ui-select-match>
-            <ui-select-choices repeat="location in locations | propsFilter: {name: $select.search}">
-              <div ng-bind-html="location.name | highlight: $select.search"></div>
-            </ui-select-choices>
-            </ui-select>
-          </div>
-        </form>
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+          <form class="form-horizontal" role="form" novalidate>
+            <div class="form-group">
+              <label for="doctorName" class="control-label col-sm-5">Doctor Name: *</label>
+              <div class="col-sm-7">
+                <ui-select ng-model="doctor.selected" theme="bootstrap" ng-disabled="disabled" on-select="getLocations(doctor.selected.id)" style="width:auto">
+                <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.firstname}}  {{$select.selected.lastname}}</ui-select-match>
+                <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}">
+                  <div ng-bind-html="doctor.firstname + ' ' + doctor.lastname | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-4">
+          <form class="form-horizontal" role="form" novalidate>
+            <div class="form-group">
+              <label for="clinicName" class="control-label col-sm-5">Clinic Location: *</label>
+              <div class="col-sm-7">
+                <ui-select ng-model="location.selected" theme="bootstrap" ng-disabled="disableLocation" on-select="fetchCalenderForDoctorLocation(location.selected.id)" style="width:auto">
+                <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="location in locations | propsFilter: {name: $select.search}">
+                  <div ng-bind-html="location.name | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -167,7 +173,7 @@
               <div class="modal-title">Edit Booked Appointment</div>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" role="form">
+              <form name="appointmentEditForm" class="form-horizontal" role="form">
                 <div ng-show="showPatient">
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Patient Name: *</label>
@@ -190,21 +196,19 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Date: *</label>
                     <div class="col-sm-9">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <p class="input-group">
-                            <input type="date" class="form-control" id="dateSelectedToEdit" datepicker-popup ng-model="current_date" datepicker-options="dateOptions" ng-required="true" />
-                          </p>
-                        </div>
-                      </div>
+                      <p class="input-group">
+                        <input type="date" class="form-control" id="dateSelectedToEdit" datepicker-popup ng-model="current_date" datepicker-options="dateOptions" ng-required="true" />
+                      </p>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
+                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -239,9 +243,11 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
                     <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}"/>
+                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}"/>
+                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
                     </div>
                   </div>
                   <div class="form-group">

@@ -1,11 +1,11 @@
 var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker', 'ngSanitize', 'ui.select', 'angular-bootbox']);
   app.controller('doctorLocationFetchCtrl', function($scope, $modal, $log, $http, Flash) {
-    $scope.locationId = null;
     $scope.doctors = [{ id: 0, firstname: '----- Select -----', lastname: ''}];
     $scope.doctorId = $scope.doctors[0].id;
     $scope.locations = [];
     $scope.doctorsLocations = null;
     $scope.disableLocation = true;
+    $scope.location = {};
 
     $http.get("../api/calendar/doclocations")
       .success(function(response) {
@@ -16,7 +16,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       });
 
     $scope.getLocations = function(doctorId) {
-      if (doctorId == 0 || typeof doctorId === 'undefined') {
+      if(doctorId == 0 || typeof doctorId === 'undefined') {
         $scope.disableLocation = true;
         $scope.locations = [];
         $scope.location.selected = undefined;
@@ -28,7 +28,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
           $scope.disableLocation = false;
           $scope.locations = doctorDetails.locations;
           if ($scope.locations.length > 0) {
-            if($scope.findWhere($scope.locations, {id: -1}) === undefined)
+            if ($scope.findWhere($scope.locations, { id: -1 }) === undefined)
               $scope.locations.push({ 'id': -1, 'name': 'All' });
             $scope.location.selected = $scope.locations[0];
             $scope.doctorId = doctorId;
@@ -48,19 +48,5 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         locationId: locationId,
         doctorId: $scope.doctorId
       });
-    };
-
-    $scope.refreshDoctorNames = function(name){
-      console.log(name);
-    };
-
-    $scope.refreshLocationNames = function(name){
-      console.log(name);
-    };
-
-    $scope.doctor = {
-    };
-
-    $scope.location = {
     };
 });

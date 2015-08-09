@@ -69,6 +69,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('success', message);
     };
 
+    $scope.appointmentNotDeleted = function(){
+      var message = '<strong> Not Deleted !</strong>  Appointment Cannot Be Deleted.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.nonWorkingSlot = function(){
       var message = '<strong> Non Working Slot !</strong> Appointment Cannot Be Updated.';
       $scope.showAlert('danger', message);
@@ -577,6 +582,8 @@ var app = angular.module('BookAppointmentApp');
                       $scope.updateEventSource(selectedItem.event);
                       $('#appointmentBookingCalendar').fullCalendar('updateEvent', selectedItem.event);
                       $scope.appointmentUpdated();
+                    }else{
+                      $scope.appointmentNotUpdated();
                     }
                 });
               }
@@ -587,9 +594,12 @@ var app = angular.module('BookAppointmentApp');
               if($scope.selected_event.changeCloseType){
                 $http.get('../api/calendar/delete_appointment?appointmentId=' + selectedItem.event.id)
                   .success(function (response) {
-                    if(response.IsSuccess == true)
+                    if(response.IsSuccess == true){
                       $scope.events.splice($scope.findIndex($scope.events, {id: selectedItem.event.id}),1);
                       $scope.appointmentDeleted();
+                    }else{
+                      $scope.appointmentNotDeleted();
+                    }
                   });
               }else{
                 $scope.postEditedData(selectedItem);

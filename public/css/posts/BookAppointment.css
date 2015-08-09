@@ -47,6 +47,11 @@
   display: initial;
 }
 
+.date-time-edit-picker-size{
+  width: 44.5%;
+  display: initial;
+}
+
 .time-picker-size
 {
   width: 100px !important;

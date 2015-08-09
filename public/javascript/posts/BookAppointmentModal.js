@@ -141,6 +141,15 @@ app = angular.module('BookAppointmentApp');
 
 angular.module('BookAppointmentApp')
   .controller('BookAppointmentEditModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails, bootbox) {
+    $scope.$watch('[startTime,endTime]', function() {
+      if($scope.startTime && $scope.endTime){
+        var startTime = moment($scope.startTime) , endTime = moment($scope.endTime),
+        sametime = startTime.diff(endTime) == 0 ? false : true;
+        $scope.appointmentEditForm.validity.$setValidity("sametime", sametime);
+        var invalidtime = !startTime.isAfter(endTime);
+        $scope.appointmentEditForm.validity.$setValidity("invalidtime", invalidtime);
+      }
+    }, true);
     $scope.selected_event = items;
     var appointment_type = $scope.selected_event.appointment_type;
     var appointment_type_check = (appointment_type == 'Patient Appointment' || appointment_type == 0 || appointment_type == -1);
@@ -194,33 +203,41 @@ angular.module('BookAppointmentApp')
     };
 
     $scope.ok = function () {
-      $scope.prepayAmount = $scope.paymentSelected ? ($scope.prepayAmount || 0.0) : 0.0;
-      var prepay_time = null;
-      $scope.selected_event.event.subject = $scope.subjectSelected;
-      if($scope.updatedObject){
-        $scope.selected_event.event.title = ($scope.findWhere($scope.copy_of_appt_types, {"id": $scope.updatedObject})).label;
+      if($scope.appointmentEditForm.$invalid){
+        $scope.submitted = true;
+      }else{
+        $scope.submitted = false;
       }
 
-      $scope.setNewDate($scope.startTime);
-      $scope.setNewDate($scope.endTime);
+      if(!$scope.submitted){
+        $scope.prepayAmount = $scope.paymentSelected ? ($scope.prepayAmount || 0.0) : 0.0;
+        var prepay_time = null;
+        $scope.selected_event.event.subject = $scope.subjectSelected;
+        if($scope.updatedObject){
+          $scope.selected_event.event.title = ($scope.findWhere($scope.copy_of_appt_types, {"id": $scope.updatedObject})).label;
+        }
 
-      if(typeof $scope.prepay_time == 'object'){
-        prepay_time = moment($scope.prepay_time).format('HH:mm:ss');
-      }else if(typeof $scope.prepay_time == 'string'){
-        prepay_time = moment($scope.prepay_time, 'hh:mm A').format('HH:mm:ss');
+        $scope.setNewDate($scope.startTime);
+        $scope.setNewDate($scope.endTime);
+
+        if(typeof $scope.prepay_time == 'object'){
+          prepay_time = moment($scope.prepay_time).format('HH:mm:ss');
+        }else if(typeof $scope.prepay_time == 'string'){
+          prepay_time = moment($scope.prepay_time, 'hh:mm A').format('HH:mm:ss');
+        }
+
+        $scope.extend($scope.selected_event, {
+          'subject': $scope.subjectSelected,
+          'appointment_type': $scope.updatedObject,
+          'prepay_amount': $scope.prepayAmount,
+          'email': $scope.patientEmail || '',
+          'mobile_number': $scope.patientNumber || '',
+          'prepay_by': moment($scope.prepay_date).format('MM/DD/YYYY')+ ' ' + prepay_time,
+          'start': moment($scope.startTime),
+          'end': moment($scope.endTime)
+        });
+        $modalInstance.close($scope.selected_event);
       }
-
-      $scope.extend($scope.selected_event, {
-        'subject': $scope.subjectSelected,
-        'appointment_type': $scope.updatedObject,
-        'prepay_amount': $scope.prepayAmount,
-        'email': $scope.patientEmail || '',
-        'mobile_number': $scope.patientNumber || '',
-        'prepay_by': moment($scope.prepay_date).format('MM/DD/YYYY')+ ' ' + prepay_time,
-        'start': moment($scope.startTime),
-        'end': moment($scope.endTime)
-      });
-      $modalInstance.close($scope.selected_event);
     };
 
     $scope.delete = function () {

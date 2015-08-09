@@ -99,7 +99,7 @@ app = angular.module('BookAppointmentApp');
       $scope.selected_event.event_type = 'booking'; // the event is created for doctor or patient
       $scope.selected_event.cancel_overlapped_event = false;
       $scope.selected_event.patient_type = $scope.patient.selected ? $scope.patient.selected.patient_type : 'unregpatient';
-      $scope.selected_event.patient_name = $scope.patient.registered ? $scope.patient.selected.name : $('.ui-select-search').val();
+      $scope.selected_event.patient_name = $scope.patient.registered ? $scope.patient.selected.name : $('.form-control.ui-select-search.ng-valid-parse').val();
       $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.email = $scope.patientEmail;
       $scope.selected_event.prepay_amount = $scope.prepayAmount;
@@ -108,6 +108,15 @@ app = angular.module('BookAppointmentApp');
     }
 
     $scope.ok = function () {
+
+      if($('.form-control.ui-select-search.ng-valid-parse').val() || ($scope.patient.selected && $scope.patient.selected.name)){
+        $scope.appointmentForm.name.$setPristine();
+        $scope.appointmentForm.name.$setValidity('required', true);
+      }else{
+        $scope.appointmentForm.name.$setDirty();
+        $scope.appointmentForm.name.$setValidity('required', false);
+      }
+
       if($scope.showPatient && $scope.appointmentForm.$invalid){
         $scope.submitted = true;
       }else{

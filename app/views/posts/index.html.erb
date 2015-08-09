@@ -90,14 +90,14 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Patient Name: *</label>
                     <div class="col-sm-9">
-                      <!-- <input type="text" class="form-control" name="name" ng-click="submitted = false" id="patientName" ng-model="patientName" placeholder="Name" required>
-                      <span class="error validation-msg-color" ng-show="appointmentForm.name.$error.required" ng-if='appointmentForm.name.$dirty'>Please Enter Patient Name !</span> -->
-                      <ui-select ng-model="patient.selected" theme="bootstrap" ng-disabled="disabled" on-select="fillPatientDetails()" reset-search-input="false" refresh="refreshPatientNames($select.search)" refresh-delay="0">
+                      <!-- <input type="text" class="form-control" name="name" ng-click="submitted = false" id="patientName" ng-model="patientName" placeholder="Name" required> -->
+                      <ui-select ng-model="patient.selected" theme="bootstrap" name="name" ng-disabled="disabled" on-select="fillPatientDetails()" reset-search-input="false" refresh="refreshPatientNames($select.search)" refresh-delay="0" ng-required="patientNameEntered">
                       <ui-select-match placeholder="Select Patient Name" allow-clear="true">{{$select.selected.name}}</ui-select-match>
                       <ui-select-choices repeat="patient in patientsInfo | propsFilter: {name: $select.search}">
                         <div ng-bind-html="patient.name + ' (' +patient.mobile + ')' | highlight: $select.search"></div>
                       </ui-select-choices>
                       </ui-select>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.name.$error.required" ng-if='appointmentForm.name.$dirty'>Please Enter Patient Name !</span>
                     </div>
                   </div>
                   <div class="form-group">

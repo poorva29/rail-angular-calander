@@ -59,10 +59,23 @@ app = angular.module('BookAppointmentApp');
     $http.get(url_to_fetch)
       .success(function (response) {
         $scope.patientsInfo = response;
+        $scope.patientsInfoSize = $scope.patientsInfo.length;
     });
 
     $scope.refreshPatientNames = function(name){
-      console.log(name);
+      if($scope.patientsInfo){
+        $scope.patientsInfo[$scope.patientsInfoSize + 1] = {
+          name: name,
+          id: '0',
+          mobile: '',
+          email: '',
+          unregpatient: true
+        };
+      }
+    };
+
+    $scope.patientDetails = function(patient){
+      return patient.mobile ? patient.name + ' (' +patient.mobile + ')' : patient.name;
     };
 
     $scope.fillPatientDetails = function(){
@@ -70,7 +83,7 @@ app = angular.module('BookAppointmentApp');
         var patientDetails = $scope.findWhere($scope.patientsInfo, {id: $scope.patient.selected.id});
         $scope.patientNumber = patientDetails.mobile ? parseInt(patientDetails.mobile): '';
         $scope.patientEmail = patientDetails.email;
-        $scope.patient.registered = true;
+        $scope.patient.registered = patientDetails.unregpatient ? false : true;
       }else{
         $scope.patientNumber = undefined;
         $scope.patientEmail = undefined;

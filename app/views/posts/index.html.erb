@@ -69,6 +69,7 @@
   </div>
   <div class="row-fluid">
     <div id="directives-calendar" ng-controller="BookAppointmentCtrl">
+      <div flash-message="5000"></div>
       <div ng-show="showCalendar">
         <div id="calender-show">
           <!-- <link href="css/calender/font-awesome.css" rel="stylesheet"> -->
@@ -369,7 +370,6 @@
               <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
           </script>
-          <div flash-message="5000"></div>
           <!-- <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar"></div> -->
           <!-- <div class="alert-success" ng-show="alertMessage != undefined && alertMessage != ''">
             <h4>{{alertMessage}}</h4>

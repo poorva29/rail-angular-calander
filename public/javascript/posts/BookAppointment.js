@@ -346,6 +346,7 @@ var app = angular.module('BookAppointmentApp');
           date = $(day_td).text();
           date = moment(date.substr(4,7), 'MM/DD').format('DD/MM/YYYY')
           $(day_td).attr({'ng-click': "dateClicked('" + date + "')"});
+          $(day_td).css('cursor', 'pointer');
           $compile($(day_td))($scope);
         }
       });
@@ -417,6 +418,7 @@ var app = angular.module('BookAppointmentApp');
         templateUrl: 'appointmentBooking.html',
         controller: 'BookAppointmentModalInstanceCtrl',
         size: size,
+        backdrop: 'static',
         resolve: {
           items: function () {
             $scope.items = {
@@ -520,6 +522,7 @@ var app = angular.module('BookAppointmentApp');
               templateUrl: 'appointmentBookingEdit.html',
               controller: 'BookAppointmentEditModalInstanceCtrl',
               size: size,
+              backdrop: 'static',
               resolve: {
                 items: function () {
                   $scope.items = {
@@ -622,6 +625,7 @@ var app = angular.module('BookAppointmentApp');
               templateUrl: 'appointmentBookingPastTime.html',
               controller: 'pastTimeModalInstanceCtrl',
               size: size,
+              backdrop: 'static',
               resolve: {
                 items: function () {
                   $scope.items = {

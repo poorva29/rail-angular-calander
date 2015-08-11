@@ -79,6 +79,11 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('danger', message);
     };
 
+    $scope.noWorkingHours = function(){
+      var message = '<strong> No Work Timing Set!</strong> Please dont book appointment.';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.appointmentNotBookedInMonthView = function(){
       var message = '<strong> Not Booked !</strong> Appointment Cannot Be Updated In Month View.';
       $scope.showAlert('danger', message);
@@ -346,6 +351,7 @@ var app = angular.module('BookAppointmentApp');
           date = $(day_td).text();
           date = moment(date.substr(4,7), 'MM/DD').format('DD/MM/YYYY')
           $(day_td).attr({'ng-click': "dateClicked('" + date + "')"});
+          $(day_td).css('cursor', 'pointer');
           $compile($(day_td))($scope);
         }
       });
@@ -365,24 +371,29 @@ var app = angular.module('BookAppointmentApp');
            doctor_id: $scope.doctorId
           }})
           .success(function (response) {
-            var minTime = response.calendar.min.toString(),
-            maxTime = response.calendar.max.toString(), slot = null,
-            docMaxTime = null, docMinTime = null;
-            slot = response.calendar.slot_duration
-            $scope.uiConfig.calendar.slotDuration = slot;
-            slot = moment(slot, 'hh:mm:ss');
-            $rootScope.slot = (slot.hour() * 60) + slot.minutes();
-            docMinTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
-            docMaxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
-            $scope.uiConfig.calendar.minTime = docMinTime;
-            $scope.uiConfig.calendar.maxTime = docMaxTime;
-            $rootScope.minTime = moment(docMinTime, 'hh:mm').format('hh:mm a');
-            $rootScope.maxFromTime = moment(docMaxTime, 'hh:mm').subtract($rootScope.slot, 'minutes').format('hh:mm a');
-            $rootScope.maxToTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
-            $scope.events.splice(0,$scope.events.length);
-            $scope.each(response.events, function(event){
-              $scope.events.push($scope.formatEvent(event));
-          });
+            if(response.calendar){
+              var minTime = response.calendar.min.toString(),
+              maxTime = response.calendar.max.toString(), slot = null,
+              docMaxTime = null, docMinTime = null;
+              slot = response.calendar.slot_duration
+              $scope.uiConfig.calendar.slotDuration = slot;
+              slot = moment(slot, 'hh:mm:ss');
+              $rootScope.slot = (slot.hour() * 60) + slot.minutes();
+              docMinTime = minTime.slice(0, -2) + ":" + minTime.slice(-2);
+              docMaxTime = maxTime.slice(0, -2) + ":" + maxTime.slice(-2);
+              $scope.uiConfig.calendar.minTime = docMinTime;
+              $scope.uiConfig.calendar.maxTime = docMaxTime;
+              $rootScope.minTime = moment(docMinTime, 'hh:mm').format('hh:mm a');
+              $rootScope.maxFromTime = moment(docMaxTime, 'hh:mm').subtract($rootScope.slot, 'minutes').format('hh:mm a');
+              $rootScope.maxToTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
+              $scope.events.splice(0,$scope.events.length);
+              $scope.each(response.events, function(event){
+                $scope.events.push($scope.formatEvent(event));
+              });
+            }else{
+              $scope.noWorkingHours();
+              $scope.showCalendar = false;
+            }
         });
       }
       $scope.dateClicable();
@@ -417,6 +428,7 @@ var app = angular.module('BookAppointmentApp');
         templateUrl: 'appointmentBooking.html',
         controller: 'BookAppointmentModalInstanceCtrl',
         size: size,
+        backdrop: 'static',
         resolve: {
           items: function () {
             $scope.items = {
@@ -520,6 +532,7 @@ var app = angular.module('BookAppointmentApp');
               templateUrl: 'appointmentBookingEdit.html',
               controller: 'BookAppointmentEditModalInstanceCtrl',
               size: size,
+              backdrop: 'static',
               resolve: {
                 items: function () {
                   $scope.items = {
@@ -622,6 +635,7 @@ var app = angular.module('BookAppointmentApp');
               templateUrl: 'appointmentBookingPastTime.html',
               controller: 'pastTimeModalInstanceCtrl',
               size: size,
+              backdrop: 'static',
               resolve: {
                 items: function () {
                   $scope.items = {

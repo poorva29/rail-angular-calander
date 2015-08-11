@@ -59,10 +59,23 @@ app = angular.module('BookAppointmentApp');
     $http.get(url_to_fetch)
       .success(function (response) {
         $scope.patientsInfo = response;
+        $scope.patientsInfoSize = $scope.patientsInfo.length;
     });
 
     $scope.refreshPatientNames = function(name){
-      console.log(name);
+      if($scope.patientsInfo){
+        $scope.patientsInfo[$scope.patientsInfoSize + 1] = {
+          name: name,
+          id: '0',
+          mobile: '',
+          email: '',
+          unregpatient: true
+        };
+      }
+    };
+
+    $scope.patientDetails = function(patient){
+      return patient.mobile ? patient.name + ' (' +patient.mobile + ')' : patient.name;
     };
 
     $scope.fillPatientDetails = function(){
@@ -70,7 +83,7 @@ app = angular.module('BookAppointmentApp');
         var patientDetails = $scope.findWhere($scope.patientsInfo, {id: $scope.patient.selected.id});
         $scope.patientNumber = patientDetails.mobile ? parseInt(patientDetails.mobile): '';
         $scope.patientEmail = patientDetails.email;
-        $scope.patient.registered = true;
+        $scope.patient.registered = patientDetails.unregpatient ? false : true;
       }else{
         $scope.patientNumber = undefined;
         $scope.patientEmail = undefined;
@@ -102,7 +115,7 @@ app = angular.module('BookAppointmentApp');
       $scope.selected_event.patient_name = $scope.patient.registered ? $scope.patient.selected.name : $('.form-control.ui-select-search.ng-valid-parse').val();
       $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.email = $scope.patientEmail;
-      $scope.selected_event.prepay_amount = $scope.prepayAmount;
+      $scope.selected_event.prepay_amount = $scope.paymentSelected ? $scope.prepayAmount : 0;
       $scope.selected_event.prepay_by = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).format('HH:mm:ss');
       $scope.selected_event.patient_id = $scope.patient.selected ? $scope.patient.selected.id : '0';
     }

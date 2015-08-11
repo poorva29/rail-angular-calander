@@ -346,6 +346,7 @@ var app = angular.module('BookAppointmentApp');
           date = $(day_td).text();
           date = moment(date.substr(4,7), 'MM/DD').format('DD/MM/YYYY')
           $(day_td).attr({'ng-click': "dateClicked('" + date + "')"});
+          $(day_td).css('cursor', 'pointer');
           $compile($(day_td))($scope);
         }
       });

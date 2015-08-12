@@ -128,7 +128,7 @@ var app = angular.module('BookAppointmentApp');
         'cancelOverlapped': 'false',
         'email': selectedItem.email || '',
         'mobileno': selectedItem.mobile_number || '',
-        'prepayBy': selectedItem.prepay_date ? (selectedItem.prepay_date + ' ' + selectedItem.prepay_time) : selectedItem.prepay_by
+        'prepayBy': selectedItem.prepay_by ? selectedItem.prepay_by : moment(new Date()).utc().format('YYYY-MM-DDTHH:mm:ss')
       };
     };
 

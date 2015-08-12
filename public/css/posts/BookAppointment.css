@@ -114,8 +114,7 @@ input::-webkit-inner-spin-button {
   width: 30%;
 }
 
-.bootbox
-{
+.bootbox{
   padding-top: 100px;
 }
 
@@ -137,4 +136,18 @@ input::-webkit-inner-spin-button {
     border-radius: 50%;
     border: 1px solid gray;
     vertical-align: bottom;
+}
+
+.ui-select-match-text{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 30px;
+}
+
+.ui-select-toggle > .btn.btn-link {
+  margin-right: 10px;
+  top: 6px;
+  position: absolute;
+  right: 10px;
 }

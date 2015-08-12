@@ -123,6 +123,16 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label class="control-label col-sm-3" for="name">Time: *</label>
+                    <div class="col-sm-9" id="pre-pay-size">
+                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeNew" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
+                      <span class="left-right-margin">TO</span>
+                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeNew" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <span class="error validation-msg-color" ng-show="appointmentForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Subject: </label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="subjectSelected" ng-model="subjectSelected" placeholder="Brief Description">
@@ -145,6 +155,16 @@
                     <label class="control-label col-sm-3" for="date">Date Selected: </label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" ng-model="dateSelected" ng-disabled=true>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3" for="name">Time: *</label>
+                    <div class="col-sm-9" id="pre-pay-size">
+                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeNew" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
+                      <span class="left-right-margin">TO</span>
+                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeNew" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <span class="error validation-msg-color" ng-show="appointmentForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
                     </div>
                   </div>
                   <div class="form-group">

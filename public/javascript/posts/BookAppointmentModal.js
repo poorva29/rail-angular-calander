@@ -35,11 +35,21 @@ app = angular.module('BookAppointmentApp');
   });
 
   app.controller('BookAppointmentModalInstanceCtrl', function ($scope, $http ,$modalInstance, items) {
+    $scope.$watch('[startTime,endTime]', function() {
+      if($scope.startTime && $scope.endTime){
+        var startTime = moment($scope.startTime) , endTime = moment($scope.endTime),
+        sametime = startTime.diff(endTime) == 0 ? false : true;
+        $scope.appointmentForm.validity.$setValidity("sametime", sametime);
+        var invalidtime = !startTime.isAfter(endTime);
+        $scope.appointmentForm.validity.$setValidity("invalidtime", invalidtime);
+      }
+    }, true);
+
     $scope.selected_event = {};
     $scope.selected_event = items;
     $scope.showPatient = true;
     $scope.prepay_time = new Date();
-    $scope.dateSelected = $scope.selected_event.start.format('DD MMM YYYY, hh:mm a') + ' - ' +$scope.selected_event.end.format('hh:mm a');
+    $scope.dateSelected = $scope.selected_event.start.format('DD MMM YYYY');
     $scope.updatedObject = [{ "id": 1, "label": "Conference Travel", "isDefault": true}]; //show default value in appointmentType dropdown
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
@@ -60,6 +70,9 @@ app = angular.module('BookAppointmentApp');
       .success(function (response) {
         $scope.patientsInfo = response;
     });
+
+    $scope.startTime = new Date($scope.selected_event.start);
+    $scope.endTime = new Date($scope.selected_event.end);
 
     $scope.refreshPatientNames = function(name){
       console.log(name);

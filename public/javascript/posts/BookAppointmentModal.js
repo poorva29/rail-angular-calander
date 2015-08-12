@@ -102,11 +102,11 @@ app = angular.module('BookAppointmentApp');
     $scope.addInfo = function(){
       $scope.selected_event.doctor_id = 1;
       $scope.selected_event.location_id = 2;
-      $scope.selected_event.cretaed_date = new Date(); //the date on which appointment is booked
+      $scope.selected_event.created_date = new Date(); //the date on which appointment is booked
       $scope.selected_event.created_by = 1; //(doctor or patient or assistant) id who is creating an appointment
       $scope.selected_event.subject = $scope.subjectSelected;
-      $scope.selected_event.start = $scope.selected_event.start;
-      $scope.selected_event.end = $scope.selected_event.end;
+      $scope.selected_event.start = moment($scope.startTime);
+      $scope.selected_event.end = moment($scope.endTime);
       $scope.selected_event.is_all_day_event = false;
       $scope.selected_event.appointment_type = $scope.radioAppointment.selected_type == '1' ? $scope.updatedObject : 'Patient Appointment';
       $scope.selected_event.event_type = 'booking'; // the event is created for doctor or patient

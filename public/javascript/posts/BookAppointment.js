@@ -30,16 +30,24 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.appointmentUpdated = function(){
+      $('body').css('cursor', 'default');
+      $('#docSelect').css('cursor', 'progress');
+      
       var message = '<strong> Booked !</strong>  Appointment Updated Successfully.';
       $scope.showAlert('success', message);
     };
 
     $scope.appointmentNotUpdated = function(){
+      $('header').css('cursor', 'default');
+      $('body').css('cursor', 'default');
       var message = '<strong> Not Booked !</strong>  Appointment Booked For Selected Time.';
       $scope.showAlert('danger', message);
     };
 
     $scope.appointmentBooked = function(){
+      $('#docSelect').css('cursor', 'progress');
+      $('header').css('cursor', 'default');
+      $('body').css('cursor', 'default');
       var message = '<strong> Booked !</strong>  Appointment Created Successfully.';
       $scope.showAlert('success', message);
     };
@@ -50,6 +58,8 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.appointmentNotBooked = function(){
+      $('header').css('cursor', 'default');
+      $('body').css('cursor', 'default');
       var message = '<strong> Not Booked !</strong> Appointment Can Not Be Created.';
       $scope.showAlert('danger', message);
     };
@@ -65,11 +75,15 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.appointmentDeleted = function(){
+      $('header').css('cursor', 'default');
+      $('body').css('cursor', 'default');
       var message = '<strong> Deleted !</strong>  Appointment Deleted Successfully.';
       $scope.showAlert('success', message);
     };
 
     $scope.appointmentNotDeleted = function(){
+      $('header').css('cursor', 'default');
+      $('body').css('cursor', 'default');
       var message = '<strong> Not Deleted !</strong>  Appointment Cannot Be Deleted.';
       $scope.showAlert('danger', message);
     };
@@ -128,6 +142,8 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.postUpdatedData = function(selectedItem, revertFunc){
+      $('header').css('cursor', 'progress');
+      $('body').css('cursor', 'progress');
       var url_to_post = '../api/calendar/update_appointment',
       data = $scope.getUpdatedData(selectedItem);
       if(data){
@@ -139,6 +155,8 @@ var app = angular.module('BookAppointmentApp');
             }else{
               $scope.nonWorkingSlot();
               revertFunc();
+              $('header').css('cursor', 'default');
+              $('body').css('cursor', 'default');
             }
         });
       }
@@ -488,7 +506,9 @@ var app = angular.module('BookAppointmentApp');
       $scope.bookAppointment = function(event_hash){
         var data = $scope.getDataToSend(event_hash);
         var url_to_post = '../api/calendar/add_appointment';
-        $http.post(url_to_post, data).success(function(response){
+        $('body').css('cursor', 'progress');
+        $('header').css('cursor', 'progress');
+        $http.post(url_to_post, data).success(function(response){          
           if(response.IsSuccess){
             $scope.addEvent(response.ApptId);
             $scope.appointmentBooked();
@@ -592,6 +612,8 @@ var app = angular.module('BookAppointmentApp');
             modalInstance.result.then(function (selectedItem) {
               $scope.selected_event = selectedItem;
               if($scope.selected_event.changeCloseType){
+                $('body').css('cursor', 'progress');
+                $('header').css('cursor', 'progress');
                 $http.get('../api/calendar/delete_appointment?appointmentId=' + selectedItem.event.id)
                   .success(function (response) {
                     if(response.IsSuccess == true){

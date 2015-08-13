@@ -19,6 +19,17 @@ var app = angular.module('BookAppointmentApp');
     ];
 
     $scope.viewRenderWeekAgenda = function(view, element){
+      if(view.type == 'month'){
+        $('.fc-day-grid').css('cursor', 'pointer');
+        var ele = $('.fc-day.fc-widget-content');
+        var day_ele = $('.fc-day-number');
+        ele.attr({'tooltip': 'Click to see week view',
+                  'tooltip-append-to-body': true});
+        day_ele.attr({'tooltip': 'Click to see week view',
+                  'tooltip-append-to-body': true});
+        $compile(ele)($scope);
+        $compile(day_ele)($scope);
+      }
       $scope.viewStartDate = view.start.format('MM-DD-YYYY');
       $scope.viewEndDate = view.end.format('MM-DD-YYYY');
       if($scope.locationId)
@@ -246,15 +257,18 @@ var app = angular.module('BookAppointmentApp');
         if (event.subject) {
             element.find('.fc-title').append(" - " + event.subject);
             if (event.appointment_type == "Patient Appointment") {
-                event_tooltip = 'Patient:' + event.patient_name + '\nSubject:' + event.subject;
+                event_tooltip = 'Patient: ' + event.patient_name + '<br/>Subject: ' + event.subject;
+                if (event.prepay_amount > 0) {
+                    event_tooltip += '<br/>Prepay Amount:' + event.prepay_amount + '<br/>Has been Paid?:' + (event.is_paid ? "Yes" : "No");
+                }
             } else {
-                event_tooltip = 'Subject:' + event.subject + '\nAppointment Type:' + event.appointment_type;
+                event_tooltip = 'Subject: ' + event.subject + '<br/>Appointment Type: ' + event.appointment_type;
             }
         }
         else if (event.patient_name) {
             event_tooltip = 'Patient:' + event.patient_name;
         }
-        element.find('.fc-title').attr('title', event_tooltip);
+        element.attr('title', event_tooltip).tooltip({ html: true });
 
       if(!$scope.checkNotValidTime(event.start) && event.appointment_type == "Patient Appointment" && event.prepay_amount > 0){
         if(event.is_paid){

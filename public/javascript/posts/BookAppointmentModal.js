@@ -34,7 +34,7 @@ app = angular.module('BookAppointmentApp');
     };
   });
 
-  app.controller('BookAppointmentModalInstanceCtrl', function ($scope, $http ,$modalInstance, items) {
+  app.controller('BookAppointmentModalInstanceCtrl', function ($scope, $http ,$modalInstance, items, eventDetails) {
     $scope.selected_event = {};
     $scope.selected_event = items;
     $scope.showPatient = true;
@@ -116,7 +116,7 @@ app = angular.module('BookAppointmentApp');
       $scope.selected_event.mobile_number = $scope.patientNumber;
       $scope.selected_event.email = $scope.patientEmail;
       $scope.selected_event.prepay_amount = $scope.paymentSelected ? $scope.prepayAmount : 0;
-      $scope.selected_event.prepay_by = moment($scope.prepay_date).utc().format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).utc().format('HH:mm:ss');
+      $scope.selected_event.prepay_by = moment.utc($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).utc().format('HH:mm:ss');
       $scope.selected_event.patient_id = $scope.patient.selected ? $scope.patient.selected.id : '0';
     }
 
@@ -146,13 +146,29 @@ app = angular.module('BookAppointmentApp');
       $modalInstance.dismiss('cancel');
     };
 
+    $scope.$watch('[prepay_date, prepay_time]', function(){
+      var prepay = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).format('HH:mm:ss');
+      if(moment(prepay, 'MM/DD/YYYY HH:mm').isAfter($scope.selected_event.end)){
+        $scope.is_valid_prepay = false;
+        $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+      }else{
+        $scope.is_valid_prepay = true;
+        $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+      }
+    }, true);
+
     $scope.currentDay = function() {
       $scope.prepay_date = new Date();
     };
     $scope.currentDay();
 
-    $scope.clear = function () {
-      $scope.current_date = null;
+    eventDetails.selecteEventSet($scope.selected_event);
+    $scope.minDate = eventDetails.getMin();
+    $scope.maxDate = eventDetails.getMax();
+
+    $scope.open = function($event) {
+      $event.stopPropagation();
+      $scope.opened = !$scope.opened;
     };
 
     $scope.dateOptions = {
@@ -209,6 +225,28 @@ angular.module('BookAppointmentApp')
     $scope.startTime = new Date($scope.selected_event.start);
     $scope.endTime = new Date($scope.selected_event.end);
 
+    $scope.$watch('[current_date, endTime, prepay_date, prepay_time]', function(){
+      if($scope.paymentSelected){
+        var prepay_time = '';
+        $scope.maxDate = $scope.current_date;
+        if(typeof $scope.prepay_time == 'object'){
+            prepay_time = moment($scope.prepay_time).format('HH:mm:ss');
+        }else if(typeof $scope.prepay_time == 'string'){
+            prepay_time = moment($scope.prepay_time, 'hh:mm A').format('HH:mm:ss');
+        }
+        var prepay = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + prepay_time;
+
+        var endTime = moment($scope.current_date).format('MM/DD/YYYY') + ' ' + moment($scope.endTime).format('HH:mm:ss');
+        if(moment(prepay, 'MM/DD/YYYY HH:mm').isBefore(moment(new Date())) || moment(prepay, 'MM/DD/YYYY HH:mm').isAfter(moment(endTime, 'MM/DD/YYYY HH:mm'))){
+          $scope.is_valid_prepay = false;
+          $scope.appointmentEditForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+        }else{
+          $scope.is_valid_prepay = true;
+          $scope.appointmentEditForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+        }
+      }
+    }, true);
+
     $scope.toggleView = function(){
       $scope.showPatient = !$scope.showPatient;
     };
@@ -242,18 +280,19 @@ angular.module('BookAppointmentApp')
         $scope.setNewDate($scope.endTime);
 
         if(typeof $scope.prepay_time == 'object'){
-          prepay_time = moment($scope.prepay_time).utc().format('HH:mm:ss');
+          prepay_time = moment($scope.prepay_time);
         }else if(typeof $scope.prepay_time == 'string'){
-          prepay_time = moment($scope.prepay_time, 'hh:mm A').utc().format('HH:mm:ss');
+          prepay_time = moment($scope.prepay_time, 'hh:mm A');
         }
-
+        var prepay_date_diff = moment($scope.prepay_date).diff(prepay_time, 'minutes');
+        prepay_time.add(prepay_date_diff, 'minutes');
         $scope.extend($scope.selected_event, {
           'subject': $scope.subjectSelected,
           'appointment_type': $scope.updatedObject,
           'prepay_amount': $scope.prepayAmount,
           'email': $scope.patientEmail || '',
           'mobile_number': $scope.patientNumber || '',
-          'prepay_by': moment($scope.prepay_date).utc().format('MM/DD/YYYY') + ' ' + prepay_time,
+          'prepay_by': prepay_time.utc().format('MM/DD/YYYY HH:mm:ss'),
           'start': moment($scope.startTime),
           'end': moment($scope.endTime)
         });
@@ -297,6 +336,19 @@ angular.module('BookAppointmentApp')
     $scope.clear = function () {
       $scope.current_date = null;
     };
+
+    $scope.openCalendar = function($event) {
+      $event.stopPropagation();
+      $scope.is_open_calendar = !$scope.is_open_calendar;
+    };
+
+    $scope.openPrePayCalendar = function($event){
+      $event.stopPropagation();
+      $scope.is_open_prepay_calendar = !$scope.is_open_prepay_calendar;
+    }
+
+    $scope.minDate = eventDetails.getMin();
+    $scope.maxDate = eventDetails.getMax();
 
     $scope.dateOptions = {
       formatYear: 'yy',
@@ -370,6 +422,14 @@ angular.module('BookAppointmentApp')
       prepayTimeEdit: function(){
         var convert_ist=parseFloat("5.5");
         return moment.utc(selected_event.prepay_by).add(convert_ist,'hours').format('hh:mm A');
+      },
+
+      getMin: function(){
+        return new Date();
+      },
+
+      getMax: function(){
+        return selected_event.start;
       }
     };
   }]);

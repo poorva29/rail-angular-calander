@@ -131,12 +131,17 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Pre-pay: </label>
-                    <div class="col-sm-9" id="pre-pay-size">
+                    <div class="col-sm-9">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
                       <i class="fa fa-inr"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected"> by
-                      <input type="date" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date" datepicker-options="dateOptions" ng-disabled="!paymentSelected" ng-required="true" />
-                      <input type="text" class="form-control date-time-picker-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected" />
+                      <input type="text" name="prepay_amt" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected" ng-required="paymentSelected"/> by
+                      <input type="text" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup show-button-bar="false" ng-model="prepay_date" is-open="opened" min-date="minDate" max-date="maxDate" ng-disabled="!paymentSelected" ng-required="true" />
+                      <button type="button" class="btn btn-default calendar-button-margin" ng-disabled="!paymentSelected" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      <span id="prepay-time">
+                        <input type="text" name="prepay_time" class="form-control prepay-time-size prepay-time-left-margin time-picker-text-indent" placeholder="Time" id="fromTimeEdit" ng-click="submitted = false" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected"/>
+                      </span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.prepay_amt.$error.required" ng-if='appointmentForm.prepay_amt.$dirty'>Please enter prepay amount. </span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time before appointment time. </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -197,17 +202,16 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Date: *</label>
                     <div class="col-sm-9">
-                      <p class="input-group">
-                        <input type="date" class="form-control" id="dateSelectedToEdit" datepicker-popup ng-model="current_date" datepicker-options="dateOptions" ng-required="true" />
-                      </p>
+                      <input type="text" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="current_date" show-button-bar="false" show-button-bar="false" is-open="is_open_calendar" ng-required="true" />
+                      <button type="button" class="btn btn-default calendar-button-margin" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
-                    <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
+                    <div class="col-sm-9" id="prepay-time">
+                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <input type="text" name="validity" class="form-control prepay-time-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
                       <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
                       <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
                     </div>
@@ -220,13 +224,17 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Pre-pay: </label>
-                    <div class="col-sm-9" id="pre-pay-size">
+                    <div class="col-sm-9">
                       <input id="prepay" class="checkbox-inline" type="checkbox" name="need_pre_pay" value="" ng-model="paymentSelected">
                       <i class="fa fa-inr" ng-class="check_if_paid"></i>
-                      <input type="text" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected"> by
-                      <input type="date" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="prepay_date"
-                      datepicker-options="dateOptions" ng-disabled="!paymentSelected" ng-required="true" />
-                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected" />
+                      <input type="text" name="prepay_amt" class="form-control pay-amount" placeholder="0.0" maxlength="8" ng-model="prepayAmount" ng-disabled="!paymentSelected" ng-required="paymentSelected"/> by
+                      <input type="text" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup show-button-bar="false" ng-model="prepay_date" is-open="is_open_prepay_calendar" min-date="minDate" max-date="maxDate" ng-disabled="!paymentSelected" ng-required="true" />
+                      <button type="button" class="btn btn-default calendar-button-margin" ng-disabled="!paymentSelected" ng-click="openPrePayCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      <span id="prepay-time">
+                        <input type="text" name="prepay_time" class="form-control prepay-time-size prepay-time-left-margin time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected"/>
+                      </span>
+                      <span class="error validation-msg-color" ng-show="!paymentSelected && appointmentEditForm.prepay_amt.$error.required" ng-if='appointmentEditForm.prepay_amt.$dirty'>Please enter prepay amount. </span>
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time before appointment time. </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -235,18 +243,17 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Date: *</label>
                     <div class="col-sm-9">
-                      <p class="input-group">
-                      <input type="date" class="form-control date-picker-left-margin prepay-time-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="current_date"
-                      datepicker-options="dateOptions" ng-required="true" />
-                      </p>
+                      <input type="text" class="prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup show-button-bar="false" is-open="is_open_calendar" ng-model="current_date"
+                      ng-required="true" />
+                      <button type="button" class="btn btn-default calendar-button-margin" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Time: *</label>
-                    <div class="col-sm-9" id="pre-pay-size">
-                      <input type="text" class="form-control date-time-edit-picker-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
+                    <div class="col-sm-9" id="prepay-time">
+                      <input type="text" class="form-control prepay-time-size time-picker-text-indent" id="fromTimeEdit" dn-timepicker ng-model="startTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxFromTime}}" />
                       <span class="left-right-margin">TO</span>
-                      <input type="text" name="validity" class="form-control date-time-edit-picker-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
+                      <input type="text" name="validity" class="form-control prepay-time-size time-picker-text-indent" id="toTimeEdit" dn-timepicker ng-model="endTime" step="{{slot}}" min-time="{{minTime}}" max-time="{{maxToTime}}" />
                       <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.sametime">Please Enter Different From or To Time !</span>
                       <span class="error validation-msg-color" ng-show="appointmentEditForm.validity.$error.invalidtime">From Time Must Be Less Than To Time !</span>
                     </div>

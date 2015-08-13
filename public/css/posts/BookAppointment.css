@@ -58,24 +58,32 @@
   height: 30px !important;
 }
 
-.date-picker-left-margin {
-  left: 1%;
-}
-
 .prepay-date-size {
-  width: 142px !important;
+  width:  25%;
   display: initial;
 }
 
 .prepay-time-size {
-  width: 158px !important;
+  width: 34.5%;
   display: initial;
 }
 
-#pre-pay-size ul
+.prepay-time-left-margin {
+  margin-left: 1%;;
+}
+
+#prepay-time ul
 {
-    height: 85px !important;
-    overflow-y: auto !important;
+  height: 250%;
+  overflow-y: auto !important;
+  min-width: 0px;
+  width: 32.5%;
+  margin-left: 2px;
+}
+
+.calendar-button-margin{
+  margin-left: -1%;
+  height: 34px !important;
 }
 
 .left-right-margin
@@ -87,12 +95,12 @@
 
 .date-picker-text-indent
 {
-    text-indent: 4px;
+    text-indent: 3%;
 }
 
 .time-picker-text-indent
 {
-    text-indent: 10px;
+    text-indent: 2%;
 }
 
 .search_box{
@@ -150,4 +158,8 @@ input::-webkit-inner-spin-button {
   top: 6px;
   position: absolute;
   right: 10px;
+}
+
+.tooltip-inner {
+    text-align:left;
 }

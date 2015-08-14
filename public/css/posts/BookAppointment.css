@@ -163,3 +163,8 @@ input::-webkit-inner-spin-button {
 .tooltip-inner {
     text-align:left;
 }
+
+#clinicLocations th, td {
+    border: 1px solid black;
+    text-align: center;
+}

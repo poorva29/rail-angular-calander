@@ -9,6 +9,7 @@ var app = angular.module('BookAppointmentApp');
     var m = date.getMonth();
     var y = date.getFullYear();
     $scope.events = [];
+    $scope.clinics = [];
     $scope.showCalendar = false;
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
@@ -413,8 +414,21 @@ var app = angular.module('BookAppointmentApp');
               $rootScope.maxFromTime = moment(docMaxTime, 'hh:mm').subtract($rootScope.slot, 'minutes').format('hh:mm a');
               $rootScope.maxToTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
               $scope.events.splice(0,$scope.events.length);
+              $scope.clinics.splice(0, response.work_hrs.length);
               $scope.each(response.events, function(event){
                 $scope.events.push($scope.formatEvent(event));
+              });
+              $scope.each(response.work_hrs, function(event){
+                event.fromtime = moment(event.fromtime, 'hh:mm').format('hh:mm a');
+                event.totime = moment(event.totime, 'hh:mm').format('hh:mm a');
+                $scope.clinics.push(event);
+              });
+              $scope.each($scope.clinics, function(doc_clinic) {
+                $scope.each($scope.locations, function(location) {
+                  if(doc_clinic.doclocationid == location.id){
+                    doc_clinic['name'] = location.name;
+                  }
+                });
               });
             }else{
               $scope.noWorkingHours();
@@ -428,6 +442,7 @@ var app = angular.module('BookAppointmentApp');
     $scope.$on("doctorLocation", function (event, args) {
       $scope.locationId = args.locationId;
       $scope.doctorId = args.doctorId;
+      $scope.locations = args.locations;
       if($scope.locationId){
         $scope.getInitialData();
         $scope.showCalendar = true;

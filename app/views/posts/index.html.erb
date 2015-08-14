@@ -54,7 +54,7 @@
             <div class="form-group">
               <label for="clinicName" class="control-label col-sm-4">Clinic Location: *</label>
               <div class="col-sm-8">
-                <ui-select ng-model="location.selected" theme="bootstrap" ng-disabled="disableLocation" on-select="fetchCalenderForDoctorLocation(location.selected.id)" style="width:auto">
+                <ui-select ng-model="location.selected" theme="bootstrap" ng-disabled="disableLocation" on-select="fetchCalenderForDoctorLocation(location.selected.id, locations)" style="width:auto">
                 <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="location in locations | propsFilter: {name: $select.search}">
                   <div ng-bind-html="location.name | highlight: $select.search"></div>
@@ -65,6 +65,34 @@
           </form>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div ng-controller="BookAppointmentCtrl">
+        <table id="clinicLocations" align="center" ng-if="clinics.length" ng-show="showCalendar">
+          <tr>
+            <th>Clinic Location</th>
+            <th>Working Hours</th>
+            <th>SU</th>
+            <th>MO</th>
+            <th>TU</th>
+            <th>WE</th>
+            <th>TH</th>
+            <th>FR</th>
+            <th>SA</th>
+          </tr>
+          <tr ng-repeat="clinic in clinics" ng-if="clinic.name != All">
+            <td>{{ clinic.name }}</td>
+            <td>{{ clinic.fromtime }} to {{ clinic.totime }}</td>
+            <td><i class="{{ clinic.sunday ? 'fa fa-check' : '' }}"></td>
+            <td><i class="{{ clinic.monday ? 'fa fa-check' : '' }}"></td>
+            <td><i class="{{ clinic.tuesday ? 'fa fa-check' : '' }}"></td>
+            <td><i class="{{ clinic.wednesday ? 'fa fa-check' : '' }}"></td>
+            <td><i class="{{ clinic.thrusday ? 'fa fa-check' : '' }}"></i></td>
+            <td><i class="{{ clinic.friday ? 'fa fa-check' : '' }}"></td>
+            <td><i class="{{ clinic.saturday ? 'fa fa-check' : '' }}"></td>
+          </tr>
+        </table>
     </div>
   </div>
   <div class="row-fluid">

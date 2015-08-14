@@ -141,6 +141,59 @@ class PostsController < ApplicationController
             patient_name: '',
             appointment_type: ''
           }
+        ],
+        work_hrs: [
+          {
+            friday: true,
+            monday: true,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: true,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:34",
+            doclocationid: 3,
+            doclocworkinghoursid: 6349,
+            fromtime: "0730",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:34",
+            totime: "1200"
+          },
+          {
+            friday: true,
+            monday: true,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: false,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:36",
+            doclocationid: 4,
+            doclocworkinghoursid: 6350,
+            fromtime: "1245",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:36",
+            totime: "1415"
+          },
+          {
+            friday: false,
+            monday: false,
+            saturday: false,
+            sunday: false,
+            thursday: false,
+            tuesday: true,
+            wednesday: false,
+            created_by: 18467,
+            created_on: "2015-08-07T11:38",
+            doclocationid: 13981,
+            doclocworkinghoursid: 6351,
+            fromtime: "1245",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:38",
+            totime: "1415"
+          }
         ]
       }
     else
@@ -197,6 +250,93 @@ class PostsController < ApplicationController
             event_type: 'non-working',
             patient_name: '',
             appointment_type: ''
+          }
+        ],
+        work_hrs: [
+          {
+            friday: false,
+            monday: false,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: true,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:34",
+            doclocationid: 3,
+            doclocworkinghoursid: 6349,
+            fromtime: "0730",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:34",
+            totime: "1200"
+          },
+          {
+            friday: false,
+            monday: true,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: true,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:34",
+            doclocationid: 4,
+            doclocworkinghoursid: 6349,
+            fromtime: "0730",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:34",
+            totime: "1200"
+          },
+          {
+            friday: true,
+            monday: false,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: true,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:34",
+            doclocationid: 5,
+            doclocworkinghoursid: 6349,
+            fromtime: "0730",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:34",
+            totime: "1200"
+          },
+          {
+            friday: false,
+            monday: false,
+            saturday: false,
+            sunday: false,
+            thursday: true,
+            tuesday: false,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:36",
+            doclocationid: 6,
+            doclocworkinghoursid: 6350,
+            fromtime: "1245",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:36",
+            totime: "1415"
+          },
+          {
+            friday: false,
+            monday: false,
+            saturday: false,
+            sunday: false,
+            thursday: false,
+            tuesday: false,
+            wednesday: true,
+            created_by: 18467,
+            created_on: "2015-08-07T11:38",
+            doclocationid: 13982,
+            doclocworkinghoursid: 6351,
+            fromtime: "1245",
+            modified_by: 18467,
+            modified_on: "2015-08-07T11:38",
+            totime: "1415"
           }
         ]
       }

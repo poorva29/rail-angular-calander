@@ -46,7 +46,8 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     $scope.initRestId = function(locationId) {
       $scope.$root.$broadcast("doctorLocation", {
         locationId: locationId,
-        doctorId: $scope.doctorId
+        doctorId: $scope.doctorId,
+        locations: $scope.locations
       });
     };
 });

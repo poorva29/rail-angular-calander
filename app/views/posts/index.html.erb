@@ -44,7 +44,7 @@
               <div class="col-sm-7">
                 <ui-select ng-model="doctor.selected" theme="bootstrap" ng-disabled="disabled" on-select="getLocations(doctor.selected.id)" style="width:auto">
                 <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.firstname}}  {{$select.selected.lastname}}</ui-select-match>
-                <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}">
+                <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}  | orderBy: ['firstname', 'lastname']">
                   <div ng-bind-html="doctor.firstname + ' ' + doctor.lastname | highlight: $select.search"></div>
                 </ui-select-choices>
                 </ui-select>

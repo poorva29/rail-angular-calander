@@ -1,5 +1,7 @@
-var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash', 'dnTimepicker', 'ngSanitize', 'ui.select', 'angular-bootbox', 'ngTable']);
-app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http, Flash, ngTableParams) {
+var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash',
+                         'dnTimepicker', 'ngSanitize', 'ui.select', 'angular-bootbox', 'ngTable', 'ngIdle']);
+  app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http, Flash, ngTableParams, Idle, Keepalive) {
+    Idle.watch();
     $scope.doctors = [{ id: 0, firstname: '----- Select -----', lastname: ''}];
     $scope.doctorId = $scope.doctors[0].id;
     $scope.locations = [];
@@ -21,7 +23,7 @@ app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http,
     };
 
     $scope.locationNotSelected = function() {
-        var message = '<strong> Select location !</strong>  Location Not Selected.';
+        var message = '<strong> Select location !</strong>  Doctor Or Location Not Selected.';
         $scope.showAlert('danger', message);
     };
 
@@ -76,6 +78,7 @@ app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http,
     };
 
     $scope.getTodaysSchedule = function () {
+      if($scope.location.selected){
         $http.get('../api/calendar/todays_schedule', {
             params: {
                 doclocation_id: $scope.location.selected.id,
@@ -86,6 +89,9 @@ app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http,
         });
         $scope.show_todays_schedule = true;
         $scope.$root.showCalendar = false;
+      }else{
+        $scope.locationNotSelected();
+      }
     };
 
     $scope.showCalendar = function () {
@@ -143,4 +149,18 @@ app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http,
         $scope.locationNotSelected();
       }
     };
+
+    // This is implemented so that the user does not logout
+    $scope.$on('IdleTimeout', function() {
+      $http.get("../api/calendar/doclocations")
+      .success(function(response) {
+      });
+      Idle.watch();
+    });
   });
+
+  app.config(['KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
+    IdleProvider.idle(120);
+    IdleProvider.timeout(1);
+    KeepaliveProvider.interval(10);
+  }]);

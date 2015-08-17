@@ -410,6 +410,24 @@ class PostsController < ApplicationController
     render json: list
   end
 
+  def todays_schedule
+    render json: [
+      { 'appointmentid' => 226_62, 'appointmenttype' => 'Patient Appointment',
+        'time' => '18:00 to 18:15', 'starttime' => '2015-08-17T18:00:00',
+        'endtime' => '2015-08-17T18:15:00', 'patientname' => 'Lekhika Abak',
+        'patientmobile' => '1234123456', 'prepayamount' => 0.00,
+        'ispaid' => false, 'subject' => 'Doooo FOooo',
+        'prev_appt_on' => '10 Oct 2013' },
+      { 'appointmentid' => 226_48, 'appointmenttype' => 'Patient Appointment',
+        'time' => '18:30 to 18:45', 'starttime' => '2015-08-17T18:30:00',
+        'endtime' => '2015-08-17T18:45:00', 'patientname' => 'Lekhika Abak',
+        'patientmobile' => '1234123456', 'prepayamount' => 0.00,
+        'ispaid' => false, 'subject' => 'Food',
+        'prev_appt_on' => '10 Oct 2013' }
+      ]
+  end
+
+
 =begin
   def get_patient_data
     render json: [

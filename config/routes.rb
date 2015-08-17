@@ -14,6 +14,7 @@ Training::Application.routes.draw do
   post 'api/calendar/add_appointment' => 'posts#post_event_data'
   post 'api/calendar/update_appointment' => 'posts#post_event_data'
   get 'api/calendar/patients' => 'posts#get_patients'
+  get 'api/calendar/todays_schedule' => 'posts#todays_schedule'
 
   # get '/' => 'pages#index'
   # root :to => 'pages#index'

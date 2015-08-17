@@ -415,7 +415,7 @@ var app = angular.module('BookAppointmentApp');
               $rootScope.maxFromTime = moment(docMaxTime, 'hh:mm').subtract($rootScope.slot, 'minutes').format('hh:mm a');
               $rootScope.maxToTime = moment(docMaxTime, 'hh:mm').format('hh:mm a');
               $scope.events.splice(0,$scope.events.length);
-              $scope.clinics.splice(0, response.work_hrs.length);
+              $scope.clinics.splice(0, $scope.clinics.length);
               $scope.each(response.events, function(event){
                 $scope.events.push($scope.formatEvent(event));
               });

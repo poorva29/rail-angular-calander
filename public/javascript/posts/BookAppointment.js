@@ -10,7 +10,7 @@ var app = angular.module('BookAppointmentApp');
     var y = date.getFullYear();
     $scope.events = [];
     $scope.clinics = [];
-    $scope.showCalendar = false;
+    $scope.$root.showCalendar = false;
     $scope.appointmentTypes = [
       { "id": 1, "label": "Conference Travel", "isDefault": true},
       { "id": 2, "label": "OPD"},
@@ -385,7 +385,8 @@ var app = angular.module('BookAppointmentApp');
     };
 
     $scope.getInitialData = function(){
-      if($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate ||
+      if(typeof $scope.viewStartDate !== undefined){
+        if ($scope.startDate !== $scope.viewStartDate || $scope.endDate !== $scope.viewEndDate ||
         $scope.changedLocationId !== $scope.locationId || $scope.changedDoctorId !== $scope.doctorId){
         $scope.startDate = $scope.viewStartDate;
         $scope.endDate = $scope.viewEndDate;
@@ -430,11 +431,15 @@ var app = angular.module('BookAppointmentApp');
                   }
                 });
               });
+              $scope.$root.$broadcast("workingHours", {
+                'workingHours': response.work_hrs
+              });
             }else{
               $scope.noWorkingHours();
-              $scope.showCalendar = false;
+              $scope.$root.showCalendar = false;
             }
         });
+      }
       }
       $scope.dateClicable();
     };
@@ -445,9 +450,9 @@ var app = angular.module('BookAppointmentApp');
       $scope.locations = args.locations;
       if($scope.locationId){
         $scope.getInitialData();
-        $scope.showCalendar = true;
+        $scope.$root.showCalendar = true;
       }else{
-        $scope.showCalendar = false;
+        $scope.$root.showCalendar = false;
       }
     });
 

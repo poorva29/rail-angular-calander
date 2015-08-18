@@ -1,8 +1,8 @@
+
 var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', 'angular-underscore', 'flash',
                          'dnTimepicker', 'ngSanitize', 'ui.select', 'angular-bootbox', 'ngTable', 'ngIdle']);
   app.controller('doctorLocationFetchCtrl', function ($scope, $modal, $log, $http, Flash, ngTableParams, Idle, Keepalive) {
-    Idle.watch();
-    $scope.doctors = [{ id: 0, firstname: '----- Select -----', lastname: ''}];
+    $scope.doctors = [{ id: 0, firstname: ' ----- Select -----', lastname: ''}];
     $scope.doctorId = $scope.doctors[0].id;
     $scope.locations = [];
     $scope.doctorsLocations = null;
@@ -19,54 +19,61 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       });
 
     $scope.showAlert = function(type, message) {
-        Flash.create(type, message);
+      Flash.create(type, message);
     };
 
     $scope.locationNotSelected = function() {
-        var message = '<strong> Select location !</strong>  Doctor Or Location Not Selected.';
-        $scope.showAlert('danger', message);
+      var message = '<strong> Select location !</strong>  Doctor Or Location Not Selected.';
+      $scope.showAlert('danger', message);
     };
 
     $scope.delayMessageSent = function() {
-        var message = '<strong> Delay Message Sent !</strong> Patients Will Be Notified By SMS .';
-        $scope.showAlert('success', message);
+      var message = '<strong> Delay Message Sent !</strong> Patients Will Be Notified By SMS .';
+      $scope.showAlert('success', message);
     };
 
     $scope.delayMessageNotSent = function() {
-        var message = '<strong> Delay Message NOT Sent !</strong> Patients Will NOT Be Notified.';
-        $scope.showAlert('danger', message);
+      var message = '<strong> Delay Message NOT Sent !</strong> Patients Will NOT Be Notified.';
+      $scope.showAlert('danger', message);
+    };
+
+    $scope.noLocationsAvailable = function() {
+      var message = '<strong> No Clinic Added !</strong> Doctor Does Not Have Locations Added.';
+      $scope.showAlert('danger', message);
     };
 
     $scope.getLocations = function(doctorId) {
-        if(doctorId == 0 || typeof doctorId === 'undefined') {
-            $scope.disableLocation = true;
-            $scope.locations = [];
-            $scope.location.selected = undefined;
-            $scope.doctors.selected = undefined;
-            $scope.initRestId(null);
+      if(doctorId == 0 || typeof doctorId === 'undefined') {
+        $scope.disableLocation = true;
+        $scope.locations = [];
+        $scope.location.selected = undefined;
+        $scope.doctors.selected = undefined;
+        $scope.initRestId(null);
         } else {
-            var doctorDetails = $scope.findWhere($scope.doctorsLocations, { id: doctorId });
-            if (doctorDetails) {
-                $scope.disableLocation = false;
-                $scope.locations = doctorDetails.locations;
-                $scope.doctor = doctorDetails;
-                if ($scope.locations.length > 0) {
-                    if ($scope.findWhere($scope.locations, { id: -1 }) === undefined)
-                        $scope.locations.push({ 'id': -1, 'name': 'All' });
-                    $scope.location.selected = $scope.locations[0];
-                    $scope.doctorId = doctorId;
-                    $scope.fetchCalenderForDoctorLocation($scope.location.selected.id);
-                }
-            }
+          var doctorDetails = $scope.findWhere($scope.doctorsLocations, { id: doctorId });
+          if (doctorDetails) {
+          $scope.disableLocation = false;
+          $scope.locations = doctorDetails.locations;
+          $scope.doctor = doctorDetails;
+          if ($scope.locations.length > 0) {
+            if ($scope.findWhere($scope.locations, { id: -1 }) === undefined)
+                $scope.locations.push({ 'id': -1, 'name': 'All' });
+            $scope.location.selected = $scope.locations[0];
+            $scope.doctorId = doctorId;
+            $scope.fetchCalenderForDoctorLocation($scope.location.selected.id);
+          }else{
+            $scope.noLocationsAvailable();
+          }
         }
+      }
     };
 
     $scope.fetchCalenderForDoctorLocation = function(locationId) {
-        if (locationId) {
-            $scope.$root.showCalendar = true;
-            $scope.show_todays_schedule = false;
-            $scope.initRestId(locationId);
-        }
+      if (locationId) {
+        $scope.$root.showCalendar = true;
+        $scope.show_todays_schedule = false;
+        $scope.initRestId(locationId);
+      }
     }
 
     $scope.initRestId = function(locationId) {
@@ -80,10 +87,10 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     $scope.getTodaysSchedule = function () {
       if($scope.location.selected){
         $http.get('../api/calendar/todays_schedule', {
-            params: {
-                doclocation_id: $scope.location.selected.id,
-                doctor_id: $scope.doctorId
-            }
+          params: {
+            doclocation_id: $scope.location.selected.id,
+            doctor_id: $scope.doctorId
+          }
         }).success(function (data, status) {
             $scope.todays_appointments = data;
         });
@@ -95,8 +102,8 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     };
 
     $scope.showCalendar = function () {
-        $scope.show_todays_schedule = false;
-        $scope.$root.showCalendar = true;
+      $scope.show_todays_schedule = false;
+      $scope.$root.showCalendar = true;
     }
 
     $scope.$on("workingHours", function (event, args) {
@@ -151,16 +158,24 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     };
 
     // This is implemented so that the user does not logout
-    $scope.$on('IdleTimeout', function() {
-      $http.get("../api/calendar/doclocations")
+    $scope.$on('Keepalive', function() {
+      $http.get("../api/calendar/ping")
       .success(function(response) {
+      })
+      .error(function(response, status) {
+        if (status == 403) {
+          var url = "http://" + $window.location.host + "/User/logout";
+          $window.location.href = url;
+        }
       });
-      Idle.watch();
     });
   });
 
   app.config(['KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
     IdleProvider.idle(120);
     IdleProvider.timeout(1);
-    KeepaliveProvider.interval(10);
-  }]);
+    KeepaliveProvider.interval(120);
+  }])
+  .run(function(Idle) {
+    Idle.watch();
+  });

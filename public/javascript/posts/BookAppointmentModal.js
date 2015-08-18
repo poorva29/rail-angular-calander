@@ -147,13 +147,15 @@ app = angular.module('BookAppointmentApp');
     };
 
     $scope.$watch('[prepay_date, prepay_time]', function(){
-      var prepay = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).format('HH:mm:ss');
-      if(moment(prepay, 'MM/DD/YYYY HH:mm').isAfter($scope.selected_event.end)){
-        $scope.is_valid_prepay = false;
-        $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
-      }else{
-        $scope.is_valid_prepay = true;
-        $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+      if($scope.paymentSelected){
+        var prepay = moment($scope.prepay_date).format('MM/DD/YYYY') + ' ' + moment($scope.prepay_time).format('HH:mm:ss');
+        if(moment(prepay, 'MM/DD/YYYY HH:mm').isBefore(moment(new Date())) || moment(prepay, 'MM/DD/YYYY HH:mm').isAfter($scope.selected_event.end)){
+          $scope.is_valid_prepay = false;
+          $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+        }else{
+          $scope.is_valid_prepay = true;
+          $scope.appointmentForm.prepay_time.$setValidity('is_valid_prepay', $scope.is_valid_prepay);
+        }
       }
     }, true);
 
@@ -285,6 +287,7 @@ angular.module('BookAppointmentApp')
           prepay_time = moment($scope.prepay_time, 'hh:mm A');
         }
         var prepay_date_diff = moment($scope.prepay_date).diff(prepay_time, 'minutes');
+        prepay_date_diff = (prepay_date_diff > 0) ? prepay_date_diff : 0;
         prepay_time.add(prepay_date_diff, 'minutes');
         $scope.extend($scope.selected_event, {
           'subject': $scope.subjectSelected,
@@ -415,13 +418,17 @@ angular.module('BookAppointmentApp')
       },
 
       prepaydateSelectedToEdit: function(){
-        var convert_ist=parseFloat("5.5");
-        return moment.utc(selected_event.prepay_by).add(convert_ist,'hours').format('DD MMM YYYY')
+        if(selected_event.prepay_by){
+          var convert_ist=parseFloat("5.5");
+          return moment.utc(selected_event.prepay_by).add(convert_ist,'hours').format('DD MMM YYYY');
+        }
       },
 
       prepayTimeEdit: function(){
-        var convert_ist=parseFloat("5.5");
-        return moment.utc(selected_event.prepay_by).add(convert_ist,'hours').format('hh:mm A');
+        if(selected_event.prepay_by){
+          var convert_ist=parseFloat("5.5");
+          return moment.utc(selected_event.prepay_by).add(convert_ist,'hours').format('hh:mm A');
+        }
       },
 
       getMin: function(){

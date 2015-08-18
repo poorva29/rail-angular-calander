@@ -23,6 +23,7 @@
   <script src="javascript/posts/doctorLocationFetch.js" type="text/javascript"></script>
   <script src="javascript/posts/BookAppointment.js" type="text/javascript"></script>
   <script src="javascript/posts/BookAppointmentModal.js" type="text/javascript"></script>
+  <script src="javascript/posts/paMenu.js" type="text/javascript"></script>
   <script src="javascript/lib/angular-flash.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.js"></script>
@@ -44,7 +45,7 @@
               <div class="col-sm-7">
                 <ui-select ng-model="doctor.selected" theme="bootstrap" ng-disabled="disabled" on-select="getLocations(doctor.selected.id)" style="width:auto">
                 <ui-select-match placeholder="----- Select -----" allow-clear="true">{{$select.selected.firstname}}  {{$select.selected.lastname}}</ui-select-match>
-                <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search}">
+                <ui-select-choices repeat="doctor in doctors | propsFilter: {firstname: $select.search, lastname: $select.search} | orderBy: ['firstname', 'lastname']">
                   <div ng-bind-html="doctor.firstname + ' ' + doctor.lastname | highlight: $select.search"></div>
                 </ui-select-choices>
                 </ui-select>
@@ -240,7 +241,7 @@
                         <input type="text" name="prepay_time" class="form-control prepay-time-size prepay-time-left-margin time-picker-text-indent" placeholder="Time" id="fromTimeEdit" ng-click="submitted = false" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected"/>
                       </span>
                       <span class="error validation-msg-color" ng-show="appointmentForm.prepay_amt.$error.required" ng-if='appointmentForm.prepay_amt.$dirty'>Please enter prepay amount. </span>
-                      <span class="error validation-msg-color" ng-show="appointmentForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time before appointment time. </span>
+                      <span class="error validation-msg-color" ng-show="appointmentForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time in future and before the appointment time. </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->
@@ -333,7 +334,7 @@
                         <input type="text" name="prepay_time" class="form-control prepay-time-size prepay-time-left-margin time-picker-text-indent" placeholder="Time" id="fromTimeEdit" dn-timepicker ng-model="prepay_time" ng-disabled="!paymentSelected"/>
                       </span>
                       <span class="error validation-msg-color" ng-show="!paymentSelected && appointmentEditForm.prepay_amt.$error.required" ng-if='appointmentEditForm.prepay_amt.$dirty'>Please enter prepay amount. </span>
-                      <span class="error validation-msg-color" ng-show="appointmentEditForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time before appointment time. </span>
+                      <span class="error validation-msg-color" ng-show="appointmentEditForm.prepay_time.$error.is_valid_prepay">Please select pre-pay time in future and before the appointment time. </span>
                     </div>
                   </div>
                   <!-- Patient div ends here -->

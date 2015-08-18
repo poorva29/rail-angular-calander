@@ -256,13 +256,14 @@ var app = angular.module('BookAppointmentApp');
     $scope.eventRenderContent = function (event, element, view) {
         var event_tooltip = '';
         if (event.subject) {
-            element.find('.fc-title').append(" - " + event.subject);
-            if (event.appointment_type == "Patient Appointment") {
-                event_tooltip = 'Patient: ' + event.patient_name + '<br/>Subject: ' + event.subject;
+          if (event.appointment_type == "Patient Appointment") {
+            event_tooltip = 'Patient: ' + event.patient_name + '<br/>Subject: ' + event.subject;
                 if (event.prepay_amount > 0) {
                     event_tooltip += '<br/>Prepay Amount:' + event.prepay_amount + '<br/>Has been Paid?:' + (event.is_paid ? "Yes" : "No");
                 }
+                element.find('.fc-title').append(" - " + event.subject);
             } else {
+                element.find('.fc-title').html(event.subject); //Don't display appointment type for doc blocks - as per PA's request.
                 event_tooltip = 'Subject: ' + event.subject + '<br/>Appointment Type: ' + event.appointment_type;
             }
         }
@@ -339,7 +340,7 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.addDoctorAttributes = function(event){
       return {
-        title: event.appointment_type,
+        title: " ",
         subject: event.subject,
         backgroundColor: '#58BBEC'
       };

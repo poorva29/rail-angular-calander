@@ -115,8 +115,13 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         $scope.animationsEnabled = true;
         $scope.lastdelays = [];
         var url_to_fetch = '../api/calendar/last_delays?doctor_id=' + $scope.doctorId + '&location_id=' + $scope.location.selected.id;
-        $http.get(url_to_fetch).success(function (response) {
+        $.ajax({
+          type: "GET",
+          url: url_to_fetch,
+          async: false,
+          success : function(response) {
             $scope.lastdelays = response;
+          }
         });
         $scope.open = function(size) {
 
@@ -129,7 +134,8 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
               items: function() {
                 return {
                   'locationId': $scope.location.selected.id,
-                  'workingHours': $scope.workingHours
+                  'workingHours': $scope.workingHours,
+                  'lastdelays' : $scope.lastdelays
                 };
               }
             }

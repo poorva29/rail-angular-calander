@@ -192,3 +192,9 @@ input::-webkit-inner-spin-button {
 #delayedAppts th, td {
   text-align: center;
 }
+
+#delayedAppts {
+  font-size: 1em;
+  width: 80%;
+  margin-left: 10%;
+}

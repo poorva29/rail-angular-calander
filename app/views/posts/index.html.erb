@@ -98,7 +98,7 @@
               </form>
             </div>
             <div>
-              <table id="delayedAppts" class="table table-bordered" ng-show="lastdelays.length">
+              <table id="delayedAppts" class="table table-bordered"  ng-show="lastdelays.length">
                 <tr>
                   <th>Date</th>
                   <th>Delay</th>
@@ -106,10 +106,10 @@
                   <th>Slot</th>
                 </tr>
                 <tr ng-repeat="lastdelay in lastdelays">
-                  <td>lastdelay.date</td>
-                  <td>lastdelay.delay</td>
-                  <td>lastdelay.delayedby</td>
-                  <td>lastdelay.slot</td>
+                  <td>{{lastdelay.date}}</td>
+                  <td>{{lastdelay.delay}}</td>
+                  <td>{{lastdelay.delayedby}}</td>
+                  <td>{{lastdelay.slot}}</td>
                 </tr>
               </table>
             </div>

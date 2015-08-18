@@ -113,7 +113,11 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     $scope.delay_appointment = function() {
       if($scope.location.selected) {
         $scope.animationsEnabled = true;
-
+        $scope.lastdelays = [];
+        var url_to_fetch = '../api/calendar/last_delays?doctor_id=' + $scope.doctorId + '&location_id=' + $scope.location.selected.id;
+        $http.get(url_to_fetch).success(function (response) {
+            $scope.lastdelays = response;
+        });
         $scope.open = function(size) {
 
           var modalInstance = $modal.open({

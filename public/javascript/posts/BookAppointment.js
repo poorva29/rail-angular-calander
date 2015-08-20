@@ -101,6 +101,12 @@ var app = angular.module('BookAppointmentApp');
       $scope.showAlert('danger', message);
     };
 
+    $scope.appointmentUpdatePrepayDate = function(){
+      var message = '<strong> Invalid Prepay Time !</strong>  Please select payby date/time before \
+      the appointment time to update this appointment';
+      $scope.showAlert('danger', message);
+    };
+
     $scope.checkNotValidTime = function(start_date){
       return moment(new Date()).isAfter(start_date);
     };
@@ -184,6 +190,12 @@ var app = angular.module('BookAppointmentApp');
           $scope.appointmentPastDate();
           revertFunc();
         }else{
+          var apptTargetStartDate = new Date(event.start._d).toISOString();
+          if(apptTargetStartDate < event.prepay_by){
+            $scope.appointmentUpdatePrepayDate();
+            revertFunc();
+            return;
+          }
           // $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
           data = $scope.stopEventOverloap(event.start, event.end, event.id);
           if(data.is_valid){

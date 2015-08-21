@@ -38,6 +38,8 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
     };
 
     $scope.noLocationsAvailable = function() {
+      $scope.location.selected = 'undefined';
+      $scope.$root.showCalendar = false;
       var message = '<strong> No Clinic Added !</strong> Doctor Does Not Have Locations Added.';
       $scope.showAlert('danger', message);
     };

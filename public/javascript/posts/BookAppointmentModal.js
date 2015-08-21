@@ -444,6 +444,10 @@ angular.module('BookAppointmentApp')
 angular.module('BookAppointmentApp')
   .controller('pastTimeModalInstanceCtrl', function ($scope, $modalInstance, items, eventDetails) {
     $scope.selected_event = items;
+    $scope.title = 'Past Date Appointment';
+    if(typeof items.isPastDate != 'undefined'){
+      $scope.title = !items.isPastDate && items.view.name === 'month' ? 'Booked Appointment' : $scope.title;
+    }
     var appointment_type = $scope.selected_event.appointment_type;
     var appointment_type_check = (appointment_type == 'Patient Appointment' || appointment_type == 0 || appointment_type == -1);
     $scope.showPatient =  appointment_type_check ? true : false; // set the showPatient = true to see patient view

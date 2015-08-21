@@ -113,7 +113,12 @@ var app = angular.module('BookAppointmentApp');
 
     $scope.alertOnEventClick = function(event, jsEvent, view){
       if(view.name == 'month' || $scope.locationId == -1){
-        $scope.openPastTime(event, jsEvent, view, '');
+        if($scope.checkNotValidTime(event.start)){
+          isPastDate = true;
+        }else{
+          isPastDate = false;
+        }
+        $scope.openPastTime(event, jsEvent, view, '', isPastDate);
       }else{
         if($scope.checkNotValidTime(event.start)){
           $scope.openPastTime(event, jsEvent, view, '');
@@ -685,7 +690,7 @@ var app = angular.module('BookAppointmentApp');
         });
     };
 
-    $scope.openPastTime = function (event, jsEvent, view, size) {
+    $scope.openPastTime = function (event, jsEvent, view, size, isPastDate) {
       $http.get('../api/calendar/appointment_details?appointment_id=' + event.id)
         .success(function (response) {
           if(response){
@@ -702,7 +707,8 @@ var app = angular.module('BookAppointmentApp');
                     'start': event.start,
                     'end': event.end,
                     'jsEvent': jsEvent,
-                    'view': view
+                    'view': view,
+                    'isPastDate': isPastDate
                   };
                   $scope.extend($scope.items, $scope.omit(response, 'start', 'end'));
                   return $scope.items;

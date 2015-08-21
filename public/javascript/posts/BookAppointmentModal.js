@@ -190,6 +190,7 @@ angular.module('BookAppointmentApp')
         $scope.appointmentEditForm.validity.$setValidity("invalidtime", invalidtime);
       }
     }, true);
+    $scope.currentDate = new Date();
     $scope.selected_event = items;
     var appointment_type = $scope.selected_event.appointment_type;
     var appointment_type_check = (appointment_type == 'Patient Appointment' || appointment_type == 0 || appointment_type == -1);

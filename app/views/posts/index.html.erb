@@ -302,7 +302,7 @@
                   <div class="form-group">
                     <label class="control-label col-sm-3" for="name">Date: *</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup ng-model="current_date" show-button-bar="false" show-button-bar="false" is-open="is_open_calendar" ng-required="true" />
+                      <input type="text" class="form-control prepay-date-size date-picker-text-indent" id="dateSelectedToEdit" datepicker-popup min-date="currentDate" ng-model="current_date" show-button-bar="false" show-button-bar="false" is-open="is_open_calendar" ng-required="true" />
                       <button type="button" class="form-control btn btn-default calendar-button-margin" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </div>
                   </div>

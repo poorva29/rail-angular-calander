@@ -48,6 +48,7 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
       if(doctorId == 0 || typeof doctorId === 'undefined') {
         $scope.disableLocation = true;
         $scope.locations = [];
+        $scope.doctorId = doctorId;
         $scope.location.selected = undefined;
         $scope.doctors.selected = undefined;
         $scope.initRestId(null);
@@ -102,6 +103,14 @@ var app = angular.module('BookAppointmentApp', ['ui.calendar', 'ui.bootstrap', '
         $scope.locationNotSelected();
       }
     };
+
+    $scope.doctorIdValid = function() {
+      if($scope.doctorId === 0 || typeof $scope.doctorId === 'undefined') {
+        return false;
+      } else {
+        return true;
+      }
+    }
 
     $scope.showCalendar = function () {
       $scope.show_todays_schedule = false;

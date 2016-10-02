@@ -35,6 +35,17 @@ var app = angular.module('BookAppointmentApp');
       $scope.viewEndDate = view.end.format('MM-DD-YYYY');
       if($scope.locationId)
         $scope.getInitialData()
+      if(view.type == 'month'){
+        $('.fc-day-grid').css('cursor', 'pointer');
+        var ele = $('.fc-day.fc-widget-content');
+        var day_ele = $('.fc-day-number');
+        ele.attr({'tooltip': 'Click to see week view',
+                  'tooltip-append-to-body': true});
+        day_ele.attr({'tooltip': 'Click to see week view',
+                  'tooltip-append-to-body': true});
+        $compile(ele)($scope);
+        $compile(day_ele)($scope);
+      }
     }
 
     $scope.showAlert = function (type, message) {

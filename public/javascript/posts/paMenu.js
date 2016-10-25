@@ -5,6 +5,7 @@ app = angular.module('BookAppointmentApp');
     $scope.workingHours = $scope.docLocInfo.workingHours;
     $scope.selected = {};
     $scope.slotTimimgs = [];
+    $scope.lastdelays = $scope.docLocInfo.lastdelays;
 
     $scope.populateTimeSlot = function(){
       $scope.slotTimimgs = [];

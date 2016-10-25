@@ -188,3 +188,13 @@ input::-webkit-inner-spin-button {
 #todays_schedule {
     padding: 20px;
 }
+
+#delayedAppts th, td {
+  text-align: center;
+}
+
+#delayedAppts {
+  font-size: 1em;
+  width: 80%;
+  margin-left: 10%;
+}
